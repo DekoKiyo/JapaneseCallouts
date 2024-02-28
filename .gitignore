@@ -1,0 +1,10 @@
+.vs/
+.vscode/
+# .next/
+bin/
+obj/
+# node_modules/
+Memo.txt
+GTA5Audio/
+JapaneseCalloutsAudio/
+Release/

@@ -1,0 +1,7 @@
+project_id: "640226"
+pull_request_title: "[Crowdin] Update Localization Files"
+options commit_message: "Update Translation from Crowdin Platform"
+
+files:
+  - source: /JapaneseCallouts/Resources/en-US.json
+    translation: /JapaneseCallouts/Resources/%locale%.json

@@ -1,0 +1,44 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <PlatformTarget>x64</PlatformTarget>
+    <OutputType>Library</OutputType>
+    <TargetFramework>net48</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <WarningLevel>4</WarningLevel>
+    <ErrorReport>prompt</ErrorReport>
+    <DebugSymbols>false</DebugSymbols>
+    <DebugType>none</DebugType>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <UseWindowsForms>true</UseWindowsForms>
+    <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
+    <Configurations>Release</Configurations>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ILMerge" Version="3.0.41">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="ini-parser" Version="2.5.2" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="RagePluginHook" Version="1.98.0" />
+    <PackageReference Include="System.Net.Http" Version="4.3.4" />
+    <Reference Include="../SDK/*.dll" />
+    <EmbeddedResource Include="Resources/*.json" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <PostBuildEvent>
+      $(ILMergeConsolePath) /internalize /ndebug /out:".\JapaneseCallouts.dll" JapaneseCallouts.dll INIFileParser.dll
+      $(ILMergeConsolePath) /internalize /ndebug /out:".\JapaneseCallouts.dll" JapaneseCallouts.dll Newtonsoft.Json.dll
+      $(ILMergeConsolePath) /internalize /ndebug /out:".\JapaneseCallouts.dll" JapaneseCallouts.dll RAGENativeUI.dll
+
+      xcopy ".\JapaneseCallouts.dll" "$(GrandTheftAutoV)\plugins\LSPDFR" /Y
+      xcopy "$(JapaneseCallouts)\SDK\CalloutInterfaceAPI.dll" "$(GrandTheftAutoV)" /Y
+      <!-- xcopy "$(JapaneseCallouts)\JapaneseCalloutsAudio" "$(GrandTheftAutoV)\lspdfr\audio\scanner" /Y/E/H/C/I/T -->
+    </PostBuildEvent>
+  </PropertyGroup>
+
+</Project>
