@@ -73,30 +73,57 @@ internal class StolenVehicle : CalloutBase
     internal override void Update()
     {
         GameFiber.Yield();
-        if (Game.LocalPlayer.Character.IsDead) EndCallout(false, true);
-        if (suspect is not null && suspect.IsValid() && suspect.Exists() && (suspect.IsDead || Functions.IsPedArrested(suspect))) EndCallout();
+        if (Game.LocalPlayer.Character.IsDead)
+        {
+            EndCallout(false, true);
+        }
+        if (suspect is not null && suspect.IsValid() && suspect.Exists() && (suspect.IsDead || Functions.IsPedArrested(suspect)))
+        {
+            EndCallout();
+        }
     }
 
     internal override void EndCallout(bool notAccepted = false, bool isPlayerDead = false)
     {
         if (isPlayerDead)
         {
-            if (suspect is not null && suspect.IsValid() && suspect.Exists()) suspect.Delete();
-            if (stolen is not null && stolen.IsValid() && stolen.Exists()) stolen.Delete();
+            if (suspect is not null && suspect.IsValid() && suspect.Exists())
+            {
+                suspect.Delete();
+            }
+            if (stolen is not null && stolen.IsValid() && stolen.Exists())
+            {
+                stolen.Delete();
+            }
         }
         else
         {
-            if (suspect is not null && suspect.IsValid() && suspect.Exists()) suspect.Dismiss();
-            if (stolen is not null && stolen.IsValid() && stolen.Exists()) stolen.Dismiss();
+            if (suspect is not null && suspect.IsValid() && suspect.Exists())
+            {
+                suspect.Dismiss();
+            }
+            if (stolen is not null && stolen.IsValid() && stolen.Exists())
+            {
+                stolen.Dismiss();
+            }
             HudExtensions.DisplayNotification(Localization.GetString("CalloutCode4"), Localization.GetString("Dispatch"), Localization.GetString("StolenVehicle"));
             Functions.PlayScannerAudio("ATTENTION_ALL_UNITS JP_WE_ARE_CODE4 JP_NO_FURTHER_UNITS_REQUIRED");
         }
 
         if (notAccepted)
         {
-            if (suspect is not null && suspect.IsValid() && suspect.Exists()) suspect.Dismiss();
-            if (stolen is not null && stolen.IsValid() && stolen.Exists()) stolen.Dismiss();
-            if (pursuit is not null) Functions.ForceEndPursuit(pursuit);
+            if (suspect is not null && suspect.IsValid() && suspect.Exists())
+            {
+                suspect.Dismiss();
+            }
+            if (stolen is not null && stolen.IsValid() && stolen.Exists())
+            {
+                stolen.Dismiss();
+            }
+            if (pursuit is not null)
+            {
+                Functions.ForceEndPursuit(pursuit);
+            }
         }
     }
 }

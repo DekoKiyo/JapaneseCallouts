@@ -55,7 +55,10 @@ internal static class Localization
 
     internal static string GetString(string key)
     {
-        if (Translation[Main.CurrentLanguage].ContainsKey(key)) return Translation[Main.CurrentLanguage][key];
+        if (Translation[Main.CurrentLanguage].ContainsKey(key))
+        {
+            return Translation[Main.CurrentLanguage][key];
+        }
         else
         {
             Logger.Warn($"There is no translation. Key: {key} Language: {Main.CurrentLanguage}", "Localization");
@@ -65,7 +68,10 @@ internal static class Localization
 
     internal static string GetString(string key, params string[] vars)
     {
-        if (Translation[Main.CurrentLanguage].ContainsKey(key)) return string.Format(Translation[Main.CurrentLanguage][key], vars);
+        if (Translation[Main.CurrentLanguage].ContainsKey(key))
+        {
+            return string.Format(Translation[Main.CurrentLanguage][key], vars);
+        }
         else
         {
             Logger.Warn($"There is no translation. Key: {key} Language: {Main.CurrentLanguage}", "Localization");

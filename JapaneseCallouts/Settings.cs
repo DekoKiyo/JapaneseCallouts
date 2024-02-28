@@ -7,7 +7,7 @@ internal static class Settings
     internal static Keys SpeakWithThePersonKey { get; } = Keys.Y;
     internal static Keys SpeakWithThePersonModifierKey { get; } = Keys.None;
 
-    internal static InitializationFile SettingFile = LoadFile($"{Main.PLUGIN_DIRECTORY}/{Main.SETTINGS_INI_FILE}");
+    internal static InitializationFile SettingFile = LoadFile($"{Main.LSPDFR_DIRECTORY}/{Main.SETTINGS_INI_FILE}");
     private static InitializationFile LoadFile(string path)
     {
         var ini = new InitializationFile(path);

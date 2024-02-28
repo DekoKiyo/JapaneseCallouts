@@ -68,7 +68,9 @@ internal class YakuzaActivity : CalloutBase
         }
     }
 
-    internal override void OnDisplayed() { }
+    internal override void OnDisplayed()
+    {
+    }
 
     internal override void Accepted()
     {
@@ -90,8 +92,15 @@ internal class YakuzaActivity : CalloutBase
         {
             if (Game.LocalPlayer.Character.IsOnFoot)
             {
-                if (Settings.SpeakWithThePersonModifierKey is Keys.None) HudExtensions.DisplayNotification(Localization.GetString("PressToSpeak", Settings.SpeakWithThePersonKey.GetInstructionalId()));
-                else HudExtensions.DisplayNotification(Localization.GetString("PressToSpeak", $"{Settings.SpeakWithThePersonKey.GetInstructionalId()} ~+~ {Settings.SpeakWithThePersonModifierKey.GetInstructionalId()}"));
+                if (Settings.SpeakWithThePersonModifierKey is Keys.None)
+                {
+                    HudExtensions.DisplayNotification(Localization.GetString("PressToSpeak", Settings.SpeakWithThePersonKey.GetInstructionalId()));
+                }
+                else
+                {
+                    HudExtensions.DisplayNotification(Localization.GetString("PressToSpeak", $"{Settings.SpeakWithThePersonKey.GetInstructionalId()} ~+~ {Settings.SpeakWithThePersonModifierKey.GetInstructionalId()}"));
+                }
+
                 Functions.PlayScannerAudio("JP_ATTENTION_GENERIC JP_OFFICERS_ARRIVED_ON_SCENE");
                 HudExtensions.DisplaySubtitle(Localization.GetString("YakuzaHere"));
                 caller.Face(Game.LocalPlayer.Character);

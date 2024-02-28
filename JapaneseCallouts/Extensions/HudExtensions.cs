@@ -29,15 +29,27 @@ internal static class HudExtensions
     internal static void DisplayNotification(string text, bool isImportant = false, bool cacheMessage = true)
     {
         var textByteLength = Encoding.UTF8.GetByteCount(text);
-        if (textByteLength > 99) PostTickerWithLongMessage(text, isImportant, cacheMessage);
-        else PostTickerWithShortMessage(text, isImportant, cacheMessage);
+        if (textByteLength > 99)
+        {
+            PostTickerWithLongMessage(text, isImportant, cacheMessage);
+        }
+        else
+        {
+            PostTickerWithShortMessage(text, isImportant, cacheMessage);
+        }
     }
 
     internal static void DisplayNotification(string text, string title, string subTitle, string textureDic = "web_lossantospolicedept", string textureName = "web_lossantospolicedept", bool isImportant = false, bool cacheMessage = true)
     {
         var textByteLength = Encoding.UTF8.GetByteCount(text);
-        if (textByteLength > 99) PostTickerWithLongMessageWithTitle(title, subTitle, text, textureDic, textureName, isImportant, cacheMessage);
-        else PostTickerWithShortMessageWithTitle(title, subTitle, text, textureDic, textureName, isImportant, cacheMessage);
+        if (textByteLength > 99)
+        {
+            PostTickerWithLongMessageWithTitle(title, subTitle, text, textureDic, textureName, isImportant, cacheMessage);
+        }
+        else
+        {
+            PostTickerWithShortMessageWithTitle(title, subTitle, text, textureDic, textureName, isImportant, cacheMessage);
+        }
     }
 
     internal static void DisplaySubtitle(string message) => DisplaySubtitle(message, 2500);

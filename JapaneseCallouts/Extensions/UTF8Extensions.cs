@@ -35,19 +35,28 @@ internal static class UTF8Extensions
 
     private static void PushLongString(string str, Action<string> action, int maxLengthUtf8 = 99)
     {
-        int startPos = 0;
-        int currentPos = 0;
-        int currentUtf8StrLength = 0;
+        var startPos = 0;
+        var currentPos = 0;
+        var currentUtf8StrLength = 0;
 
         while (currentPos < str.Length)
         {
-            int codePointSize = 0;
+            var codePointSize = 0;
 
             // Calculate the UTF-8 code point size of the current character
             var chr = str[currentPos];
-            if (chr < 0x80) codePointSize = 1;
-            else if (chr < 0x800) codePointSize = 2;
-            else if (chr < 0x10000) codePointSize = 3;
+            if (chr < 0x80)
+            {
+                codePointSize = 1;
+            }
+            else if (chr < 0x800)
+            {
+                codePointSize = 2;
+            }
+            else if (chr < 0x10000)
+            {
+                codePointSize = 3;
+            }
             else
             {
                 #region Surrogate check
@@ -85,10 +94,19 @@ internal static class UTF8Extensions
             }
 
             // Additional increment is needed for surrogate
-            if (codePointSize is 4) currentPos++;
+            if (codePointSize is 4)
+            {
+                currentPos++;
+            }
         }
 
-        if (startPos == 0) action(str);
-        else action(str.Substring(startPos, str.Length - startPos));
+        if (startPos == 0)
+        {
+            action(str);
+        }
+        else
+        {
+            action(str.Substring(startPos, str.Length - startPos));
+        }
     }
 }
