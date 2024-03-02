@@ -17,6 +17,24 @@ If (Test-Path $ReleaseFolder)
 
 dotnet build -c Release
 
+$GrandTheftAutoV = $env:GrandTheftAutoV
+$JapaneseCallouts = $env:JapaneseCallouts
+
+$PluginsFolder = $GrandTheftAutoV + "\plugins"
+$PluginsLSPDFRFolder = $GrandTheftAutoV + "\plugins\LSPDFR"
+
+If (!(Test-Path $PluginsFolder))
+{
+    New-Item $PluginsFolder -ItemType Directory
+}
+If (!(Test-Path $PluginsLSPDFRFolder))
+{
+    New-Item $PluginsLSPDFRFolder -ItemType Directory
+}
+
+Copy-Item $PluginDllFile $PluginsLSPDFRFolder
+Copy-Item $PluginIniFile $PluginsLSPDFRFolder
+
 New-Item $JapaneseCalloutsFolder -ItemType Directory
 Copy-Item $PluginDllFile .\Release\GrandTheftAutoV\plugins\LSPDFR
 Copy-Item $PluginIniFile .\Release\GrandTheftAutoV\plugins\LSPDFR

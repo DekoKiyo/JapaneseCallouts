@@ -1,5 +1,3 @@
-using System.Data;
-
 namespace JapaneseCallouts;
 
 internal static class Settings
