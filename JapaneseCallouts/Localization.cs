@@ -24,12 +24,13 @@ internal static class Localization
 
     internal static void Initialize()
     {
-        Logger.Info("Loading ", "Localization");
+        Logger.Info("Starting loading locale files", "Localization");
         foreach (Languages lang in Enum.GetValues(typeof(Languages)))
         {
             Load(lang);
+            Logger.Info($"Loaded {lang} Translations", "Localization");
         }
-        Logger.Info("Locale files has loaded", "Localization");
+        Logger.Info("All locale files has loaded", "Localization");
     }
 
     private static void Load(Languages Language)
@@ -42,15 +43,17 @@ internal static class Localization
         var json = Encoding.UTF8.GetString(byteArray);
 
         var data = JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, string>>>(json);
+        var translate = new Dictionary<string, string>();
 
         foreach (var obj in data)
         {
             foreach (var locale in obj.Value)
             {
-                Logger.Info($"Loading Translation - Key: {locale.Key} Value: {locale.Value}", "Localization");
-                Translation[Language][locale.Key] = locale.Value;
+                // Logger.Info($"Loading Translation - Key: {locale.Key} Value: {locale.Value}", "Localization");
+                translate[locale.Key] = locale.Value;
             }
         }
+        Translation[Language] = translate;
     }
 
     internal static string GetString(string key)

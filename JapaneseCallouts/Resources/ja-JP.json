@@ -1,32 +1,32 @@
 {
-    "Main": {
-        "Dispatch": "警察本部"
-    },
-    "Notifications": {
-        "PluginLoaded": "~b~{0}~s~が~g~正常にロードされました!~s~~n~開発者: ~b~{1}~s~",
-        "PluginUnloaded": "~b~{0}~s~が~r~アンロードされました!~s~",
-        "CalloutCode4": "~g~事案解決~s~です。~r~パトロールに戻ってください~s~。"
-    },
-    "CalloutNames": {
-        "StolenVehicle": "車両窃盗",
-        "YakuzaActivity": "Yakuza Activity"
-    },
-    "CalloutDescriptions": {
-        "StolenVehicleDesc": "The stolen vehicle was found. Pursuit it and arrest the suspect!",
-        "StolenVehicleInfo": "This is the ~r~stolen vehicle~s~ data.~n~Vehicle Model: ~b~{0}~s~~n~License Plate: ~b~{1}~s~",
-        "YakuzaActivityDesc": "The ~y~Yakuza (Japanese Gang)~s~ was ~g~shoot a human~s~. Get a information and ~g~solution the problem~s~."
-    },
-    "CalloutSentence": {
-        "YakuzaHere": "Hey, ~b~officer~s~! I'm here!",
-        "Yakuza1-Caller1": "Thank you so much for coming. I felt very scared at them silly activity.",
-        "Yakuza1-Officer1": "I heard a yakuza was shoot this person, right? Could you tell me more information?",
-        "Yakuza1-Caller2": "They looked quarrel. And I saw a yakuza shoot this person and ran away.",
-        "Yakuza1-Officer2": "Do you know yakuza who shoot this person?",
-        "Yakuza1-Caller3": "He dropped his ID card. Here is it."
-    },
-    "CalloutHelps": {
-        "PressToSpeak": "Press {0} to speak with the person.",
-        "LeaveTheVehicle": "~r~Leave~s~ your vehicle and speak to target.",
-        "YakuzaTalkCaller": "Talk to the ~b~caller~s~ and find the ~r~suspect~s~."
-    }
+  "Main": {
+    "Dispatch": "警察本部"
+  },
+  "Notifications": {
+    "PluginLoaded": "~b~{0}~s~が~g~正常にロードされました!~s~~n~開発者: ~b~{1}~s~",
+    "PluginUnloaded": "~b~{0}~s~が~r~アンロードされました!~s~",
+    "CalloutCode4": "~g~事案解決~s~です。~r~パトロールに戻ってください~s~。"
+  },
+  "CalloutNames": {
+    "StolenVehicle": "車両窃盗",
+    "YakuzaActivity": "Yakuza Activity"
+  },
+  "CalloutDescriptions": {
+    "StolenVehicleDesc": "The stolen vehicle was found. Pursuit it and arrest the suspect!",
+    "StolenVehicleInfo": "This is the ~r~stolen vehicle~s~ data.~n~Vehicle Model: ~b~{0}~s~~n~License Plate: ~b~{1}~s~",
+    "YakuzaActivityDesc": "The ~y~Yakuza (Japanese Gang)~s~ was ~g~shoot a human~s~. Get a information and ~g~solution the problem~s~."
+  },
+  "CalloutSentence": {
+    "YakuzaHere": "Hey, ~b~officer~s~! I'm here!",
+    "Yakuza1-Caller1": "Thank you so much for coming. I felt very scared at them silly activity.",
+    "Yakuza1-Officer1": "I heard a yakuza was shoot this person, right? Could you tell me more information?",
+    "Yakuza1-Caller2": "They looked quarrel. And I saw a yakuza shoot this person and ran away.",
+    "Yakuza1-Officer2": "Do you know yakuza who shoot this person?",
+    "Yakuza1-Caller3": "He dropped his ID card. Here is it."
+  },
+  "CalloutHelps": {
+    "PressToSpeak": "Press {0} to speak with the person.",
+    "LeaveTheVehicle": "~r~Leave~s~ your vehicle and speak to target.",
+    "YakuzaTalkCaller": "Talk to the ~b~caller~s~ and find the ~r~suspect~s~."
+  }
 }

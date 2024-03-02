@@ -15,10 +15,10 @@ internal static class Helpers
             Languages.Polish => "pl-PL",
             Languages.Russian => "ru-RU",
             Languages.Korean => "ko-KR",
-            Languages.TraditionalChinese => "zn-TW",
+            Languages.TraditionalChinese => "zh-TW",
             Languages.Japanese => "ja-JP",
             Languages.MexicanSpanish => "es-MX",
-            Languages.SimplifiedChinese => "zn-CN",
+            Languages.SimplifiedChinese => "zh-CN",
             _ => "en-US"
         };
     }
