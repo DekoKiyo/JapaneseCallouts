@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <PlatformTarget>x64</PlatformTarget>
@@ -29,6 +29,21 @@
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
     <Reference Include="../SDK/*.dll" />
     <EmbeddedResource Include="Resources/*.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\General.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>General.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Localization\General.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>General.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
   <PropertyGroup>
