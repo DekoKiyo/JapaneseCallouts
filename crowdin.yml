@@ -1,4 +1,3 @@
-project_id: '640226'
 options commit_message: Update Translation from Crowdin Platform
 pull_request_title: '[Crowdin] Update Localization Files'
 files:

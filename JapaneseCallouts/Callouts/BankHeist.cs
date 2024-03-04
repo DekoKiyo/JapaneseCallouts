@@ -1,6 +1,3 @@
-
-using JapaneseCallouts.Properties;
-
 namespace JapaneseCallouts.Callouts;
 
 [CalloutInfo("[JPC] BankHeist", CalloutProbability.Low)]
@@ -195,7 +192,7 @@ internal class BankHeist : CalloutBase
 
         if (Main.IsCalloutInterfaceAPIExist)
         {
-            CalloutInterfaceAPIFunctions.SendMessage(this, Localization.GetString("BankHeistDesc"));
+            CalloutInterfaceAPIFunctions.SendMessage(this, CalloutsDescription.BankHeist);
         }
     }
 
@@ -208,7 +205,7 @@ internal class BankHeist : CalloutBase
         {
             CalloutEntities.Add(Game.LocalPlayer.Character.CurrentVehicle);
         }
-        HudExtensions.DisplayNotification(Localization.GetString("BankHeistDesc"));
+        HudExtensions.DisplayNotification(CalloutsDescription.BankHeist);
         CalloutHandler();
     }
 
@@ -289,11 +286,11 @@ internal class BankHeist : CalloutBase
                         {
                             if (Settings.SpeakWithThePersonModifierKey is Keys.None)
                             {
-                                HudExtensions.DisplayNotification(string.Format(Locale.PressToTalkWith, Settings.SpeakWithThePersonKey.GetInstructionalId(), Locale.BankHeist_Captain));
+                                HudExtensions.DisplayNotification(string.Format(General.PressToTalkWith, Settings.SpeakWithThePersonKey.GetInstructionalId(), CalloutsText.Captain));
                             }
                             else
                             {
-                                HudExtensions.DisplayNotification(string.Format(Locale.PressToTalkWith, $"{Settings.SpeakWithThePersonKey.GetInstructionalId()} ~+~ {Settings.SpeakWithThePersonModifierKey.GetInstructionalId()}"));
+                                HudExtensions.DisplayNotification(string.Format(General.PressToTalkWith, $"{Settings.SpeakWithThePersonKey.GetInstructionalId()} ~+~ {Settings.SpeakWithThePersonModifierKey.GetInstructionalId()}", CalloutsText.Captain));
                             }
                             if (KeyExtensions.IsKeysDown(Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey))
                             {
