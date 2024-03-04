@@ -42,6 +42,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>CalloutsName.resx</DependentUpon>
     </Compile>
+    <Compile Update="Localization\CalloutsText.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CalloutsText.resx</DependentUpon>
+    </Compile>
     <Compile Update="Localization\General.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
