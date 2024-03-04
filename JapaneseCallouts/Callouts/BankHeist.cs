@@ -1,4 +1,6 @@
 
+using JapaneseCallouts.Properties;
+
 namespace JapaneseCallouts.Callouts;
 
 [CalloutInfo("[JPC] BankHeist", CalloutProbability.Low)]
@@ -187,7 +189,7 @@ internal class BankHeist : CalloutBase
     internal override void Setup()
     {
         CalloutPosition = BankLocation;
-        CalloutMessage = Localization.GetString("BankHeist");
+        CalloutMessage = CalloutsName.BankHeist;
         ShowCalloutAreaBlipBeforeAccepting(CalloutPosition, 30f);
         Functions.PlayScannerAudioUsingPosition("CITIZENS_REPORT JP_CRIME_BANK_ROBBERY IN_OR_ON_POSITION UNITS_RESPOND_CODE_99", CalloutPosition);
 
@@ -287,11 +289,11 @@ internal class BankHeist : CalloutBase
                         {
                             if (Settings.SpeakWithThePersonModifierKey is Keys.None)
                             {
-                                HudExtensions.DisplayNotification(Localization.GetString("TalkToCaptain", Settings.SpeakWithThePersonKey.GetInstructionalId()));
+                                HudExtensions.DisplayNotification(string.Format(Locale.PressToTalkWith, Settings.SpeakWithThePersonKey.GetInstructionalId(), Locale.BankHeist_Captain));
                             }
                             else
                             {
-                                HudExtensions.DisplayNotification(Localization.GetString("TalkToCaptain", $"{Settings.SpeakWithThePersonKey.GetInstructionalId()} ~+~ {Settings.SpeakWithThePersonModifierKey.GetInstructionalId()}"));
+                                HudExtensions.DisplayNotification(string.Format(Locale.PressToTalkWith, $"{Settings.SpeakWithThePersonKey.GetInstructionalId()} ~+~ {Settings.SpeakWithThePersonModifierKey.GetInstructionalId()}"));
                             }
                             if (KeyExtensions.IsKeysDown(Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey))
                             {

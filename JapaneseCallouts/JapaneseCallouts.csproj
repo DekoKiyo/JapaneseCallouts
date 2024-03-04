@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <PlatformTarget>x64</PlatformTarget>
@@ -29,6 +29,51 @@
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
     <Reference Include="../SDK/*.dll" />
     <EmbeddedResource Include="Resources/*.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Localization\CalloutsDescription.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CalloutsDescription.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Localization\CalloutsName.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CalloutsName.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Localization\General.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>General.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Localization\CalloutsDescription.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>CalloutsDescription.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localization\CalloutsName.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>CalloutsName.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localization\General.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>General.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Localization\CalloutsDescription.*.resx">
+      <DependentUpon>CalloutsDescription.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localization\CalloutsName.*.resx">
+      <DependentUpon>CalloutsName.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localization\General.*.resx">
+      <DependentUpon>General.resx</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
 
   <PropertyGroup>

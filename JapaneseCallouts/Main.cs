@@ -60,6 +60,7 @@ global using JapaneseCallouts;
 global using JapaneseCallouts.API;
 global using JapaneseCallouts.Callouts;
 global using JapaneseCallouts.Extensions;
+global using JapaneseCallouts.Localization;
 #endregion
 #region Rage
 global using Rage;
@@ -97,7 +98,6 @@ internal class Main : Plugin
     internal static bool IsCalloutInterfaceAPIExist { get; } = Plugins.IsCalloutInterfaceAPIExist();
 
     internal static MersenneTwister MersenneTwister = new((int)DateTime.Now.Ticks);
-    internal static Languages CurrentLanguage = Languages.English;
 
     public override void Initialize()
     {
@@ -107,7 +107,7 @@ internal class Main : Plugin
 
     public override void Finally()
     {
-        HudExtensions.DisplayNotification(Localization.GetString("PluginUnloaded", PLUGIN_NAME), PLUGIN_NAME, PLUGIN_VERSION_DATA);
+        HudExtensions.DisplayNotification(string.Format(General.PluginUnloaded, PLUGIN_NAME), PLUGIN_NAME, PLUGIN_VERSION_DATA);
         Logger.Info($"{PLUGIN_NAME} was unloaded.");
     }
 
@@ -117,10 +117,9 @@ internal class Main : Plugin
         {
             Logger.Info($"Loading {PLUGIN_NAME}, Version.{VERSION_PREFIX}{PLUGIN_VERSION}");
             CheckLibrary();
-            Localization.Initialize();
             CalloutManager.RegisterAllCallouts();
             Logger.Info($"{PLUGIN_NAME} Version.{VERSION_PREFIX}{PLUGIN_VERSION} was loaded.");
-            HudExtensions.DisplayNotification(Localization.GetString("PluginLoaded", PLUGIN_NAME, DEVELOPER_NAME), PLUGIN_NAME, PLUGIN_VERSION_DATA);
+            HudExtensions.DisplayNotification(string.Format(General.PluginLoaded, PLUGIN_NAME, DEVELOPER_NAME), PLUGIN_NAME, PLUGIN_VERSION_DATA);
         }
         else
         {
