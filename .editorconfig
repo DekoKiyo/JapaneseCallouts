@@ -25,12 +25,6 @@ csharp_prefer_simple_using_statement = true:suggestion
 csharp_style_namespace_declarations = file_scoped:suggestion
 # プライマリコンストラクタの使用を優先
 csharp_style_prefer_primary_constructors = true:suggestion
-# 名前を簡略化
-dotnet_diagnostic.IDE0001.severity = true:suggestion
-# メンバーアクセスを簡略化
-dotnet_diagnostic.IDE0002.severity = true:suggestion
-# 不要なキャストを削除
-dotnet_diagnostic.IDE0004.severity = true:warning
 # オブジェクト初期化を使用
 dotnet_style_object_initializer = true:suggestion
 # コレクション初期化子を使用

@@ -58,6 +58,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>CalloutsName.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Update="Localization\CalloutsText.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>CalloutsText.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="Localization\General.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>General.Designer.cs</LastGenOutput>
@@ -70,6 +74,9 @@
     </EmbeddedResource>
     <EmbeddedResource Update="Localization\CalloutsName.*.resx">
       <DependentUpon>CalloutsName.resx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localization\CalloutsText.*.resx">
+      <DependentUpon>CalloutsText.resx</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Update="Localization\General.*.resx">
       <DependentUpon>General.resx</DependentUpon>

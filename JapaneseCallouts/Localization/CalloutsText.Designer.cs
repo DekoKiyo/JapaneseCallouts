@@ -22,14 +22,14 @@ namespace JapaneseCallouts.Localization {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class CalloutsDescription {
+    internal class CalloutsText {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal CalloutsDescription() {
+        internal CalloutsText() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace JapaneseCallouts.Localization {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("JapaneseCallouts.Localization.CalloutsDescription", typeof(CalloutsDescription).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("JapaneseCallouts.Localization.CalloutsText", typeof(CalloutsText).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,11 +61,11 @@ namespace JapaneseCallouts.Localization {
         }
         
         /// <summary>
-        ///   The robber gang has taken hostages and barricaded themselves inside the bank. に類似しているローカライズされた文字列を検索します。
+        ///   Captain に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string BankHeist {
+        internal static string Captain {
             get {
-                return ResourceManager.GetString("BankHeist", resourceCulture);
+                return ResourceManager.GetString("Captain", resourceCulture);
             }
         }
     }
