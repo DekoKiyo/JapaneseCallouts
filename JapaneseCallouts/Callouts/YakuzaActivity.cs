@@ -94,11 +94,11 @@ internal class YakuzaActivity : CalloutBase
             {
                 if (Settings.SpeakWithThePersonModifierKey is Keys.None)
                 {
-                    HudExtensions.DisplayNotification(Localization.GetString("PressToSpeak", Settings.SpeakWithThePersonKey.GetInstructionalId()));
+                    HudExtensions.DisplayNotification(Localization.GetString("PressToTalk", Settings.SpeakWithThePersonKey.GetInstructionalId()));
                 }
                 else
                 {
-                    HudExtensions.DisplayNotification(Localization.GetString("PressToSpeak", $"{Settings.SpeakWithThePersonKey.GetInstructionalId()} ~+~ {Settings.SpeakWithThePersonModifierKey.GetInstructionalId()}"));
+                    HudExtensions.DisplayNotification(Localization.GetString("PressToTalk", $"{Settings.SpeakWithThePersonKey.GetInstructionalId()} ~+~ {Settings.SpeakWithThePersonModifierKey.GetInstructionalId()}"));
                 }
 
                 Functions.PlayScannerAudio("JP_ATTENTION_GENERIC JP_OFFICERS_ARRIVED_ON_SCENE");

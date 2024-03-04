@@ -30,6 +30,7 @@ internal abstract class CalloutBase : Callout
         {
             while (IsCalloutRunning)
             {
+                GameFiber.Yield();
                 Update();
             }
         }, $"[{Main.PLUGIN_NAME}] Callout Update Process");

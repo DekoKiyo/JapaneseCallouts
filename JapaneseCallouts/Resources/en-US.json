@@ -1,6 +1,7 @@
 {
   "Main": {
-    "Dispatch": "Dispatch"
+    "Dispatch": "Dispatch",
+    "You": "You"
   },
   "Notifications": {
     "PluginLoaded": "~b~{0}~s~ was ~g~successfully loaded!~s~~n~Developed by ~b~{1}~s~.",
@@ -25,8 +26,12 @@
     "Yakuza1-Caller3": "He dropped his ID card. Here is it."
   },
   "CalloutHelps": {
-    "PressToSpeak": "Press {0} to speak with the person.",
+    "PressToTalk": "Press {0} to talk with the person.",
     "LeaveTheVehicle": "~r~Leave~s~ your vehicle and speak to target.",
     "YakuzaTalkCaller": "Talk to the ~b~caller~s~ and find the ~r~suspect~s~."
+  },
+  "BankHeist": {
+    "Captain": "Captain",
+    "TalkToCaptain": "Press ~b~{0}~s~ to talk with ~g~Captain~s~."
   }
 }
