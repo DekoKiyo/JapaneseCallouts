@@ -8,3 +8,5 @@ files:
     translation: /JapaneseCallouts/Localization/CalloutsName.%locale%.resx
   - source: /JapaneseCallouts/Localization/CalloutsDescription.resx
     translation: /JapaneseCallouts/Localization/CalloutsDescription.%locale%.resx
+  - source: /JapaneseCallouts/Localization/CalloutsText.resx
+    translation: /JapaneseCallouts/Localization/CalloutsText.%locale%.resx
