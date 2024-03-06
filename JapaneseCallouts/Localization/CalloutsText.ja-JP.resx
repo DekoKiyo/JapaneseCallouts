@@ -117,8 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Captain" xml:space="preserve">
-    <value>Captain</value>
+  <data name="Commander" xml:space="preserve">
+    <value>Commander</value>
     <comment>It's used in Bank Heist</comment>
   </data>
 </root>
