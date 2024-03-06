@@ -117,8 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Commander" xml:space="preserve">
-    <value>Commander</value>
-    <comment>It's used in Bank Heist</comment>
+  <data name="Intro1" xml:space="preserve">
+    <value>Looks very bad, what's the situation?</value>
+  </data>
+  <data name="Intro2" xml:space="preserve">
+    <value>There are many robbers in the bank, we can't how many are they.</value>
+  </data>
+  <data name="Intro3" xml:space="preserve">
+    <value>Well, are there any hostages?</value>
+  </data>
+  <data name="Intro4" xml:space="preserve">
+    <value>Yeah, they have 8 hostages in the bank...</value>
+  </data>
+  <data name="Intro5" xml:space="preserve">
+    <value>We have two ways to solve this incident.</value>
+  </data>
+  <data name="Intro6" xml:space="preserve">
+    <value>First one is discussing with them. They may stop this wrong activity.</value>
+  </data>
+  <data name="Intro7" xml:space="preserve">
+    <value>Second one is fighting with them. We have SWAT units and ready.</value>
+  </data>
+  <data name="Intro8" xml:space="preserve">
+    <value>Which do you choose?</value>
   </data>
 </root>

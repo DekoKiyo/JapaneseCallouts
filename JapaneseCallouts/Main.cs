@@ -5,6 +5,7 @@ global using System.Collections.Generic;
 global using System.ComponentModel;
 global using System.Diagnostics;
 global using System.Drawing;
+global using System.Globalization;
 global using System.IO;
 global using System.IO.Compression;
 global using System.IO.MemoryMappedFiles;
@@ -59,8 +60,9 @@ global using Sprite = RAGENativeUI.Elements.Sprite;
 global using JapaneseCallouts;
 global using JapaneseCallouts.API;
 global using JapaneseCallouts.Callouts;
-global using JapaneseCallouts.Extensions;
+global using JapaneseCallouts.Helpers;
 global using JapaneseCallouts.Localization;
+global using JapaneseCallouts.Modules;
 #endregion
 #region Rage
 global using Rage;
@@ -99,6 +101,17 @@ internal class Main : Plugin
 
     internal static MersenneTwister MersenneTwister = new((int)DateTime.Now.Ticks);
 
+    public Main()
+    {
+        CultureInfo.CurrentCulture = new("ja-JP");
+        CultureInfo.CurrentUICulture = new("ja-JP");
+        General.Culture = new("ja-JP");
+        Logger.Info(CultureInfo.CurrentCulture.Name);
+        Logger.Info(CultureInfo.CurrentUICulture.Name);
+        Logger.Info(General.Culture.Name);
+        Logger.Info(string.Format(General.ResourceManager.GetString("PluginLoaded", CultureInfo.CurrentCulture), PLUGIN_NAME, DEVELOPER_NAME));
+    }
+
     public override void Initialize()
     {
         Functions.OnOnDutyStateChanged += OnDutyStateChanged;
@@ -107,7 +120,7 @@ internal class Main : Plugin
 
     public override void Finally()
     {
-        HudExtensions.DisplayNotification(string.Format(General.PluginUnloaded, PLUGIN_NAME), PLUGIN_NAME, PLUGIN_VERSION_DATA);
+        HudHelpers.DisplayNotification(string.Format(General.PluginUnloaded, PLUGIN_NAME), PLUGIN_NAME, PLUGIN_VERSION_DATA);
         Logger.Info($"{PLUGIN_NAME} was unloaded.");
     }
 
@@ -119,7 +132,8 @@ internal class Main : Plugin
             CheckLibrary();
             CalloutManager.RegisterAllCallouts();
             Logger.Info($"{PLUGIN_NAME} Version.{VERSION_PREFIX}{PLUGIN_VERSION} was loaded.");
-            HudExtensions.DisplayNotification(string.Format(General.PluginLoaded, PLUGIN_NAME, DEVELOPER_NAME), PLUGIN_NAME, PLUGIN_VERSION_DATA);
+            HudHelpers.DisplayNotification(string.Format(General.PluginLoaded, PLUGIN_NAME, DEVELOPER_NAME), PLUGIN_NAME, PLUGIN_VERSION_DATA);
+            // BankHeistConversation.Culture = new("ja-JP");
         }
         else
         {

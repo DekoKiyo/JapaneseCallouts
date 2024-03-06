@@ -22,14 +22,14 @@ namespace JapaneseCallouts.Localization {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class CalloutsText {
+    internal class BankHeistConversation {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal CalloutsText() {
+        internal BankHeistConversation() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace JapaneseCallouts.Localization {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("JapaneseCallouts.Localization.CalloutsText", typeof(CalloutsText).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("JapaneseCallouts.Localization.BankHeistConversation", typeof(BankHeistConversation).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,11 +61,74 @@ namespace JapaneseCallouts.Localization {
         }
         
         /// <summary>
-        ///   Commander に類似しているローカライズされた文字列を検索します。
+        ///   Looks very bad, what&apos;s the situation? に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string Commander {
+        internal static string Intro1 {
             get {
-                return ResourceManager.GetString("Commander", resourceCulture);
+                return ResourceManager.GetString("Intro1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   There are many robbers in the bank, we can&apos;t how many are they. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string Intro2 {
+            get {
+                return ResourceManager.GetString("Intro2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Well, are there any hostages? に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string Intro3 {
+            get {
+                return ResourceManager.GetString("Intro3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Yeah, they have 8 hostages in the bank... に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string Intro4 {
+            get {
+                return ResourceManager.GetString("Intro4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   We have two ways to solve this incident. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string Intro5 {
+            get {
+                return ResourceManager.GetString("Intro5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   First one is discussing with them. They may stop this wrong activity. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string Intro6 {
+            get {
+                return ResourceManager.GetString("Intro6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Second one is fighting with them. We have SWAT units and ready. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string Intro7 {
+            get {
+                return ResourceManager.GetString("Intro7", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Which do you choose? に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string Intro8 {
+            get {
+                return ResourceManager.GetString("Intro8", resourceCulture);
             }
         }
     }

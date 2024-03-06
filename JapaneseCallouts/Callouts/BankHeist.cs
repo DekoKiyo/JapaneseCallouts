@@ -1,3 +1,10 @@
+/*
+    This callout is based Bank Heist in [Assorted Callouts](https://github.com/Albo1125/Assorted-Callouts) made by [Albo1125](https://github.com/Albo1125).
+    The source code is licensed under the GPL-3.0.
+*/
+
+using JapaneseCallouts.Helpers;
+
 namespace JapaneseCallouts.Callouts;
 
 [CalloutInfo("[JPC] BankHeist", CalloutProbability.Low)]
@@ -169,6 +176,9 @@ internal class BankHeist : CalloutBase
 
     private readonly List<Entity> CalloutEntities = [];
 
+    private RelationshipGroup RobbersRG = new("ROBBERS");
+    private RelationshipGroup SneakRobbersRG = new("SNEAK_ROBBERS");
+    private RelationshipGroup HostageRG = new("HOSTAGE");
     private Blip BankBlip;
     private Ped Captain;
     private Blip CaptainBlip;
@@ -205,7 +215,7 @@ internal class BankHeist : CalloutBase
         {
             CalloutEntities.Add(Game.LocalPlayer.Character.CurrentVehicle);
         }
-        HudExtensions.DisplayNotification(CalloutsDescription.BankHeist);
+        HudHelpers.DisplayNotification(CalloutsDescription.BankHeist);
         CalloutHandler();
     }
 
@@ -261,14 +271,13 @@ internal class BankHeist : CalloutBase
             {
                 GameFiber.Yield();
                 Game.LocalPlayer.Character.CanAttackFriendlies = false;
-                Game.SetRelationshipBetweenRelationshipGroups(RelationshipGroup.Cop, "ROBBERS", Relationship.Hate);
-                Game.SetRelationshipBetweenRelationshipGroups("ROBBERS", RelationshipGroup.Cop, Relationship.Hate);
-                Game.SetRelationshipBetweenRelationshipGroups("ROBBERS", Game.LocalPlayer.Character.RelationshipGroup, Relationship.Hate);
-                Game.SetRelationshipBetweenRelationshipGroups(Game.LocalPlayer.Character.RelationshipGroup, "ROBBERS", Relationship.Hate);
+                Game.SetRelationshipBetweenRelationshipGroups(RelationshipGroup.Cop, RobbersRG, Relationship.Hate);
+                Game.SetRelationshipBetweenRelationshipGroups(RobbersRG, RelationshipGroup.Cop, Relationship.Hate);
+                Game.SetRelationshipBetweenRelationshipGroups(RobbersRG, Game.LocalPlayer.Character.RelationshipGroup, Relationship.Hate);
                 Game.SetRelationshipBetweenRelationshipGroups(RelationshipGroup.Cop, Game.LocalPlayer.Character.RelationshipGroup, Relationship.Respect);
                 Game.SetRelationshipBetweenRelationshipGroups(Game.LocalPlayer.Character.RelationshipGroup, RelationshipGroup.Cop, Relationship.Respect);
-                Game.SetRelationshipBetweenRelationshipGroups("HOSTAGE", Game.LocalPlayer.Character.RelationshipGroup, Relationship.Respect);
-                Game.SetRelationshipBetweenRelationshipGroups("SNEAKYROBBERS", Game.LocalPlayer.Character.RelationshipGroup, Relationship.Hate);
+                Game.SetRelationshipBetweenRelationshipGroups(HostageRG, Game.LocalPlayer.Character.RelationshipGroup, Relationship.Respect);
+                Game.SetRelationshipBetweenRelationshipGroups(SneakRobbersRG, Game.LocalPlayer.Character.RelationshipGroup, Relationship.Hate);
                 Game.LocalPlayer.Character.IsInvincible = false;
                 NativeFunction.Natives.SET_PLAYER_WEAPON_DEFENSE_MODIFIER(Game.LocalPlayer, 0.45f);
                 NativeFunction.Natives.SET_PLAYER_WEAPON_DAMAGE_MODIFIER(Game.LocalPlayer, 0.92f);
@@ -277,25 +286,19 @@ internal class BankHeist : CalloutBase
                 CallByHash<uint>(_DOOR_CONTROL, 746855201, 262.1981f, 222.5188f, 106.4296f, false, 0f, 0f, 0f);
                 CallByHash<uint>(_DOOR_CONTROL, 110411286, 258.2022f, 204.1005f, 106.4049f, false, 0f, 0f, 0f);
 
-                //When player has just arrived
+                // When player has just arrived
                 if (!TalkedToCaptain && !IsFighting)
                 {
                     if (!Game.LocalPlayer.Character.IsInAnyVehicle(false))
                     {
                         if (Vector3.Distance(Game.LocalPlayer.Character.Position, Captain.Position) < 4f)
                         {
-                            if (Settings.SpeakWithThePersonModifierKey is Keys.None)
-                            {
-                                HudExtensions.DisplayNotification(string.Format(General.PressToTalkWith, Settings.SpeakWithThePersonKey.GetInstructionalId(), CalloutsText.Captain));
-                            }
-                            else
-                            {
-                                HudExtensions.DisplayNotification(string.Format(General.PressToTalkWith, $"{Settings.SpeakWithThePersonKey.GetInstructionalId()} ~+~ {Settings.SpeakWithThePersonModifierKey.GetInstructionalId()}", CalloutsText.Captain));
-                            }
-                            if (KeyExtensions.IsKeysDown(Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey))
+                            if (Settings.SpeakWithThePersonModifierKey is Keys.None) HudHelpers.DisplayNotification(string.Format(General.PressToTalkWith, Settings.SpeakWithThePersonKey.GetInstructionalId(), CalloutsText.Commander));
+                            else HudHelpers.DisplayNotification(string.Format(General.PressToTalkWith, $"{Settings.SpeakWithThePersonKey.GetInstructionalId()} ~+~ {Settings.SpeakWithThePersonModifierKey.GetInstructionalId()}", CalloutsText.Commander));
+                            if (KeyHelpers.IsKeysDown(Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey))
                             {
                                 TalkedToCaptain = true;
-                                DetermineInitialDialogue();
+                                // DetermineInitialDialogue();
                             }
                         }
                         else
