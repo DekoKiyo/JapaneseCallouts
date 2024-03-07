@@ -26,10 +26,8 @@
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="RagePluginHook" Version="1.98.0" />
-    <!-- <PackageReference Include="Resource.Embedder" Version="2.2.0" /> -->
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
     <Reference Include="../SDK/*.dll" />
-    <EmbeddedResource Include="Resources/*.json" />
   </ItemGroup>
 
   <ItemGroup>

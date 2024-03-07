@@ -22,6 +22,7 @@ global using System.Runtime.InteropServices;
 global using System.Security.Cryptography;
 global using System.Text;
 global using System.Text.RegularExpressions;
+global using System.Threading;
 global using System.Threading.Tasks;
 global using Task = System.Threading.Tasks.Task;
 global using System.Windows.Forms;
@@ -91,6 +92,7 @@ internal class Main : Plugin
     internal const string LSPDFR_DIRECTORY = @"plugins/LSPDFR";
     internal const string PLUGIN_DIRECTORY = @$"{LSPDFR_DIRECTORY}/JapaneseCallouts";
     internal const string PLUGIN_AUDIO_DIRECTORY = @"Audio";
+    internal const string PLUGIN_LANGUAGE_DIRECTORY = @"Languages";
     internal const string SETTINGS_INI_FILE = @"JapaneseCallouts.ini";
 
     internal const string CALLOUT_INTERFACE_API_DLL = "CalloutInterfaceAPI.dll";
@@ -103,12 +105,32 @@ internal class Main : Plugin
 
     public Main()
     {
-        CultureInfo.CurrentCulture = new("ja-JP");
-        CultureInfo.CurrentUICulture = new("ja-JP");
-        General.Culture = new("ja-JP");
-        Logger.Info(CultureInfo.CurrentCulture.Name);
-        Logger.Info(CultureInfo.CurrentUICulture.Name);
-        Logger.Info(General.Culture.Name);
+        var language = "ja-JP";
+        var culture = new CultureInfo(language);
+        var satelliteFolder = $"{AppDomain.CurrentDomain.BaseDirectory}/{PLUGIN_DIRECTORY}/{PLUGIN_LANGUAGE_DIRECTORY}/{language}";
+        if (Directory.Exists(satelliteFolder))
+        {
+            AppDomain.CurrentDomain.AssemblyResolve += (sender, eventArgs) =>
+            {
+                var requestedAssemblyName = new AssemblyName(eventArgs.Name).Name;
+                var assemblyFile = $"{satelliteFolder}/{requestedAssemblyName}.dll";
+                if (File.Exists(assemblyFile))
+                {
+                    return Assembly.LoadFile(assemblyFile);
+                }
+                else
+                {
+                    Logger.Warn($"The language file (code: {language}) was not found. Language will be automatically set to \"en-US\"");
+                    return null;
+                }
+            };
+        }
+        else
+        {
+            Logger.Warn($"The language code {language} was not found in \"{PLUGIN_DIRECTORY}/{PLUGIN_LANGUAGE_DIRECTORY}\". Language will be automatically set to \"en-US\"");
+        }
+        Thread.CurrentThread.CurrentCulture = culture;
+        Thread.CurrentThread.CurrentUICulture = culture;
         Logger.Info(string.Format(General.ResourceManager.GetString("PluginLoaded", CultureInfo.CurrentCulture), PLUGIN_NAME, DEVELOPER_NAME));
     }
 
