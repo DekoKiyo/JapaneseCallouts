@@ -131,7 +131,6 @@ internal class Main : Plugin
         }
         Thread.CurrentThread.CurrentCulture = culture;
         Thread.CurrentThread.CurrentUICulture = culture;
-        Logger.Info(string.Format(General.ResourceManager.GetString("PluginLoaded", CultureInfo.CurrentCulture), PLUGIN_NAME, DEVELOPER_NAME));
     }
 
     public override void Initialize()
@@ -155,7 +154,6 @@ internal class Main : Plugin
             CalloutManager.RegisterAllCallouts();
             Logger.Info($"{PLUGIN_NAME} Version.{VERSION_PREFIX}{PLUGIN_VERSION} was loaded.");
             HudHelpers.DisplayNotification(string.Format(General.PluginLoaded, PLUGIN_NAME, DEVELOPER_NAME), PLUGIN_NAME, PLUGIN_VERSION_DATA);
-            // BankHeistConversation.Culture = new("ja-JP");
         }
         else
         {
