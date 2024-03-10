@@ -22,14 +22,14 @@ namespace JapaneseCallouts.Localization {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class General {
+    internal class ColorsName {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal General() {
+        internal ColorsName() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace JapaneseCallouts.Localization {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("JapaneseCallouts.Localization.General", typeof(General).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("JapaneseCallouts.Localization.ColorsName", typeof(ColorsName).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,65 +61,101 @@ namespace JapaneseCallouts.Localization {
         }
         
         /// <summary>
-        ///   You are ~g~code4~s~. ~r~Return to Patrol~s~. に類似しているローカライズされた文字列を検索します。
+        ///   Black に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string CalloutCode4 {
+        internal static string Black {
             get {
-                return ResourceManager.GetString("CalloutCode4", resourceCulture);
+                return ResourceManager.GetString("Black", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Dispatch に類似しているローカライズされた文字列を検索します。
+        ///   Blue に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string Dispatch {
+        internal static string Blue {
             get {
-                return ResourceManager.GetString("Dispatch", resourceCulture);
+                return ResourceManager.GetString("Blue", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   ~b~{0}~s~ was ~g~successfully loaded!~s~~n~Developed by ~b~{1}~s~. に類似しているローカライズされた文字列を検索します。
+        ///   Brown に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string PluginLoaded {
+        internal static string Brown {
             get {
-                return ResourceManager.GetString("PluginLoaded", resourceCulture);
+                return ResourceManager.GetString("Brown", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   ~b~{0}~s~ was ~r~unloaded!~s~. に類似しているローカライズされた文字列を検索します。
+        ///   Gray に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string PluginUnloaded {
+        internal static string Gray {
             get {
-                return ResourceManager.GetString("PluginUnloaded", resourceCulture);
+                return ResourceManager.GetString("Gray", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Press {0} to talk. に類似しているローカライズされた文字列を検索します。
+        ///   Green に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string PressToTalk {
+        internal static string Green {
             get {
-                return ResourceManager.GetString("PressToTalk", resourceCulture);
+                return ResourceManager.GetString("Green", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Press {0} to talk with ~g~{1}~s~. に類似しているローカライズされた文字列を検索します。
+        ///   LiteBlue に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string PressToTalkWith {
+        internal static string LiteBlue {
             get {
-                return ResourceManager.GetString("PressToTalkWith", resourceCulture);
+                return ResourceManager.GetString("LiteBlue", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   It seems like ~r~an error occurred somewhere~s~. Please give ~o~RagePluginHook.log~s~ to ~b~the developer~s~ on ~p~our Discord server~s~ to investigate the cause. に類似しているローカライズされた文字列を検索します。
+        ///   Orange に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string SomethingWrong {
+        internal static string Orange {
             get {
-                return ResourceManager.GetString("SomethingWrong", resourceCulture);
+                return ResourceManager.GetString("Orange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Purple に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string Purple {
+            get {
+                return ResourceManager.GetString("Purple", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Red に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string Red {
+            get {
+                return ResourceManager.GetString("Red", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   White に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string White {
+            get {
+                return ResourceManager.GetString("White", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Yellow に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string Yellow {
+            get {
+                return ResourceManager.GetString("Yellow", resourceCulture);
             }
         }
     }

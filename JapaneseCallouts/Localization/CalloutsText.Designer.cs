@@ -178,6 +178,15 @@ namespace JapaneseCallouts.Localization {
         }
         
         /// <summary>
+        ///   The suspect ~r~escaped~s~. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string Escaped {
+            get {
+                return ResourceManager.GetString("Escaped", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   ~r~The gear has temporarily run out~s~. Please come again later. に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string GearRunOut {
@@ -228,6 +237,24 @@ namespace JapaneseCallouts.Localization {
         internal static string SpawnAmbulance {
             get {
                 return ResourceManager.GetString("SpawnAmbulance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Stolen Vehicle Data~n~~b~License Plate~s~: {0}~n~~b~Body Color~s~: {1}~n~~b~Type~s~: {2} に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string StolenVehicleData {
+            get {
+                return ResourceManager.GetString("StolenVehicleData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   ~b~The target location on GPS has been updated.~s~ に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string StolenVehicleDataUpdate {
+            get {
+                return ResourceManager.GetString("StolenVehicleDataUpdate", resourceCulture);
             }
         }
         

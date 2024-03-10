@@ -120,6 +120,9 @@
   <data name="CalloutCode4" xml:space="preserve">
     <value>You are ~g~code4~s~. ~r~Return to Patrol~s~.</value>
   </data>
+  <data name="Dispatch" xml:space="preserve">
+    <value>Dispatch</value>
+  </data>
   <data name="PluginLoaded" xml:space="preserve">
     <value>~b~{0}~s~ was ~g~successfully loaded!~s~~n~Developed by ~b~{1}~s~.</value>
   </data>

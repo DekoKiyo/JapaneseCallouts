@@ -318,7 +318,7 @@ internal class BankHeist : CalloutBase
     ];
     private readonly (string, string)[] Negotiation111Conversation =
     [
-        (Settings.OfficerName, BankHeistConversation.Negotiation1111),
+        (Settings.OfficerName, string.Format(BankHeistConversation.Negotiation1111, Settings.WifeName)),
         (CalloutsText.Robber, BankHeistConversation.Negotiation1112),
     ];
     private readonly (string, string)[] Negotiation112Conversation =
@@ -376,12 +376,12 @@ internal class BankHeist : CalloutBase
     ];
     private readonly (string, string)[] Request22Conversation1 =
     [
-        (Settings.OfficerName, BankHeistConversation.Request221),
+        (Settings.OfficerName, string.Format(BankHeistConversation.Request221, Settings.WifeName)),
         (CalloutsText.Robber, BankHeistConversation.Negotiation1112),
     ];
     private readonly (string, string)[] Request22Conversation2 =
     [
-        (Settings.OfficerName, BankHeistConversation.Request221),
+        (Settings.OfficerName, string.Format(BankHeistConversation.Request221, Settings.WifeName)),
         (CalloutsText.Robber, BankHeistConversation.Request222),
         (Settings.OfficerName, BankHeistConversation.Request223),
     ];
@@ -389,13 +389,13 @@ internal class BankHeist : CalloutBase
     [
         (Settings.WifeName, BankHeistConversation.Request224),
         (Settings.WifeName, BankHeistConversation.Request225),
-        (CalloutsText.Robber, BankHeistConversation.Request226),
+        (CalloutsText.Robber, string.Format(BankHeistConversation.Request226, Settings.WifeName)),
         (CalloutsText.Robber, BankHeistConversation.Request227),
-        (CalloutsText.Robber, BankHeistConversation.Request228),
+        (CalloutsText.Robber, string.Format(BankHeistConversation.Request228, Settings.WifeName)),
     ];
     private readonly (string, string)[] Request22Conversation4 =
     [
-        (Settings.OfficerName, BankHeistConversation.Request229),
+        (Settings.OfficerName, string.Format(BankHeistConversation.Request229, Settings.WifeName)),
         (Settings.WifeName, BankHeistConversation.Request220),
     ];
     private readonly (string, string)[] Negotiation3Conversation =
@@ -569,6 +569,129 @@ internal class BankHeist : CalloutBase
         {
             CalloutInterfaceAPIFunctions.SendMessage(this, CalloutsDescription.BankHeist);
         }
+
+        OnCalloutsEnded += () =>
+        {
+            BankAlarm.Stop();
+            BankAlarm.Dispose();
+            BankAlarm = null;
+            Main.Player.IsPositionFrozen = false;
+            Game.LocalPlayer.HasControl = true;
+            // Main.Player.CanAttackFriendlies = false;
+            NativeFunction.Natives.SET_PLAYER_WEAPON_DEFENSE_MODIFIER(Game.LocalPlayer, 1f);
+            NativeFunction.Natives.SET_PLAYER_WEAPON_DAMAGE_MODIFIER(Game.LocalPlayer, 1f);
+            NativeFunction.Natives.RESET_AI_WEAPON_DAMAGE_MODIFIER();
+            NativeFunction.Natives.RESET_AI_MELEE_WEAPON_DAMAGE_MODIFIER();
+            if (SideDoorBlip is not null && SideDoorBlip.IsValid() && SideDoorBlip.Exists()) SideDoorBlip.Delete();
+            ToggleMobilePhone(Main.Player, false);
+            if (IsCalloutFinished)
+            {
+                HudHelpers.DisplayNotification(General.CalloutCode4, General.Dispatch, CalloutsName.BankHeist);
+
+                if (BankBlip is not null && BankBlip.IsValid() && BankBlip.Exists()) BankBlip.Delete();
+                if (Commander is not null && Commander.IsValid() && Commander.Exists()) Commander.Dismiss();
+                if (Wife is not null && Wife.IsValid() && Wife.Exists()) Wife.Dismiss();
+                if (WifeDriver is not null && WifeDriver.IsValid() && WifeDriver.Exists()) WifeDriver.Dismiss();
+                if (WifeCar is not null && WifeCar.IsValid() && WifeCar.Exists()) WifeCar.Dismiss();
+                if (CommanderBlip is not null && CommanderBlip.IsValid() && CommanderBlip.Exists()) CommanderBlip.Delete();
+                if (MobilePhone is not null && MobilePhone.IsValid() && MobilePhone.Exists()) MobilePhone.Delete();
+                foreach (var e in AllPoliceVehicles)
+                {
+                    if (e is not null && e.IsValid() && e.Exists())
+                    {
+                        var driver = e.HasDriver ? e.Driver : e.CreateRandomDriver();
+                        if (driver is not null && driver.IsValid() && driver.Exists())
+                        {
+                            driver.Tasks.CruiseWithVehicle(e, 14f, VehicleDrivingFlags.DriveAroundVehicles | VehicleDrivingFlags.DriveAroundObjects | VehicleDrivingFlags.DriveAroundPeds);
+                            driver.Dismiss();
+                        }
+                        e.Dismiss();
+                    }
+                }
+                foreach (var e in AllAmbulance)
+                {
+                    if (e is not null && e.IsValid() && e.Exists())
+                    {
+                        var driver = e.HasDriver ? e.Driver : e.CreateRandomDriver();
+                        if (driver is not null && driver.IsValid() && driver.Exists())
+                        {
+                            driver.Tasks.CruiseWithVehicle(e, 14f, VehicleDrivingFlags.DriveAroundVehicles | VehicleDrivingFlags.DriveAroundObjects | VehicleDrivingFlags.DriveAroundPeds);
+                            driver.Dismiss();
+                        }
+                        e.Dismiss();
+                    }
+                }
+                foreach (var e in AllFiretruck)
+                {
+                    if (e is not null && e.IsValid() && e.Exists())
+                    {
+                        var driver = e.HasDriver ? e.Driver : e.CreateRandomDriver();
+                        if (driver is not null && driver.IsValid() && driver.Exists())
+                        {
+                            driver.Tasks.CruiseWithVehicle(e, 14f, VehicleDrivingFlags.DriveAroundVehicles | VehicleDrivingFlags.DriveAroundObjects | VehicleDrivingFlags.DriveAroundPeds);
+                            driver.Dismiss();
+                        }
+                        e.Dismiss();
+                    }
+                }
+                foreach (var e in AllHostages) if (e is not null && e.IsValid() && e.Exists()) e.Dismiss();
+                foreach (var e in AllOfficers) if (e is not null && e.IsValid() && e.Exists()) e.Dismiss();
+                foreach (var e in AllSWATUnits) if (e is not null && e.IsValid() && e.Exists()) e.Dismiss();
+                foreach (var e in AllEMS) if (e is not null && e.IsValid() && e.Exists()) e.Dismiss();
+                foreach (var e in AllRobbers)
+                {
+                    if (e is not null && e.IsValid() && e.Exists())
+                    {
+                        if (e.IsAlive) e.Delete();
+                        else e.Dismiss();
+                    }
+                }
+                foreach (var e in AllSneakRobbers)
+                {
+                    if (e is not null && e.IsValid() && e.Exists())
+                    {
+                        if (e.IsAlive) e.Delete();
+                        else e.Dismiss();
+                    }
+                }
+                foreach (var e in AllVaultRobbers)
+                {
+                    if (e is not null && e.IsValid() && e.Exists())
+                    {
+                        if (e.IsAlive) e.Delete();
+                        else e.Dismiss();
+                    }
+                }
+                foreach (var e in AllBarriers) if (e is not null && e.IsValid() && e.Exists()) e.Delete();
+                foreach (var e in AllBarrierPeds) if (e is not null && e.IsValid() && e.Exists()) e.Delete();
+                foreach (var e in AllInvisibleWalls) if (e is not null && e.IsValid() && e.Exists()) e.Delete();
+            }
+            else
+            {
+                HudHelpers.DisplayNotification(General.SomethingWrong);
+
+                if (BankBlip is not null && BankBlip.IsValid() && BankBlip.Exists()) BankBlip.Delete();
+                if (Commander is not null && Commander.IsValid() && Commander.Exists()) Commander.Delete();
+                if (Wife is not null && Wife.IsValid() && Wife.Exists()) Wife.Delete();
+                if (WifeDriver is not null && WifeDriver.IsValid() && WifeDriver.Exists()) WifeDriver.Delete();
+                if (WifeCar is not null && WifeCar.IsValid() && WifeCar.Exists()) WifeCar.Delete();
+                if (CommanderBlip is not null && CommanderBlip.IsValid() && CommanderBlip.Exists()) CommanderBlip.Delete();
+                if (MobilePhone is not null && MobilePhone.IsValid() && MobilePhone.Exists()) MobilePhone.Delete();
+                foreach (var e in AllPoliceVehicles) if (e is not null && e.IsValid() && e.Exists()) e.Delete();
+                foreach (var e in AllAmbulance) if (e is not null && e.IsValid() && e.Exists()) e.Delete();
+                foreach (var e in AllFiretruck) if (e is not null && e.IsValid() && e.Exists()) e.Delete();
+                foreach (var e in AllHostages) if (e is not null && e.IsValid() && e.Exists()) e.Delete();
+                foreach (var e in AllOfficers) if (e is not null && e.IsValid() && e.Exists()) e.Delete();
+                foreach (var e in AllSWATUnits) if (e is not null && e.IsValid() && e.Exists()) e.Delete();
+                foreach (var e in AllEMS) if (e is not null && e.IsValid() && e.Exists()) e.Delete();
+                foreach (var e in AllRobbers) if (e is not null && e.IsValid() && e.Exists()) e.Delete();
+                foreach (var e in AllSneakRobbers) if (e is not null && e.IsValid() && e.Exists()) e.Delete();
+                foreach (var e in AllVaultRobbers) if (e is not null && e.IsValid() && e.Exists()) e.Delete();
+                foreach (var e in AllBarriers) if (e is not null && e.IsValid() && e.Exists()) e.Delete();
+                foreach (var e in AllBarrierPeds) if (e is not null && e.IsValid() && e.Exists()) e.Delete();
+                foreach (var e in AllInvisibleWalls) if (e is not null && e.IsValid() && e.Exists()) e.Delete();
+            }
+        };
     }
 
     internal override void OnDisplayed() { }
@@ -595,6 +718,8 @@ internal class BankHeist : CalloutBase
         CalloutHandler();
     }
 
+    internal override void NotAccepted() { }
+
     internal override void Update()
     {
         if (!HandlingRespawn)
@@ -607,129 +732,6 @@ internal class BankHeist : CalloutBase
         if (!IsCalloutRunning || DoneFighting)
         {
             Game.FrameRender -= TimerBarsProcess;
-        }
-    }
-
-    internal override void EndCallout(bool notAccepted = false, bool isPlayerDead = false)
-    {
-        BankAlarm.Stop();
-        BankAlarm.Dispose();
-        BankAlarm = null;
-        Main.Player.IsPositionFrozen = false;
-        Game.LocalPlayer.HasControl = true;
-        // Main.Player.CanAttackFriendlies = false;
-        NativeFunction.Natives.SET_PLAYER_WEAPON_DEFENSE_MODIFIER(Game.LocalPlayer, 1f);
-        NativeFunction.Natives.SET_PLAYER_WEAPON_DAMAGE_MODIFIER(Game.LocalPlayer, 1f);
-        NativeFunction.Natives.RESET_AI_WEAPON_DAMAGE_MODIFIER();
-        NativeFunction.Natives.RESET_AI_MELEE_WEAPON_DAMAGE_MODIFIER();
-        if (SideDoorBlip is not null && SideDoorBlip.IsValid() && SideDoorBlip.Exists()) SideDoorBlip.Delete();
-        ToggleMobilePhone(Main.Player, false);
-        if (IsCalloutFinished)
-        {
-            HudHelpers.DisplayNotification(General.CalloutCode4, Main.PLUGIN_NAME, CalloutsName.BankHeist);
-
-            if (BankBlip is not null && BankBlip.IsValid() && BankBlip.Exists()) BankBlip.Delete();
-            if (Commander is not null && Commander.IsValid() && Commander.Exists()) Commander.Dismiss();
-            if (Wife is not null && Wife.IsValid() && Wife.Exists()) Wife.Dismiss();
-            if (WifeDriver is not null && WifeDriver.IsValid() && WifeDriver.Exists()) WifeDriver.Dismiss();
-            if (WifeCar is not null && WifeCar.IsValid() && WifeCar.Exists()) WifeCar.Dismiss();
-            if (CommanderBlip is not null && CommanderBlip.IsValid() && CommanderBlip.Exists()) CommanderBlip.Delete();
-            if (MobilePhone is not null && MobilePhone.IsValid() && MobilePhone.Exists()) MobilePhone.Delete();
-            foreach (var e in AllPoliceVehicles)
-            {
-                if (e is not null && e.IsValid() && e.Exists())
-                {
-                    var driver = e.HasDriver ? e.Driver : e.CreateRandomDriver();
-                    if (driver is not null && driver.IsValid() && driver.Exists())
-                    {
-                        driver.Tasks.CruiseWithVehicle(e, 14f, VehicleDrivingFlags.DriveAroundVehicles | VehicleDrivingFlags.DriveAroundObjects | VehicleDrivingFlags.DriveAroundPeds);
-                        driver.Dismiss();
-                    }
-                    e.Dismiss();
-                }
-            }
-            foreach (var e in AllAmbulance)
-            {
-                if (e is not null && e.IsValid() && e.Exists())
-                {
-                    var driver = e.HasDriver ? e.Driver : e.CreateRandomDriver();
-                    if (driver is not null && driver.IsValid() && driver.Exists())
-                    {
-                        driver.Tasks.CruiseWithVehicle(e, 14f, VehicleDrivingFlags.DriveAroundVehicles | VehicleDrivingFlags.DriveAroundObjects | VehicleDrivingFlags.DriveAroundPeds);
-                        driver.Dismiss();
-                    }
-                    e.Dismiss();
-                }
-            }
-            foreach (var e in AllFiretruck)
-            {
-                if (e is not null && e.IsValid() && e.Exists())
-                {
-                    var driver = e.HasDriver ? e.Driver : e.CreateRandomDriver();
-                    if (driver is not null && driver.IsValid() && driver.Exists())
-                    {
-                        driver.Tasks.CruiseWithVehicle(e, 14f, VehicleDrivingFlags.DriveAroundVehicles | VehicleDrivingFlags.DriveAroundObjects | VehicleDrivingFlags.DriveAroundPeds);
-                        driver.Dismiss();
-                    }
-                    e.Dismiss();
-                }
-            }
-            foreach (var e in AllHostages) if (e is not null && e.IsValid() && e.Exists()) e.Dismiss();
-            foreach (var e in AllOfficers) if (e is not null && e.IsValid() && e.Exists()) e.Dismiss();
-            foreach (var e in AllSWATUnits) if (e is not null && e.IsValid() && e.Exists()) e.Dismiss();
-            foreach (var e in AllEMS) if (e is not null && e.IsValid() && e.Exists()) e.Dismiss();
-            foreach (var e in AllRobbers)
-            {
-                if (e is not null && e.IsValid() && e.Exists())
-                {
-                    if (e.IsAlive) e.Delete();
-                    else e.Dismiss();
-                }
-            }
-            foreach (var e in AllSneakRobbers)
-            {
-                if (e is not null && e.IsValid() && e.Exists())
-                {
-                    if (e.IsAlive) e.Delete();
-                    else e.Dismiss();
-                }
-            }
-            foreach (var e in AllVaultRobbers)
-            {
-                if (e is not null && e.IsValid() && e.Exists())
-                {
-                    if (e.IsAlive) e.Delete();
-                    else e.Dismiss();
-                }
-            }
-            foreach (var e in AllBarriers) if (e is not null && e.IsValid() && e.Exists()) e.Delete();
-            foreach (var e in AllBarrierPeds) if (e is not null && e.IsValid() && e.Exists()) e.Delete();
-            foreach (var e in AllInvisibleWalls) if (e is not null && e.IsValid() && e.Exists()) e.Delete();
-        }
-        else
-        {
-            HudHelpers.DisplayNotification(General.SomethingWrong);
-
-            if (BankBlip is not null && BankBlip.IsValid() && BankBlip.Exists()) BankBlip.Delete();
-            if (Commander is not null && Commander.IsValid() && Commander.Exists()) Commander.Delete();
-            if (Wife is not null && Wife.IsValid() && Wife.Exists()) Wife.Delete();
-            if (WifeDriver is not null && WifeDriver.IsValid() && WifeDriver.Exists()) WifeDriver.Delete();
-            if (WifeCar is not null && WifeCar.IsValid() && WifeCar.Exists()) WifeCar.Delete();
-            if (CommanderBlip is not null && CommanderBlip.IsValid() && CommanderBlip.Exists()) CommanderBlip.Delete();
-            if (MobilePhone is not null && MobilePhone.IsValid() && MobilePhone.Exists()) MobilePhone.Delete();
-            foreach (var e in AllPoliceVehicles) if (e is not null && e.IsValid() && e.Exists()) e.Delete();
-            foreach (var e in AllAmbulance) if (e is not null && e.IsValid() && e.Exists()) e.Delete();
-            foreach (var e in AllFiretruck) if (e is not null && e.IsValid() && e.Exists()) e.Delete();
-            foreach (var e in AllHostages) if (e is not null && e.IsValid() && e.Exists()) e.Delete();
-            foreach (var e in AllOfficers) if (e is not null && e.IsValid() && e.Exists()) e.Delete();
-            foreach (var e in AllSWATUnits) if (e is not null && e.IsValid() && e.Exists()) e.Delete();
-            foreach (var e in AllEMS) if (e is not null && e.IsValid() && e.Exists()) e.Delete();
-            foreach (var e in AllRobbers) if (e is not null && e.IsValid() && e.Exists()) e.Delete();
-            foreach (var e in AllSneakRobbers) if (e is not null && e.IsValid() && e.Exists()) e.Delete();
-            foreach (var e in AllVaultRobbers) if (e is not null && e.IsValid() && e.Exists()) e.Delete();
-            foreach (var e in AllBarriers) if (e is not null && e.IsValid() && e.Exists()) e.Delete();
-            foreach (var e in AllBarrierPeds) if (e is not null && e.IsValid() && e.Exists()) e.Delete();
-            foreach (var e in AllInvisibleWalls) if (e is not null && e.IsValid() && e.Exists()) e.Delete();
         }
     }
 
@@ -1074,14 +1076,14 @@ internal class BankHeist : CalloutBase
                         }
                     }
                 }
-                Functions.PlayScannerAudio("ATTENTION_THIS_IS_DISPATCH_HIGH JP_WE_ARE_CODE4 JP_NO_FURTHER_UNITS_REQUIRED");
+                Functions.PlayScannerAudio("ATTENTION_THIS_IS_DISPATCH_HIGH JP_WE_ARE_CODE JP_FOUR JP_NO_FURTHER_UNITS_REQUIRED");
                 IsCalloutFinished = true;
-                EndCallout();
+                End();
             }
             catch (Exception e)
             {
                 Logger.Error(e.ToString());
-                EndCallout();
+                End();
             }
         });
     }

@@ -68,5 +68,14 @@ namespace JapaneseCallouts.Localization {
                 return ResourceManager.GetString("BankHeist", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Stolen Vehicle に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string StolenVehicle {
+            get {
+                return ResourceManager.GetString("StolenVehicle", resourceCulture);
+            }
+        }
     }
 }

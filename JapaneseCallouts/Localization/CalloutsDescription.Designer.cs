@@ -61,11 +61,20 @@ namespace JapaneseCallouts.Localization {
         }
         
         /// <summary>
-        ///   The robber gang has taken hostages and barricaded themselves inside the bank. に類似しているローカライズされた文字列を検索します。
+        ///   The robber has taken hostages and barricaded themselves inside the bank. に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string BankHeist {
             get {
                 return ResourceManager.GetString("BankHeist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   The suspect stolen the vehicle. Search and pursuit it! に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string StolenVehicle {
+            get {
+                return ResourceManager.GetString("StolenVehicle", resourceCulture);
             }
         }
     }

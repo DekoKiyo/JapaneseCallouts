@@ -1,3 +1,5 @@
+using LSPD_First_Response.Engine;
+
 namespace JapaneseCallouts.Callouts;
 
 internal abstract class CalloutBase : Callout
@@ -6,8 +8,10 @@ internal abstract class CalloutBase : Callout
     internal abstract void Setup();
     internal abstract void OnDisplayed();
     internal abstract void Accepted();
+    internal abstract void NotAccepted();
     internal abstract void Update();
-    internal abstract void EndCallout(bool notAccepted = false, bool isPlayerDead = false);
+    internal delegate void EndCallouts();
+    internal event EndCallouts OnCalloutsEnded;
     internal virtual List<Entity> DeleteEntities() { return []; }
 
     public override bool OnBeforeCalloutDisplayed()
@@ -26,21 +30,19 @@ internal abstract class CalloutBase : Callout
     {
         Accepted();
         IsCalloutRunning = true;
-        GameFiber.StartNew(() =>
-        {
-            while (IsCalloutRunning)
-            {
-                GameFiber.Yield();
-                Update();
-            }
-        }, $"[{Main.PLUGIN_NAME}] Callout Update Process");
         return base.OnCalloutAccepted();
+    }
+
+    public override void Process()
+    {
+        Update();
+        base.Process();
     }
 
     public override void OnCalloutNotAccepted()
     {
-        EndCallout(true);
         IsCalloutRunning = false;
+        NotAccepted();
         foreach (var entity in DeleteEntities())
         {
             if (entity is not null && entity.IsValid() && entity.Exists())
@@ -54,8 +56,9 @@ internal abstract class CalloutBase : Callout
 
     public override void End()
     {
+        OnCalloutsEnded?.Invoke();
         IsCalloutRunning = false;
-        EndCallout(false);
+        Functions.PlayScannerAudio("ATTENTION_ALL_UNITS JP_WE_ARE_CODE JP_FOUR JP_NO_FURTHER_UNITS_REQUIRED");
         base.End();
     }
 }

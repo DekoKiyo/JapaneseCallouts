@@ -298,7 +298,7 @@ public class MersenneTwister : Random
     /// </remarks>
     public override double NextDouble()
     {
-        return compute53BitRandom(0, InverseOnePlus53BitsOf1s);
+        return Compute53BitRandom(0, InverseOnePlus53BitsOf1s);
     }
 
     /// <summary>
@@ -321,7 +321,7 @@ public class MersenneTwister : Random
     /// </returns>
     public double NextDouble(bool includeOne)
     {
-        return includeOne ? compute53BitRandom(0, Inverse53BitsOf1s) : NextDouble();
+        return includeOne ? Compute53BitRandom(0, Inverse53BitsOf1s) : NextDouble();
     }
 
     /// <summary>
@@ -330,7 +330,7 @@ public class MersenneTwister : Random
     /// <returns>A pseudo-random number greater than 0.0 and less than 1.0.</returns>
     public double NextDoublePositive()
     {
-        return compute53BitRandom(0.5, Inverse53BitsOf1s);
+        return Compute53BitRandom(0.5, Inverse53BitsOf1s);
     }
 
     /// <summary>
@@ -513,7 +513,7 @@ public class MersenneTwister : Random
     private const double OnePlus53BitsOf1s = FiftyThreeBitsOf1s + 1;
     private const double InverseOnePlus53BitsOf1s = 1.0 / OnePlus53BitsOf1s;
 
-    private double compute53BitRandom(double translate, double scale)
+    private double Compute53BitRandom(double translate, double scale)
     {
         // get 27 pseudo-random bits
         var a = (ulong)GenerateUInt32() >> 5;
