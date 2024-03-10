@@ -157,6 +157,9 @@
   <data name="EnterRiot" xml:space="preserve">
     <value>Press {0} to enter the riot van to ~b~receive gear~s~.</value>
   </data>
+  <data name="Escaped" xml:space="preserve">
+    <value>The suspect ~r~escaped~s~.</value>
+  </data>
   <data name="GearRunOut" xml:space="preserve">
     <value>~r~The gear has temporarily run out~s~. Please come again later.</value>
   </data>
@@ -174,6 +177,12 @@
   </data>
   <data name="SpawnAmbulance" xml:space="preserve">
     <value>Press {0} when spawned to spawn to the ambulance.</value>
+  </data>
+  <data name="StolenVehicleData" xml:space="preserve">
+    <value>Stolen Vehicle Data~n~~b~License Plate~s~: {0}~n~~b~Body Color~s~: {1}~n~~b~Type~s~: {2}</value>
+  </data>
+  <data name="StolenVehicleDataUpdate" xml:space="preserve">
+    <value>~b~The target location on GPS has been updated.~s~</value>
   </data>
   <data name="SurrenderHelp" xml:space="preserve">
     <value>~b~Other officers~s~ will perform the ~b~arrests~s~ and then ~b~deal with the robbers~s~.~n~~b~Hold your position~s~ and keep the robbers under control by ~b~aiming in their direction~s~.</value>
