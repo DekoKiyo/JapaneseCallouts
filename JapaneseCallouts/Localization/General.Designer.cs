@@ -88,11 +88,29 @@ namespace JapaneseCallouts.Localization {
         }
         
         /// <summary>
+        ///   Press {0} to talk. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string PressToTalk {
+            get {
+                return ResourceManager.GetString("PressToTalk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Press {0} to talk with ~g~{1}~s~. に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string PressToTalkWith {
             get {
                 return ResourceManager.GetString("PressToTalkWith", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   It seems like ~r~an error occurred somewhere~s~. Please give ~o~RagePluginHook.log~s~ to ~b~the developer~s~ on ~p~our Discord server~s~ to investigate the cause. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string SomethingWrong {
+            get {
+                return ResourceManager.GetString("SomethingWrong", resourceCulture);
             }
         }
     }

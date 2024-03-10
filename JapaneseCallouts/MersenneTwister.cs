@@ -212,7 +212,10 @@ public class MersenneTwister : Random
         // DR: I changed THIS:
         // return (Int32)(NextDouble() * (maxValue));
         // with THIS:
-        return (int)(NextDouble() * (maxValue + 1));
+        // return (int)(NextDouble() * (maxValue + 1));
+
+        // Fixed by DekoKiyo
+        return (int)(NextDouble() * maxValue);
     }
 
     /// <summary>
@@ -481,10 +484,7 @@ public class MersenneTwister : Random
             _mt[i] &= 0xffffffffU; // for WORDSIZE > 32 machines
             i++; j++;
             if (i >= N) { _mt[0] = _mt[N - 1]; i = 1; }
-            if (j >= keyLength)
-            {
-                j = 0;
-            }
+            if (j >= keyLength) j = 0;
         }
 
         for (k = N - 1; k > 0; k--)

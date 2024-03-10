@@ -88,22 +88,22 @@
 
 //     internal override void Update()
 //     {
-//         if (Game.LocalPlayer.Character.DistanceTo(caller) < 25f && !arrived)
+//         if (Main.Player.DistanceTo(caller) < 25f && !arrived)
 //         {
-//             if (Game.LocalPlayer.Character.IsOnFoot)
+//             if (Main.Player.IsOnFoot)
 //             {
 //                 if (Settings.SpeakWithThePersonModifierKey is Keys.None)
 //                 {
-//                     HudExtensions.DisplayNotification(Localization.GetString("PressToTalk", Settings.SpeakWithThePersonKey.GetInstructionalId()));
+//                     HudExtensions.DisplayNotification(Localization.GetString("PressToTalk", $"~{Settings.SpeakWithThePersonKey.GetInstructionalId()}~"));
 //                 }
 //                 else
 //                 {
-//                     HudExtensions.DisplayNotification(Localization.GetString("PressToTalk", $"{Settings.SpeakWithThePersonKey.GetInstructionalId()} ~+~ {Settings.SpeakWithThePersonModifierKey.GetInstructionalId()}"));
+//                     HudExtensions.DisplayNotification(Localization.GetString("PressToTalk", $"~{Settings.SpeakWithThePersonKey.GetInstructionalId()}~ ~+~ ~{Settings.SpeakWithThePersonModifierKey.GetInstructionalId()}~"));
 //                 }
 
 //                 Functions.PlayScannerAudio("JP_ATTENTION_GENERIC JP_OFFICERS_ARRIVED_ON_SCENE");
 //                 HudExtensions.DisplaySubtitle(Localization.GetString("YakuzaHere"));
-//                 caller.Face(Game.LocalPlayer.Character);
+//                 caller.Face(Main.Player);
 //                 arrived = true;
 //             }
 //             else
@@ -114,9 +114,9 @@
 
 //         if (KeyExtensions.IsKeysDown(Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey))
 //         {
-//             if (arrived && Game.LocalPlayer.Character.DistanceTo(caller) < 2f && sentenceNum < sentence.Length)
+//             if (arrived && Main.Player.DistanceTo(caller) < 2f && sentenceNum < sentence.Length)
 //             {
-//                 caller.Face(Game.LocalPlayer.Character);
+//                 caller.Face(Main.Player);
 //                 HudExtensions.DisplaySubtitle($"{sentence[sentenceNum]} ({sentenceNum}/{sentence.Length})");
 //                 sentenceNum++;
 //             }

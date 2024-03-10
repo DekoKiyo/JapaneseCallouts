@@ -54,8 +54,8 @@ internal abstract class CalloutBase : Callout
 
     public override void End()
     {
-        EndCallout(false);
         IsCalloutRunning = false;
+        EndCallout(false);
         base.End();
     }
 }

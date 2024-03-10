@@ -61,11 +61,227 @@ namespace JapaneseCallouts.Localization {
         }
         
         /// <summary>
+        ///   Press {0} at any time to toggle the ~r~alarm~s~. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string AlarmSwitchKey {
+            get {
+                return ResourceManager.GetString("AlarmSwitchKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Copy that, responding ~r~CODE 3~s~ to the ~b~Pacific Bank~s~, over. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string BankHeistCopyThat {
+            get {
+                return ResourceManager.GetString("BankHeistCopyThat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Press {0} to signal the ~b~SWAT teams~s~ to ~y~move in~s~. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string BankHeistMoveIn {
+            get {
+                return ResourceManager.GetString("BankHeistMoveIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Hold {0} to release the ~b~hostage~s~. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string BankHeistReleaseHostage {
+            get {
+                return ResourceManager.GetString("BankHeistReleaseHostage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   ~g~Good job, officer!~s~ に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string BankHeistReportSubtitle {
+            get {
+                return ResourceManager.GetString("BankHeistReportSubtitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   ~g~Rescued Hostages~s~: {0}~n~~r~Died Hostages~s~: {1}~n~~y~Killed Robbers~s~: {2} に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string BankHeistReportText {
+            get {
+                return ResourceManager.GetString("BankHeistReportText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Bank Heist Report に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string BankHeistReportTitle {
+            get {
+                return ResourceManager.GetString("BankHeistReportTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Roger that, ~r~proceed with caution~s~! に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string BankHeistRoger {
+            get {
+                return ResourceManager.GetString("BankHeistRoger", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Press {0} to try to discuss with the robbers by phone. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string CallBankRobbers {
+            get {
+                return ResourceManager.GetString("CallBankRobbers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Commander に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string Commander {
             get {
                 return ResourceManager.GetString("Commander", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Congratulations! に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string Congratulations {
+            get {
+                return ResourceManager.GetString("Congratulations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Hostages Died: に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string DiedHostages {
+            get {
+                return ResourceManager.GetString("DiedHostages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Press {0} to enter the riot van to ~b~receive gear~s~. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string EnterRiot {
+            get {
+                return ResourceManager.GetString("EnterRiot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   ~r~The gear has temporarily run out~s~. Please come again later. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string GearRunOut {
+            get {
+                return ResourceManager.GetString("GearRunOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Solved a bank robbery without hostages dead. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string NoDiedHostage {
+            get {
+                return ResourceManager.GetString("NoDiedHostage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Hostages Rescued: に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string RescuedHostages {
+            get {
+                return ResourceManager.GetString("RescuedHostages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Robber に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string Robber {
+            get {
+                return ResourceManager.GetString("Robber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Press the key displayed to select the answer. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string SelectAnswerText {
+            get {
+                return ResourceManager.GetString("SelectAnswerText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Press {0} when spawned to spawn to the ambulance. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string SpawnAmbulance {
+            get {
+                return ResourceManager.GetString("SpawnAmbulance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   ~b~Other officers~s~ will perform the ~b~arrests~s~ and then ~b~deal with the robbers~s~.~n~~b~Hold your position~s~ and keep the robbers under control by ~b~aiming in their direction~s~. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string SurrenderHelp {
+            get {
+                return ResourceManager.GetString("SurrenderHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Press {0} to make the SWAT teams follow you. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string SWATFollowing {
+            get {
+                return ResourceManager.GetString("SWATFollowing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   ~b~SWAT Units~s~ are now following you. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string SWATIsFollowing {
+            get {
+                return ResourceManager.GetString("SWATIsFollowing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   The ~b~SWAT Units~s~ are no longer following you. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string SWATIsNotFollowing {
+            get {
+                return ResourceManager.GetString("SWATIsNotFollowing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Talk to ~g~{0}~s~ に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string TalkTo {
+            get {
+                return ResourceManager.GetString("TalkTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Talk to ~g~Commander~s~ first to get the informations. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string TalkToCommander {
+            get {
+                return ResourceManager.GetString("TalkToCommander", resourceCulture);
             }
         }
     }

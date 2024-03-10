@@ -9,7 +9,7 @@
 
 //     internal override void Setup()
 //     {
-//         CalloutPosition = World.GetNextPositionOnStreet(Game.LocalPlayer.Character.Position.Around(Main.MersenneTwister.Next(250, 800)));
+//         CalloutPosition = World.GetNextPositionOnStreet(Main.Player.Position.Around(Main.MersenneTwister.Next(250, 800)));
 
 //         try
 //         {
@@ -73,7 +73,7 @@
 //     internal override void Update()
 //     {
 //         GameFiber.Yield();
-//         if (Game.LocalPlayer.Character.IsDead)
+//         if (Main.Player.IsDead)
 //         {
 //             EndCallout(false, true);
 //         }

@@ -75,7 +75,11 @@ global using Rage.Forms;
 global using Rage.Native;
 global using static Rage.Native.NativeFunction;
 global using RageTask = Rage.Task;
-global using Object = Rage.Object;
+global using RObject = Rage.Object;
+#endregion
+#region NAudio
+global using NAudio;
+global using NAudio.Wave;
 #endregion
 
 namespace JapaneseCallouts;
@@ -102,6 +106,11 @@ internal class Main : Plugin
     internal static bool IsCalloutInterfaceAPIExist { get; } = Plugins.IsCalloutInterfaceAPIExist();
 
     internal static MersenneTwister MersenneTwister = new((int)DateTime.Now.Ticks);
+
+    internal static Ped Player
+    {
+        get => Game.LocalPlayer.Character;
+    }
 
     public Main()
     {
@@ -168,3 +177,6 @@ internal class Main : Plugin
         }
     }
 }
+
+[Obsolete("Use \"object\"(System.Object) or \"RObject\"(Rage.Object)")]
+internal static class Object { }
