@@ -118,6 +118,9 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="BankHeist" xml:space="preserve">
-    <value>The robber gang has taken hostages and barricaded themselves inside the bank.</value>
+    <value>The robber has taken hostages and barricaded themselves inside the bank.</value>
+  </data>
+  <data name="StolenVehicle" xml:space="preserve">
+    <value>The suspect stolen the vehicle. Search and pursuit it!</value>
   </data>
 </root>
