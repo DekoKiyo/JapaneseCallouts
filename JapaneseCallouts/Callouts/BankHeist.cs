@@ -713,8 +713,8 @@ internal class BankHeist : CalloutBase
         {
             Highlight = HudColor.Blue.GetColor()
         };
-        TBPool.Add(RescuedHostagesTB);
         TBPool.Add(DiedHostagesTB);
+        TBPool.Add(RescuedHostagesTB);
         CalloutHandler();
     }
 
