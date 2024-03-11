@@ -48,8 +48,6 @@ internal class StolenVehicle : CalloutBase
                     suspect.IsPersistent = true;
                     suspect.BlockPermanentEvents = true;
                     suspect.Tasks.CruiseWithVehicle(40f, VehicleDrivingFlags.Emergency);
-
-                    DeleteEntities().AddRange([stolen, suspect]);
                 }
             }
         }

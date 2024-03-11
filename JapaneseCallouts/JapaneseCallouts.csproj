@@ -51,6 +51,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>CalloutsText.resx</DependentUpon>
     </Compile>
+    <Compile Update="Localization\ColorsName.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ColorsName.resx</DependentUpon>
+    </Compile>
     <Compile Update="Localization\General.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -74,6 +79,10 @@
     <EmbeddedResource Update="Localization\CalloutsText.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>CalloutsText.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localization\ColorsName.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ColorsName.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Localization\General.resx">
       <Generator>ResXFileCodeGenerator</Generator>

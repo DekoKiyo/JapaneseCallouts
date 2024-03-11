@@ -120,6 +120,9 @@
   <data name="BankHeist" xml:space="preserve">
     <value>The robber has taken hostages and barricaded themselves inside the bank.</value>
   </data>
+  <data name="SleepingDrunkGuys" xml:space="preserve">
+    <value>Citizens reported there are many ~r~drunk who sleeping~s~ in public spaces.</value>
+  </data>
   <data name="StolenVehicle" xml:space="preserve">
     <value>The suspect stolen the vehicle. Search and pursuit it!</value>
   </data>

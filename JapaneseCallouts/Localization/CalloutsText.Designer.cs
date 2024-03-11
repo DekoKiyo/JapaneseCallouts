@@ -169,6 +169,15 @@ namespace JapaneseCallouts.Localization {
         }
         
         /// <summary>
+        ///   This is the end of the callout. You can leave these people alone, or you can help them. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string DrunkGuysHelp {
+            get {
+                return ResourceManager.GetString("DrunkGuysHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Press {0} to enter the riot van to ~b~receive gear~s~. に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string EnterRiot {

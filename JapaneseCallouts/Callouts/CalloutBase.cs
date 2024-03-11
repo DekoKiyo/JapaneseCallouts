@@ -12,7 +12,6 @@ internal abstract class CalloutBase : Callout
     internal abstract void Update();
     internal delegate void EndCallouts();
     internal event EndCallouts OnCalloutsEnded;
-    internal virtual List<Entity> DeleteEntities() { return []; }
 
     public override bool OnBeforeCalloutDisplayed()
     {
@@ -43,14 +42,6 @@ internal abstract class CalloutBase : Callout
     {
         IsCalloutRunning = false;
         NotAccepted();
-        foreach (var entity in DeleteEntities())
-        {
-            if (entity is not null && entity.IsValid() && entity.Exists())
-            {
-                entity.Dismiss();
-                entity.Delete();
-            }
-        }
         base.OnCalloutNotAccepted();
     }
 
