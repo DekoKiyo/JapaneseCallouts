@@ -5,6 +5,7 @@ namespace JapaneseCallouts.Callouts;
 internal abstract class CalloutBase : Callout
 {
     internal bool IsCalloutRunning { get; private set; } = false;
+    internal bool NoLastRadio { private get; set; } = false;
     internal abstract void Setup();
     internal abstract void OnDisplayed();
     internal abstract void Accepted();
@@ -49,7 +50,7 @@ internal abstract class CalloutBase : Callout
     {
         OnCalloutsEnded?.Invoke();
         IsCalloutRunning = false;
-        Functions.PlayScannerAudio("ATTENTION_ALL_UNITS JP_WE_ARE_CODE JP_FOUR JP_NO_FURTHER_UNITS_REQUIRED");
+        if (!NoLastRadio) Functions.PlayScannerAudio("ATTENTION_ALL_UNITS JP_WE_ARE_CODE JP_FOUR JP_NO_FURTHER_UNITS_REQUIRED");
         base.End();
     }
 }

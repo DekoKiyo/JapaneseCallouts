@@ -154,9 +154,6 @@
   <data name="DiedHostages" xml:space="preserve">
     <value>Hostages Died:</value>
   </data>
-  <data name="DrunkGuysHelp" xml:space="preserve">
-    <value>This is the end of the callout. You can leave these people alone, or you can help them.</value>
-  </data>
   <data name="EnterRiot" xml:space="preserve">
     <value>Press {0} to enter the riot van to ~b~receive gear~s~.</value>
   </data>
