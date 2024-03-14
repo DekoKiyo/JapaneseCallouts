@@ -127,7 +127,7 @@
     <value>~b~{0}~s~が~g~正常にロードされました!~s~~n~開発者: ~b~{1}~s~</value>
   </data>
   <data name="PluginUnloaded" xml:space="preserve">
-    <value>~b~{0}~s~ was ~r~unloaded!~s~.</value>
+    <value>~b~{0}~s~ was ~r~unloaded!~s~</value>
   </data>
   <data name="PressToTalk" xml:space="preserve">
     <value>Press {0} to talk.</value>
