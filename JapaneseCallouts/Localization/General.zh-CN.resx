@@ -135,6 +135,12 @@
   <data name="PressToTalkWith" xml:space="preserve">
     <value>Press {0} to talk with ~g~{1}~s~.</value>
   </data>
+  <data name="RespondCode2" xml:space="preserve">
+    <value>Respond with ~y~Code2~s~.</value>
+  </data>
+  <data name="RespondCode3" xml:space="preserve">
+    <value>Respond with ~r~Code3~s~.</value>
+  </data>
   <data name="SomethingWrong" xml:space="preserve">
     <value>It seems like ~r~an error occurred somewhere~s~. Please give ~o~RagePluginHook.log~s~ to ~b~the developer~s~ on ~p~our Discord server~s~ to investigate the cause.</value>
   </data>
