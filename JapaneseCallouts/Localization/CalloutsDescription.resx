@@ -126,4 +126,7 @@
   <data name="StolenVehicle" xml:space="preserve">
     <value>The suspect stolen the vehicle. Search and pursuit it!</value>
   </data>
+  <data name="StoreRobbery" xml:space="preserve">
+    <value>The robbers are robbing the store.</value>
+  </data>
 </root>
