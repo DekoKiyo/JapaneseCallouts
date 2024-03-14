@@ -166,6 +166,9 @@
   <data name="NoDiedHostage" xml:space="preserve">
     <value>Solved a bank robbery without hostages dead.</value>
   </data>
+  <data name="Remaining" xml:space="preserve">
+    <value>Remaining:</value>
+  </data>
   <data name="RescuedHostages" xml:space="preserve">
     <value>Hostages Rescued:</value>
   </data>

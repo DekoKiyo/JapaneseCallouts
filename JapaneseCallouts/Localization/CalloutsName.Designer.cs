@@ -86,5 +86,14 @@ namespace JapaneseCallouts.Localization {
                 return ResourceManager.GetString("StolenVehicle", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Store Robbery に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string StoreRobbery {
+            get {
+                return ResourceManager.GetString("StoreRobbery", resourceCulture);
+            }
+        }
     }
 }

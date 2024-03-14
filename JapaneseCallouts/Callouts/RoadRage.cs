@@ -7,8 +7,8 @@ internal class RoadRage : CalloutBase
     private Ped suspect, victim;
     private Blip area, victimB;
     private LHandle pursuit;
-    private bool found = false, arrested = false, arrived = false, talkedToVictim = false, isHornActive = false;
-    private int blipTimer = 750, count = 0, hornCooldown = 0;
+    private bool found = false, arrested = false, arrived = false, talkedToVictim = false;
+    private int blipTimer = 750, count = 0;
 
     private static readonly (string, string)[] FinalVictimTalk =
     [
@@ -61,7 +61,7 @@ internal class RoadRage : CalloutBase
 
         if (Main.IsCalloutInterfaceAPIExist)
         {
-            CalloutInterfaceAPIFunctions.SendMessage(this, CalloutsDescription.RoadRage);
+            CalloutInterfaceAPIFunctions.SendMessage(this, $"{CalloutsDescription.RoadRage} {General.RespondCode2}");
             CalloutInterfaceAPIFunctions.SendVehicle(suspectV);
             CalloutInterfaceAPIFunctions.SendVehicle(victimV);
         }
@@ -96,6 +96,7 @@ internal class RoadRage : CalloutBase
 
     internal override void Accepted()
     {
+        HudHelpers.DisplayNotification($"{CalloutsDescription.RoadRage} {General.RespondCode2}", General.Dispatch, CalloutsName.RoadRage);
         area = new(victimV.Position.Around(Main.MersenneTwister.Next(100)), Main.MersenneTwister.Next(75, 120))
         {
             Color = Color.Yellow,

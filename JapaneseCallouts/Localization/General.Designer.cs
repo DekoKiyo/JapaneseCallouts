@@ -115,6 +115,24 @@ namespace JapaneseCallouts.Localization {
         }
         
         /// <summary>
+        ///   Respond with ~y~Code2~s~. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string RespondCode2 {
+            get {
+                return ResourceManager.GetString("RespondCode2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Respond with ~r~Code3~s~. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string RespondCode3 {
+            get {
+                return ResourceManager.GetString("RespondCode3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   It seems like ~r~an error occurred somewhere~s~. Please give ~o~RagePluginHook.log~s~ to ~b~the developer~s~ on ~p~our Discord server~s~ to investigate the cause. に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string SomethingWrong {

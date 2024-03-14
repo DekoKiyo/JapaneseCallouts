@@ -205,6 +205,15 @@ namespace JapaneseCallouts.Localization {
         }
         
         /// <summary>
+        ///   Remaining: に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string Remaining {
+            get {
+                return ResourceManager.GetString("Remaining", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Hostages Rescued: に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string RescuedHostages {

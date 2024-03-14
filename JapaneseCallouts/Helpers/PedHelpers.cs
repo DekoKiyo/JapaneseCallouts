@@ -35,4 +35,19 @@ internal static class PedHelpers
         newPed.IsPersistent = true;
         return newPed;
     }
+
+    internal static bool IsAllPedDeadOrArrested(Ped[] peds)
+    {
+        var total = peds.Length;
+        var count = 0;
+        foreach (var ped in peds)
+        {
+            if (ped is not null && ped.IsValid() && ped.Exists())
+            {
+                if (ped.IsDead || Functions.IsPedArrested(ped)) count++;
+            }
+        }
+
+        return count == total;
+    }
 }

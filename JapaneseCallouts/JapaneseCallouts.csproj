@@ -61,6 +61,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>General.resx</DependentUpon>
     </Compile>
+    <Compile Update="Localization\RoadRageConversation.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>RoadRageConversation.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -87,6 +92,10 @@
     <EmbeddedResource Update="Localization\General.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>General.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localization\RoadRageConversation.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>RoadRageConversation.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
 
