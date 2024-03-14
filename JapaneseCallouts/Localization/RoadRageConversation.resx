@@ -117,13 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="BankHeist" xml:space="preserve">
-    <value>Bank Heist</value>
+  <data name="Final1" xml:space="preserve">
+    <value>Thank you, officer. The road rage was very scary.</value>
   </data>
-  <data name="RoadRage" xml:space="preserve">
-    <value>Road Rage</value>
+  <data name="Final2" xml:space="preserve">
+    <value>No problem, sir. So, why did you get the suspect angry?</value>
   </data>
-  <data name="StolenVehicle" xml:space="preserve">
-    <value>Stolen Vehicle</value>
+  <data name="Final3" xml:space="preserve">
+    <value>I don't know, officer. I was driving normally as on other days.</value>
+  </data>
+  <data name="Final4" xml:space="preserve">
+    <value>Would you come to the police station a few days later to tell us what happened?</value>
+  </data>
+  <data name="Final5" xml:space="preserve">
+    <value>Sure. Have a good day, officer!</value>
   </data>
 </root>

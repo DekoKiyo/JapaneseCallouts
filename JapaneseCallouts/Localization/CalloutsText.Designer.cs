@@ -178,7 +178,7 @@ namespace JapaneseCallouts.Localization {
         }
         
         /// <summary>
-        ///   The suspect ~r~escaped~s~. に類似しているローカライズされた文字列を検索します。
+        ///   The suspect has ~r~escaped~s~. に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string Escaped {
             get {
@@ -295,7 +295,7 @@ namespace JapaneseCallouts.Localization {
         }
         
         /// <summary>
-        ///   Talk to ~g~{0}~s~ に類似しているローカライズされた文字列を検索します。
+        ///   Talk to ~g~{0}~s~. に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string TalkTo {
             get {
@@ -309,6 +309,33 @@ namespace JapaneseCallouts.Localization {
         internal static string TalkToCommander {
             get {
                 return ResourceManager.GetString("TalkToCommander", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Talk to ~y~{0}~s~ to get the informations. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string TalkToGetInfo {
+            get {
+                return ResourceManager.GetString("TalkToGetInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Target is in around of ~b~{0}~s~. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string TargetIsIn {
+            get {
+                return ResourceManager.GetString("TargetIsIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Victim に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string Victim {
+            get {
+                return ResourceManager.GetString("Victim", resourceCulture);
             }
         }
     }

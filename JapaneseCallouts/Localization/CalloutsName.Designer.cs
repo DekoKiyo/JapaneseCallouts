@@ -70,6 +70,15 @@ namespace JapaneseCallouts.Localization {
         }
         
         /// <summary>
+        ///   Road Rage に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string RoadRage {
+            get {
+                return ResourceManager.GetString("RoadRage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Stolen Vehicle に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string StolenVehicle {

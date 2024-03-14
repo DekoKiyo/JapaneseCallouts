@@ -22,14 +22,14 @@ namespace JapaneseCallouts.Localization {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class CalloutsDescription {
+    internal class RoadRageConversation {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal CalloutsDescription() {
+        internal RoadRageConversation() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace JapaneseCallouts.Localization {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("JapaneseCallouts.Localization.CalloutsDescription", typeof(CalloutsDescription).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("JapaneseCallouts.Localization.RoadRageConversation", typeof(RoadRageConversation).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,29 +61,47 @@ namespace JapaneseCallouts.Localization {
         }
         
         /// <summary>
-        ///   The robber has taken hostages and barricaded themselves inside the bank. に類似しているローカライズされた文字列を検索します。
+        ///   Thank you, officer. The road rage was very scary. に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string BankHeist {
+        internal static string Final1 {
             get {
-                return ResourceManager.GetString("BankHeist", resourceCulture);
+                return ResourceManager.GetString("Final1", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   A citizen reported being harassed by another vehicle while driving. に類似しているローカライズされた文字列を検索します。
+        ///   No problem, sir. So, why did you get the suspect angry? に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string RoadRage {
+        internal static string Final2 {
             get {
-                return ResourceManager.GetString("RoadRage", resourceCulture);
+                return ResourceManager.GetString("Final2", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   The suspect stolen the vehicle. Search and pursuit it! に類似しているローカライズされた文字列を検索します。
+        ///   I don&apos;t know, officer. I was driving normally as on other days. に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string StolenVehicle {
+        internal static string Final3 {
             get {
-                return ResourceManager.GetString("StolenVehicle", resourceCulture);
+                return ResourceManager.GetString("Final3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Would you come to the police station a few days later to tell us what happened? に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string Final4 {
+            get {
+                return ResourceManager.GetString("Final4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sure. Have a good day, officer! に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string Final5 {
+            get {
+                return ResourceManager.GetString("Final5", resourceCulture);
             }
         }
     }

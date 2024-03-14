@@ -1,6 +1,6 @@
 namespace JapaneseCallouts.Callouts;
 
-[CalloutInfo("[JPC] StolenVehicle", CalloutProbability.Medium)]
+[CalloutInfo("[JPC] Stolen Vehicle", CalloutProbability.Medium)]
 internal class StolenVehicle : CalloutBase
 {
     private Ped suspect;
@@ -106,8 +106,8 @@ internal class StolenVehicle : CalloutBase
 
     internal override void NotAccepted()
     {
-        if (suspect is not null && suspect.IsValid() && suspect.Exists()) suspect.Dismiss();
-        if (stolen is not null && stolen.IsValid() && stolen.Exists()) stolen.Dismiss();
+        if (suspect is not null && suspect.IsValid() && suspect.Exists()) suspect.Delete();
+        if (stolen is not null && stolen.IsValid() && stolen.Exists()) stolen.Delete();
         if (area is not null && area.IsValid() && area.Exists()) area.Delete();
         if (pursuit is not null) Functions.ForceEndPursuit(pursuit);
     }
