@@ -102,29 +102,6 @@ internal class RoadRage : CalloutBase
             Alpha = 0.5f,
             IsRouteEnabled = true
         };
-        GameFiber.StartNew(() =>
-        {
-            while (!found)
-            {
-                GameFiber.Yield();
-                if (suspectV is not null && suspectV.IsValid() && suspectV.Exists())
-                {
-                    isHornActive = Natives.IS_HORN_ACTIVE<bool>(suspectV);
-                    if (!isHornActive)
-                    {
-                        if (hornCooldown <= 0)
-                        {
-                            hornCooldown = Main.MersenneTwister.Next(100, 800);
-                            Natives.START_VEHICLE_HORN(suspectV, hornCooldown, "NORMAL", false);
-                        }
-                        else
-                        {
-                            hornCooldown--;
-                        }
-                    }
-                }
-            }
-        });
     }
 
     internal override void NotAccepted()
