@@ -7,5 +7,6 @@ internal static class CalloutManager
         Functions.RegisterCallout(typeof(StolenVehicle));
         // Functions.RegisterCallout(typeof(YakuzaActivity));
         Functions.RegisterCallout(typeof(BankHeist));
+        Functions.RegisterCallout(typeof(RoadRage));
     }
 }

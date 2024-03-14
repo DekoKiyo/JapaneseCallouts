@@ -7,10 +7,10 @@ internal class RoadRage : CalloutBase
     private Ped suspect, victim;
     private Blip area, victimB;
     private LHandle pursuit;
-    private bool found = false, arrested = false, arrived = false, talkedToVictim = false;
-    private int blipTimer = 750, count = 0;
+    private bool found = false, arrested = false, arrived = false, talkedToVictim = false, isHornActive = false;
+    private int blipTimer = 750, count = 0, hornCooldown = 0;
 
-    private static (string, string)[] FinalVictimTalk =
+    private static readonly (string, string)[] FinalVictimTalk =
     [
         (CalloutsText.Victim, RoadRageConversation.Final1),
         (Settings.OfficerName, RoadRageConversation.Final2),
@@ -21,13 +21,13 @@ internal class RoadRage : CalloutBase
 
     internal override void Setup()
     {
-        CalloutPosition = World.GetNextPositionOnStreet(Main.Player.Position.Around(Main.MersenneTwister.Next(200, 700)));
+        CalloutPosition = World.GetNextPositionOnStreet(Main.Player.Position.Around(Main.MersenneTwister.Next(450, 800)));
 
-        victimV = new(x => x.IsCar && !x.IsEmergencyVehicle, suspectV.GetOffsetPositionFront(3f))
+        suspectV = new(x => x.IsCar && !x.IsEmergencyVehicle, CalloutPosition)
         {
             IsPersistent = true,
         };
-        suspectV = new(x => x.IsCar && !x.IsEmergencyVehicle, CalloutPosition)
+        victimV = new(x => x.IsCar && !x.IsEmergencyVehicle, suspectV.GetOffsetPositionFront(5f))
         {
             IsPersistent = true,
         };
@@ -74,6 +74,7 @@ internal class RoadRage : CalloutBase
                 if (victim is not null && victim.IsValid() && victim.Exists()) victim.Delete();
                 if (suspectV is not null && suspectV.IsValid() && suspectV.Exists()) suspectV.Delete();
                 if (victimV is not null && victimV.IsValid() && victimV.Exists()) victimV.Delete();
+                if (victimB is not null && victimB.IsValid() && victimB.Exists()) victimB.Delete();
                 if (area is not null && area.IsValid() && area.Exists()) area.Delete();
                 if (pursuit is not null) Functions.ForceEndPursuit(pursuit);
             }
@@ -83,6 +84,7 @@ internal class RoadRage : CalloutBase
                 if (victim is not null && victim.IsValid() && victim.Exists()) victim.Dismiss();
                 if (suspectV is not null && suspectV.IsValid() && suspectV.Exists()) suspectV.Dismiss();
                 if (victimV is not null && victimV.IsValid() && victimV.Exists()) victimV.Dismiss();
+                if (victimB is not null && victimB.IsValid() && victimB.Exists()) victimB.Delete();
                 if (area is not null && area.IsValid() && area.Exists()) area.Delete();
                 if (count > 10) HudHelpers.DisplayNotification(CalloutsText.Escaped, General.Dispatch, CalloutsName.RoadRage);
                 else HudHelpers.DisplayNotification(General.CalloutCode4, General.Dispatch, CalloutsName.RoadRage);
@@ -100,6 +102,29 @@ internal class RoadRage : CalloutBase
             Alpha = 0.5f,
             IsRouteEnabled = true
         };
+        GameFiber.StartNew(() =>
+        {
+            while (!found)
+            {
+                GameFiber.Yield();
+                if (suspectV is not null && suspectV.IsValid() && suspectV.Exists())
+                {
+                    isHornActive = Natives.IS_HORN_ACTIVE<bool>(suspectV);
+                    if (!isHornActive)
+                    {
+                        if (hornCooldown <= 0)
+                        {
+                            hornCooldown = Main.MersenneTwister.Next(100, 800);
+                            Natives.START_VEHICLE_HORN(suspectV, hornCooldown, "NORMAL", false);
+                        }
+                        else
+                        {
+                            hornCooldown--;
+                        }
+                    }
+                }
+            }
+        });
     }
 
     internal override void NotAccepted()
@@ -109,6 +134,7 @@ internal class RoadRage : CalloutBase
         if (suspectV is not null && suspectV.IsValid() && suspectV.Exists()) suspectV.Delete();
         if (victimV is not null && victimV.IsValid() && victimV.Exists()) victimV.Delete();
         if (area is not null && area.IsValid() && area.Exists()) area.Delete();
+        if (victimB is not null && victimB.IsValid() && victimB.Exists()) victimB.Delete();
         if (pursuit is not null) Functions.ForceEndPursuit(pursuit);
     }
 
@@ -123,7 +149,9 @@ internal class RoadRage : CalloutBase
             area.IsRouteEnabled = true;
 
             HudHelpers.DisplayNotification(CalloutsText.StolenVehicleDataUpdate);
-            HudHelpers.DisplayNotification(string.Format(CalloutsText.TargetIsIn, World.GetStreetName(victimV.Position)));
+            Natives.GET_STREET_NAME_AT_COORD(victimV.Position.X, victimV.Position.Y, victimV.Position.Z, out uint hash, out uint _);
+            var streetName = Natives.GET_STREET_NAME_FROM_HASH_KEY<string>(hash);
+            HudHelpers.DisplayNotification(string.Format(CalloutsText.TargetIsIn, streetName));
             Functions.PlayScannerAudioUsingPosition("JP_TARGET_IS IN_OR_ON_POSITION", victimV.Position);
             count++;
         }
@@ -132,8 +160,12 @@ internal class RoadRage : CalloutBase
             found = true;
             if (area is not null && area.IsValid() && area.Exists()) area.Delete();
             Functions.PlayScannerAudioUsingPosition("ATTENTION_ALL_UNITS WE_HAVE CRIME_SUSPECT_ON_THE_RUN IN_OR_ON_POSITION", victimV.Position);
-            if (suspect is not null && suspect.IsValid() && suspect.Exists())
+            if (suspect is not null && suspect.IsValid() && suspect.Exists() &&
+                victim is not null && victim.IsValid() && victim.Exists())
             {
+                victim.Tasks.Clear();
+                suspect.Tasks.Clear();
+                victim.Tasks.ParkVehicle(victim.Position, victim.Heading).WaitForCompletion(10000);
                 victimB = victim.AttachBlip();
                 if (victimB is not null && victimB.IsValid() && victimB.Exists())
                 {
@@ -149,16 +181,19 @@ internal class RoadRage : CalloutBase
             }
         }
 
-        if (!arrested && suspect is not null && suspect.IsValid() && suspect.Exists() && (suspect.IsDead || Functions.IsPedArrested(suspect))) arrested = true;
+        if (!arrested && suspect is not null && suspect.IsValid() && suspect.Exists() && (suspect.IsDead || Functions.IsPedArrested(suspect)))
+        {
+            arrested = true;
+            HudHelpers.DisplayHelp(string.Format(CalloutsText.TalkToGetInfo, CalloutsText.Victim));
+            if (victimB is not null && victimB.IsValid() && victimB.Exists())
+            {
+                victimB.IsRouteEnabled = true;
+            }
+        }
         if (arrested)
         {
             if (!arrived && victim is not null && victim.IsValid() && victim.Exists())
             {
-                HudHelpers.DisplayHelp(string.Format(CalloutsText.TalkToGetInfo, CalloutsText.Victim));
-                if (victimB is not null && victimB.IsValid() && victimB.Exists())
-                {
-                    victimB.IsRouteEnabled = true;
-                }
                 if (Vector3.Distance(victim.Position, Main.Player.Position) < 20f)
                 {
                     if (victimB is not null && victimB.IsValid() && victimB.Exists())

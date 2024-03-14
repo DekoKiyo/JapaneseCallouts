@@ -88,7 +88,7 @@ namespace JapaneseCallouts.Localization {
         }
         
         /// <summary>
-        ///   ~b~{0}~s~ was ~r~unloaded!~s~. に類似しているローカライズされた文字列を検索します。
+        ///   ~b~{0}~s~ was ~r~unloaded!~s~ に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string PluginUnloaded {
             get {
