@@ -32,6 +32,7 @@ global using System.Xml.Linq;
 global using System.Xml.Serialization;
 global using Debug = System.Diagnostics.Debug;
 global using Font = System.Drawing.Font;
+global using Math = System.Math;
 #endregion
 #region IniParser
 global using IniParser;

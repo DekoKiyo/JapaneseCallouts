@@ -4,7 +4,6 @@ $JapaneseCalloutsFolder = ".\Release\GrandTheftAutoV\plugins\LSPDFR\JapaneseCall
 $AudioFolder = ".\Release\GrandTheftAutoV\LSPDFR\Audio\scanner"
 
 $NAudioCoreDllFile = ".\JapaneseCallouts\bin\Release\net48\NAudio.Core.dll"
-$CalloutInterfaceAPIDllFile = ".\JapaneseCallouts\bin\Release\net48\CalloutInterfaceAPI.dll"
 $PluginDllFile = ".\JapaneseCallouts\bin\Release\net48\JapaneseCallouts.dll"
 $PluginIniFile = ".\JapaneseCallouts\JapaneseCallouts.ini"
 $PluginAudioFolder = ".\JapaneseCallouts\Audio"
@@ -39,7 +38,6 @@ Copy-Item $PluginIniFile $PluginsLSPDFRFolder
 
 New-Item $JapaneseCalloutsFolder -ItemType Directory
 Copy-Item $NAudioCoreDllFile .\Release\GrandTheftAutoV\
-Copy-Item $CalloutInterfaceAPIDllFile .\Release\GrandTheftAutoV\
 Copy-Item $PluginDllFile .\Release\GrandTheftAutoV\plugins\LSPDFR
 Copy-Item $PluginIniFile .\Release\GrandTheftAutoV\plugins\LSPDFR
 Copy-Item $PluginAudioFolder .\Release\GrandTheftAutoV\plugins\LSPDFR\JapaneseCallouts\ -Recurse
