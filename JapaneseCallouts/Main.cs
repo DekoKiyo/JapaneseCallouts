@@ -82,6 +82,11 @@ global using RObject = Rage.Object;
 global using NAudio;
 global using NAudio.Wave;
 #endregion
+#region IPT.Common
+global using IPT.Common;
+global using IPT.Common.API;
+global using IPTFunctions = IPT.Common.API.Functions;
+#endregion
 
 namespace JapaneseCallouts;
 

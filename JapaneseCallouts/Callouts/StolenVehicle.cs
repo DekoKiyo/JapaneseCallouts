@@ -114,7 +114,7 @@ internal class StolenVehicle : CalloutBase
 
     internal override void Update()
     {
-        if (!found) blipTimer--;
+        if (!found && !IPTFunctions.IsGamePaused()) blipTimer--;
         if (blipTimer < 0 && !found)
         {
             blipTimer = 1800;
