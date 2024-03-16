@@ -70,7 +70,16 @@ namespace JapaneseCallouts.Localization {
         }
         
         /// <summary>
-        ///   A citizen reported being harassed by another vehicle while driving. に類似しているローカライズされた文字列を検索します。
+        ///   A citizen reports that some drunk persons are sleeping in public spaces. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string DrunkGuys {
+            get {
+                return ResourceManager.GetString("DrunkGuys", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   A citizen reports being harassed by another vehicle while driving. に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string RoadRage {
             get {

@@ -22,14 +22,14 @@ namespace JapaneseCallouts.Localization {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class RoadRageConversation {
+    internal class CalloutsConversation {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal RoadRageConversation() {
+        internal CalloutsConversation() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace JapaneseCallouts.Localization {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("JapaneseCallouts.Localization.RoadRageConversation", typeof(RoadRageConversation).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("JapaneseCallouts.Localization.CalloutsConversation", typeof(CalloutsConversation).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,47 +61,101 @@ namespace JapaneseCallouts.Localization {
         }
         
         /// <summary>
+        ///   Excuse me, are you okay? に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string DrunkAsk {
+            get {
+                return ResourceManager.GetString("DrunkAsk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Hello, could you tell me these persons? に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string DrunkCitizen1 {
+            get {
+                return ResourceManager.GetString("DrunkCitizen1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   They are very drunk. Maybe they cannnot walk themselves. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string DrunkCitizen2 {
+            get {
+                return ResourceManager.GetString("DrunkCitizen2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   It is too dangerous for them to sleep here. Can you help them? に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string DrunkCitizen3 {
+            get {
+                return ResourceManager.GetString("DrunkCitizen3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Of course, don&apos;t worry. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string DrunkCitizen4 {
+            get {
+                return ResourceManager.GetString("DrunkCitizen4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Thank you, officer! に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string DrunkCitizen5 {
+            get {
+                return ResourceManager.GetString("DrunkCitizen5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Thank you, officer. The road rage was very scary. に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string Final1 {
+        internal static string RoadRageFinal1 {
             get {
-                return ResourceManager.GetString("Final1", resourceCulture);
+                return ResourceManager.GetString("RoadRageFinal1", resourceCulture);
             }
         }
         
         /// <summary>
         ///   No problem, sir. So, why did you get the suspect angry? に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string Final2 {
+        internal static string RoadRageFinal2 {
             get {
-                return ResourceManager.GetString("Final2", resourceCulture);
+                return ResourceManager.GetString("RoadRageFinal2", resourceCulture);
             }
         }
         
         /// <summary>
         ///   I don&apos;t know, officer. I was driving normally as on other days. に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string Final3 {
+        internal static string RoadRageFinal3 {
             get {
-                return ResourceManager.GetString("Final3", resourceCulture);
+                return ResourceManager.GetString("RoadRageFinal3", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Would you come to the police station a few days later to tell us what happened? に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string Final4 {
+        internal static string RoadRageFinal4 {
             get {
-                return ResourceManager.GetString("Final4", resourceCulture);
+                return ResourceManager.GetString("RoadRageFinal4", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Sure. Have a good day, officer! に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        internal static string Final5 {
+        internal static string RoadRageFinal5 {
             get {
-                return ResourceManager.GetString("Final5", resourceCulture);
+                return ResourceManager.GetString("RoadRageFinal5", resourceCulture);
             }
         }
     }

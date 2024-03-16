@@ -117,19 +117,37 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Final1" xml:space="preserve">
+  <data name="DrunkAsk" xml:space="preserve">
+    <value>Excuse me, are you okay?</value>
+  </data>
+  <data name="DrunkCitizen1" xml:space="preserve">
+    <value>Hello, could you tell me these persons?</value>
+  </data>
+  <data name="DrunkCitizen2" xml:space="preserve">
+    <value>They are very drunk. Maybe they cannnot walk themselves.</value>
+  </data>
+  <data name="DrunkCitizen3" xml:space="preserve">
+    <value>It is too dangerous for them to sleep here. Can you help them?</value>
+  </data>
+  <data name="DrunkCitizen4" xml:space="preserve">
+    <value>Of course, don't worry.</value>
+  </data>
+  <data name="DrunkCitizen5" xml:space="preserve">
+    <value>Thank you, officer!</value>
+  </data>
+  <data name="RoadRageFinal1" xml:space="preserve">
     <value>Thank you, officer. The road rage was very scary.</value>
   </data>
-  <data name="Final2" xml:space="preserve">
+  <data name="RoadRageFinal2" xml:space="preserve">
     <value>No problem, sir. So, why did you get the suspect angry?</value>
   </data>
-  <data name="Final3" xml:space="preserve">
+  <data name="RoadRageFinal3" xml:space="preserve">
     <value>I don't know, officer. I was driving normally as on other days.</value>
   </data>
-  <data name="Final4" xml:space="preserve">
+  <data name="RoadRageFinal4" xml:space="preserve">
     <value>Would you come to the police station a few days later to tell us what happened?</value>
   </data>
-  <data name="Final5" xml:space="preserve">
+  <data name="RoadRageFinal5" xml:space="preserve">
     <value>Sure. Have a good day, officer!</value>
   </data>
 </root>

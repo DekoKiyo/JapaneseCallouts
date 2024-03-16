@@ -142,6 +142,15 @@ namespace JapaneseCallouts.Localization {
         }
         
         /// <summary>
+        ///   Citizen に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string Citizen {
+            get {
+                return ResourceManager.GetString("Citizen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Commander に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string Commander {
@@ -165,6 +174,24 @@ namespace JapaneseCallouts.Localization {
         internal static string DiedHostages {
             get {
                 return ResourceManager.GetString("DiedHostages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   The drunk persons ~r~cannot walk themselves~s~. Call the taxi for them. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string DrunkCallTaxi {
+            get {
+                return ResourceManager.GetString("DrunkCallTaxi", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Drunk Person に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string DrunkPerson {
+            get {
+                return ResourceManager.GetString("DrunkPerson", resourceCulture);
             }
         }
         

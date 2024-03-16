@@ -9,5 +9,6 @@ internal static class CalloutManager
         Functions.RegisterCallout(typeof(BankHeist));
         Functions.RegisterCallout(typeof(RoadRage));
         Functions.RegisterCallout(typeof(StoreRobbery));
+        Functions.RegisterCallout(typeof(DrunkGuys));
     }
 }

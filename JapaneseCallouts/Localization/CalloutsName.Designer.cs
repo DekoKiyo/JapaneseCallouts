@@ -70,6 +70,15 @@ namespace JapaneseCallouts.Localization {
         }
         
         /// <summary>
+        ///   Drunk Guys に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string DrunkGuys {
+            get {
+                return ResourceManager.GetString("DrunkGuys", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Road Rage に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string RoadRage {

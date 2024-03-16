@@ -12,11 +12,11 @@ internal class RoadRage : CalloutBase
 
     private static readonly (string, string)[] FinalVictimTalk =
     [
-        (CalloutsText.Victim, RoadRageConversation.Final1),
-        (Settings.OfficerName, RoadRageConversation.Final2),
-        (CalloutsText.Victim, RoadRageConversation.Final3),
-        (Settings.OfficerName, RoadRageConversation.Final4),
-        (CalloutsText.Victim, RoadRageConversation.Final5)
+        (CalloutsText.Victim, CalloutsConversation.RoadRageFinal1),
+        (Settings.OfficerName, CalloutsConversation.RoadRageFinal2),
+        (CalloutsText.Victim, CalloutsConversation.RoadRageFinal3),
+        (Settings.OfficerName, CalloutsConversation.RoadRageFinal4),
+        (CalloutsText.Victim, CalloutsConversation.RoadRageFinal5),
     ];
 
     internal override void Setup()
