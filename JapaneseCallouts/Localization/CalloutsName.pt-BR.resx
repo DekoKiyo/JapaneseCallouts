@@ -120,6 +120,9 @@
   <data name="BankHeist" xml:space="preserve">
     <value>Bank Heist</value>
   </data>
+  <data name="DrunkGuys" xml:space="preserve">
+    <value>Drunk Guys</value>
+  </data>
   <data name="RoadRage" xml:space="preserve">
     <value>Road Rage</value>
   </data>
