@@ -144,6 +144,9 @@
   <data name="CallBankRobbers" xml:space="preserve">
     <value>Press {0} to try to discuss with the robbers by phone.</value>
   </data>
+  <data name="Citizen" xml:space="preserve">
+    <value>Citizen</value>
+  </data>
   <data name="Commander" xml:space="preserve">
     <value>Commander</value>
     <comment>It's used in Bank Heist</comment>
@@ -153,6 +156,12 @@
   </data>
   <data name="DiedHostages" xml:space="preserve">
     <value>Hostages Died:</value>
+  </data>
+  <data name="DrunkCallTaxi" xml:space="preserve">
+    <value>The drunk persons ~r~cannot walk themselves~s~. Call the taxi for them.</value>
+  </data>
+  <data name="DrunkPerson" xml:space="preserve">
+    <value>Drunk Person</value>
   </data>
   <data name="EnterRiot" xml:space="preserve">
     <value>Press {0} to enter the riot van to ~b~receive gear~s~.</value>
