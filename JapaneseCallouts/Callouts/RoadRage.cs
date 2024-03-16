@@ -199,6 +199,7 @@ internal class RoadRage : CalloutBase
                         }
                     }
                 }
+                if (!victim.Exists() && !victimV.Exists()) End();
             }
         }
         if (count > 10) End();
