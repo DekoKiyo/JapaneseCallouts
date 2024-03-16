@@ -5,18 +5,18 @@ namespace JapaneseCallouts.Callouts;
 [CalloutInfo("[JPC] Store Robbery", CalloutProbability.Medium)]
 internal class StoreRobbery : CalloutBase
 {
-    private int index = 0;
+    private int index = 0, seconds = 80;
     private readonly List<Ped> robbers = [];
     private readonly Model RobbersModel = "MP_G_M_PROS_01";
     private readonly RelationshipGroup RobbersRG = "ROBBERS";
     private bool arrived = false;
     private LHandle pursuit;
-    private int timer = 80000;
     private Blip blip;
+    private readonly Timer timer = new(1000);
     private readonly TimerBarPool tbPool = [];
     private readonly TextTimerBar timerBar = new(CalloutsText.Remaining, "");
     private readonly (Vector3 pos, (Vector3 pos, WeaponHash weapon, short ammo)[] robbersPos)[] robbersData =
-    {
+    [
         (new(-49.0f, -1755.6f, 23.4f),
             [
                 (new(-42.9f, -1749.3f, 29.4f), WeaponHash.Pistol, 5000),
@@ -147,7 +147,7 @@ internal class StoreRobbery : CalloutBase
                 (new(1730.2f, 6418.4f, 35.0f), WeaponHash.Knife, 1),
             ]
         )
-    };
+    ];
 
     internal override void Setup()
     {
@@ -218,23 +218,24 @@ internal class StoreRobbery : CalloutBase
             IsRouteEnabled = true
         };
 
-        GameFiber.StartNew(() =>
-        {
-            while (!arrived)
-            {
-                GameFiber.Yield();
-                timer--;
-            }
-        });
-
         GameFiber.StartNew(ProcessTimerBars);
+        timer.Elapsed += (sender, e) =>
+        {
+            if (!arrived)
+            {
+                seconds--;
+                var span = new TimeSpan(0, 0, seconds);
+                timerBar.Text = span.ToString(@"hh\:mm\:ss");
+            }
+        };
+        timer.Start();
     }
 
     internal override void NotAccepted() { }
 
     internal override void Update()
     {
-        if (!arrived && Vector3.Distance(Main.Player.Position, CalloutPosition) < 30f)
+        if (!arrived && (Vector3.Distance(Main.Player.Position, CalloutPosition) < 30f || seconds is <= 0))
         {
             if (blip is not null && blip.IsValid() && blip.Exists()) blip.Delete();
             pursuit = Functions.CreatePursuit();
@@ -250,6 +251,7 @@ internal class StoreRobbery : CalloutBase
                 }
                 Functions.SetPursuitIsActiveForPlayer(pursuit, true);
             }
+            Functions.PlayScannerAudioUsingPosition("ATTENTION_ALL_UNITS WE_HAVE CRIME_SUSPECT_ON_THE_RUN IN_OR_ON_POSITION", CalloutPosition);
             arrived = true;
         }
 
@@ -259,12 +261,10 @@ internal class StoreRobbery : CalloutBase
 
     private void ProcessTimerBars()
     {
-        var span = new TimeSpan(0, 0, timer / 1000);
-        while (!arrived)
+        while (!arrived && IsCalloutRunning)
         {
             GameFiber.Yield();
             tbPool.Draw();
-            timerBar.Text = span.ToString(@"hh\:mm\:ss");
         }
     }
 }

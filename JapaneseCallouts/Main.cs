@@ -24,6 +24,7 @@ global using System.Text;
 global using System.Text.RegularExpressions;
 global using System.Threading;
 global using System.Threading.Tasks;
+global using Timer = System.Timers.Timer;
 global using Task = System.Threading.Tasks.Task;
 global using System.Windows.Forms;
 global using System.Xml;
