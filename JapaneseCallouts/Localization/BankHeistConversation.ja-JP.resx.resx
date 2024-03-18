@@ -403,34 +403,34 @@
     <value>愛してるよ~b~{0}~s~! ~g~今出るからね!~g~</value>
   </data>
   <data name="Request229" xml:space="preserve">
-    <value>Thank you, Mrs.~b~{0}~s~. For safety, please get back into a police car.</value>
+    <value>ありがとうございます、~b~{0}夫人~s~。安全のため、パトカーにお戻りください。</value>
   </data>
   <data name="Request231" xml:space="preserve">
-    <value>~y~Release the hostages, now!~s~</value>
+    <value>~y~人質を開放しろ! 今すぐ!~s~</value>
   </data>
   <data name="Request31" xml:space="preserve">
-    <value>I won't release hostages that easily.</value>
+    <value>何を言っているんだ? 懲役を決めるのは裁判官だ。</value>
   </data>
   <data name="Request32" xml:space="preserve">
-    <value>This action is necessary to help my family.</value>
+    <value>警察官ならそれくらいのことは知ってるだろ?</value>
   </data>
   <data name="Request33" xml:space="preserve">
-    <value>~r~But you won't understand forever.~s~</value>
+    <value>舐めんなよ。~r~俺だって義務教育くらいは頭に入ってるぞ。~s~</value>
   </data>
   <data name="RequestSelection1" xml:space="preserve">
-    <value>I'll try to work on it but I can't guarantee anything.</value>
+    <value>今バスの手配をしたが、本当に来るかは保証できないぞ。</value>
   </data>
   <data name="RequestSelection2" xml:space="preserve">
-    <value>OK, we have a bus on the way, but you need to release the hostages first.</value>
+    <value>バスを手配しよう。だが、まず人質を開放しなさい。</value>
   </data>
   <data name="RequestSelection3" xml:space="preserve">
-    <value>Release hostage now and I'll cut your sentences by 5 years.</value>
+    <value>今人質を開放したら懲役を5年縮めてあげよう。</value>
   </data>
   <data name="RequestSelection4" xml:space="preserve">
-    <value>The bus won't come here.</value>
+    <value>バスは来ないぞ。</value>
   </data>
   <data name="RequestSelection5" xml:space="preserve">
-    <value>I have your wife.</value>
+    <value>ここには妻がいる。</value>
   </data>
   <data name="RequestSelection6" xml:space="preserve">
     <value>人質を開放しろ!</value>
