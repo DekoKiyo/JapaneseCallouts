@@ -118,25 +118,25 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Alarm1" xml:space="preserve">
-    <value>Well, do you want to kill the alarm?</value>
+    <value>アラームは切ったほうが良いかな?</value>
   </data>
   <data name="Alarm2" xml:space="preserve">
-    <value>Tech team... it's me... yes...</value>
+    <value>技術チーム... 私だ... そうだよ...</value>
   </data>
   <data name="Alarm3" xml:space="preserve">
-    <value>That's all. If you want to turn on again, please radio to tech team.</value>
+    <value>これでよし。またアラームをオンにしたければ、技術チームに連絡しなさい。</value>
   </data>
   <data name="Alarm4" xml:space="preserve">
-    <value>You sure? If you want to turn off, please radio to tech team.</value>
+    <value>本当に良いのかい? オフにしたければ技術チームに連絡しなさい。</value>
   </data>
   <data name="Alarm5" xml:space="preserve">
-    <value>Good luck, officer!</value>
+    <value>事件解決に向けて頑張ってくれたまえ。幸運を祈る。</value>
   </data>
   <data name="AlarmSelection1" xml:space="preserve">
-    <value>Yes, I want to kill the alarm.</value>
+    <value>はい、アラームを切ってください。</value>
   </data>
   <data name="AlarmSelection2" xml:space="preserve">
-    <value>No, it's not necessary.</value>
+    <value>いいえ、必要ありません。</value>
   </data>
   <data name="Discuss1" xml:space="preserve">
     <value>Also worried about the hostages. ~y~Let's try to discuss with them~s~. How can I talk with them?</value>
