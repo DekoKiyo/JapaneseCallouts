@@ -118,18 +118,18 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="BankHeist" xml:space="preserve">
-    <value>The robber has taken hostages and barricaded themselves inside the bank.</value>
+    <value>強盗団が人質を取って銀行に立てこもりました。</value>
   </data>
   <data name="DrunkGuys" xml:space="preserve">
-    <value>A citizen reports that some drunk persons are sleeping in public spaces.</value>
+    <value>複数人が公共の場で酔いつぶれていると、市民から通報がありました。</value>
   </data>
   <data name="RoadRage" xml:space="preserve">
-    <value>A citizen reports being harassed by another vehicle while driving.</value>
+    <value>運転中に他の車から危険な運転を繰り返されていると、市民から通報がありました。</value>
   </data>
   <data name="StolenVehicle" xml:space="preserve">
-    <value>The suspect stolen the vehicle. Search and pursuit it!</value>
+    <value>車両盗難が発生しました。容疑者は逃走中です。捜索して確保してください!</value>
   </data>
   <data name="StoreRobbery" xml:space="preserve">
-    <value>The robbers are robbing the store.</value>
+    <value>コンビニに強盗が押し入ったと通報がありました。</value>
   </data>
 </root>
