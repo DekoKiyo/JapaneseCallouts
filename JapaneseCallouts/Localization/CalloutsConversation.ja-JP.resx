@@ -124,30 +124,30 @@
     <value>こんにちは、この方々について何かご存知ですか?</value>
   </data>
   <data name="DrunkCitizen2" xml:space="preserve">
-    <value>They are very drunk. Maybe they cannnot walk themselves.</value>
+    <value>彼らは酔いつぶれてるんだと思う。歩けないほどに。</value>
   </data>
   <data name="DrunkCitizen3" xml:space="preserve">
-    <value>It is too dangerous for them to sleep here. Can you help them?</value>
+    <value>ここで寝るのは危険すぎるから、なんとか助けられないですかね?</value>
   </data>
   <data name="DrunkCitizen4" xml:space="preserve">
-    <value>Of course, don't worry.</value>
+    <value>もちろん、心配しないでください。</value>
   </data>
   <data name="DrunkCitizen5" xml:space="preserve">
-    <value>Thank you, officer!</value>
+    <value>ありがとう、お巡りさん!</value>
   </data>
   <data name="RoadRageFinal1" xml:space="preserve">
-    <value>Thank you, officer. The road rage was very scary.</value>
+    <value>ありがとうございます。煽り運転はとても怖かったです。</value>
   </data>
   <data name="RoadRageFinal2" xml:space="preserve">
-    <value>No problem, sir. So, why did you get the suspect angry?</value>
+    <value>No problem. But, why did you get the suspect angry?</value>
   </data>
   <data name="RoadRageFinal3" xml:space="preserve">
-    <value>I don't know, officer. I was driving normally as on other days.</value>
+    <value>分かりません。いつもと同じように運転していだだけなのに...</value>
   </data>
   <data name="RoadRageFinal4" xml:space="preserve">
-    <value>Would you come to the police station a few days later to tell us what happened?</value>
+    <value>何があったのかを詳しく聞きたいので、後日警察署に来て頂けますか?</value>
   </data>
   <data name="RoadRageFinal5" xml:space="preserve">
-    <value>Sure. Have a good day, officer!</value>
+    <value>もちろんです。良い一日を!</value>
   </data>
 </root>
