@@ -178,7 +178,7 @@
     <value>~r~There are many robbers in the bank~s~, but we don't know how many they are.</value>
   </data>
   <data name="Intro3" xml:space="preserve">
-    <value>Well, are there any hostages?</value>
+    <value>Well, how many hostages are there?</value>
   </data>
   <data name="Intro4" xml:space="preserve">
     <value>Yeah, they have ~y~8 hostages~s~ in the bank...</value>
@@ -301,16 +301,13 @@
     <value>There are many officers.</value>
   </data>
   <data name="NegotiationSelection10" xml:space="preserve">
-    <value>Don't you want to meet again your family?</value>
+    <value>Don't you want to see your family again?</value>
   </data>
   <data name="NegotiationSelection11" xml:space="preserve">
     <value>What are you interested in?</value>
   </data>
   <data name="NegotiationSelection12" xml:space="preserve">
     <value>No idea.</value>
-  </data>
-  <data name="NegotiationSelection13" xml:space="preserve">
-    <value>Don't you want to see your family again?</value>
   </data>
   <data name="NegotiationSelection14" xml:space="preserve">
     <value>Release the hostage first.</value>
@@ -337,7 +334,7 @@
     <value>I'm sorry.</value>
   </data>
   <data name="NegotiationSelection8" xml:space="preserve">
-    <value>You are trying to save your familly, but...</value>
+    <value>You are trying to save your family, but...</value>
   </data>
   <data name="NegotiationSelection9" xml:space="preserve">
     <value>Don't say things like that.</value>

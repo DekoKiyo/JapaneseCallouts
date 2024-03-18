@@ -241,7 +241,7 @@ namespace JapaneseCallouts.Localization {
         }
         
         /// <summary>
-        ///   Well, are there any hostages? に類似しているローカライズされた文字列を検索します。
+        ///   Well, how many hostages are there? に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string Intro3 {
             get {
@@ -610,7 +610,7 @@ namespace JapaneseCallouts.Localization {
         }
         
         /// <summary>
-        ///   Don&apos;t you want to meet again your family? に類似しているローカライズされた文字列を検索します。
+        ///   Don&apos;t you want to see your family again? に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string NegotiationSelection10 {
             get {
@@ -633,15 +633,6 @@ namespace JapaneseCallouts.Localization {
         internal static string NegotiationSelection12 {
             get {
                 return ResourceManager.GetString("NegotiationSelection12", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Don&apos;t you want to see your family again? に類似しているローカライズされた文字列を検索します。
-        /// </summary>
-        internal static string NegotiationSelection13 {
-            get {
-                return ResourceManager.GetString("NegotiationSelection13", resourceCulture);
             }
         }
         
@@ -718,7 +709,7 @@ namespace JapaneseCallouts.Localization {
         }
         
         /// <summary>
-        ///   You are trying to save your familly, but... に類似しているローカライズされた文字列を検索します。
+        ///   You are trying to save your family, but... に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string NegotiationSelection8 {
             get {

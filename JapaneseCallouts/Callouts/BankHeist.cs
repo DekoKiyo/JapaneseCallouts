@@ -408,7 +408,7 @@ internal class BankHeist : CalloutBase
         [BankHeistConversation.NegotiationSelection1] = Keys.D1,
         [BankHeistConversation.NegotiationSelection11] = Keys.D2,
         [BankHeistConversation.NegotiationSelection12] = Keys.D3,
-        [BankHeistConversation.NegotiationSelection13] = Keys.D4,
+        [BankHeistConversation.NegotiationSelection10] = Keys.D4,
     };
     private readonly (string, string)[] Negotiation31Conversation =
     [
@@ -428,12 +428,12 @@ internal class BankHeist : CalloutBase
     ];
     private readonly (string, string)[] Negotiation34Conversation =
     [
-        (Settings.OfficerName, BankHeistConversation.NegotiationSelection13),
+        (Settings.OfficerName, BankHeistConversation.NegotiationSelection10),
         (CalloutsText.Robber, BankHeistConversation.Negotiation3212),
     ];
     private readonly Dictionary<string, Keys> Negotiation32Selection = new()
     {
-        [BankHeistConversation.NegotiationSelection13] = Keys.D1,
+        [BankHeistConversation.NegotiationSelection10] = Keys.D1,
         [BankHeistConversation.NegotiationSelection14] = Keys.D2,
         [BankHeistConversation.NegotiationSelection15] = Keys.D3,
     };
