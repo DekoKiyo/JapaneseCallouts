@@ -118,59 +118,59 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AlarmSwitchKey" xml:space="preserve">
-    <value>Press {0} at any time to toggle the ~r~alarm~s~.</value>
+    <value>{0}を押していつでも~r~アラーム~s~を切り替えることができます。</value>
   </data>
   <data name="BankHeistCopyThat" xml:space="preserve">
-    <value>Copy that, responding ~r~CODE 3~s~ to the ~b~Pacific Bank~s~, over.</value>
+    <value>了解した。~r~緊急走行~s~で~b~パシフィック銀行~s~に向かう。</value>
   </data>
   <data name="BankHeistMoveIn" xml:space="preserve">
-    <value>Press {0} to signal the ~b~SWAT teams~s~ to ~y~move in~s~.</value>
+    <value>{0}を押して~b~特殊部隊~s~に~y~突入指示~s~を与えます。</value>
   </data>
   <data name="BankHeistReleaseHostage" xml:space="preserve">
-    <value>Hold {0} to release the ~b~hostage~s~.</value>
+    <value>{0}を長押しして~b~人質~s~を開放します。</value>
   </data>
   <data name="BankHeistReportSubtitle" xml:space="preserve">
-    <value>~g~Good job, officer!~s~</value>
+    <value>~g~いい仕事ぶりです!~s~</value>
   </data>
   <data name="BankHeistReportText" xml:space="preserve">
-    <value>~g~Rescued Hostages~s~: {0}~n~~r~Died Hostages~s~: {1}~n~~y~Killed Robbers~s~: {2}</value>
+    <value>~g~救助した人質~s~: {0}~n~~r~死亡した人質~s~: {1}~n~~y~殺害した強盗犯~s~: {2}</value>
   </data>
   <data name="BankHeistReportTitle" xml:space="preserve">
-    <value>Bank Heist Report</value>
+    <value>報告書 - 銀行強盗</value>
   </data>
   <data name="BankHeistRoger" xml:space="preserve">
-    <value>Roger that, ~r~proceed with caution~s~!</value>
+    <value>了解した。~r~慎重に対応する~s~!</value>
   </data>
   <data name="CallBankRobbers" xml:space="preserve">
-    <value>Press {0} to try to discuss with the robbers by phone.</value>
+    <value>{0}を押して携帯電話で強盗と話し合いを試みます。</value>
   </data>
   <data name="Citizen" xml:space="preserve">
-    <value>Citizen</value>
+    <value>市民</value>
   </data>
   <data name="Commander" xml:space="preserve">
-    <value>Commander</value>
+    <value>司令官</value>
     <comment>It's used in Bank Heist</comment>
   </data>
   <data name="Congratulations" xml:space="preserve">
-    <value>Congratulations!</value>
+    <value>おめでとうございます!</value>
   </data>
   <data name="DiedHostages" xml:space="preserve">
-    <value>Hostages Died:</value>
+    <value>死亡した人質:</value>
   </data>
   <data name="DrunkCallTaxi" xml:space="preserve">
-    <value>The drunk persons ~r~cannot walk themselves~s~. Call the taxi for them.</value>
+    <value>酔っ払いは~r~自身の足で歩けないようです~s~。タクシーを呼んであげましょう。</value>
   </data>
   <data name="DrunkPerson" xml:space="preserve">
-    <value>Drunk Person</value>
+    <value>酔っ払い</value>
   </data>
   <data name="EnterRiot" xml:space="preserve">
-    <value>Press {0} to enter the riot van to ~b~receive gear~s~.</value>
+    <value>{0}を押して~b~装備を受け取る~s~ために装甲車に乗り込みます。</value>
   </data>
   <data name="Escaped" xml:space="preserve">
-    <value>The suspect has ~r~escaped~s~.</value>
+    <value>逃走犯を~r~見失いました~s~。</value>
   </data>
   <data name="GearRunOut" xml:space="preserve">
-    <value>~r~The gear has temporarily run out~s~. Please come again later.</value>
+    <value>~r~装備を補充中です~s~。後でお試しください。</value>
   </data>
   <data name="NoDiedHostage" xml:space="preserve">
     <value>Solved a bank robbery without hostages dead.</value>
