@@ -124,7 +124,7 @@ namespace JapaneseCallouts.Localization {
         }
         
         /// <summary>
-        ///   No problem, sir. So, why did you get the suspect angry? に類似しているローカライズされた文字列を検索します。
+        ///   No problem. But, why did you get the suspect angry? に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string RoadRageFinal2 {
             get {
