@@ -11,3 +11,5 @@ files:
     translation: /JapaneseCallouts/Localization/CalloutsText.%locale%.resx
   - source: /JapaneseCallouts/Localization/BankHeistConversation.resx
     translation: /JapaneseCallouts/Localization/BankHeistConversation.%locale%.resx.resx
+  - source: /JapaneseCallouts/Localization/CalloutsConversation.resx
+    translation: /JapaneseCallouts/Localization/CalloutsConversation.%locale%.resx
