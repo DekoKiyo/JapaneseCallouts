@@ -139,37 +139,37 @@
     <value>いいえ、必要ありません。</value>
   </data>
   <data name="Discuss1" xml:space="preserve">
-    <value>Also worried about the hostages. ~y~Let's try to discuss with them~s~. How can I talk with them?</value>
+    <value>人質も心配だ。~y~彼らと話し合ってみよう~s~。何か話すものはありますか?</value>
   </data>
   <data name="Discuss2" xml:space="preserve">
-    <value>The technology team got ~b~robbers phone number~s~. Maybe we can use it.</value>
+    <value>技術チームが~b~強盗の携帯番号~s~を入手した。使えるかもしれない。</value>
   </data>
   <data name="Discuss3" xml:space="preserve">
-    <value>OK, I'll try it.</value>
+    <value>分かった、試してみます。</value>
   </data>
   <data name="Fight1" xml:space="preserve">
-    <value>~y~Let's fight to help all hostages and end this incident quickly.~s~</value>
+    <value>~y~人質を全員助け、事件を早く終わらせるために戦いましょう。~s~</value>
   </data>
   <data name="Fight2" xml:space="preserve">
-    <value>Good. Don't worry. The SWAT units are already stand by.</value>
+    <value>良いだろう。心配するな、特殊部隊は準備できている。</value>
   </data>
   <data name="Fight3" xml:space="preserve">
-    <value>~b~There are some gear in the back of the riot vans.~s~</value>
+    <value>~b~装甲車の中にいくつか装備があるから自由に使いなさい。~s~</value>
   </data>
   <data name="Fight4" xml:space="preserve">
-    <value>All rights, sir.</value>
+    <value>了解しました。</value>
   </data>
   <data name="Final1" xml:space="preserve">
-    <value>~g~Thank you for your all of work!~s~</value>
+    <value>~g~良い仕事ぶりだね。お疲れ様。~s~</value>
   </data>
   <data name="Final2" xml:space="preserve">
-    <value>I will send you the operation report soon.</value>
+    <value>すぐに事件報告書を君に送信する。確認したまえ。</value>
   </data>
   <data name="Final3" xml:space="preserve">
-    <value>Good work today officer, ~g~thank you~s~.</value>
+    <value>今日は本当にいい仕事をしてくれたよ。~g~ありがとう~s~。</value>
   </data>
   <data name="Final4" xml:space="preserve">
-    <value>Just doing my job, sir.</value>
+    <value>するべきことをしただけですよ。</value>
   </data>
   <data name="Intro1" xml:space="preserve">
     <value>Looks very bad, what's the situation?</value>
