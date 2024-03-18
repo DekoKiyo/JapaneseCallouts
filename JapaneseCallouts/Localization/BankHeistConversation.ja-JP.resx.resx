@@ -178,7 +178,7 @@
     <value>~r~複数人の強盗が銀行に居る~s~が、何人なのか見当もついていない状況だ。</value>
   </data>
   <data name="Intro3" xml:space="preserve">
-    <value>Well, how many hostages are there?</value>
+    <value>何人の人質が中に居るか分かりますか?</value>
   </data>
   <data name="Intro4" xml:space="preserve">
     <value>ああ、~y~8人の人質~s~が銀行内に居ると聞いている...</value>
@@ -301,7 +301,7 @@
     <value>ここには多くの警官がいる。</value>
   </data>
   <data name="NegotiationSelection10" xml:space="preserve">
-    <value>Don't you want to see your family again?</value>
+    <value>もう一度家族に会ってみないか。</value>
   </data>
   <data name="NegotiationSelection11" xml:space="preserve">
     <value>何に興味がある?</value>
@@ -334,7 +334,7 @@
     <value>すまなかった。</value>
   </data>
   <data name="NegotiationSelection8" xml:space="preserve">
-    <value>You are trying to save your family, but...</value>
+    <value>家族を救おうとしているのは分かるが...</value>
   </data>
   <data name="NegotiationSelection9" xml:space="preserve">
     <value>そんなことを言うな。</value>
