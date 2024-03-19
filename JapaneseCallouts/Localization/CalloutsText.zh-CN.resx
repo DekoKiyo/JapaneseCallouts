@@ -1,0 +1,226 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AlarmSwitchKey" xml:space="preserve">
+    <value>Press {0} at any time to toggle the ~r~alarm~s~.</value>
+  </data>
+  <data name="BankHeistCopyThat" xml:space="preserve">
+    <value>Copy that, responding ~r~CODE 3~s~ to the ~b~Pacific Bank~s~, over.</value>
+  </data>
+  <data name="BankHeistMoveIn" xml:space="preserve">
+    <value>Press {0} to signal the ~b~SWAT teams~s~ to ~y~move in~s~.</value>
+  </data>
+  <data name="BankHeistReleaseHostage" xml:space="preserve">
+    <value>Hold {0} to release the ~b~hostage~s~.</value>
+  </data>
+  <data name="BankHeistReportSubtitle" xml:space="preserve">
+    <value>~g~Good job, officer!~s~</value>
+  </data>
+  <data name="BankHeistReportText" xml:space="preserve">
+    <value>~g~Rescued Hostages~s~: {0}~n~~r~Died Hostages~s~: {1}~n~~y~Killed Robbers~s~: {2}</value>
+  </data>
+  <data name="BankHeistReportTitle" xml:space="preserve">
+    <value>Bank Heist Report</value>
+  </data>
+  <data name="BankHeistRoger" xml:space="preserve">
+    <value>Roger that, ~r~proceed with caution~s~!</value>
+  </data>
+  <data name="CallBankRobbers" xml:space="preserve">
+    <value>Press {0} to try to discuss with the robbers by phone.</value>
+  </data>
+  <data name="Citizen" xml:space="preserve">
+    <value>Citizen</value>
+  </data>
+  <data name="Commander" xml:space="preserve">
+    <value>Commander</value>
+    <comment>It's used in Bank Heist</comment>
+  </data>
+  <data name="Congratulations" xml:space="preserve">
+    <value>Congratulations!</value>
+  </data>
+  <data name="DiedHostages" xml:space="preserve">
+    <value>Hostages Died:</value>
+  </data>
+  <data name="DrunkCallTaxi" xml:space="preserve">
+    <value>The drunk persons ~r~cannot walk themselves~s~. Call the taxi for them.</value>
+  </data>
+  <data name="DrunkPerson" xml:space="preserve">
+    <value>Drunk Person</value>
+  </data>
+  <data name="EnterRiot" xml:space="preserve">
+    <value>Press {0} to enter the riot van to ~b~receive gear~s~.</value>
+  </data>
+  <data name="Escaped" xml:space="preserve">
+    <value>The suspect has ~r~escaped~s~.</value>
+  </data>
+  <data name="GearRunOut" xml:space="preserve">
+    <value>~r~The gear has temporarily run out~s~. Please come again later.</value>
+  </data>
+  <data name="NoDiedHostage" xml:space="preserve">
+    <value>Solved a bank robbery without hostages dead.</value>
+  </data>
+  <data name="Remaining" xml:space="preserve">
+    <value>Remaining:</value>
+  </data>
+  <data name="RescuedHostages" xml:space="preserve">
+    <value>Hostages Rescued:</value>
+  </data>
+  <data name="Robber" xml:space="preserve">
+    <value>Robber</value>
+  </data>
+  <data name="SelectAnswerText" xml:space="preserve">
+    <value>Press the key displayed to select the answer.</value>
+  </data>
+  <data name="SpawnAmbulance" xml:space="preserve">
+    <value>Press {0} when spawned to spawn to the ambulance.</value>
+  </data>
+  <data name="StolenVehicleData" xml:space="preserve">
+    <value>Stolen Vehicle Data~n~~b~License Plate~s~: {0}~n~~b~Body Color~s~: {1}~n~~b~Type~s~: {2}</value>
+  </data>
+  <data name="StolenVehicleDataUpdate" xml:space="preserve">
+    <value>~b~The target location on GPS has been updated.~s~</value>
+  </data>
+  <data name="SurrenderHelp" xml:space="preserve">
+    <value>~b~Other officers~s~ will perform the ~b~arrests~s~ and then ~b~deal with the robbers~s~.~n~~b~Hold your position~s~ and keep the robbers under control by ~b~aiming in their direction~s~.</value>
+  </data>
+  <data name="SWATFollowing" xml:space="preserve">
+    <value>Press {0} to make the SWAT teams follow you.</value>
+  </data>
+  <data name="SWATIsFollowing" xml:space="preserve">
+    <value>~b~SWAT Units~s~ are now following you.</value>
+  </data>
+  <data name="SWATIsNotFollowing" xml:space="preserve">
+    <value>The ~b~SWAT Units~s~ are no longer following you.</value>
+  </data>
+  <data name="TalkTo" xml:space="preserve">
+    <value>Talk to ~g~{0}~s~.</value>
+  </data>
+  <data name="TalkToCommander" xml:space="preserve">
+    <value>Talk to ~g~Commander~s~ first to get the informations.</value>
+  </data>
+  <data name="TalkToGetInfo" xml:space="preserve">
+    <value>Talk to ~y~{0}~s~ to get the informations.</value>
+  </data>
+  <data name="TargetIsIn" xml:space="preserve">
+    <value>Target is in around of ~b~{0}~s~.</value>
+  </data>
+  <data name="Victim" xml:space="preserve">
+    <value>Victim</value>
+  </data>
+</root>

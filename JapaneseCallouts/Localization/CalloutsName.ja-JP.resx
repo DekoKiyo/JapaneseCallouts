@@ -118,6 +118,18 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="BankHeist" xml:space="preserve">
-    <value>Bank Heist</value>
+    <value>銀行強盗</value>
+  </data>
+  <data name="DrunkGuys" xml:space="preserve">
+    <value>酔っ払い集団</value>
+  </data>
+  <data name="RoadRage" xml:space="preserve">
+    <value>煽り運転</value>
+  </data>
+  <data name="StolenVehicle" xml:space="preserve">
+    <value>盗難車両</value>
+  </data>
+  <data name="StoreRobbery" xml:space="preserve">
+    <value>コンビニ強盗</value>
   </data>
 </root>

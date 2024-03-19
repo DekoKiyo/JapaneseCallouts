@@ -118,16 +118,30 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="CalloutCode4" xml:space="preserve">
-    <value>You are ~g~code4~s~. ~r~Return to Patrol~s~.</value>
-    <comment>It's shown when callout ended.</comment>
+    <value>~g~Code4~s~です。~r~パトロールに戻ってください~s~。</value>
+  </data>
+  <data name="Dispatch" xml:space="preserve">
+    <value>本部</value>
   </data>
   <data name="PluginLoaded" xml:space="preserve">
     <value>~b~{0}~s~が~g~正常にロードされました!~s~~n~開発者: ~b~{1}~s~</value>
   </data>
   <data name="PluginUnloaded" xml:space="preserve">
-    <value>~b~{0}~s~ was ~r~unloaded!~s~.</value>
+    <value>~b~{0}~s~が~r~アンロード~s~されました!</value>
+  </data>
+  <data name="PressToTalk" xml:space="preserve">
+    <value>{0}を押して話す。</value>
   </data>
   <data name="PressToTalkWith" xml:space="preserve">
-    <value>Press {0} to talk with ~g~{1}~s~.</value>
+    <value>{0}を押して~g~{1}~s~と話す。</value>
+  </data>
+  <data name="RespondCode2" xml:space="preserve">
+    <value>~y~警戒走行~s~で対応してください。</value>
+  </data>
+  <data name="RespondCode3" xml:space="preserve">
+    <value>~r~緊急走行~s~で対応してください。</value>
+  </data>
+  <data name="SomethingWrong" xml:space="preserve">
+    <value>~r~どこかでエラーが発生~s~したようです。原因を調査するために、~o~RagePluginHook.log~s~を~p~Discordサーバー~s~で~b~開発者~s~に送信してください。</value>
   </data>
 </root>

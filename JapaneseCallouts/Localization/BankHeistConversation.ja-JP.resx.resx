@@ -1,0 +1,462 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Alarm1" xml:space="preserve">
+    <value>アラームは切ったほうが良いかな?</value>
+  </data>
+  <data name="Alarm2" xml:space="preserve">
+    <value>技術チーム... 私だ... そうだよ...</value>
+  </data>
+  <data name="Alarm3" xml:space="preserve">
+    <value>これでよし。またアラームをオンにしたければ、技術チームに連絡しなさい。</value>
+  </data>
+  <data name="Alarm4" xml:space="preserve">
+    <value>本当に良いのかい? オフにしたければ技術チームに連絡しなさい。</value>
+  </data>
+  <data name="Alarm5" xml:space="preserve">
+    <value>事件解決に向けて頑張ってくれたまえ。幸運を祈る。</value>
+  </data>
+  <data name="AlarmSelection1" xml:space="preserve">
+    <value>はい、アラームを切ってください。</value>
+  </data>
+  <data name="AlarmSelection2" xml:space="preserve">
+    <value>いいえ、必要ありません。</value>
+  </data>
+  <data name="Discuss1" xml:space="preserve">
+    <value>人質も心配だ。~y~彼らと話し合ってみよう~s~。何か話すものはありますか?</value>
+  </data>
+  <data name="Discuss2" xml:space="preserve">
+    <value>技術チームが~b~強盗の携帯番号~s~を入手した。使えるかもしれない。</value>
+  </data>
+  <data name="Discuss3" xml:space="preserve">
+    <value>分かった、試してみます。</value>
+  </data>
+  <data name="Fight1" xml:space="preserve">
+    <value>~y~人質を全員助け、事件を早く終わらせるために戦いましょう。~s~</value>
+  </data>
+  <data name="Fight2" xml:space="preserve">
+    <value>良いだろう。心配するな、特殊部隊は準備できている。</value>
+  </data>
+  <data name="Fight3" xml:space="preserve">
+    <value>~b~装甲車の中にいくつか装備があるから自由に使いなさい。~s~</value>
+  </data>
+  <data name="Fight4" xml:space="preserve">
+    <value>了解しました。</value>
+  </data>
+  <data name="Final1" xml:space="preserve">
+    <value>~g~良い仕事ぶりだね。お疲れ様。~s~</value>
+  </data>
+  <data name="Final2" xml:space="preserve">
+    <value>すぐに事件報告書を君に送信する。確認したまえ。</value>
+  </data>
+  <data name="Final3" xml:space="preserve">
+    <value>今日は本当にいい仕事をしてくれたよ。~g~ありがとう~s~。</value>
+  </data>
+  <data name="Final4" xml:space="preserve">
+    <value>するべきことをしただけですよ。</value>
+  </data>
+  <data name="Intro1" xml:space="preserve">
+    <value>状況は非常に悪そうですね。</value>
+  </data>
+  <data name="Intro2" xml:space="preserve">
+    <value>~r~複数人の強盗が銀行に居る~s~が、何人なのか見当もついていない状況だ。</value>
+  </data>
+  <data name="Intro3" xml:space="preserve">
+    <value>何人の人質が中に居るか分かりますか?</value>
+  </data>
+  <data name="Intro4" xml:space="preserve">
+    <value>ああ、~y~8人の人質~s~が銀行内に居ると聞いている...</value>
+  </data>
+  <data name="Intro5" xml:space="preserve">
+    <value>我々には2つの事件を解決する方法がある。</value>
+  </data>
+  <data name="Intro6" xml:space="preserve">
+    <value>1つ目は~y~彼らと話し合う~s~ことだ。もしかしたらこの卑劣な行為を止めるかもしれない。</value>
+  </data>
+  <data name="Intro7" xml:space="preserve">
+    <value>2つ目は~y~突入~s~だ。特殊部隊の準備はできている。</value>
+  </data>
+  <data name="Intro8" xml:space="preserve">
+    <value>君はどちらを選ぶ?</value>
+  </data>
+  <data name="IntroSelection1" xml:space="preserve">
+    <value>強盗と話し合ってみる。</value>
+  </data>
+  <data name="IntroSelection2" xml:space="preserve">
+    <value>人質全員を救助するために戦う。</value>
+  </data>
+  <data name="MoveIn" xml:space="preserve">
+    <value>~g~人質の救助を開始する!~s~ 突入!</value>
+  </data>
+  <data name="Negotiation11" xml:space="preserve">
+    <value>見ろ、~b~大勢の警官~s~が銀行を囲んでいるんだ。我々は~g~平和に~s~この事件を終わらせたいんだ。</value>
+  </data>
+  <data name="Negotiation111" xml:space="preserve">
+    <value>~b~落ち着いて~s~。誰も傷つけたくないだけです。</value>
+  </data>
+  <data name="Negotiation1111" xml:space="preserve">
+    <value>あなたの奥さんの、{0}さんにも同じことが言えますか?</value>
+  </data>
+  <data name="Negotiation1112" xml:space="preserve">
+    <value>なんで俺の妻を知っている? ~r~すぐに家族から離れろ!~s~</value>
+  </data>
+  <data name="Negotiation112" xml:space="preserve">
+    <value>~r~何も話しかけるな! お前は俺らを止めることはできない!~s~</value>
+  </data>
+  <data name="Negotiation1121" xml:space="preserve">
+    <value>すまなかった。だが君たちの行動は~r~間違っている~s~。</value>
+  </data>
+  <data name="Negotiation1122" xml:space="preserve">
+    <value>あなたが謝る必要はないだろう。何がしたいかは俺も理解している。</value>
+  </data>
+  <data name="Negotiation1123" xml:space="preserve">
+    <value>だがこれは俺らの問題だ。じゃあな、ポリ公。</value>
+  </data>
+  <data name="Negotiation1131" xml:space="preserve">
+    <value>あなたは自分の家族を救おうとしているかもしれません。ですが、~y~強盗で入手したお金で家族は幸せになるでしょうか?~s~</value>
+  </data>
+  <data name="Negotiation1132" xml:space="preserve">
+    <value>...</value>
+  </data>
+  <data name="Negotiation1133" xml:space="preserve">
+    <value>~y~なあ、俺どうすれば良いんだ? もう疲れたぜ... 何やってんだろう。~s~</value>
+  </data>
+  <data name="Negotiation1134" xml:space="preserve">
+    <value>銀行から他のみんなと一緒に出てきてください。</value>
+  </data>
+  <data name="Negotiation1135" xml:space="preserve">
+    <value>分かったよ。~g~考え直す機会を与えてくれてありがとう。~s~</value>
+  </data>
+  <data name="Negotiation12" xml:space="preserve">
+    <value>~r~死ね!~s~ ~s~人質を殺されたい~r~のか? それとも何だ?</value>
+  </data>
+  <data name="Negotiation131" xml:space="preserve">
+    <value>そんなことをすると街中の警官がここに来ますよ!</value>
+  </data>
+  <data name="Negotiation1311" xml:space="preserve">
+    <value>そんなことを言うと、~b~特殊部隊~s~と戦うことになりますよ。</value>
+  </data>
+  <data name="Negotiation1312" xml:space="preserve">
+    <value>~r~死にやがれクソ野郎!~s~ お前も他の奴らもみんな~r~死んじまえ~s~!</value>
+  </data>
+  <data name="Negotiation132" xml:space="preserve">
+    <value>~r~そして人質も全員死ぬ!~s~ ハッハッハッハッハ!</value>
+  </data>
+  <data name="Negotiation1331" xml:space="preserve">
+    <value>~b~家族にもう一度会ってみませんか?~s~ 人質も同じことを考えていますよ。</value>
+  </data>
+  <data name="Negotiation1332" xml:space="preserve">
+    <value>もちろんだが... 分かったよ今出るから。~y~撃つなよ?~s~</value>
+  </data>
+  <data name="Negotiation31" xml:space="preserve">
+    <value>んで、どんな取引をするつもりなんだ?</value>
+  </data>
+  <data name="Negotiation311" xml:space="preserve">
+    <value>俺らはこれを終わらせるつもりはないぞ、~g~平和に~s~な!</value>
+  </data>
+  <data name="Negotiation321" xml:space="preserve">
+    <value>~b~リバティーシティ~s~への飛行機を手配しろ! ああ、ファーストクラスでな!</value>
+  </data>
+  <data name="Negotiation3211" xml:space="preserve">
+    <value>それが無理なことだと分かっているでしょう? ~b~もう一度家族にあってみませんか?~s~</value>
+  </data>
+  <data name="Negotiation3212" xml:space="preserve">
+    <value>もちろんさ。今出るよ。~y~撃つなよ!~s~</value>
+  </data>
+  <data name="Negotiation3221" xml:space="preserve">
+    <value>お前馬鹿なのか? 飛行機を手配しろと言ったんだぞ。</value>
+  </data>
+  <data name="Negotiation3231" xml:space="preserve">
+    <value>おいポリ、お前に良いことを教えてやるよ。</value>
+  </data>
+  <data name="Negotiation3232" xml:space="preserve">
+    <value>~r~ここは銀行だ。金は無限にあるんだよ!~s~ ハッハッハッハッハ!</value>
+  </data>
+  <data name="Negotiation331" xml:space="preserve">
+    <value>まだ何もアイデアは無いが、私達はまだ取引ができると確信している。</value>
+  </data>
+  <data name="Negotiation332" xml:space="preserve">
+    <value>それならすぐに取引を始めたほうが良いな。</value>
+  </data>
+  <data name="Negotiation333" xml:space="preserve">
+    <value>だが何もアイデアが無いんだろ? ~r~つまり取引はできないな!~s~ (笑)</value>
+  </data>
+  <data name="NegotiationSelection1" xml:space="preserve">
+    <value>ここには多くの警官がいる。</value>
+  </data>
+  <data name="NegotiationSelection10" xml:space="preserve">
+    <value>もう一度家族に会ってみないか。</value>
+  </data>
+  <data name="NegotiationSelection11" xml:space="preserve">
+    <value>何に興味がある?</value>
+  </data>
+  <data name="NegotiationSelection12" xml:space="preserve">
+    <value>何もアイデアは無い。</value>
+  </data>
+  <data name="NegotiationSelection14" xml:space="preserve">
+    <value>まず人質を開放しなさい。</value>
+  </data>
+  <data name="NegotiationSelection15" xml:space="preserve">
+    <value>お金が詰まったブリーフケースを渡す。</value>
+  </data>
+  <data name="NegotiationSelection2" xml:space="preserve">
+    <value>何が欲しい?</value>
+  </data>
+  <data name="NegotiationSelection3" xml:space="preserve">
+    <value>取引をしないか?</value>
+  </data>
+  <data name="NegotiationSelection4" xml:space="preserve">
+    <value>落ち着いて。</value>
+  </data>
+  <data name="NegotiationSelection5" xml:space="preserve">
+    <value>街中の警官が来るぞ!</value>
+  </data>
+  <data name="NegotiationSelection6" xml:space="preserve">
+    <value>同じことが妻にも言えるか?</value>
+  </data>
+  <data name="NegotiationSelection7" xml:space="preserve">
+    <value>すまなかった。</value>
+  </data>
+  <data name="NegotiationSelection8" xml:space="preserve">
+    <value>家族を救おうとしているのは分かるが...</value>
+  </data>
+  <data name="NegotiationSelection9" xml:space="preserve">
+    <value>そんなことを言うな。</value>
+  </data>
+  <data name="Phone1" xml:space="preserve">
+    <value>何だ!? 今~r~忙しい~s~んだ!</value>
+  </data>
+  <data name="Phone2" xml:space="preserve">
+    <value>私は警官だ。あなたは?</value>
+  </data>
+  <data name="Phone3" xml:space="preserve">
+    <value>~r~黙れ!~s~ お前と話す時間は無い!</value>
+  </data>
+  <data name="Request1" xml:space="preserve">
+    <value>~b~国際空港~s~行きのバスを用意しろ。</value>
+  </data>
+  <data name="Request11" xml:space="preserve">
+    <value>どういう意味だ? ~y~バスは来ないのか?~s~</value>
+  </data>
+  <data name="Request12" xml:space="preserve">
+    <value>待ってください。バスが来るまでまだ時間が必要です。</value>
+  </data>
+  <data name="Request13" xml:space="preserve">
+    <value>~r~お前の言うことは信用できないな。~s~</value>
+  </data>
+  <data name="Request2" xml:space="preserve">
+    <value>そこから~b~リバティーシティ~s~まで飛ぶ飛行機を用意しろ。</value>
+  </data>
+  <data name="Request21" xml:space="preserve">
+    <value>~r~死ね!~s~ 人質が居なくなったらお前らが入ってくるだろうが!</value>
+  </data>
+  <data name="Request211" xml:space="preserve">
+    <value>~y~人質を開放しないとバスは来ませんよ。~s~</value>
+  </data>
+  <data name="Request212" xml:space="preserve">
+    <value>分かった分かった... お前は相当な~r~クソ野郎だな!~s~</value>
+  </data>
+  <data name="Request22" xml:space="preserve">
+    <value>バスが見えたら出してやるよ!</value>
+  </data>
+  <data name="Request220" xml:space="preserve">
+    <value>こちらこそありがとうございます。~y~夫を撃たないでくださいね!~s~</value>
+  </data>
+  <data name="Request221" xml:space="preserve">
+    <value>ここにはあなたの妻、~b~{0}~s~が居る。~g~とても君と話したいようだぞ。~s~</value>
+  </data>
+  <data name="Request222" xml:space="preserve">
+    <value>電話を変われ。</value>
+  </data>
+  <data name="Request223" xml:space="preserve">
+    <value>今彼女がこちらにきている。</value>
+  </data>
+  <data name="Request224" xml:space="preserve">
+    <value>~q~あなた! 出てきてちょうだい! 子どもたちのことを考えて!~s~</value>
+  </data>
+  <data name="Request225" xml:space="preserve">
+    <value>~q~やめて! もうこんなことやめて!~s~</value>
+  </data>
+  <data name="Request226" xml:space="preserve">
+    <value>すまない、~b~{0}~s~...</value>
+  </data>
+  <data name="Request227" xml:space="preserve">
+    <value>俺何でここに居るんだろう...</value>
+  </data>
+  <data name="Request228" xml:space="preserve">
+    <value>愛してるよ~b~{0}~s~! ~g~今出るからね!~g~</value>
+  </data>
+  <data name="Request229" xml:space="preserve">
+    <value>ありがとうございます、~b~{0}夫人~s~。安全のため、パトカーにお戻りください。</value>
+  </data>
+  <data name="Request231" xml:space="preserve">
+    <value>~y~人質を開放しろ! 今すぐ!~s~</value>
+  </data>
+  <data name="Request31" xml:space="preserve">
+    <value>何を言っているんだ? 懲役を決めるのは裁判官だ。</value>
+  </data>
+  <data name="Request32" xml:space="preserve">
+    <value>警察官ならそれくらいのことは知ってるだろ?</value>
+  </data>
+  <data name="Request33" xml:space="preserve">
+    <value>舐めんなよ。~r~俺だって義務教育くらいは頭に入ってるぞ。~s~</value>
+  </data>
+  <data name="RequestSelection1" xml:space="preserve">
+    <value>今バスの手配をしたが、本当に来るかは保証できないぞ。</value>
+  </data>
+  <data name="RequestSelection2" xml:space="preserve">
+    <value>バスを手配しよう。だが、まず人質を開放しなさい。</value>
+  </data>
+  <data name="RequestSelection3" xml:space="preserve">
+    <value>今人質を開放したら懲役を5年縮めてあげよう。</value>
+  </data>
+  <data name="RequestSelection4" xml:space="preserve">
+    <value>バスは来ないぞ。</value>
+  </data>
+  <data name="RequestSelection5" xml:space="preserve">
+    <value>ここには妻がいる。</value>
+  </data>
+  <data name="RequestSelection6" xml:space="preserve">
+    <value>人質を開放しろ!</value>
+  </data>
+  <data name="RescueHostage" xml:space="preserve">
+    <value>~g~もう安全だ~s~! 外で救急車が待っている!</value>
+  </data>
+  <data name="SeemSurrender" xml:space="preserve">
+    <value>~r~強盗~s~が降伏したようです。~b~警察車両~s~の後ろでたいきしてください。</value>
+  </data>
+  <data name="StillFighting" xml:space="preserve">
+    <value>行け! ~y~まだ強盗が中にいるようだぞ!~s~</value>
+  </data>
+  <data name="Surrender1" xml:space="preserve">
+    <value>~g~素晴らしい!~s~ 強盗が~g~降伏~s~したなんて!</value>
+  </data>
+  <data name="Surrender2" xml:space="preserve">
+    <value>次の仕事は~b~中の人質を全員救助することだ~s~。</value>
+  </data>
+  <data name="Surrender3" xml:space="preserve">
+    <value>だが気をつけろ。~y~まだ強盗が中に居るかも知れないからな。~s~</value>
+  </data>
+  <data name="Surrender4" xml:space="preserve">
+    <value>強盗が中に居たとしても我々には作戦がない。</value>
+  </data>
+  <data name="Surrender5" xml:space="preserve">
+    <value>了解しました。</value>
+  </data>
+</root>
