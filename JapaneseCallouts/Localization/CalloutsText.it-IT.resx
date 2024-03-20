@@ -141,6 +141,9 @@
   <data name="BankHeistRoger" xml:space="preserve">
     <value>Roger that, ~r~proceed with caution~s~!</value>
   </data>
+  <data name="BankHeistWarning" xml:space="preserve">
+    <value>~y~WARNING~s~: This callout ~r~contains some violent words~s~. Please be careful ~g~it is not for you~s~.</value>
+  </data>
   <data name="CallBankRobbers" xml:space="preserve">
     <value>Press {0} to try to discuss with the robbers by phone.</value>
   </data>
