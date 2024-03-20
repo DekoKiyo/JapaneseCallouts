@@ -888,6 +888,7 @@ internal class BankHeist : CalloutBase
                         {
                             if (Vector3.Distance(Main.Player.Position, Commander.Position) < 4f)
                             {
+                                HudHelpers.DisplayNotification(CalloutsText.BankHeistWarning);
                                 HudHelpers.DisplayHelp(string.Format(General.PressToTalkWith, Settings.SpeakWithThePersonModifierKey is Keys.None ? $"~{Settings.SpeakWithThePersonKey.GetInstructionalId()}~" : $"~{Settings.SpeakWithThePersonModifierKey.GetInstructionalId()}~ ~+~ ~{Settings.SpeakWithThePersonKey.GetInstructionalId()}~", CalloutsText.Commander));
                                 if (KeyHelpers.IsKeysDown(Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey))
                                 {
