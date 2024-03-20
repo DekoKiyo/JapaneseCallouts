@@ -139,7 +139,10 @@
     <value>報告書 - 銀行強盗</value>
   </data>
   <data name="BankHeistRoger" xml:space="preserve">
-    <value>了解した。~r~慎重に対応する~s~!</value>
+    <value>了解した。~r~慎重に対応するように~s~!</value>
+  </data>
+  <data name="BankHeistWarning" xml:space="preserve">
+    <value>~y~警告~s~: このコールアウトには~r~複数の暴力的な言葉が含まれています~s~。決して~g~あなたに対してではない~s~ことに注意してください。</value>
   </data>
   <data name="CallBankRobbers" xml:space="preserve">
     <value>{0}を押して携帯電話で強盗と話し合いを試みます。</value>
