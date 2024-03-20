@@ -95,7 +95,6 @@ internal static class Conversations
     internal static List<Keys> AnswerKeys = [];
     internal static int DisplayAnswers(Dictionary<string, Keys> dic)
     {
-        Game.RawFrameRender += DrawAnswerWindow;
         DisplayTime = true;
 
         Answers = [.. dic.Keys];
@@ -142,34 +141,33 @@ internal static class Conversations
         return answerIndex;
     }
 
-    private static void DrawAnswerWindow(object sender, GraphicsEventArgs e)
+    private static void DrawAnswerWindow()
     {
-        if (DisplayTime)
+        GameFiber.StartNew(() =>
         {
-            var drawRect = new System.Drawing.Rectangle(Game.Resolution.Width / 5, Game.Resolution.Height / 7, 700, 180);
-            var drawBorder = new System.Drawing.Rectangle(Game.Resolution.Width / 5 - 5, Game.Resolution.Height / 7 - 5, 700, 180);
-
-            var format = new StringFormat()
-            {
-                Alignment = StringAlignment.Center,
-                LineAlignment = StringAlignment.Center
-            };
-
-            e.Graphics.DrawRectangle(drawBorder, Color.FromArgb(90, Color.Black));
-            e.Graphics.DrawRectangle(drawRect, Color.Black);
-
-            e.Graphics.DrawText(CalloutsText.SelectAnswerText, "Aharoni Bold", 18.0f, new PointF(drawBorder.X + 150, drawBorder.Y + 2), Color.White, drawBorder);
+            var border = new ResRectangle(new(Game.Resolution.Width / 5 - 5, Game.Resolution.Height / 7 - 5), new(700, 180), Color.FromArgb(90, Color.Black));
+            var rect = new ResRectangle(new(Game.Resolution.Width / 5, Game.Resolution.Height / 7), new(700, 180), Color.Black);
+            var text = new ResText(CalloutsText.SelectAnswerText, new(border.Position.X + 150, border.Position.Y + 2), 0.5f, Color.White, Common.EFont.Monospace, ResText.Alignment.Left);
+            var answers = new List<ResText>();
 
             int YIncreaser = 30;
             for (int i = 0; i < Answers.Count; i++)
             {
-                e.Graphics.DrawText($"[{AnswerKeys[i]}] {Answers[i]}", "Arial Bold", 15.0f, new PointF(drawRect.X + 10, drawRect.Y + YIncreaser), Color.White, drawRect);
+                answers.Add(new($"[{AnswerKeys[i]}] {Answers[i]}", new(rect.Position.X + 10, rect.Position.Y + YIncreaser), 0.3f, Color.White, Common.EFont.Monospace, ResText.Alignment.Left));
                 YIncreaser += 25;
             }
-        }
-        else
-        {
-            Game.FrameRender -= DrawAnswerWindow;
-        }
+            while (DisplayTime)
+            {
+                GameFiber.Yield();
+
+                border.Draw();
+                rect.Draw();
+                text.Draw();
+                foreach (var answer in answers)
+                {
+                    answer.Draw();
+                }
+            }
+        });
     }
 }

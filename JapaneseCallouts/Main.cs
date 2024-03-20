@@ -128,8 +128,7 @@ internal class Main : Plugin
         {
             AppDomain.CurrentDomain.AssemblyResolve += (sender, eventArgs) =>
             {
-                var requestedAssemblyName = new AssemblyName(eventArgs.Name).Name;
-                var assemblyFile = $"{satelliteFolder}/{requestedAssemblyName}.dll";
+                var assemblyFile = $"{satelliteFolder}/JapaneseCallouts.resources.dll";
                 if (File.Exists(assemblyFile))
                 {
                     return Assembly.LoadFile(assemblyFile);
@@ -145,6 +144,12 @@ internal class Main : Plugin
         {
             Logger.Warn($"The language code {language} was not found in \"{PLUGIN_DIRECTORY}/{PLUGIN_LANGUAGE_DIRECTORY}\". Language will be automatically set to \"en-US\"");
         }
+        General.Culture = culture;
+        CalloutsText.Culture = culture;
+        CalloutsName.Culture = culture;
+        CalloutsDescription.Culture = culture;
+        CalloutsConversation.Culture = culture;
+        BankHeistConversation.Culture = culture;
         Thread.CurrentThread.CurrentCulture = culture;
         Thread.CurrentThread.CurrentUICulture = culture;
     }

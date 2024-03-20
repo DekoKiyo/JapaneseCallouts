@@ -133,6 +133,15 @@ namespace JapaneseCallouts.Localization {
         }
         
         /// <summary>
+        ///   ~y~WARNING~s~: This callout ~r~contains some violent words~s~. Please be careful ~g~it is not for you~s~. に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        internal static string BankHeistWarning {
+            get {
+                return ResourceManager.GetString("BankHeistWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Press {0} to try to discuss with the robbers by phone. に類似しているローカライズされた文字列を検索します。
         /// </summary>
         internal static string CallBankRobbers {

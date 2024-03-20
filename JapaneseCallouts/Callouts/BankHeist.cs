@@ -698,6 +698,7 @@ internal class BankHeist : CalloutBase
 
     internal override void Accepted()
     {
+        HudHelpers.DisplayNotification(CalloutsText.BankHeistWarning);
         BankAlarm.Load();
         if (Main.Player.IsInAnyVehicle(false))
         {
@@ -753,7 +754,7 @@ internal class BankHeist : CalloutBase
             while (true)
             {
                 GameFiber.Yield();
-                if (Main.Player.Exists())
+                if (Main.Player.IsValid() && Main.Player.Exists())
                 {
                     if (Main.Player.IsAlive) break;
                 }
@@ -775,15 +776,18 @@ internal class BankHeist : CalloutBase
             while (true)
             {
                 GameFiber.Yield();
-                if (Vector3.Distance(Main.Player.Position, AllAmbulance[0].Position) < 70f) break;
-                if (Main.Player.IsAlive)
+                if (Main.Player.IsValid())
                 {
-                    HudHelpers.DisplayHelp(string.Format(CalloutsText.SpawnAmbulance, Settings.EnterRiotVanModifierKey is Keys.None ? $"~{Settings.EnterRiotVanKey.GetInstructionalId()}~" : $"~{Settings.EnterRiotVanModifierKey.GetInstructionalId()}~ ~+~ ~{Settings.EnterRiotVanKey.GetInstructionalId()}~"));
-                    if (KeyHelpers.IsKeysDown(Settings.EnterRiotVanKey, Settings.EnterRiotVanModifierKey))
+                    if (Vector3.Distance(Main.Player.Position, AllAmbulance[0].Position) < 70f) break;
+                    if (Main.Player.IsAlive)
                     {
-                        Main.Player.WarpIntoVehicle(AllAmbulance[0], 2);
-                        Game.HideHelp();
-                        GameFiber.Sleep(1000);
+                        HudHelpers.DisplayHelp(string.Format(CalloutsText.SpawnAmbulance, Settings.EnterRiotVanModifierKey is Keys.None ? $"~{Settings.EnterRiotVanKey.GetInstructionalId()}~" : $"~{Settings.EnterRiotVanModifierKey.GetInstructionalId()}~ ~+~ ~{Settings.EnterRiotVanKey.GetInstructionalId()}~"));
+                        if (KeyHelpers.IsKeysDown(Settings.EnterRiotVanKey, Settings.EnterRiotVanModifierKey))
+                        {
+                            Main.Player.WarpIntoVehicle(AllAmbulance[0], 2);
+                            Game.HideHelp();
+                            GameFiber.Sleep(1000);
+                        }
                     }
                 }
             }

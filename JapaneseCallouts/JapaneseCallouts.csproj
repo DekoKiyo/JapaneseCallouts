@@ -118,8 +118,8 @@
     <EmbeddedResource Update="Localization\General.*.resx">
       <DependentUpon>General.resx</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Update="Localization\Conversations.*.resx">
-      <DependentUpon>Conversations.resx</DependentUpon>
+    <EmbeddedResource Update="Localization\CalloutsConversation.*.resx">
+      <DependentUpon>CalloutsConversation.resx</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
 
