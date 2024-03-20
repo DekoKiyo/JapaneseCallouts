@@ -145,5 +145,6 @@ internal class StolenVehicle : CalloutBase
         if (count > 15) End();
         if (Main.Player.IsDead) End();
         if (suspect is not null && suspect.IsValid() && suspect.Exists() && (suspect.IsDead || Functions.IsPedArrested(suspect))) End();
+        if (found && !Functions.IsPursuitStillRunning(pursuit)) End();
     }
 }

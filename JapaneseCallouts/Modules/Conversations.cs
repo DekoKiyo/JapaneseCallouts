@@ -104,9 +104,28 @@ internal static class Conversations
 
         GameFiber.StartNew(() =>
         {
+            var border = new ResRectangle(new(Game.Resolution.Width / 5 - 5, Game.Resolution.Height / 7 - 5), new(700, 180), Color.FromArgb(90, Color.Black));
+            var rect = new ResRectangle(new(Game.Resolution.Width / 5, Game.Resolution.Height / 7), new(700, 180), Color.Black);
+            var text = new ResText(CalloutsText.SelectAnswerText, new(border.Position.X + 100, border.Position.Y + 20), 0.4f, Color.White, Common.EFont.ChaletLondon, ResText.Alignment.Left);
+            var answers = new List<ResText>();
+
+            int YIncreaser = 50;
+            for (int i = 0; i < Answers.Count; i++)
+            {
+                answers.Add(new($"[{AnswerKeys[i]}] {Answers[i]}", new(rect.Position.X + 10, rect.Position.Y + YIncreaser), 0.3f, Color.White, Common.EFont.ChaletLondon, ResText.Alignment.Left));
+                YIncreaser += 25;
+            }
             while (DisplayTime)
             {
                 GameFiber.Yield();
+
+                border.Draw();
+                rect.Draw();
+                text.Draw();
+                foreach (var answer in answers)
+                {
+                    answer.Draw();
+                }
 
                 for (int i = 0; i < AnswerKeys.Count; i++)
                 {
@@ -139,35 +158,5 @@ internal static class Conversations
         NativeFunction.Natives.SET_PED_CAN_SWITCH_WEAPON(Main.Player, true);
         DisplayTime = false;
         return answerIndex;
-    }
-
-    private static void DrawAnswerWindow()
-    {
-        GameFiber.StartNew(() =>
-        {
-            var border = new ResRectangle(new(Game.Resolution.Width / 5 - 5, Game.Resolution.Height / 7 - 5), new(700, 180), Color.FromArgb(90, Color.Black));
-            var rect = new ResRectangle(new(Game.Resolution.Width / 5, Game.Resolution.Height / 7), new(700, 180), Color.Black);
-            var text = new ResText(CalloutsText.SelectAnswerText, new(border.Position.X + 150, border.Position.Y + 2), 0.5f, Color.White, Common.EFont.Monospace, ResText.Alignment.Left);
-            var answers = new List<ResText>();
-
-            int YIncreaser = 30;
-            for (int i = 0; i < Answers.Count; i++)
-            {
-                answers.Add(new($"[{AnswerKeys[i]}] {Answers[i]}", new(rect.Position.X + 10, rect.Position.Y + YIncreaser), 0.3f, Color.White, Common.EFont.Monospace, ResText.Alignment.Left));
-                YIncreaser += 25;
-            }
-            while (DisplayTime)
-            {
-                GameFiber.Yield();
-
-                border.Draw();
-                rect.Draw();
-                text.Draw();
-                foreach (var answer in answers)
-                {
-                    answer.Draw();
-                }
-            }
-        });
     }
 }
