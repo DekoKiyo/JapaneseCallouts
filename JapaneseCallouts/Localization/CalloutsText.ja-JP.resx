@@ -142,7 +142,7 @@
     <value>了解した。~r~慎重に対応するように~s~!</value>
   </data>
   <data name="BankHeistWarning" xml:space="preserve">
-    <value>~y~WARNING~s~: This callout ~r~contains some violent words~s~. Please be careful ~g~it is not for you~s~.</value>
+    <value>~y~警告~s~: このコールアウトには~r~複数の暴力的な言葉が含まれています~s~。決して~g~あなたに対してではない~s~ことに注意してください。</value>
   </data>
   <data name="CallBankRobbers" xml:space="preserve">
     <value>{0}を押して携帯電話で強盗と話し合いを試みます。</value>
