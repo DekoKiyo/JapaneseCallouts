@@ -32,5 +32,9 @@ Copy-Item $PluginIniFile $PluginsLSPDFRFolder
 # ビルドフォルダから言語フォルダのみをコピー
 Get-ChildItem -Path $PluginDllFolder -Directory | ForEach-Object {
     $Dest = Join-Path -Path $LanguageFoler -ChildPath $_.Name
+    If(Test-Path $Dest)
+    {
+        Remove-Item $Dest -Recurse -Force -Confirm:$false
+    }
     Copy-Item -Path $_.FullName -Destination $Dest -Recurse
 }
