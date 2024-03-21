@@ -123,13 +123,4 @@
     </EmbeddedResource>
   </ItemGroup>
 
-  <PropertyGroup>
-    <PostBuildEvent>
-      <!-- xcopy ".\JapaneseCallouts.dll" "$(GrandTheftAutoV)\plugins\LSPDFR" /Y
-      xcopy "$(JapaneseCallouts)\JapaneseCallouts\JapaneseCallouts.ini" "$(GrandTheftAutoV)\plugins\LSPDFR" /Y
-      xcopy "$(JapaneseCallouts)\SDK\CalloutInterfaceAPI.dll" "$(GrandTheftAutoV)" /Y -->
-      <!-- xcopy "$(JapaneseCallouts)\JapaneseCalloutsAudio" "$(GrandTheftAutoV)\lspdfr\audio\scanner" /Y/E/H/C/I/T -->
-    </PostBuildEvent>
-  </PropertyGroup>
-
 </Project>
