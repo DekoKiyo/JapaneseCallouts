@@ -170,7 +170,7 @@
     <value>Press {0} to enter the riot van to ~b~receive gear~s~.</value>
   </data>
   <data name="Escaped" xml:space="preserve">
-    <value>The suspect ~r~escaped~s~.</value>
+    <value>The suspect has ~r~escaped~s~.</value>
   </data>
   <data name="GearRunOut" xml:space="preserve">
     <value>~r~The gear has temporarily run out~s~. Please come again later.</value>
@@ -212,7 +212,7 @@
     <value>The ~b~SWAT Units~s~ are no longer following you.</value>
   </data>
   <data name="TalkTo" xml:space="preserve">
-    <value>Talk to ~g~{0}~s~</value>
+    <value>Talk to ~g~{0}~s~.</value>
   </data>
   <data name="TalkToCommander" xml:space="preserve">
     <value>Talk to ~g~Commander~s~ first to get the informations.</value>
