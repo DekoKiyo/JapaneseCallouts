@@ -94,7 +94,6 @@ namespace JapaneseCallouts;
 internal class Main : Plugin
 {
     internal const string PLUGIN_NAME = "Japanese Callouts";
-    internal const string PLUGIN_NAME_NO_SPACE = "JapaneseCallouts";
     internal const string DEVELOPER_NAME = "DekoKiyo";
     internal const string PLUGIN_VERSION = "0.1.0";
     internal const string VERSION_PREFIX = "Beta.";
