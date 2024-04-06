@@ -10,20 +10,63 @@ $NAudioCoreDllFile = $PluginDllFolder + "\NAudio.Core.dll"
 $CalloutInterfaceAPIDllFile = $PluginDllFolder + "\CalloutInterfaceAPI.dll"
 $PluginDllFile = $PluginDllFolder + "\JapaneseCallouts.dll"
 $PluginIniFile = ".\JapaneseCallouts\JapaneseCallouts.ini"
+$ProjectFile = ".\JapaneseCallouts\JapaneseCallouts.csproj"
 $PluginAudioFolder = ".\JapaneseCallouts\Audio"
 $PluginScannerAudioFolder = ".\JapaneseCalloutsAudio"
 
 # 圧縮ファイル
 $ZipOutput = "./Release/Japanese Callouts.zip"
 
+Write-Host "PowerShell $($PSVersionTable.PSEdition) Version $($PSVersionTable.PSVersion)" -ForegroundColor Cyan
+Set-StrictMode -Version 2.0; $ErrorActionPreference = "Stop"; $ConfirmPreference = "None"; trap { Write-Error $_ -ErrorAction Continue; exit 1 }
+
+function Exec([scriptblock] $cmd) {
+    & $cmd
+    if ($LASTEXITCODE) { exit $LASTEXITCODE }
+}
+
+# If dotnet CLI is installed globally and it matches requested version, use for execution
+if ($null -ne (Get-Command "dotnet" -ErrorAction SilentlyContinue) -and `
+    $(dotnet --version) -and $LASTEXITCODE -eq 0) {
+    $env:DOTNET_EXE = (Get-Command "dotnet").Path
+}
+else {
+    # Download install script
+    $DotNetInstallFile = "$TempDirectory\dotnet-install.ps1"
+    New-Item -ItemType Directory -Path $TempDirectory -Force | Out-Null
+    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+    (New-Object System.Net.WebClient).DownloadFile($DotNetInstallUrl, $DotNetInstallFile)
+
+    # If global.json exists, load expected version
+    if (Test-Path $DotNetGlobalFile) {
+        $DotNetGlobal = $(Get-Content $DotNetGlobalFile | Out-String | ConvertFrom-Json)
+        if ($DotNetGlobal.PSObject.Properties["sdk"] -and $DotNetGlobal.sdk.PSObject.Properties["version"]) {
+            $DotNetVersion = $DotNetGlobal.sdk.version
+        }
+    }
+
+    # Install by channel or version
+    $DotNetDirectory = "$TempDirectory\dotnet-win"
+    if (!(Test-Path variable:DotNetVersion)) {
+        ExecSafe { & powershell $DotNetInstallFile -InstallDir $DotNetDirectory -Channel $DotNetChannel -NoPath }
+    } else {
+        ExecSafe { & powershell $DotNetInstallFile -InstallDir $DotNetDirectory -Version $DotNetVersion -NoPath }
+    }
+    $env:DOTNET_EXE = "$DotNetDirectory\dotnet.exe"
+}
+
+Write-Host "Microsoft (R) .NET Core SDK Version $(& $env:DOTNET_EXE --version)"
+
 # 古いリリースフォルダを削除
 If (Test-Path $ReleaseFolder)
 {
+    Write-Host "The old release was found. It will be deleted." -ForegroundColor Red
     Remove-Item $ReleaseFolder -Recurse -Force -Confirm:$false
 }
 
-# .NETのビルドコマンド
-dotnet build -c Release
+Write-Host "[Build] In progress..." -ForegroundColor DarkBlue
+Exec { & $env:DOTNET_EXE build $ProjectFile -c Release /nodeReuse:false /p:UseSharedCompilation=false -nologo -clp:NoSummary --verbosity quiet }
+Write-Host "[Build] Done!" -ForegroundColor Green
 
 # 環境変数たち
 $GrandTheftAutoV = $env:GrandTheftAutoV
@@ -34,37 +77,53 @@ $JapaneseCallouts = $env:JapaneseCallouts
 # GTA5側のフォルダたち
 $PluginsFolder = $GrandTheftAutoV + "\plugins"
 $PluginsLSPDFRFolder = $GrandTheftAutoV + "\plugins\LSPDFR"
-$LanguageFoler = $PluginsLSPDFRFolder + "\JapaneseCallouts\Languages"
+$LanguageFolder = $PluginsLSPDFRFolder + "\JapaneseCallouts\Languages"
 
 # パスの不足に備えて存在しない場合は作成
 If (!(Test-Path $PluginsFolder))
 {
+    Write-Host "[Info] The plugins folder ($($PluginsFolder)) was not found. The folder will be automatically generated." -ForegroundColor DarkRed
     New-Item $PluginsFolder -ItemType Directory
 }
 If (!(Test-Path $PluginsLSPDFRFolder))
 {
+    Write-Host "[Info] The LSPDFR folder ($($PluginsLSPDFRFolder)) was not found. The folder will be automatically generated." -ForegroundColor DarkRed
     New-Item $PluginsLSPDFRFolder -ItemType Directory
+}
+If (!(Test-Path $LanguageFolder))
+{
+    Write-Host "[Info] The language folder ($($LanguageFolder)) was not found. The folder will be automatically generated." -ForegroundColor DarkRed
+    New-Item $LanguageFolder -ItemType Directory
 }
 
 # ファイルをコピー
+Write-Host "[Copy] In progress..." -ForegroundColor DarkBlue
 Copy-Item $PluginDllFile $PluginsLSPDFRFolder
 Copy-Item $PluginIniFile $PluginsLSPDFRFolder
+Write-Host "[Copy] Done!" -ForegroundColor Green
 
 # ビルドフォルダから言語フォルダのみをコピー
+Write-Host "[Language] Copy the language folders" -ForegroundColor DarkCyan
 Get-ChildItem -Path $PluginDllFolder -Directory | ForEach-Object {
-    $Dest = Join-Path -Path $LanguageFoler -ChildPath $_.Name
-    If(Test-Path $Dest)
+    $Dest = Join-Path -Path $LanguageFolder -ChildPath $_.Name
+    If (Test-Path $Dest)
     {
         Remove-Item $Dest -Recurse -Force -Confirm:$false
     }
+    Write-Host "[Language] Copy the $($_) folder" -ForegroundColor DarkGray
     Copy-Item -Path $_.FullName -Destination $Dest -Recurse
 }
+Write-Host "[Language] Done!" -ForegroundColor Green
 
 # GTA5へのファイルコピーここまで
 
+Write-Host "[Zip] Start archiving the release files..." -ForegroundColor DarkBlue
+
 # フォルダ作成
+Write-Host "[Zip] Create the folder" -ForegroundColor DarkGray
 New-Item $JapaneseCalloutsFolder -ItemType Directory
 # 圧縮フォルダへのデータコピー
+Write-Host "[Zip] Copy the files to archive folder" -ForegroundColor DarkBlue
 Copy-Item $NAudioCoreDllFile .\Release\GrandTheftAutoV\
 Copy-Item $CalloutInterfaceAPIDllFile .\Release\GrandTheftAutoV\
 Copy-Item $PluginDllFile .\Release\GrandTheftAutoV\plugins\LSPDFR
@@ -82,4 +141,8 @@ New-Item $AudioFolder -ItemType Directory
 Copy-Item $PluginScannerAudioFolder .\Release\GrandTheftAutoV\LSPDFR\Audio\scanner\ -Recurse
 
 # 7-zipで圧縮
+Write-Host "[Zip] Archiving now..." -ForegroundColor DarkMagenta
 7z.exe a $ZipOutput $GrandTheftAutoVFolder
+Write-Host "[Zip] Done!"
+
+Write-Host "All process was successfully done!" -ForegroundColor Green
