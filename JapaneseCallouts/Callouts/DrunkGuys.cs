@@ -139,7 +139,7 @@ internal class DrunkGuys : CalloutBase
 
         if (arrived && !talked && Main.Player.DistanceTo(citizen.Position) < 4f && !Main.Player.IsInAnyVehicle(false))
         {
-            KeyHelpers.DisplayKeyHelp("TalkTo", [Localization.GetString("Victim")], Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey);
+            KeyHelpers.DisplayKeyHelp("PressToTalkWith", [Localization.GetString("Victim")], Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey);
             if (KeyHelpers.IsKeysDown(Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey))
             {
                 Conversations.Talk(TalkToCitizen);
