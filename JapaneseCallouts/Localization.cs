@@ -4,10 +4,10 @@ internal static class Localization
 {
     private static readonly Dictionary<string, Dictionary<string, string>> Translation = [];
     private const string NO_TRANSLATION = "[NO TRANSLATION]";
-    private static string CurrentLanguage = "English";
-    private static readonly string[] AvailableLanguages = ["Custom", "English", "Japanese"];
+    private static string CurrentLanguage = "en-US";
+    private static readonly string[] AvailableLanguages = ["Custom", "en-US", "ja-JP"];
 
-    static Localization()
+    internal static void Initialize()
     {
         Logger.Info("Loading ", "Localization");
         Load(CurrentLanguage);
@@ -26,7 +26,7 @@ internal static class Localization
             else
             {
                 Logger.Warn("The language was not found in the list of available languages. The language will be set to English.");
-                CurrentLanguage = "English";
+                CurrentLanguage = "en-US";
             }
         }
     }
@@ -41,6 +41,7 @@ internal static class Localization
 
         var data = JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, string>>>(json);
 
+        Translation[lang] = [];
         foreach (var obj in data)
         {
             foreach (var locale in obj.Value)

@@ -877,9 +877,9 @@ internal class BankHeist : CalloutBase
                     NativeFunction.Natives.SET_PLAYER_WEAPON_DEFENSE_MODIFIER(Game.LocalPlayer, 0.45f);
                     NativeFunction.Natives.SET_PLAYER_WEAPON_DAMAGE_MODIFIER(Game.LocalPlayer, 0.92f);
                     NativeFunction.Natives.SET_AI_MELEE_WEAPON_DAMAGE_MODIFIER(1f);
-                    CallByHash<uint>(_DOOR_CONTROL, 4072696575, 256.3116f, 220.6579f, 106.4296f, false, 0f, 0f, 0f);
-                    CallByHash<uint>(_DOOR_CONTROL, 746855201, 262.1981f, 222.5188f, 106.4296f, false, 0f, 0f, 0f);
-                    CallByHash<uint>(_DOOR_CONTROL, 110411286, 258.2022f, 204.1005f, 106.4049f, false, 0f, 0f, 0f);
+                    NativeFunction.CallByHash<uint>(_DOOR_CONTROL, 4072696575, 256.3116f, 220.6579f, 106.4296f, false, 0f, 0f, 0f);
+                    NativeFunction.CallByHash<uint>(_DOOR_CONTROL, 746855201, 262.1981f, 222.5188f, 106.4296f, false, 0f, 0f, 0f);
+                    NativeFunction.CallByHash<uint>(_DOOR_CONTROL, 110411286, 258.2022f, 204.1005f, 106.4049f, false, 0f, 0f, 0f);
 
                     // When player has just arrived
                     if (!TalkedToCommander && !IsFighting)
@@ -992,9 +992,9 @@ internal class BankHeist : CalloutBase
                     NativeFunction.Natives.SET_PLAYER_WEAPON_DEFENSE_MODIFIER(Game.LocalPlayer, 0.45f);
                     NativeFunction.Natives.SET_PLAYER_WEAPON_DAMAGE_MODIFIER(Game.LocalPlayer, 0.93f);
                     NativeFunction.Natives.SET_AI_MELEE_WEAPON_DAMAGE_MODIFIER(1f);
-                    CallByHash<uint>(_DOOR_CONTROL, 4072696575, 256.3116f, 220.6579f, 106.4296f, false, 0f, 0f, 0f);
-                    CallByHash<uint>(_DOOR_CONTROL, 746855201, 262.1981f, 222.5188f, 106.4296f, false, 0f, 0f, 0f);
-                    CallByHash<uint>(_DOOR_CONTROL, 110411286, 258.2022f, 204.1005f, 106.4049f, false, 0f, 0f, 0f);
+                    NativeFunction.CallByHash<uint>(_DOOR_CONTROL, 4072696575, 256.3116f, 220.6579f, 106.4296f, false, 0f, 0f, 0f);
+                    NativeFunction.CallByHash<uint>(_DOOR_CONTROL, 746855201, 262.1981f, 222.5188f, 106.4296f, false, 0f, 0f, 0f);
+                    NativeFunction.CallByHash<uint>(_DOOR_CONTROL, 110411286, 258.2022f, 204.1005f, 106.4049f, false, 0f, 0f, 0f);
                     // If all hostages rescued
                     if (SafeHostagesCount == AliveHostagesCount)
                     {
@@ -1053,9 +1053,9 @@ internal class BankHeist : CalloutBase
                 while (IsCalloutRunning)
                 {
                     GameFiber.Yield();
-                    CallByHash<uint>(_DOOR_CONTROL, 4072696575, 256.3116f, 220.6579f, 106.4296f, false, 0f, 0f, 0f);
-                    CallByHash<uint>(_DOOR_CONTROL, 746855201, 262.1981f, 222.5188f, 106.4296f, false, 0f, 0f, 0f);
-                    CallByHash<uint>(_DOOR_CONTROL, 110411286, 258.2022f, 204.1005f, 106.4049f, false, 0f, 0f, 0f);
+                    NativeFunction.CallByHash<uint>(_DOOR_CONTROL, 4072696575, 256.3116f, 220.6579f, 106.4296f, false, 0f, 0f, 0f);
+                    NativeFunction.CallByHash<uint>(_DOOR_CONTROL, 746855201, 262.1981f, 222.5188f, 106.4296f, false, 0f, 0f, 0f);
+                    NativeFunction.CallByHash<uint>(_DOOR_CONTROL, 110411286, 258.2022f, 204.1005f, 106.4049f, false, 0f, 0f, 0f);
                     if (!EvaluatedWithWells)
                     {
                         if (!Main.Player.IsInAnyVehicle(false))
@@ -2267,7 +2267,7 @@ internal class BankHeist : CalloutBase
                                     }
                                     else
                                     {
-                                        CallByName<uint>("TASK_SMART_FLEE_COORD", ped, CalloutPosition.X, CalloutPosition.Y, CalloutPosition.Z, 75f, 6000, true, true);
+                                        NativeFunction.CallByName<uint>("TASK_SMART_FLEE_COORD", ped, CalloutPosition.X, CalloutPosition.Y, CalloutPosition.Z, 75f, 6000, true, true);
                                     }
                                 }
                                 if (Vector3.Distance(ped.Position, CalloutPosition) < 65f)

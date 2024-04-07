@@ -1,15 +1,5 @@
 options commit_message: Update Translation from Crowdin Platform
 pull_request_title: '[Crowdin] Update Localization Files'
 files:
-  - source: /JapaneseCallouts/Localization/General.resx
-    translation: /JapaneseCallouts/Localization/General.%locale%.resx
-  - source: /JapaneseCallouts/Localization/CalloutsName.resx
-    translation: /JapaneseCallouts/Localization/CalloutsName.%locale%.resx
-  - source: /JapaneseCallouts/Localization/CalloutsDescription.resx
-    translation: /JapaneseCallouts/Localization/CalloutsDescription.%locale%.resx
-  - source: /JapaneseCallouts/Localization/CalloutsText.resx
-    translation: /JapaneseCallouts/Localization/CalloutsText.%locale%.resx
-  - source: /JapaneseCallouts/Localization/BankHeistConversation.resx
-    translation: /JapaneseCallouts/Localization/BankHeistConversation.%locale%.resx
-  - source: /JapaneseCallouts/Localization/CalloutsConversation.resx
-    translation: /JapaneseCallouts/Localization/CalloutsConversation.%locale%.resx
+  - source: /JapaneseCallouts/Localization/en-US.json
+    translation: /JapaneseCallouts/Localization/%locale%.json

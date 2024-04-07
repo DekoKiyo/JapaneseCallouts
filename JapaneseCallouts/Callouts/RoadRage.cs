@@ -127,8 +127,8 @@ internal class RoadRage : CalloutBase
             area.IsRouteEnabled = true;
 
             HudHelpers.DisplayNotification(Localization.GetString("StolenVehicleDataUpdate"));
-            Natives.GET_STREET_NAME_AT_COORD(victimV.Position.X, victimV.Position.Y, victimV.Position.Z, out uint hash, out uint _);
-            var streetName = Natives.GET_STREET_NAME_FROM_HASH_KEY<string>(hash);
+            NativeFunction.Natives.GET_STREET_NAME_AT_COORD(victimV.Position.X, victimV.Position.Y, victimV.Position.Z, out uint hash, out uint _);
+            var streetName = NativeFunction.Natives.GET_STREET_NAME_FROM_HASH_KEY<string>(hash);
             HudHelpers.DisplayNotification(Localization.GetString("TargetIsIn", streetName));
             Functions.PlayScannerAudioUsingPosition("JP_TARGET_IS IN_OR_ON_POSITION", victimV.Position);
             count++;

@@ -197,7 +197,7 @@
     "CalloutCode4": "~g~Code4~s~です。~r~パトロールに戻ってください~s~。",
     "Dispatch": "警察本部",
     "PluginLoaded": "~b~{0}~s~が、~n~~g~正常にロードされました!~s~~n~開発者: ~b~{1}~s~",
-    "PluginUnloaded": "~b~{0}~s~が~r~アンロード~s~されました!",
+    "PluginUnloaded": "~b~{0}~s~が、 ~r~アンロード~s~されました!",
     "PressToTalk": "{0}を押して話す。",
     "PressToTalkWith": "{0}を押して~g~{1}~s~と話す。",
     "RespondCode2": "~y~警戒走行~s~で対応してください。",

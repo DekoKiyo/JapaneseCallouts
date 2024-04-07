@@ -19,16 +19,16 @@ internal static class Settings
     internal static Keys EnterRiotVanKey { get; private set; } = Keys.Enter;
     internal static Keys EnterRiotVanModifierKey { get; private set; } = Keys.None;
 
-    static Settings()
+    internal static void Initialize()
     {
-        Reload();
+        Load();
     }
 
-    internal static void Reload()
+    internal static void Load()
     {
         OfficerName = Ini["General"]["OfficerName"] ??= "Officer";
         WifeName = Ini["General"]["WifeName"] ??= "Maria";
-        Localization.Language = Ini["General"]["Language"] ??= "English";
+        Localization.Language = Ini["General"]["Language"] ??= "en-US";
         SpeakWithThePersonKey = (Ini["Keys"]["SpeakWithThePersonKey"] ??= "Y").ConvertToKey();
         SpeakWithThePersonModifierKey = (Ini["Keys"]["SpeakWithThePersonModifierKey"] ??= "None").ConvertToKey();
         ToggleBankHeistAlarmSoundKey = (Ini["Keys"]["ToggleBankHeistAlarmSoundKey"] ??= "F5").ConvertToKey();

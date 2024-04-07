@@ -74,7 +74,6 @@ global using Rage.Euphoria;
 global using Rage.Exceptions;
 global using Rage.Forms;
 global using Rage.Native;
-global using static Rage.Native.NativeFunction;
 global using RageTask = Rage.Task;
 global using RObject = Rage.Object;
 #endregion
@@ -125,7 +124,6 @@ internal class Main : Plugin
 
     public override void Finally()
     {
-        HudHelpers.DisplayNotification(Localization.GetString("PluginUnloaded", PLUGIN_NAME), PLUGIN_NAME, PLUGIN_VERSION_DATA);
         Logger.Info($"{PLUGIN_NAME} was unloaded.");
     }
 
@@ -135,6 +133,8 @@ internal class Main : Plugin
         {
             Logger.Info($"Loading {PLUGIN_NAME}, Version.{VERSION_PREFIX}{PLUGIN_VERSION}");
             CheckLibrary();
+            Settings.Initialize();
+            Localization.Initialize();
             CalloutManager.RegisterAllCallouts();
             Logger.Info($"{PLUGIN_NAME} Version.{VERSION_PREFIX}{PLUGIN_VERSION} was loaded.");
             HudHelpers.DisplayNotification(Localization.GetString("PluginLoaded", PLUGIN_NAME, DEVELOPER_NAME), PLUGIN_NAME, PLUGIN_VERSION_DATA);

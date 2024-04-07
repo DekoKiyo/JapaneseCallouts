@@ -22,7 +22,8 @@ internal abstract class CalloutBase : Callout
     {
         OnDisplayed();
         base.OnCalloutDisplayed();
-        CalloutHelpers.DisplayTranslatedNotification(CalloutMessage, Functions.GetZoneAtPosition(CalloutPosition).RealAreaName);
+        NativeFunction.Natives.GET_STREET_NAME_AT_COORD(CalloutPosition.X, CalloutPosition.Y, CalloutPosition.Z, out uint hash, out uint _);
+        CalloutHelpers.DisplayTranslatedNotification(CalloutMessage, NativeFunction.Natives.GET_STREET_NAME_FROM_HASH_KEY<string>(hash));
     }
 
     public override bool OnCalloutAccepted()
