@@ -128,19 +128,17 @@
     "RoadRageFinal4": "Would you come to the police station a few days later to tell us what happened?",
     "RoadRageFinal5": "Sure. Have a good day, officer!"
   },
-  "CalloutsDescriptions": {
-    "BankHeist": "The robber has taken hostages and barricaded themselves inside the bank.",
-    "DrunkGuys": "A citizen reports that some drunk persons are sleeping in public spaces.",
-    "RoadRage": "A citizen reports being harassed by another vehicle while driving.",
-    "StolenVehicle": "The suspect stolen the vehicle. Search and pursuit it!",
-    "StoreRobbery": "The robbers are robbing the store."
-  },
-  "CalloutsName": {
+  "Callouts": {
     "BankHeist": "Bank Heist",
     "DrunkGuys": "Drunk Guys",
     "RoadRage": "Road Rage",
     "StolenVehicle": "Stolen Vehicle",
-    "StoreRobbery": "Store Robbery"
+    "StoreRobbery": "Store Robbery",
+    "BankHeistDesc": "The robber has taken hostages and barricaded themselves inside the bank.",
+    "DrunkGuysDesc": "A citizen reports that some drunk persons are sleeping in public spaces.",
+    "RoadRageDesc": "A citizen reports being harassed by another vehicle while driving.",
+    "StolenVehicleDesc": "The suspect stolen the vehicle. Search and pursuit it!",
+    "StoreRobberyDesc": "The robbers are robbing the store."
   },
   "CalloutsText": {
     "AlarmSwitchKey": "Press {0} at any time to toggle the ~r~alarm~s~.",
