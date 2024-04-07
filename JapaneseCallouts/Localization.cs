@@ -46,7 +46,9 @@ internal static class Localization
         {
             foreach (var locale in obj.Value)
             {
+#if DEBUG
                 Logger.Info($"Loading Translation - Key: {locale.Key} Value: {locale.Value}", "Localization");
+#endif
                 Translation[lang][locale.Key] = locale.Value;
             }
         }
