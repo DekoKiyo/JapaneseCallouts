@@ -26,8 +26,9 @@ internal static class Settings
 
     internal static void Reload()
     {
-        OfficerName = Ini["General"]["OfficerName"] = "Officer";
-        WifeName = Ini["General"]["WifeName"] = "Maria";
+        OfficerName = Ini["General"]["OfficerName"] ??= "Officer";
+        WifeName = Ini["General"]["WifeName"] ??= "Maria";
+        Localization.Language = Ini["General"]["Language"] ??= "English";
         SpeakWithThePersonKey = (Ini["Keys"]["SpeakWithThePersonKey"] ??= "Y").ConvertToKey();
         SpeakWithThePersonModifierKey = (Ini["Keys"]["SpeakWithThePersonModifierKey"] ??= "None").ConvertToKey();
         ToggleBankHeistAlarmSoundKey = (Ini["Keys"]["ToggleBankHeistAlarmSoundKey"] ??= "F5").ConvertToKey();

@@ -14,7 +14,7 @@ internal class StoreRobbery : CalloutBase
     private Blip blip;
     private readonly Timer timer = new(1000);
     private readonly TimerBarPool tbPool = [];
-    private readonly TextTimerBar timerBar = new(CalloutsText.Remaining, "");
+    private readonly TextTimerBar timerBar = new(Localization.GetString("Remaining"), "");
     private readonly (Vector3 pos, (Vector3 pos, WeaponHash weapon, short ammo)[] robbersPos)[] robbersData =
     [
         (new(-49.0f, -1755.6f, 23.4f),
@@ -153,13 +153,13 @@ internal class StoreRobbery : CalloutBase
     {
         index = Main.MersenneTwister.Next(robbersData.Length);
         CalloutPosition = robbersData[index].pos;
-        CalloutMessage = CalloutsName.StoreRobbery;
+        CalloutMessage = Localization.GetString("StoreRobbery");
         ShowCalloutAreaBlipBeforeAccepting(CalloutPosition, 50f);
         Functions.PlayScannerAudioUsingPosition("CITIZENS_REPORT CRIME_ROBBERY IN_OR_ON_POSITION", CalloutPosition);
 
         if (Main.IsCalloutInterfaceAPIExist)
         {
-            CalloutInterfaceAPIFunctions.SendMessage(this, $"{CalloutsDescription.StoreRobbery} {General.RespondCode3}");
+            CalloutInterfaceAPIFunctions.SendMessage(this, $"{Localization.GetString("StoreRobbery")} {Localization.GetString("RespondCode3")}");
         }
 
         OnCalloutsEnded += () =>
@@ -174,7 +174,7 @@ internal class StoreRobbery : CalloutBase
             {
                 foreach (var robber in robbers) if (robber is not null && robber.IsValid() && robber.Exists()) robber.Dismiss();
                 if (blip is not null && blip.IsValid() && blip.Exists()) blip.Delete();
-                HudHelpers.DisplayNotification(General.CalloutCode4, General.Dispatch, CalloutsName.StoreRobbery);
+                HudHelpers.DisplayNotification(Localization.GetString("CalloutCode4"), Localization.GetString("Dispatch"), Localization.GetString("StoreRobbery"));
             }
         };
     }
@@ -184,7 +184,7 @@ internal class StoreRobbery : CalloutBase
     internal override void Accepted()
     {
         RobbersModel.Load();
-        HudHelpers.DisplayNotification($"{CalloutsDescription.StoreRobbery} {General.RespondCode3}", General.Dispatch, CalloutsName.StoreRobbery);
+        HudHelpers.DisplayNotification($"{Localization.GetString("StoreRobbery")} {Localization.GetString("RespondCode3")}", Localization.GetString("Dispatch"), Localization.GetString("StoreRobbery"));
         foreach (var (pos, weapon, ammo) in robbersData[index].robbersPos)
         {
             var robber = new Ped(RobbersModel, pos, 0f)

@@ -64,7 +64,6 @@ global using JapaneseCallouts;
 global using JapaneseCallouts.API;
 global using JapaneseCallouts.Callouts;
 global using JapaneseCallouts.Helpers;
-global using JapaneseCallouts.Localization;
 global using JapaneseCallouts.Modules;
 #endregion
 #region Rage
@@ -118,41 +117,6 @@ internal class Main : Plugin
         get => Game.LocalPlayer.Character;
     }
 
-    public Main()
-    {
-        var language = "ja-JP";
-        var culture = new CultureInfo(language);
-        var satelliteFolder = $"{AppDomain.CurrentDomain.BaseDirectory}/{PLUGIN_DIRECTORY}/{PLUGIN_LANGUAGE_DIRECTORY}/{language}";
-        if (Directory.Exists(satelliteFolder))
-        {
-            AppDomain.CurrentDomain.AssemblyResolve += (sender, eventArgs) =>
-            {
-                var assemblyFile = $"{satelliteFolder}/JapaneseCallouts.resources.dll";
-                if (File.Exists(assemblyFile))
-                {
-                    return Assembly.LoadFile(assemblyFile);
-                }
-                else
-                {
-                    Logger.Warn($"The language file (code: {language}) was not found. Language will be automatically set to \"en-US\"");
-                    return null;
-                }
-            };
-        }
-        else
-        {
-            Logger.Warn($"The language code {language} was not found in \"{PLUGIN_DIRECTORY}/{PLUGIN_LANGUAGE_DIRECTORY}\". Language will be automatically set to \"en-US\"");
-        }
-        General.Culture = culture;
-        CalloutsText.Culture = culture;
-        CalloutsName.Culture = culture;
-        CalloutsDescription.Culture = culture;
-        CalloutsConversation.Culture = culture;
-        BankHeistConversation.Culture = culture;
-        Thread.CurrentThread.CurrentCulture = culture;
-        Thread.CurrentThread.CurrentUICulture = culture;
-    }
-
     public override void Initialize()
     {
         Functions.OnOnDutyStateChanged += OnDutyStateChanged;
@@ -161,7 +125,7 @@ internal class Main : Plugin
 
     public override void Finally()
     {
-        HudHelpers.DisplayNotification(string.Format(General.PluginUnloaded, PLUGIN_NAME), PLUGIN_NAME, PLUGIN_VERSION_DATA);
+        HudHelpers.DisplayNotification(Localization.GetString("PluginUnloaded", PLUGIN_NAME), PLUGIN_NAME, PLUGIN_VERSION_DATA);
         Logger.Info($"{PLUGIN_NAME} was unloaded.");
     }
 
@@ -173,7 +137,7 @@ internal class Main : Plugin
             CheckLibrary();
             CalloutManager.RegisterAllCallouts();
             Logger.Info($"{PLUGIN_NAME} Version.{VERSION_PREFIX}{PLUGIN_VERSION} was loaded.");
-            HudHelpers.DisplayNotification(string.Format(General.PluginLoaded, PLUGIN_NAME, DEVELOPER_NAME), PLUGIN_NAME, PLUGIN_VERSION_DATA);
+            HudHelpers.DisplayNotification(Localization.GetString("PluginLoaded", PLUGIN_NAME, DEVELOPER_NAME), PLUGIN_NAME, PLUGIN_VERSION_DATA);
         }
         else
         {

@@ -13,17 +13,17 @@ internal class StolenVehicle : CalloutBase
     private (string name, Color color) ColorData;
     private readonly (string name, Color color)[] ColorsData =
     [
-        (ColorsName.Black, Color.FromArgb(0, 0, 0)),
-        (ColorsName.Blue, Color.FromArgb(0, 0, 255)),
-        (ColorsName.Brown, Color.FromArgb(165, 42, 42)),
-        (ColorsName.Green, Color.FromArgb(0, 120, 0)),
-        (ColorsName.Orange, Color.FromArgb(255, 165, 0)),
-        (ColorsName.Purple, Color.FromArgb(255, 0, 255)),
-        (ColorsName.Red, Color.FromArgb(255, 0, 0)),
-        (ColorsName.White, Color.FromArgb(255, 255, 255)),
-        (ColorsName.Yellow, Color.FromArgb(255, 255, 0)),
-        (ColorsName.LiteBlue, Color.FromArgb(0, 255, 255)),
-        (ColorsName.Gray, Color.FromArgb(211, 211, 211)),
+        (Localization.GetString("Black"), Color.FromArgb(0, 0, 0)),
+        (Localization.GetString("Blue"), Color.FromArgb(0, 0, 255)),
+        (Localization.GetString("Brown"), Color.FromArgb(165, 42, 42)),
+        (Localization.GetString("Green"), Color.FromArgb(0, 120, 0)),
+        (Localization.GetString("Orange"), Color.FromArgb(255, 165, 0)),
+        (Localization.GetString("Purple"), Color.FromArgb(255, 0, 255)),
+        (Localization.GetString("Red"), Color.FromArgb(255, 0, 0)),
+        (Localization.GetString("White"), Color.FromArgb(255, 255, 255)),
+        (Localization.GetString("Yellow"), Color.FromArgb(255, 255, 0)),
+        (Localization.GetString("LiteBlue"), Color.FromArgb(0, 255, 255)),
+        (Localization.GetString("Gray"), Color.FromArgb(211, 211, 211)),
     ];
 
     internal override void Setup()
@@ -56,14 +56,14 @@ internal class StolenVehicle : CalloutBase
             Logger.Error(e.ToString());
         }
 
-        CalloutMessage = CalloutsName.StolenVehicle;
+        CalloutMessage = Localization.GetString("StolenVehicle");
 
         ShowCalloutAreaBlipBeforeAccepting(CalloutPosition, 50f);
         Functions.PlayScannerAudioUsingPosition("WE_HAVE JP_CRIME_STOLEN_VEHICLE IN_OR_ON_POSITION", CalloutPosition);
 
         if (Main.IsCalloutInterfaceAPIExist)
         {
-            CalloutInterfaceAPIFunctions.SendMessage(this, CalloutsDescription.StolenVehicle);
+            CalloutInterfaceAPIFunctions.SendMessage(this, Localization.GetString("StolenVehicle"));
             CalloutInterfaceAPIFunctions.SendVehicle(stolen);
         }
 
@@ -81,8 +81,8 @@ internal class StolenVehicle : CalloutBase
                 if (suspect is not null && suspect.IsValid() && suspect.Exists()) suspect.Dismiss();
                 if (stolen is not null && stolen.IsValid() && stolen.Exists()) stolen.Dismiss();
                 if (area is not null && area.IsValid() && area.Exists()) area.Delete();
-                if (count > 10) HudHelpers.DisplayNotification(CalloutsText.Escaped, General.Dispatch, CalloutsName.StolenVehicle);
-                else HudHelpers.DisplayNotification(General.CalloutCode4, General.Dispatch, CalloutsName.StolenVehicle);
+                if (count > 10) HudHelpers.DisplayNotification(Localization.GetString("Escaped"), Localization.GetString("Dispatch"), Localization.GetString("StolenVehicle"));
+                else HudHelpers.DisplayNotification(Localization.GetString("CalloutCode4"), Localization.GetString("Dispatch"), Localization.GetString("StolenVehicle"));
             }
         };
     }
@@ -91,8 +91,8 @@ internal class StolenVehicle : CalloutBase
 
     internal override void Accepted()
     {
-        HudHelpers.DisplayNotification(CalloutsDescription.StolenVehicle);
-        HudHelpers.DisplayNotification(string.Format(CalloutsText.StolenVehicleData, stolen.LicensePlate, ColorData.name, stolen.Class));
+        HudHelpers.DisplayNotification(Localization.GetString("StolenVehicle"));
+        HudHelpers.DisplayNotification(Localization.GetString("StolenVehicleData"), stolen.LicensePlate, ColorData.name, stolen.Class.ToString());
         if (stolen && stolen.IsValid() && stolen.Exists())
         {
             area = new(stolen.Position.Around(Main.MersenneTwister.Next(100)), Main.MersenneTwister.Next(75, 120))
@@ -122,8 +122,8 @@ internal class StolenVehicle : CalloutBase
             area.Position = stolen.Position;
             area.IsRouteEnabled = true;
 
-            HudHelpers.DisplayNotification(CalloutsText.StolenVehicleDataUpdate);
-            HudHelpers.DisplayNotification(string.Format(CalloutsText.StolenVehicleData, stolen.LicensePlate, ColorData.name, stolen.Class));
+            HudHelpers.DisplayNotification(Localization.GetString("StolenVehicleDataUpdate"));
+            HudHelpers.DisplayNotification(Localization.GetString("StolenVehicleData", stolen.LicensePlate, ColorData.name, stolen.Class.ToString()));
             Functions.PlayScannerAudioUsingPosition("SUSPECT_LAST_SEEN IN_OR_ON_POSITION", stolen.Position);
             count++;
         }

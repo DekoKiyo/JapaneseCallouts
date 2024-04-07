@@ -45,7 +45,7 @@ internal static class Conversations
             while (i < lines.Length - 1)
             {
                 GameFiber.Yield();
-                HudHelpers.DisplayHelp(string.Format(General.PressToTalk, Settings.SpeakWithThePersonModifierKey is Keys.None ? $"~{Settings.SpeakWithThePersonKey.GetInstructionalId()}~" : $"~{Settings.SpeakWithThePersonKey.GetInstructionalId()}~ ~+~ ~{Settings.SpeakWithThePersonModifierKey.GetInstructionalId()}~"));
+                HudHelpers.DisplayHelp(Localization.GetString("PressToTalk", Settings.SpeakWithThePersonModifierKey is Keys.None ? $"~{Settings.SpeakWithThePersonKey.GetInstructionalId()}~" : $"~{Settings.SpeakWithThePersonKey.GetInstructionalId()}~ ~+~ ~{Settings.SpeakWithThePersonModifierKey.GetInstructionalId()}~"));
                 if (KeyHelpers.IsKeysDown(Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey)) break;
             }
             if (!IsTalking) break;
@@ -106,7 +106,7 @@ internal static class Conversations
         {
             var border = new ResRectangle(new(Game.Resolution.Width / 5 - 5, Game.Resolution.Height / 7 - 5), new(700, 180), Color.FromArgb(90, Color.Black));
             var rect = new ResRectangle(new(Game.Resolution.Width / 5, Game.Resolution.Height / 7), new(700, 180), Color.Black);
-            var text = new ResText(CalloutsText.SelectAnswerText, new(border.Position.X + 100, border.Position.Y + 15), 0.4f, Color.White, Common.EFont.ChaletLondon, ResText.Alignment.Left);
+            var text = new ResText(Localization.GetString("SelectAnswerText"), new(border.Position.X + 100, border.Position.Y + 15), 0.4f, Color.White, Common.EFont.ChaletLondon, ResText.Alignment.Left);
             var answers = new List<ResText>();
 
             int YIncreaser = 45;

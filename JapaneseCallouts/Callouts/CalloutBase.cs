@@ -1,5 +1,3 @@
-using LSPD_First_Response.Engine;
-
 namespace JapaneseCallouts.Callouts;
 
 internal abstract class CalloutBase : Callout
@@ -24,6 +22,7 @@ internal abstract class CalloutBase : Callout
     {
         OnDisplayed();
         base.OnCalloutDisplayed();
+        CalloutHelpers.DisplayTranslatedNotification(CalloutMessage, Functions.GetZoneAtPosition(CalloutPosition).RealAreaName);
     }
 
     public override bool OnCalloutAccepted()

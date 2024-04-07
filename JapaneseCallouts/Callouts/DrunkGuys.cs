@@ -59,18 +59,18 @@ internal class DrunkGuys : CalloutBase
 
     private readonly (string, string)[] TalkToCitizen =
     [
-        (Settings.OfficerName, CalloutsConversation.DrunkCitizen1),
-        (CalloutsText.Citizen, CalloutsConversation.DrunkCitizen2),
-        (CalloutsText.Citizen, CalloutsConversation.DrunkCitizen3),
-        (Settings.OfficerName, CalloutsConversation.DrunkCitizen4),
-        (CalloutsText.Citizen, CalloutsConversation.DrunkCitizen5),
+        (Settings.OfficerName, Localization.GetString("DrunkCitizen1")),
+        (Localization.GetString("Citizen"), Localization.GetString("DrunkCitizen2")),
+        (Localization.GetString("Citizen"), Localization.GetString("DrunkCitizen3")),
+        (Settings.OfficerName, Localization.GetString("DrunkCitizen4")),
+        (Localization.GetString("Citizen"), Localization.GetString("DrunkCitizen5")),
     ];
 
     internal override void Setup()
     {
         var pos = Vector3Helpers.GetNearestPos([.. positions.Keys]);
         CalloutPosition = pos;
-        CalloutMessage = CalloutsName.DrunkGuys;
+        CalloutMessage = Localization.GetString("DrunkGuys");
         NoLastRadio = true;
         ShowCalloutAreaBlipBeforeAccepting(CalloutPosition, 20f);
         Functions.PlayScannerAudioUsingPosition("CITIZENS_REPORT JP_CRIME_ACCIDENT IN_OR_ON_POSITION", CalloutPosition);
@@ -85,7 +85,7 @@ internal class DrunkGuys : CalloutBase
             }
             else
             {
-                HudHelpers.DisplayNotification(General.CalloutCode4, General.Dispatch, CalloutsName.DrunkGuys);
+                HudHelpers.DisplayNotification(Localization.GetString("CalloutCode4"), Localization.GetString("Dispatch"), Localization.GetString("DrunkGuys"));
             }
         };
     }
@@ -133,17 +133,17 @@ internal class DrunkGuys : CalloutBase
             {
                 citizenB.IsRouteEnabled = false;
             }
-            HudHelpers.DisplayHelp(string.Format(CalloutsText.TalkTo, CalloutsText.Citizen));
+            HudHelpers.DisplayHelp(Localization.GetString("TalkTo", Localization.GetString("Citizen")));
             arrived = true;
         }
 
         if (arrived && !talked && Main.Player.DistanceTo(citizen.Position) < 4f && !Main.Player.IsInAnyVehicle(false))
         {
-            HudHelpers.DisplayHelp(string.Format(CalloutsText.TalkTo, Settings.SpeakWithThePersonModifierKey is Keys.None ? $"~{Settings.SpeakWithThePersonKey.GetInstructionalId()}~" : $"~{Settings.SpeakWithThePersonModifierKey.GetInstructionalId()}~ ~+~ ~{Settings.SpeakWithThePersonKey.GetInstructionalId()}~", CalloutsText.Victim));
+            HudHelpers.DisplayHelp(Localization.GetString("TalkTo", Settings.SpeakWithThePersonModifierKey is Keys.None ? $"~{Settings.SpeakWithThePersonKey.GetInstructionalId()}~" : $"~{Settings.SpeakWithThePersonModifierKey.GetInstructionalId()}~ ~+~ ~{Settings.SpeakWithThePersonKey.GetInstructionalId()}~", Localization.GetString("Victim")));
             if (KeyHelpers.IsKeysDown(Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey))
             {
                 Conversations.Talk(TalkToCitizen);
-                HudHelpers.DisplayHelp(CalloutsText.DrunkCallTaxi);
+                HudHelpers.DisplayHelp(Localization.GetString("DrunkCallTaxi"));
                 if (citizen is not null && citizen.IsValid() && citizen.Exists()) citizen.Dismiss();
                 if (citizenB is not null && citizenB.IsValid() && citizenB.Exists()) citizenB.Delete();
                 End();

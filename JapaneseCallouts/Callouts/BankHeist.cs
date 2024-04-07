@@ -212,261 +212,261 @@ internal class BankHeist : CalloutBase
     // Conversation
     private readonly (string, string)[] IntroConversation =
     [
-        (Settings.OfficerName, BankHeistConversation.Intro1),
-        (CalloutsText.Commander, BankHeistConversation.Intro2),
-        (Settings.OfficerName, BankHeistConversation.Intro3),
-        (CalloutsText.Commander, BankHeistConversation.Intro4),
-        (CalloutsText.Commander, BankHeistConversation.Intro5),
-        (CalloutsText.Commander, BankHeistConversation.Intro6),
-        (CalloutsText.Commander, BankHeistConversation.Intro7),
-        (CalloutsText.Commander, BankHeistConversation.Intro8),
+        (Settings.OfficerName, Localization.GetString("Intro1")),
+        (Localization.GetString("Commander"), Localization.GetString("Intro2")),
+        (Settings.OfficerName, Localization.GetString("Intro3")),
+        (Localization.GetString("Commander"), Localization.GetString("Intro4")),
+        (Localization.GetString("Commander"), Localization.GetString("Intro5")),
+        (Localization.GetString("Commander"), Localization.GetString("Intro6")),
+        (Localization.GetString("Commander"), Localization.GetString("Intro7")),
+        (Localization.GetString("Commander"), Localization.GetString("Intro8")),
     ];
     private readonly Dictionary<string, Keys> IntroSelection = new()
     {
-        [BankHeistConversation.IntroSelection1] = Keys.D1,
-        [BankHeistConversation.IntroSelection2] = Keys.D2,
+        [Localization.GetString("IntroSelection1")] = Keys.D1,
+        [Localization.GetString("IntroSelection2")] = Keys.D2,
     };
     private readonly (string, string)[] DiscussConversation =
     [
-        (Settings.OfficerName, BankHeistConversation.Discuss1),
-        (CalloutsText.Commander, BankHeistConversation.Discuss2),
-        (Settings.OfficerName, BankHeistConversation.Discuss3),
-        (CalloutsText.Commander, BankHeistConversation.Alarm1),
+        (Settings.OfficerName, Localization.GetString("Discuss1")),
+        (Localization.GetString("Commander"), Localization.GetString("Discuss2")),
+        (Settings.OfficerName, Localization.GetString("Discuss3")),
+        (Localization.GetString("Commander"), Localization.GetString("Alarm1")),
     ];
     private readonly (string, string)[] FightConversation =
     [
-        (Settings.OfficerName, BankHeistConversation.Fight1),
-        (CalloutsText.Commander, BankHeistConversation.Fight2),
-        (CalloutsText.Commander, BankHeistConversation.Fight3),
-        (Settings.OfficerName, BankHeistConversation.Fight4),
-        (CalloutsText.Commander, BankHeistConversation.Alarm1),
+        (Settings.OfficerName, Localization.GetString("Fight1")),
+        (Localization.GetString("Commander"), Localization.GetString("Fight2")),
+        (Localization.GetString("Commander"), Localization.GetString("Fight3")),
+        (Settings.OfficerName, Localization.GetString("Fight4")),
+        (Localization.GetString("Commander"), Localization.GetString("Alarm1")),
     ];
     private readonly Dictionary<string, Keys> AlarmSelection = new()
     {
-        [BankHeistConversation.AlarmSelection1] = Keys.D1,
-        [BankHeistConversation.AlarmSelection2] = Keys.D2,
+        [Localization.GetString("AlarmSelection1")] = Keys.D1,
+        [Localization.GetString("AlarmSelection2")] = Keys.D2,
     };
     private readonly (string, string)[] AlarmOffConversation =
     [
-        (CalloutsText.Commander, BankHeistConversation.Alarm2),
-        (CalloutsText.Commander, BankHeistConversation.Alarm3),
+        (Localization.GetString("Commander"), Localization.GetString("Alarm2")),
+        (Localization.GetString("Commander"), Localization.GetString("Alarm3")),
     ];
     private readonly (string, string)[] AlarmOnConversation =
     [
-        (CalloutsText.Commander, BankHeistConversation.Alarm4),
-        (CalloutsText.Commander, BankHeistConversation.Alarm5),
+        (Localization.GetString("Commander"), Localization.GetString("Alarm4")),
+        (Localization.GetString("Commander"), Localization.GetString("Alarm5")),
     ];
     private readonly (string, string)[] NegotiationIntroConversation =
     [
-        (CalloutsText.Robber, BankHeistConversation.Phone1),
-        (Settings.OfficerName, BankHeistConversation.Phone2),
-        (CalloutsText.Robber, BankHeistConversation.Phone3),
+        (Localization.GetString("Robber"), Localization.GetString("Phone1")),
+        (Settings.OfficerName, Localization.GetString("Phone2")),
+        (Localization.GetString("Robber"), Localization.GetString("Phone3")),
     ];
     private readonly Dictionary<string, Keys> NegotiationIntroSelection = new()
     {
-        [BankHeistConversation.NegotiationSelection1] = Keys.D1,
-        [BankHeistConversation.NegotiationSelection2] = Keys.D2,
-        [BankHeistConversation.NegotiationSelection3] = Keys.D3,
+        [Localization.GetString("NegotiationSelection1")] = Keys.D1,
+        [Localization.GetString("NegotiationSelection2")] = Keys.D2,
+        [Localization.GetString("NegotiationSelection3")] = Keys.D3,
     };
     private readonly (string, string)[] Negotiation1Conversation =
     [
-        (Settings.OfficerName, BankHeistConversation.Negotiation11),
-        (CalloutsText.Robber, BankHeistConversation.Negotiation12),
+        (Settings.OfficerName, Localization.GetString("Negotiation11")),
+        (Localization.GetString("Robber"), Localization.GetString("Negotiation12")),
     ];
     private readonly Dictionary<string, Keys> Negotiation1Selection = new()
     {
-        [BankHeistConversation.NegotiationSelection4] = Keys.D1,
-        [BankHeistConversation.NegotiationSelection2] = Keys.D2,
-        [BankHeistConversation.NegotiationSelection5] = Keys.D3,
+        [Localization.GetString("NegotiationSelection4")] = Keys.D1,
+        [Localization.GetString("NegotiationSelection2")] = Keys.D2,
+        [Localization.GetString("NegotiationSelection5")] = Keys.D3,
     };
     private readonly (string, string)[] Negotiation11Conversation =
     [
-        (Settings.OfficerName, BankHeistConversation.Negotiation111),
-        (CalloutsText.Robber, BankHeistConversation.Negotiation112),
+        (Settings.OfficerName, Localization.GetString("Negotiation111")),
+        (Localization.GetString("Robber"), Localization.GetString("Negotiation112")),
     ];
     private readonly Dictionary<string, Keys> Negotiation11Selection = new()
     {
-        [BankHeistConversation.NegotiationSelection6] = Keys.D1,
-        [BankHeistConversation.NegotiationSelection7] = Keys.D2,
-        [BankHeistConversation.NegotiationSelection8] = Keys.D3,
+        [Localization.GetString("NegotiationSelection6")] = Keys.D1,
+        [Localization.GetString("NegotiationSelection7")] = Keys.D2,
+        [Localization.GetString("NegotiationSelection8")] = Keys.D3,
     };
     private readonly (string, string)[] Negotiation13Conversation =
     [
-        (Settings.OfficerName, BankHeistConversation.Negotiation131),
-        (CalloutsText.Robber, BankHeistConversation.Negotiation132),
+        (Settings.OfficerName, Localization.GetString("Negotiation131")),
+        (Localization.GetString("Robber"), Localization.GetString("Negotiation132")),
     ];
     private readonly Dictionary<string, Keys> Negotiation13Selection = new()
     {
-        [BankHeistConversation.NegotiationSelection9] = Keys.D1,
-        [BankHeistConversation.NegotiationSelection6] = Keys.D2,
-        [BankHeistConversation.NegotiationSelection10] = Keys.D3,
+        [Localization.GetString("NegotiationSelection9")] = Keys.D1,
+        [Localization.GetString("NegotiationSelection6")] = Keys.D2,
+        [Localization.GetString("NegotiationSelection10")] = Keys.D3,
     };
     private readonly (string, string)[] Negotiation131Conversation =
     [
-        (Settings.OfficerName, BankHeistConversation.Negotiation1311),
-        (CalloutsText.Robber, BankHeistConversation.Negotiation1312),
+        (Settings.OfficerName, Localization.GetString("Negotiation1311")),
+        (Localization.GetString("Robber"), Localization.GetString("Negotiation1312")),
     ];
     private readonly (string, string)[] Negotiation133Conversation1 =
     [
-        (Settings.OfficerName, BankHeistConversation.Negotiation1331),
-        (CalloutsText.Robber, BankHeistConversation.Negotiation1332),
+        (Settings.OfficerName, Localization.GetString("Negotiation1331")),
+        (Localization.GetString("Robber"), Localization.GetString("Negotiation1332")),
     ];
     private readonly (string, string)[] Negotiation133Conversation2 =
     [
-        (Settings.OfficerName, BankHeistConversation.Negotiation1331),
-        (CalloutsText.Robber, BankHeistConversation.Negotiation1312),
+        (Settings.OfficerName, Localization.GetString("Negotiation1331")),
+        (Localization.GetString("Robber"), Localization.GetString("Negotiation1312")),
     ];
     private readonly (string, string)[] Negotiation111Conversation =
     [
-        (Settings.OfficerName, string.Format(BankHeistConversation.Negotiation1111, Settings.WifeName)),
-        (CalloutsText.Robber, BankHeistConversation.Negotiation1112),
+        (Settings.OfficerName, Localization.GetString("Negotiation1111", Settings.WifeName)),
+        (Localization.GetString("Robber"), Localization.GetString("Negotiation1112")),
     ];
     private readonly (string, string)[] Negotiation112Conversation =
     [
-        (Settings.OfficerName, BankHeistConversation.Negotiation1121),
-        (CalloutsText.Robber, BankHeistConversation.Negotiation1122),
-        (CalloutsText.Robber, BankHeistConversation.Negotiation1123),
+        (Settings.OfficerName, Localization.GetString("Negotiation1121")),
+        (Localization.GetString("Robber"), Localization.GetString("Negotiation1122")),
+        (Localization.GetString("Robber"), Localization.GetString("Negotiation1123")),
     ];
     private readonly (string, string)[] Negotiation113Conversation =
     [
-        (Settings.OfficerName, BankHeistConversation.Negotiation1131),
-        (CalloutsText.Robber, BankHeistConversation.Negotiation1132),
-        (CalloutsText.Robber, BankHeistConversation.Negotiation1133),
-        (Settings.OfficerName, BankHeistConversation.Negotiation1134),
-        (CalloutsText.Robber, BankHeistConversation.Negotiation1135),
+        (Settings.OfficerName, Localization.GetString("Negotiation1131")),
+        (Localization.GetString("Robber"), Localization.GetString("Negotiation1132")),
+        (Localization.GetString("Robber"), Localization.GetString("Negotiation1133")),
+        (Settings.OfficerName, Localization.GetString("Negotiation1134")),
+        (Localization.GetString("Robber"), Localization.GetString("Negotiation1135")),
     ];
     private readonly (string, string)[] RequestConversation =
     [
-        (CalloutsText.Robber, BankHeistConversation.Request1),
-        (CalloutsText.Robber, BankHeistConversation.Request2),
+        (Localization.GetString("Robber"), Localization.GetString("Request1")),
+        (Localization.GetString("Robber"), Localization.GetString("Request2")),
     ];
     private readonly Dictionary<string, Keys> RequestSelection = new()
     {
-        [BankHeistConversation.RequestSelection1] = Keys.D1,
-        [BankHeistConversation.RequestSelection2] = Keys.D2,
-        [BankHeistConversation.RequestSelection3] = Keys.D3,
+        [Localization.GetString("RequestSelection1")] = Keys.D1,
+        [Localization.GetString("RequestSelection2")] = Keys.D2,
+        [Localization.GetString("RequestSelection3")] = Keys.D3,
     };
     private readonly (string, string)[] Request1Conversation =
     [
-        (CalloutsText.Robber, BankHeistConversation.Request11),
-        (Settings.OfficerName, BankHeistConversation.Request12),
-        (CalloutsText.Robber, BankHeistConversation.Request13),
+        (Localization.GetString("Robber"), Localization.GetString("Request11")),
+        (Settings.OfficerName, Localization.GetString("Request12")),
+        (Localization.GetString("Robber"), Localization.GetString("Request13")),
     ];
     private readonly (string, string)[] Request2Conversation =
     [
-        (CalloutsText.Robber, BankHeistConversation.Request21),
-        (CalloutsText.Robber, BankHeistConversation.Request22),
+        (Localization.GetString("Robber"), Localization.GetString("Request21")),
+        (Localization.GetString("Robber"), Localization.GetString("Request22")),
     ];
     private readonly (string, string)[] Request3Conversation =
     [
-        (CalloutsText.Robber, BankHeistConversation.Request31),
-        (CalloutsText.Robber, BankHeistConversation.Request32),
-        (CalloutsText.Robber, BankHeistConversation.Request33),
+        (Localization.GetString("Robber"), Localization.GetString("Request31")),
+        (Localization.GetString("Robber"), Localization.GetString("Request32")),
+        (Localization.GetString("Robber"), Localization.GetString("Request33")),
     ];
     private readonly Dictionary<string, Keys> Request2Selection = new()
     {
-        [BankHeistConversation.RequestSelection4] = Keys.D1,
-        [BankHeistConversation.RequestSelection5] = Keys.D2,
-        [BankHeistConversation.RequestSelection6] = Keys.D3,
+        [Localization.GetString("RequestSelection4")] = Keys.D1,
+        [Localization.GetString("RequestSelection5")] = Keys.D2,
+        [Localization.GetString("RequestSelection6")] = Keys.D3,
     };
     private readonly (string, string)[] Request21Conversation =
     [
-        (Settings.OfficerName, BankHeistConversation.Request211),
-        (CalloutsText.Robber, BankHeistConversation.Request212),
+        (Settings.OfficerName, Localization.GetString("Request211")),
+        (Localization.GetString("Robber"), Localization.GetString("Request212")),
     ];
     private readonly (string, string)[] Request22Conversation1 =
     [
-        (Settings.OfficerName, string.Format(BankHeistConversation.Request221, Settings.WifeName)),
-        (CalloutsText.Robber, BankHeistConversation.Negotiation1112),
+        (Settings.OfficerName, Localization.GetString("Request221", Settings.WifeName)),
+        (Localization.GetString("Robber"), Localization.GetString("Negotiation1112")),
     ];
     private readonly (string, string)[] Request22Conversation2 =
     [
-        (Settings.OfficerName, string.Format(BankHeistConversation.Request221, Settings.WifeName)),
-        (CalloutsText.Robber, BankHeistConversation.Request222),
-        (Settings.OfficerName, BankHeistConversation.Request223),
+        (Settings.OfficerName, Localization.GetString("Request221", Settings.WifeName)),
+        (Localization.GetString("Robber"), Localization.GetString("Request222")),
+        (Settings.OfficerName, Localization.GetString("Request223")),
     ];
     private readonly (string, string)[] Request22Conversation3 =
     [
-        (Settings.WifeName, BankHeistConversation.Request224),
-        (Settings.WifeName, BankHeistConversation.Request225),
-        (CalloutsText.Robber, string.Format(BankHeistConversation.Request226, Settings.WifeName)),
-        (CalloutsText.Robber, BankHeistConversation.Request227),
-        (CalloutsText.Robber, string.Format(BankHeistConversation.Request228, Settings.WifeName)),
+        (Settings.WifeName, Localization.GetString("Request224")),
+        (Settings.WifeName, Localization.GetString("Request225")),
+        (Localization.GetString("Robber"), Localization.GetString("Request226", Settings.WifeName)),
+        (Localization.GetString("Robber"), Localization.GetString("Request227")),
+        (Localization.GetString("Robber"), Localization.GetString("Request228", Settings.WifeName)),
     ];
     private readonly (string, string)[] Request22Conversation4 =
     [
-        (Settings.OfficerName, string.Format(BankHeistConversation.Request229, Settings.WifeName)),
-        (Settings.WifeName, BankHeistConversation.Request220),
+        (Settings.OfficerName, Localization.GetString("Request229", Settings.WifeName)),
+        (Settings.WifeName, Localization.GetString("Request220")),
     ];
     private readonly (string, string)[] Negotiation3Conversation =
     [
-        (Settings.OfficerName, BankHeistConversation.NegotiationSelection3),
-        (CalloutsText.Robber, BankHeistConversation.Negotiation31)
+        (Settings.OfficerName, Localization.GetString("NegotiationSelection3")),
+        (Localization.GetString("Robber"), Localization.GetString("Negotiation31")),
     ];
     private readonly Dictionary<string, Keys> Negotiation3Selection = new()
     {
-        [BankHeistConversation.NegotiationSelection1] = Keys.D1,
-        [BankHeistConversation.NegotiationSelection11] = Keys.D2,
-        [BankHeistConversation.NegotiationSelection12] = Keys.D3,
-        [BankHeistConversation.NegotiationSelection10] = Keys.D4,
+        [Localization.GetString("NegotiationSelection1")] = Keys.D1,
+        [Localization.GetString("NegotiationSelection11")] = Keys.D2,
+        [Localization.GetString("NegotiationSelection12")] = Keys.D3,
+        [Localization.GetString("NegotiationSelection10")] = Keys.D4,
     };
     private readonly (string, string)[] Negotiation31Conversation =
     [
-        (Settings.OfficerName, BankHeistConversation.Negotiation11),
-        (CalloutsText.Robber, BankHeistConversation.Negotiation311),
+        (Settings.OfficerName, Localization.GetString("Negotiation11")),
+        (Localization.GetString("Robber"), Localization.GetString("Negotiation311")),
     ];
     private readonly (string, string)[] Negotiation32Conversation =
     [
-        (Settings.OfficerName, BankHeistConversation.NegotiationSelection11),
-        (CalloutsText.Robber, BankHeistConversation.Negotiation321),
+        (Settings.OfficerName, Localization.GetString("NegotiationSelection11")),
+        (Localization.GetString("Robber"), Localization.GetString("Negotiation321")),
     ];
     private readonly (string, string)[] Negotiation33Conversation =
     [
-        (Settings.OfficerName, BankHeistConversation.Negotiation331),
-        (CalloutsText.Robber, BankHeistConversation.Negotiation332),
-        (CalloutsText.Robber, BankHeistConversation.Negotiation333),
+        (Settings.OfficerName, Localization.GetString("Negotiation331")),
+        (Localization.GetString("Robber"), Localization.GetString("Negotiation332")),
+        (Localization.GetString("Robber"), Localization.GetString("Negotiation333")),
     ];
     private readonly (string, string)[] Negotiation34Conversation =
     [
-        (Settings.OfficerName, BankHeistConversation.NegotiationSelection10),
-        (CalloutsText.Robber, BankHeistConversation.Negotiation3212),
+        (Settings.OfficerName, Localization.GetString("NegotiationSelection10")),
+        (Localization.GetString("Robber"), Localization.GetString("Negotiation3212")),
     ];
     private readonly Dictionary<string, Keys> Negotiation32Selection = new()
     {
-        [BankHeistConversation.NegotiationSelection10] = Keys.D1,
-        [BankHeistConversation.NegotiationSelection14] = Keys.D2,
-        [BankHeistConversation.NegotiationSelection15] = Keys.D3,
+        [Localization.GetString("NegotiationSelection10")] = Keys.D1,
+        [Localization.GetString("NegotiationSelection14")] = Keys.D2,
+        [Localization.GetString("NegotiationSelection15")] = Keys.D3,
     };
     private readonly (string, string)[] Negotiation321Conversation =
     [
-        (Settings.OfficerName, BankHeistConversation.Negotiation3211),
-        (CalloutsText.Robber, BankHeistConversation.Negotiation3212),
+        (Settings.OfficerName, Localization.GetString("Negotiation3211")),
+        (Localization.GetString("Robber"), Localization.GetString("Negotiation3212")),
     ];
     private readonly (string, string)[] Negotiation322Conversation =
     [
-        (Settings.OfficerName, BankHeistConversation.NegotiationSelection14),
-        (CalloutsText.Robber, BankHeistConversation.Negotiation3221),
+        (Settings.OfficerName, Localization.GetString("NegotiationSelection14")),
+        (Localization.GetString("Robber"), Localization.GetString("Negotiation3221")),
     ];
     private readonly (string, string)[] Negotiation323Conversation =
     [
-        (Settings.OfficerName, BankHeistConversation.NegotiationSelection15),
-        (CalloutsText.Robber, BankHeistConversation.Negotiation3231),
-        (CalloutsText.Robber, BankHeistConversation.Negotiation3232),
+        (Settings.OfficerName, Localization.GetString("NegotiationSelection15")),
+        (Localization.GetString("Robber"), Localization.GetString("Negotiation3231")),
+        (Localization.GetString("Robber"), Localization.GetString("Negotiation3232")),
     ];
     private readonly (string, string)[] AfterSurrendered =
     [
-        (CalloutsText.Commander, BankHeistConversation.Surrender1),
-        (CalloutsText.Commander, BankHeistConversation.Surrender2),
-        (CalloutsText.Commander, BankHeistConversation.Surrender3),
-        (CalloutsText.Commander, BankHeistConversation.Surrender4),
-        (Settings.OfficerName, BankHeistConversation.Surrender5),
+        (Localization.GetString("Commander"), Localization.GetString("Surrender1")),
+        (Localization.GetString("Commander"), Localization.GetString("Surrender2")),
+        (Localization.GetString("Commander"), Localization.GetString("Surrender3")),
+        (Localization.GetString("Commander"), Localization.GetString("Surrender4")),
+        (Settings.OfficerName, Localization.GetString("Surrender5")),
     ];
     private readonly (string, string)[] Final =
     [
-        (CalloutsText.Commander, BankHeistConversation.Final1),
-        (CalloutsText.Commander, BankHeistConversation.Final2),
-        (CalloutsText.Commander, BankHeistConversation.Final3),
-        (Settings.OfficerName, BankHeistConversation.Final4),
+        (Localization.GetString("Commander"), Localization.GetString("Final1")),
+        (Localization.GetString("Commander"), Localization.GetString("Final2")),
+        (Localization.GetString("Commander"), Localization.GetString("Final3")),
+        (Settings.OfficerName, Localization.GetString("Final4")),
     ];
     #endregion
 
@@ -561,13 +561,13 @@ internal class BankHeist : CalloutBase
     internal override void Setup()
     {
         CalloutPosition = BankLocation;
-        CalloutMessage = CalloutsName.BankHeist;
+        CalloutMessage = Localization.GetString("BankHeist");
         ShowCalloutAreaBlipBeforeAccepting(CalloutPosition, 30f);
         Functions.PlayScannerAudioUsingPosition("CITIZENS_REPORT JP_CRIME_BANK_ROBBERY IN_OR_ON_POSITION UNITS_RESPOND_CODE_99", CalloutPosition);
 
         if (Main.IsCalloutInterfaceAPIExist)
         {
-            CalloutInterfaceAPIFunctions.SendMessage(this, CalloutsDescription.BankHeist);
+            CalloutInterfaceAPIFunctions.SendMessage(this, Localization.GetString("BankHeist"));
         }
 
         OnCalloutsEnded += () =>
@@ -586,7 +586,7 @@ internal class BankHeist : CalloutBase
             ToggleMobilePhone(Main.Player, false);
             if (IsCalloutFinished)
             {
-                HudHelpers.DisplayNotification(General.CalloutCode4, General.Dispatch, CalloutsName.BankHeist);
+                HudHelpers.DisplayNotification(Localization.GetString("CalloutCode4"), Localization.GetString("Dispatch"), Localization.GetString("BankHeist"));
 
                 if (BankBlip is not null && BankBlip.IsValid() && BankBlip.Exists()) BankBlip.Delete();
                 if (Commander is not null && Commander.IsValid() && Commander.Exists()) Commander.Dismiss();
@@ -668,7 +668,7 @@ internal class BankHeist : CalloutBase
             }
             else
             {
-                HudHelpers.DisplayNotification(General.SomethingWrong);
+                HudHelpers.DisplayNotification(Localization.GetString("SomethingWrong"));
 
                 if (BankBlip is not null && BankBlip.IsValid() && BankBlip.Exists()) BankBlip.Delete();
                 if (Commander is not null && Commander.IsValid() && Commander.Exists()) Commander.Delete();
@@ -698,19 +698,19 @@ internal class BankHeist : CalloutBase
 
     internal override void Accepted()
     {
-        HudHelpers.DisplayNotification(CalloutsText.BankHeistWarning);
+        HudHelpers.DisplayNotification(Localization.GetString("BankHeistWarning"));
         BankAlarm.Load();
         if (Main.Player.IsInAnyVehicle(false))
         {
             CalloutEntities.Add(Main.Player.CurrentVehicle);
         }
-        HudHelpers.DisplayNotification(CalloutsDescription.BankHeist);
+        HudHelpers.DisplayNotification(Localization.GetString("BankHeist"));
 
-        DiedHostagesTB = new(CalloutsText.DiedHostages, $"{TotalHostagesCount - AliveHostagesCount}")
+        DiedHostagesTB = new(Localization.GetString("DiedHostages"), $"{TotalHostagesCount - AliveHostagesCount}")
         {
             Highlight = HudColor.Green.GetColor()
         };
-        RescuedHostagesTB = new(CalloutsText.RescuedHostages, $"{SafeHostagesCount}/{TotalHostagesCount}")
+        RescuedHostagesTB = new(Localization.GetString("RescuedHostages"), $"{SafeHostagesCount}/{TotalHostagesCount}")
         {
             Highlight = HudColor.Blue.GetColor()
         };
@@ -781,7 +781,7 @@ internal class BankHeist : CalloutBase
                     if (Vector3.Distance(Main.Player.Position, AllAmbulance[0].Position) < 70f) break;
                     if (Main.Player.IsAlive)
                     {
-                        HudHelpers.DisplayHelp(string.Format(CalloutsText.SpawnAmbulance, Settings.EnterRiotVanModifierKey is Keys.None ? $"~{Settings.EnterRiotVanKey.GetInstructionalId()}~" : $"~{Settings.EnterRiotVanModifierKey.GetInstructionalId()}~ ~+~ ~{Settings.EnterRiotVanKey.GetInstructionalId()}~"));
+                        HudHelpers.DisplayHelp(Localization.GetString("SpawnAmbulance", Settings.EnterRiotVanModifierKey is Keys.None ? $"~{Settings.EnterRiotVanKey.GetInstructionalId()}~" : $"~{Settings.EnterRiotVanModifierKey.GetInstructionalId()}~ ~+~ ~{Settings.EnterRiotVanKey.GetInstructionalId()}~"));
                         if (KeyHelpers.IsKeysDown(Settings.EnterRiotVanKey, Settings.EnterRiotVanModifierKey))
                         {
                             Main.Player.WarpIntoVehicle(AllAmbulance[0], 2);
@@ -814,10 +814,10 @@ internal class BankHeist : CalloutBase
                 GameFiber.StartNew(() =>
                 {
                     GameFiber.Wait(4800);
-                    HudHelpers.DisplayNotification(CalloutsText.BankHeistCopyThat);
+                    HudHelpers.DisplayNotification(Localization.GetString("BankHeistCopyThat"));
                     Functions.PlayScannerAudio("JP_COPY_THAT_MOVING_RIGHT_NOW REPORT_RESPONSE_COPY JP_PROCEED_WITH_CAUTION");
                     GameFiber.Wait(3400);
-                    HudHelpers.DisplayNotification(CalloutsText.BankHeistRoger);
+                    HudHelpers.DisplayNotification(Localization.GetString("BankHeistRoger"));
                 });
                 LoadModels();
                 while (Vector3.Distance(Main.Player.Position, CalloutPosition) > 350f)
@@ -888,8 +888,8 @@ internal class BankHeist : CalloutBase
                         {
                             if (Vector3.Distance(Main.Player.Position, Commander.Position) < 4f)
                             {
-                                HudHelpers.DisplayNotification(CalloutsText.BankHeistWarning);
-                                HudHelpers.DisplayHelp(string.Format(General.PressToTalkWith, Settings.SpeakWithThePersonModifierKey is Keys.None ? $"~{Settings.SpeakWithThePersonKey.GetInstructionalId()}~" : $"~{Settings.SpeakWithThePersonModifierKey.GetInstructionalId()}~ ~+~ ~{Settings.SpeakWithThePersonKey.GetInstructionalId()}~", CalloutsText.Commander));
+                                HudHelpers.DisplayNotification(Localization.GetString("BankHeistWarning"));
+                                HudHelpers.DisplayHelp(Localization.GetString("PressToTalkWith", Settings.SpeakWithThePersonModifierKey is Keys.None ? $"~{Settings.SpeakWithThePersonKey.GetInstructionalId()}~" : $"~{Settings.SpeakWithThePersonModifierKey.GetInstructionalId()}~ ~+~ ~{Settings.SpeakWithThePersonKey.GetInstructionalId()}~", Localization.GetString("Commander")));
                                 if (KeyHelpers.IsKeysDown(Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey))
                                 {
                                     TalkedToCommander = true;
@@ -898,7 +898,7 @@ internal class BankHeist : CalloutBase
                             }
                             else
                             {
-                                HudHelpers.DisplayHelp(CalloutsText.TalkToCommander);
+                                HudHelpers.DisplayHelp(Localization.GetString("TalkToCommander"));
                             }
                         }
                     }
@@ -931,10 +931,10 @@ internal class BankHeist : CalloutBase
                         {
                             if (Vector3.Distance(Main.Player.Position, Commander.Position) < 3f)
                             {
-                                HudHelpers.DisplayHelp(string.Format(General.PressToTalkWith, Settings.SpeakWithThePersonModifierKey is Keys.None ? $"~{Settings.SpeakWithThePersonKey.GetInstructionalId()}~" : $"~{Settings.SpeakWithThePersonModifierKey.GetInstructionalId()}~ ~+~ ~{Settings.SpeakWithThePersonKey.GetInstructionalId()}~", CalloutsText.Commander));
+                                HudHelpers.DisplayHelp(Localization.GetString("PressToTalkWith", Settings.SpeakWithThePersonModifierKey is Keys.None ? $"~{Settings.SpeakWithThePersonKey.GetInstructionalId()}~" : $"~{Settings.SpeakWithThePersonModifierKey.GetInstructionalId()}~ ~+~ ~{Settings.SpeakWithThePersonKey.GetInstructionalId()}~", Localization.GetString("Commander")));
                                 if (KeyHelpers.IsKeysDown(Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey))
                                 {
-                                    Conversations.Talk([(CalloutsText.Commander, BankHeistConversation.StillFighting)]);
+                                    Conversations.Talk([(Localization.GetString("Commander"), Localization.GetString("StillFighting"))]);
                                 }
                             }
                         }
@@ -966,7 +966,7 @@ internal class BankHeist : CalloutBase
                         if (Main.Player.IsShooting)
                         {
                             IsSWATFollowing = false;
-                            HudHelpers.DisplayHelp(CalloutsText.SWATIsNotFollowing);
+                            HudHelpers.DisplayHelp(Localization.GetString("SWATIsNotFollowing"));
                             Logger.Info("Follow off - shooting", "Bank Heist");
                         }
                     }
@@ -1010,7 +1010,7 @@ internal class BankHeist : CalloutBase
                         if (Main.Player.IsShooting)
                         {
                             IsSWATFollowing = false;
-                            HudHelpers.DisplayHelp(CalloutsText.SWATIsNotFollowing);
+                            HudHelpers.DisplayHelp(Localization.GetString("SWATIsNotFollowing"));
                             Logger.Info("Follow off - shooting", "Bank Heist");
                         }
                     }
@@ -1019,7 +1019,7 @@ internal class BankHeist : CalloutBase
                     {
                         if (Vector3.Distance(Main.Player.Position, Commander.Position) < 4f)
                         {
-                            HudHelpers.DisplayHelp(string.Format(CalloutsText.TalkTo, Settings.SpeakWithThePersonModifierKey is Keys.None ? $"~{Settings.SpeakWithThePersonKey.GetInstructionalId()}~" : $"~{Settings.SpeakWithThePersonModifierKey.GetInstructionalId()}~ ~+~ ~{Settings.SpeakWithThePersonKey.GetInstructionalId()}~", CalloutsText.Commander));
+                            HudHelpers.DisplayHelp(Localization.GetString("TalkTo", Settings.SpeakWithThePersonModifierKey is Keys.None ? $"~{Settings.SpeakWithThePersonKey.GetInstructionalId()}~" : $"~{Settings.SpeakWithThePersonModifierKey.GetInstructionalId()}~ ~+~ ~{Settings.SpeakWithThePersonKey.GetInstructionalId()}~", Localization.GetString("Commander")));
                             if (KeyHelpers.IsKeysDown(Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey))
                             {
                                 if (!TalkedToWells2nd)
@@ -1027,11 +1027,11 @@ internal class BankHeist : CalloutBase
                                     Conversations.Talk(AfterSurrendered);
                                     TalkedToWells2nd = true;
                                     IsFighting = true;
-                                    HudHelpers.DisplayHelp(string.Format(CalloutsText.SWATFollowing, Settings.SWATFollowModifierKey is Keys.None ? $"~{Settings.SWATFollowKey.GetInstructionalId()}~" : $"~{Settings.SWATFollowModifierKey.GetInstructionalId()}~ ~+~ ~{Settings.SWATFollowKey.GetInstructionalId()}~"));
+                                    HudHelpers.DisplayHelp(Localization.GetString("SWATFollowing", Settings.SWATFollowModifierKey is Keys.None ? $"~{Settings.SWATFollowKey.GetInstructionalId()}~" : $"~{Settings.SWATFollowModifierKey.GetInstructionalId()}~ ~+~ ~{Settings.SWATFollowKey.GetInstructionalId()}~"));
                                 }
                                 else
                                 {
-                                    Conversations.Talk([(CalloutsText.Commander, BankHeistConversation.StillFighting)]);
+                                    Conversations.Talk([(Localization.GetString("Commander"), Localization.GetString("StillFighting"))]);
                                 }
                             }
                         }
@@ -1039,7 +1039,7 @@ internal class BankHeist : CalloutBase
                         {
                             if (!TalkedToWells2nd)
                             {
-                                HudHelpers.DisplayHelp(string.Format(CalloutsText.TalkTo, CalloutsText.Commander));
+                                HudHelpers.DisplayHelp(Localization.GetString("TalkTo", Localization.GetString("Commander")));
                             }
                         }
                     }
@@ -1062,7 +1062,7 @@ internal class BankHeist : CalloutBase
                         {
                             if (Vector3.Distance(Main.Player.Position, Commander.Position) < 4f)
                             {
-                                HudHelpers.DisplayHelp(string.Format(CalloutsText.TalkTo, Settings.SpeakWithThePersonModifierKey is Keys.None ? $"~{Settings.SpeakWithThePersonKey.GetInstructionalId()}~" : $"~{Settings.SpeakWithThePersonModifierKey.GetInstructionalId()}~ ~+~ ~{Settings.SpeakWithThePersonKey.GetInstructionalId()}~", CalloutsText.Commander));
+                                HudHelpers.DisplayHelp(Localization.GetString("TalkTo", Settings.SpeakWithThePersonModifierKey is Keys.None ? $"~{Settings.SpeakWithThePersonKey.GetInstructionalId()}~" : $"~{Settings.SpeakWithThePersonModifierKey.GetInstructionalId()}~ ~+~ ~{Settings.SpeakWithThePersonKey.GetInstructionalId()}~", Localization.GetString("Commander")));
                                 if (KeyHelpers.IsKeysDown(Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey))
                                 {
                                     TalkedToCommander = true;
@@ -1076,7 +1076,7 @@ internal class BankHeist : CalloutBase
                             }
                             else
                             {
-                                HudHelpers.DisplayHelp(string.Format(CalloutsText.TalkTo, CalloutsText.Commander));
+                                HudHelpers.DisplayHelp(Localization.GetString("TalkTo", Localization.GetString("Commander")));
                             }
                         }
                     }
@@ -1155,11 +1155,11 @@ internal class BankHeist : CalloutBase
                 }
             }
         }
-        HudHelpers.DisplayNotification(string.Format(CalloutsText.BankHeistReportText, SafeHostagesCount, TotalHostagesCount - AliveHostagesCount, DiedRobbersCount), CalloutsText.BankHeistReportTitle, TotalHostagesCount - AliveHostagesCount is < 3 ? CalloutsText.BankHeistReportSubtitle : "", "mphud", "mp_player_ready");
+        HudHelpers.DisplayNotification(Localization.GetString("BankHeistReportText", $"{SafeHostagesCount}", $"{TotalHostagesCount - AliveHostagesCount}", $"{DiedRobbersCount}"), Localization.GetString("BankHeistReportTitle"), TotalHostagesCount - AliveHostagesCount is < 3 ? Localization.GetString("BankHeistReportSubtitle") : "", "mphud", "mp_player_ready");
         if (TotalHostagesCount == AliveHostagesCount)
         {
             var bigMessage = new BigMessageThread(true);
-            bigMessage.MessageInstance.ShowColoredShard(CalloutsText.Congratulations, CalloutsText.NoDiedHostage, HudColor.Yellow, HudColor.MenuGrey);
+            bigMessage.MessageInstance.ShowColoredShard(Localization.GetString("Congratulations"), Localization.GetString("NoDiedHostage"), HudColor.Yellow, HudColor.MenuGrey);
         }
     }
 
@@ -1168,11 +1168,11 @@ internal class BankHeist : CalloutBase
         IsSWATFollowing = !IsSWATFollowing;
         if (IsSWATFollowing)
         {
-            HudHelpers.DisplayHelp(CalloutsText.SWATIsFollowing);
+            HudHelpers.DisplayHelp(Localization.GetString("SWATIsFollowing"));
         }
         else
         {
-            HudHelpers.DisplayHelp(CalloutsText.SWATIsNotFollowing);
+            HudHelpers.DisplayHelp(Localization.GetString("SWATIsNotFollowing"));
         }
     }
 
@@ -1381,7 +1381,7 @@ internal class BankHeist : CalloutBase
             while (IsCalloutRunning)
             {
                 GameFiber.Yield();
-                HudHelpers.DisplayHelp(string.Format(CalloutsText.CallBankRobbers, Settings.SpeakWithThePersonModifierKey is Keys.None ? $"~{Settings.SpeakWithThePersonKey.GetInstructionalId()}~" : $"~{Settings.SpeakWithThePersonModifierKey.GetInstructionalId()}~ ~+~ ~{Settings.SpeakWithThePersonKey.GetInstructionalId()}~"));
+                HudHelpers.DisplayHelp(Localization.GetString("CallBankRobbers", Settings.SpeakWithThePersonModifierKey is Keys.None ? $"~{Settings.SpeakWithThePersonKey.GetInstructionalId()}~" : $"~{Settings.SpeakWithThePersonModifierKey.GetInstructionalId()}~ ~+~ ~{Settings.SpeakWithThePersonKey.GetInstructionalId()}~"));
                 if (KeyHelpers.IsKeysDown(Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey)) break;
             }
             Game.HideHelp();
@@ -1405,14 +1405,14 @@ internal class BankHeist : CalloutBase
             Conversations.Talk(AlarmOffConversation);
             BankAlarm.Stop();
             CurrentAlarmState = AlarmState.None;
-            Conversations.Talk([(CalloutsText.Commander, BankHeistConversation.Alarm5)]);
+            Conversations.Talk([(Localization.GetString("Commander"), Localization.GetString("Alarm5"))]);
         }
         else if (alarm is 1)
         {
             CurrentAlarmState = AlarmState.Alarm;
             Conversations.Talk(AlarmOnConversation);
         }
-        HudHelpers.DisplayHelp(string.Format(CalloutsText.AlarmSwitchKey, Settings.ToggleBankHeistAlarmSoundModifierKey is Keys.None ? $"~{Settings.ToggleBankHeistAlarmSoundKey.GetInstructionalId()}~" : $"~{Settings.ToggleBankHeistAlarmSoundModifierKey.GetInstructionalId()}~ ~+~ ~{Settings.ToggleBankHeistAlarmSoundKey.GetInstructionalId()}~"));
+        HudHelpers.DisplayHelp(Localization.GetString("AlarmSwitchKey", Settings.ToggleBankHeistAlarmSoundModifierKey is Keys.None ? $"~{Settings.ToggleBankHeistAlarmSoundKey.GetInstructionalId()}~" : $"~{Settings.ToggleBankHeistAlarmSoundModifierKey.GetInstructionalId()}~ ~+~ ~{Settings.ToggleBankHeistAlarmSoundKey.GetInstructionalId()}~"));
     }
 
     private void NegotiationIntro()
@@ -1554,11 +1554,11 @@ internal class BankHeist : CalloutBase
         while (IsCalloutRunning)
         {
             GameFiber.Yield();
-            HudHelpers.DisplayHelp(string.Format(CalloutsText.BankHeistMoveIn, Settings.SpeakWithThePersonModifierKey is Keys.None ? $"~{Settings.SpeakWithThePersonKey.GetInstructionalId()}~" : $"~{Settings.SpeakWithThePersonModifierKey.GetInstructionalId()}~ ~+~ ~{Settings.SpeakWithThePersonKey.GetInstructionalId()}~"));
+            HudHelpers.DisplayHelp(Localization.GetString("BankHeistMoveIn", Settings.SpeakWithThePersonModifierKey is Keys.None ? $"~{Settings.SpeakWithThePersonKey.GetInstructionalId()}~" : $"~{Settings.SpeakWithThePersonModifierKey.GetInstructionalId()}~ ~+~ ~{Settings.SpeakWithThePersonKey.GetInstructionalId()}~"));
             if (KeyHelpers.IsKeysDown(Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey))
             {
-                Conversations.Talk([(Settings.OfficerName, BankHeistConversation.MoveIn)]);
-                HudHelpers.DisplayHelp(string.Format(CalloutsText.SWATFollowing, Settings.SWATFollowModifierKey is Keys.None ? $"~{Settings.SWATFollowKey.GetInstructionalId()}~" : $"~{Settings.SWATFollowModifierKey.GetInstructionalId()}~ ~+~ ~{Settings.SWATFollowKey.GetInstructionalId()}~"));
+                Conversations.Talk([(Settings.OfficerName, Localization.GetString("MoveIn"))]);
+                HudHelpers.DisplayHelp(Localization.GetString("SWATFollowing", Settings.SWATFollowModifierKey is Keys.None ? $"~{Settings.SWATFollowKey.GetInstructionalId()}~" : $"~{Settings.SWATFollowModifierKey.GetInstructionalId()}~ ~+~ ~{Settings.SWATFollowKey.GetInstructionalId()}~"));
                 IsFighting = true;
                 break;
             }
@@ -1618,7 +1618,7 @@ internal class BankHeist : CalloutBase
                         }
                         break;
                     case 2:
-                        Conversations.Talk([(Settings.OfficerName, BankHeistConversation.Request231)]);
+                        Conversations.Talk([(Settings.OfficerName, Localization.GetString("Request231"))]);
                         NegotiationResult = Negotiation.Fight;
                         break;
                 }
@@ -1638,9 +1638,9 @@ internal class BankHeist : CalloutBase
         {
             try
             {
-                HudHelpers.DisplayNotification($"~b~{CalloutsText.Commander}~s~: {BankHeistConversation.SeemSurrender}");
+                HudHelpers.DisplayNotification($"~b~{Localization.GetString("Commander")}~s~: {Localization.GetString("SeemSurrender")}");
                 GameFiber.Wait(5000);
-                HudHelpers.DisplayHelp(CalloutsText.SurrenderHelp, 80000);
+                HudHelpers.DisplayHelp(Localization.GetString("SurrenderHelp"), 80000);
                 bool AllRobbersAtLocation = false;
                 for (int i = 0; i < AllRobbers.Count; i++)
                 {
@@ -2497,7 +2497,7 @@ internal class BankHeist : CalloutBase
                                             RescuingHostage = true;
                                             Main.Player.Tasks.AchieveHeading(MathHelper.ConvertDirectionToHeading(direction)).WaitForCompletion(1200);
                                             hostage.RelationshipGroup = "COP";
-                                            Conversations.Talk([(Settings.OfficerName, BankHeistConversation.RescueHostage)]);
+                                            Conversations.Talk([(Settings.OfficerName, Localization.GetString("RescueHostage"))]);
                                             Main.Player.Tasks.PlayAnimation("random@rescue_hostage", "bystander_helping_girl_loop", 1.5f, AnimationFlags.None).WaitForCompletion(3000);
 
                                             if (hostage.IsAlive)
@@ -2527,7 +2527,7 @@ internal class BankHeist : CalloutBase
                                             closeHostage = hostage;
                                             if (subtitleCount > 10)
                                             {
-                                                HudHelpers.DisplayHelp(string.Format(CalloutsText.BankHeistReleaseHostage, Settings.HostageRescueModifierKey is Keys.None ? $"~{Settings.HostageRescueKey.GetInstructionalId()}~" : $"~{Settings.HostageRescueModifierKey.GetInstructionalId()}~ ~+~ ~{Settings.HostageRescueKey.GetInstructionalId()}~"));
+                                                HudHelpers.DisplayHelp(Localization.GetString("BankHeistReleaseHostage", Settings.HostageRescueModifierKey is Keys.None ? $"~{Settings.HostageRescueKey.GetInstructionalId()}~" : $"~{Settings.HostageRescueModifierKey.GetInstructionalId()}~ ~+~ ~{Settings.HostageRescueKey.GetInstructionalId()}~"));
                                             }
                                         }
                                     }
@@ -2690,7 +2690,7 @@ internal class BankHeist : CalloutBase
                             {
                                 if (CoolDown > 0)
                                 {
-                                    HudHelpers.DisplayNotification(CalloutsText.GearRunOut);
+                                    HudHelpers.DisplayNotification(Localization.GetString("GearRunOut"));
                                 }
                                 else
                                 {
@@ -2708,7 +2708,7 @@ internal class BankHeist : CalloutBase
                             {
                                 if (CoolDown is 0)
                                 {
-                                    HudHelpers.DisplayHelp(string.Format(CalloutsText.EnterRiot, Settings.EnterRiotVanModifierKey is Keys.None ? $"~{Settings.EnterRiotVanKey.GetInstructionalId()}~" : $"~{Settings.EnterRiotVanModifierKey.GetInstructionalId()}~ ~+~ ~{Settings.EnterRiotVanKey.GetInstructionalId()}~"));
+                                    HudHelpers.DisplayHelp(Localization.GetString("EnterRiot", Settings.EnterRiotVanModifierKey is Keys.None ? $"~{Settings.EnterRiotVanKey.GetInstructionalId()}~" : $"~{Settings.EnterRiotVanModifierKey.GetInstructionalId()}~ ~+~ ~{Settings.EnterRiotVanKey.GetInstructionalId()}~"));
                                 }
                             }
                         }
@@ -2722,7 +2722,7 @@ internal class BankHeist : CalloutBase
                             {
                                 if (CoolDown > 0)
                                 {
-                                    HudHelpers.DisplayNotification(CalloutsText.GearRunOut);
+                                    HudHelpers.DisplayNotification(Localization.GetString("GearRunOut"));
                                 }
                                 else
                                 {
@@ -2740,7 +2740,7 @@ internal class BankHeist : CalloutBase
                             {
                                 if (CoolDown is 0)
                                 {
-                                    HudHelpers.DisplayHelp(string.Format(CalloutsText.EnterRiot, Settings.EnterRiotVanModifierKey is Keys.None ? $"~{Settings.EnterRiotVanKey.GetInstructionalId()}~" : $"~{Settings.EnterRiotVanModifierKey.GetInstructionalId()}~ ~+~ ~{Settings.EnterRiotVanKey.GetInstructionalId()}~"));
+                                    HudHelpers.DisplayHelp(Localization.GetString("EnterRiot", Settings.EnterRiotVanModifierKey is Keys.None ? $"~{Settings.EnterRiotVanKey.GetInstructionalId()}~" : $"~{Settings.EnterRiotVanModifierKey.GetInstructionalId()}~ ~+~ ~{Settings.EnterRiotVanKey.GetInstructionalId()}~"));
                                 }
                             }
                         }

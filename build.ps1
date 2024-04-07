@@ -5,7 +5,6 @@ $JapaneseCallouts = $env:JapaneseCallouts
 # GTA5側のディレクトリたち
 $PluginsFolder = $GrandTheftAutoV + "\plugins"
 $PluginsLSPDFRFolder = $GrandTheftAutoV + "\plugins\LSPDFR"
-$LanguageFolder = $PluginsLSPDFRFolder + "\JapaneseCallouts\Languages"
 
 # ビルド側のディレクトリたち
 $PluginDllFolder = ".\JapaneseCallouts\bin\Release\net48"
@@ -67,29 +66,11 @@ If (!(Test-Path $PluginsLSPDFRFolder))
     Write-Host "[Info] The LSPDFR folder ($($PluginsLSPDFRFolder)) was not found. The folder will be automatically generated." -ForegroundColor DarkRed
     New-Item $PluginsLSPDFRFolder -ItemType Directory
 }
-If (!(Test-Path $LanguageFolder))
-{
-    Write-Host "[Info] The language folder ($($LanguageFolder)) was not found. The folder will be automatically generated." -ForegroundColor DarkRed
-    New-Item $LanguageFolder -ItemType Directory
-}
 
 # ファイルをコピー
 Write-Host "[Copy] In progress..." -ForegroundColor DarkBlue
 Copy-Item $PluginDllFile $PluginsLSPDFRFolder
 Copy-Item $PluginIniFile $PluginsLSPDFRFolder
 Write-Host "[Copy] Done!" -ForegroundColor Green
-
-# ビルドフォルダから言語フォルダのみをコピー
-Write-Host "[Language] Copy the language folders" -ForegroundColor DarkCyan
-Get-ChildItem -Path $PluginDllFolder -Directory | ForEach-Object {
-    $Dest = Join-Path -Path $LanguageFolder -ChildPath $_.Name
-    If (Test-Path $Dest)
-    {
-        Remove-Item $Dest -Recurse -Force -Confirm:$false
-    }
-    Write-Host "[Language] Copy the $($_) folder" -ForegroundColor DarkGray
-    Copy-Item -Path $_.FullName -Destination $Dest -Recurse
-}
-Write-Host "[Language] Done!" -ForegroundColor Green
 
 Write-Host "All process was successfully done!" -ForegroundColor Green
