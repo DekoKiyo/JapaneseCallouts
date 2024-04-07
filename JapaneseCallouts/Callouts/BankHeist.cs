@@ -782,7 +782,7 @@ internal class BankHeist : CalloutBase
                     if (Vector3.Distance(Main.Player.Position, AllAmbulance[0].Position) < 70f) break;
                     if (Main.Player.IsAlive)
                     {
-                        HudHelpers.DisplayHelp(Localization.GetString("SpawnAmbulance", Settings.EnterRiotVanModifierKey is Keys.None ? $"~{Settings.EnterRiotVanKey.GetInstructionalId()}~" : $"~{Settings.EnterRiotVanModifierKey.GetInstructionalId()}~ ~+~ ~{Settings.EnterRiotVanKey.GetInstructionalId()}~"));
+                        KeyHelpers.DisplayKeyHelp("SpawnAmbulance", Settings.EnterRiotVanKey, Settings.EnterRiotVanModifierKey);
                         if (KeyHelpers.IsKeysDown(Settings.EnterRiotVanKey, Settings.EnterRiotVanModifierKey))
                         {
                             Main.Player.WarpIntoVehicle(AllAmbulance[0], 2);
@@ -890,7 +890,7 @@ internal class BankHeist : CalloutBase
                             if (Vector3.Distance(Main.Player.Position, Commander.Position) < 4f)
                             {
                                 HudHelpers.DisplayNotification(Localization.GetString("BankHeistWarning"));
-                                HudHelpers.DisplayHelp(Localization.GetString("PressToTalkWith", Settings.SpeakWithThePersonModifierKey is Keys.None ? $"~{Settings.SpeakWithThePersonKey.GetInstructionalId()}~" : $"~{Settings.SpeakWithThePersonModifierKey.GetInstructionalId()}~ ~+~ ~{Settings.SpeakWithThePersonKey.GetInstructionalId()}~", Localization.GetString("Commander")));
+                                KeyHelpers.DisplayKeyHelp("PressToTalkWith", [Localization.GetString("Commander")], Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey);
                                 if (KeyHelpers.IsKeysDown(Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey))
                                 {
                                     TalkedToCommander = true;
@@ -932,7 +932,7 @@ internal class BankHeist : CalloutBase
                         {
                             if (Vector3.Distance(Main.Player.Position, Commander.Position) < 3f)
                             {
-                                HudHelpers.DisplayHelp(Localization.GetString("PressToTalkWith", Settings.SpeakWithThePersonModifierKey is Keys.None ? $"~{Settings.SpeakWithThePersonKey.GetInstructionalId()}~" : $"~{Settings.SpeakWithThePersonModifierKey.GetInstructionalId()}~ ~+~ ~{Settings.SpeakWithThePersonKey.GetInstructionalId()}~", Localization.GetString("Commander")));
+                                KeyHelpers.DisplayKeyHelp("PressToTalkWith", [Localization.GetString("Commander")], Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey);
                                 if (KeyHelpers.IsKeysDown(Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey))
                                 {
                                     Conversations.Talk([(Localization.GetString("Commander"), Localization.GetString("StillFighting"))]);
@@ -1020,7 +1020,7 @@ internal class BankHeist : CalloutBase
                     {
                         if (Vector3.Distance(Main.Player.Position, Commander.Position) < 4f)
                         {
-                            HudHelpers.DisplayHelp(Localization.GetString("TalkTo", Settings.SpeakWithThePersonModifierKey is Keys.None ? $"~{Settings.SpeakWithThePersonKey.GetInstructionalId()}~" : $"~{Settings.SpeakWithThePersonModifierKey.GetInstructionalId()}~ ~+~ ~{Settings.SpeakWithThePersonKey.GetInstructionalId()}~", Localization.GetString("Commander")));
+                            KeyHelpers.DisplayKeyHelp("PressToTalk", [Localization.GetString("Commander")], Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey);
                             if (KeyHelpers.IsKeysDown(Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey))
                             {
                                 if (!TalkedToWells2nd)
@@ -1028,7 +1028,7 @@ internal class BankHeist : CalloutBase
                                     Conversations.Talk(AfterSurrendered);
                                     TalkedToWells2nd = true;
                                     IsFighting = true;
-                                    HudHelpers.DisplayHelp(Localization.GetString("SWATFollowing", Settings.SWATFollowModifierKey is Keys.None ? $"~{Settings.SWATFollowKey.GetInstructionalId()}~" : $"~{Settings.SWATFollowModifierKey.GetInstructionalId()}~ ~+~ ~{Settings.SWATFollowKey.GetInstructionalId()}~"));
+                                    KeyHelpers.DisplayKeyHelp("SWATFollowing", Settings.SWATFollowKey, Settings.SWATFollowModifierKey);
                                 }
                                 else
                                 {
@@ -1063,7 +1063,7 @@ internal class BankHeist : CalloutBase
                         {
                             if (Vector3.Distance(Main.Player.Position, Commander.Position) < 4f)
                             {
-                                HudHelpers.DisplayHelp(Localization.GetString("TalkTo", Settings.SpeakWithThePersonModifierKey is Keys.None ? $"~{Settings.SpeakWithThePersonKey.GetInstructionalId()}~" : $"~{Settings.SpeakWithThePersonModifierKey.GetInstructionalId()}~ ~+~ ~{Settings.SpeakWithThePersonKey.GetInstructionalId()}~", Localization.GetString("Commander")));
+                                KeyHelpers.DisplayKeyHelp("PressToTalkWith", [Localization.GetString("Commander")], Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey);
                                 if (KeyHelpers.IsKeysDown(Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey))
                                 {
                                     TalkedToCommander = true;
@@ -1382,7 +1382,7 @@ internal class BankHeist : CalloutBase
             while (IsCalloutRunning)
             {
                 GameFiber.Yield();
-                HudHelpers.DisplayHelp(Localization.GetString("CallBankRobbers", Settings.SpeakWithThePersonModifierKey is Keys.None ? $"~{Settings.SpeakWithThePersonKey.GetInstructionalId()}~" : $"~{Settings.SpeakWithThePersonModifierKey.GetInstructionalId()}~ ~+~ ~{Settings.SpeakWithThePersonKey.GetInstructionalId()}~"));
+                KeyHelpers.DisplayKeyHelp("CallBankRobbers", Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey);
                 if (KeyHelpers.IsKeysDown(Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey)) break;
             }
             Game.HideHelp();
@@ -1413,7 +1413,7 @@ internal class BankHeist : CalloutBase
             CurrentAlarmState = AlarmState.Alarm;
             Conversations.Talk(AlarmOnConversation);
         }
-        HudHelpers.DisplayHelp(Localization.GetString("AlarmSwitchKey", Settings.ToggleBankHeistAlarmSoundModifierKey is Keys.None ? $"~{Settings.ToggleBankHeistAlarmSoundKey.GetInstructionalId()}~" : $"~{Settings.ToggleBankHeistAlarmSoundModifierKey.GetInstructionalId()}~ ~+~ ~{Settings.ToggleBankHeistAlarmSoundKey.GetInstructionalId()}~"));
+        KeyHelpers.DisplayKeyHelp("AlarmSwitchKey", Settings.ToggleBankHeistAlarmSoundKey, Settings.ToggleBankHeistAlarmSoundModifierKey);
     }
 
     private void NegotiationIntro()
@@ -1555,11 +1555,11 @@ internal class BankHeist : CalloutBase
         while (IsCalloutRunning)
         {
             GameFiber.Yield();
-            HudHelpers.DisplayHelp(Localization.GetString("BankHeistMoveIn", Settings.SpeakWithThePersonModifierKey is Keys.None ? $"~{Settings.SpeakWithThePersonKey.GetInstructionalId()}~" : $"~{Settings.SpeakWithThePersonModifierKey.GetInstructionalId()}~ ~+~ ~{Settings.SpeakWithThePersonKey.GetInstructionalId()}~"));
+            KeyHelpers.DisplayKeyHelp("BankHeistMoveIn", Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey);
             if (KeyHelpers.IsKeysDown(Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey))
             {
                 Conversations.Talk([(Settings.OfficerName, Localization.GetString("MoveIn"))]);
-                HudHelpers.DisplayHelp(Localization.GetString("SWATFollowing", Settings.SWATFollowModifierKey is Keys.None ? $"~{Settings.SWATFollowKey.GetInstructionalId()}~" : $"~{Settings.SWATFollowModifierKey.GetInstructionalId()}~ ~+~ ~{Settings.SWATFollowKey.GetInstructionalId()}~"));
+                KeyHelpers.DisplayKeyHelp("SWATFollowing", Settings.SWATFollowKey, Settings.SWATFollowModifierKey);
                 IsFighting = true;
                 break;
             }
@@ -2528,7 +2528,7 @@ internal class BankHeist : CalloutBase
                                             closeHostage = hostage;
                                             if (subtitleCount > 10)
                                             {
-                                                HudHelpers.DisplayHelp(Localization.GetString("BankHeistReleaseHostage", Settings.HostageRescueModifierKey is Keys.None ? $"~{Settings.HostageRescueKey.GetInstructionalId()}~" : $"~{Settings.HostageRescueModifierKey.GetInstructionalId()}~ ~+~ ~{Settings.HostageRescueKey.GetInstructionalId()}~"));
+                                                KeyHelpers.DisplayKeyHelp("BankHeistReleaseHostage", Settings.HostageRescueKey, Settings.HostageRescueModifierKey);
                                             }
                                         }
                                     }
@@ -2709,7 +2709,7 @@ internal class BankHeist : CalloutBase
                             {
                                 if (CoolDown is 0)
                                 {
-                                    HudHelpers.DisplayHelp(Localization.GetString("EnterRiot", Settings.EnterRiotVanModifierKey is Keys.None ? $"~{Settings.EnterRiotVanKey.GetInstructionalId()}~" : $"~{Settings.EnterRiotVanModifierKey.GetInstructionalId()}~ ~+~ ~{Settings.EnterRiotVanKey.GetInstructionalId()}~"));
+                                    KeyHelpers.DisplayKeyHelp("EnterRiot", Settings.EnterRiotVanKey, Settings.EnterRiotVanModifierKey);
                                 }
                             }
                         }
@@ -2741,7 +2741,7 @@ internal class BankHeist : CalloutBase
                             {
                                 if (CoolDown is 0)
                                 {
-                                    HudHelpers.DisplayHelp(Localization.GetString("EnterRiot", Settings.EnterRiotVanModifierKey is Keys.None ? $"~{Settings.EnterRiotVanKey.GetInstructionalId()}~" : $"~{Settings.EnterRiotVanModifierKey.GetInstructionalId()}~ ~+~ ~{Settings.EnterRiotVanKey.GetInstructionalId()}~"));
+                                    KeyHelpers.DisplayKeyHelp("EnterRiot", Settings.EnterRiotVanKey, Settings.EnterRiotVanModifierKey);
                                 }
                             }
                         }
