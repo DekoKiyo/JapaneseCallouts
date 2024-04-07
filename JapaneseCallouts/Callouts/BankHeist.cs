@@ -555,11 +555,10 @@ internal class BankHeist : CalloutBase
     private bool IsSurrendering = false;
     private bool FightingPrepared = false;
     private bool IsSWATFollowing = false;
-    private bool TalkedToWells2nd = false;
+    private bool TalkedToCommander2nd = false;
     private bool DoneFighting = false;
     private bool EvaluatedWithWells = false;
     private bool RescuingHostage = false;
-    private bool HandlingRespawn = false;
     private bool IsCalloutFinished = false;
 
     internal override void Setup()
@@ -576,9 +575,11 @@ internal class BankHeist : CalloutBase
 
         OnCalloutsEnded += () =>
         {
-            BankAlarm.Stop();
-            BankAlarm.Dispose();
-            BankAlarm = null;
+            if (BankAlarm is not null)
+            {
+                BankAlarm.Stop();
+                BankAlarm.Dispose();
+            }
             Main.Player.IsPositionFrozen = false;
             Game.LocalPlayer.HasControl = true;
             // Main.Player.CanAttackFriendlies = false;
@@ -590,7 +591,7 @@ internal class BankHeist : CalloutBase
             ToggleMobilePhone(Main.Player, false);
             if (IsCalloutFinished)
             {
-                HudHelpers.DisplayNotification(Localization.GetString("CalloutCode4"), Localization.GetString("Dispatch"), Localization.GetString("BankHeistDesc"));
+                HudHelpers.DisplayNotification(Localization.GetString("CalloutCode4"), Localization.GetString("Dispatch"), Localization.GetString("BankHeist"));
 
                 if (BankBlip is not null && BankBlip.IsValid() && BankBlip.Exists()) BankBlip.Delete();
                 if (Commander is not null && Commander.IsValid() && Commander.Exists()) Commander.Dismiss();
@@ -672,8 +673,6 @@ internal class BankHeist : CalloutBase
             }
             else
             {
-                HudHelpers.DisplayNotification(Localization.GetString("SomethingWrong"));
-
                 if (BankBlip is not null && BankBlip.IsValid() && BankBlip.Exists()) BankBlip.Delete();
                 if (Commander is not null && Commander.IsValid() && Commander.Exists()) Commander.Delete();
                 if (Wife is not null && Wife.IsValid() && Wife.Exists()) Wife.Delete();
@@ -705,11 +704,12 @@ internal class BankHeist : CalloutBase
         HudHelpers.DisplayNotification(Localization.GetString("BankHeistWarning"));
         BankAlarm = new($"{Main.PLUGIN_DIRECTORY}/{Main.PLUGIN_AUDIO_DIRECTORY}/{ALARM_SOUND_FILE_NAME}");
         BankAlarm.Load();
+        NoLastRadio = true;
         if (Main.Player.IsInAnyVehicle(false))
         {
             CalloutEntities.Add(Main.Player.CurrentVehicle);
         }
-        HudHelpers.DisplayNotification(Localization.GetString("BankHeist"));
+        HudHelpers.DisplayNotification(Localization.GetString("BankHeistDesc"));
 
         DiedHostagesTB = new(Localization.GetString("DiedHostages"), $"{TotalHostagesCount - AliveHostagesCount}")
         {
@@ -728,76 +728,10 @@ internal class BankHeist : CalloutBase
 
     internal override void Update()
     {
-        if (!HandlingRespawn)
-        {
-            if (Main.Player.IsDead)
-            {
-                HandleCustomRespawn();
-            }
-        }
         if (!IsCalloutRunning || DoneFighting)
         {
             Game.FrameRender -= TimerBarsProcess;
         }
-    }
-
-    private void HandleCustomRespawn()
-    {
-        HandlingRespawn = true;
-        IsSWATFollowing = false;
-        var OldState = CurrentAlarmState;
-        CurrentAlarmState = AlarmState.None;
-        AlarmStateChanged = true;
-        GameFiber.StartNew(() =>
-        {
-            while (true)
-            {
-                GameFiber.Yield();
-                if (Game.IsScreenFadedOut) break;
-            }
-            GameFiber.Sleep(1000);
-            while (true)
-            {
-                GameFiber.Yield();
-                if (Main.Player.IsValid() && Main.Player.Exists())
-                {
-                    if (Main.Player.IsAlive) break;
-                }
-            }
-            Game.LocalPlayer.HasControl = false;
-            Game.FadeScreenOut(1, true);
-            Main.Player.WarpIntoVehicle(AllAmbulance[0], 2);
-
-            Game.FadeScreenIn(2500, true);
-            Game.LocalPlayer.HasControl = true;
-            CurrentAlarmState = OldState;
-            AlarmStateChanged = true;
-            Main.Player.WarpIntoVehicle(AllAmbulance[0], 2);
-            GameFiber.Yield();
-            if (Main.Player.IsInVehicle(AllAmbulance[0], false))
-            {
-                Main.Player.Tasks.LeaveVehicle(LeaveVehicleFlags.None).WaitForCompletion();
-            }
-            while (true)
-            {
-                GameFiber.Yield();
-                if (Main.Player.IsValid())
-                {
-                    if (Vector3.Distance(Main.Player.Position, AllAmbulance[0].Position) < 70f) break;
-                    if (Main.Player.IsAlive)
-                    {
-                        KeyHelpers.DisplayKeyHelp("SpawnAmbulance", Settings.EnterRiotVanKey, Settings.EnterRiotVanModifierKey);
-                        if (KeyHelpers.IsKeysDown(Settings.EnterRiotVanKey, Settings.EnterRiotVanModifierKey))
-                        {
-                            Main.Player.WarpIntoVehicle(AllAmbulance[0], 2);
-                            Game.HideHelp();
-                            GameFiber.Sleep(1000);
-                        }
-                    }
-                }
-            }
-            HandlingRespawn = false;
-        });
     }
 
     private void CalloutHandler()
@@ -842,6 +776,7 @@ internal class BankHeist : CalloutBase
                         }
                     }
                 }
+
                 GameFiber.Yield();
                 CreateSpeedZone();
                 GameFiber.Yield();
@@ -869,41 +804,50 @@ internal class BankHeist : CalloutBase
                 while (IsCalloutRunning)
                 {
                     GameFiber.Yield();
-                    Main.Player.CanAttackFriendlies = false;
-                    Game.SetRelationshipBetweenRelationshipGroups(RelationshipGroup.Cop, RobbersRG, Relationship.Hate);
-                    Game.SetRelationshipBetweenRelationshipGroups(RobbersRG, RelationshipGroup.Cop, Relationship.Hate);
-                    Game.SetRelationshipBetweenRelationshipGroups(RobbersRG, Main.Player.RelationshipGroup, Relationship.Hate);
-                    Game.SetRelationshipBetweenRelationshipGroups(Main.Player.RelationshipGroup, RobbersRG, Relationship.Hate);
-                    Game.SetRelationshipBetweenRelationshipGroups(RelationshipGroup.Cop, Main.Player.RelationshipGroup, Relationship.Respect);
-                    Game.SetRelationshipBetweenRelationshipGroups(Main.Player.RelationshipGroup, RelationshipGroup.Cop, Relationship.Respect);
-                    Game.SetRelationshipBetweenRelationshipGroups(HostageRG, Main.Player.RelationshipGroup, Relationship.Respect);
-                    Game.SetRelationshipBetweenRelationshipGroups(SneakRobbersRG, Main.Player.RelationshipGroup, Relationship.Hate);
-                    Main.Player.IsInvincible = false;
-                    NativeFunction.Natives.SET_PLAYER_WEAPON_DEFENSE_MODIFIER(Game.LocalPlayer, 0.45f);
-                    NativeFunction.Natives.SET_PLAYER_WEAPON_DAMAGE_MODIFIER(Game.LocalPlayer, 0.92f);
-                    NativeFunction.Natives.SET_AI_MELEE_WEAPON_DAMAGE_MODIFIER(1f);
-                    NativeFunction.CallByHash<uint>(_DOOR_CONTROL, 4072696575, 256.3116f, 220.6579f, 106.4296f, false, 0f, 0f, 0f);
-                    NativeFunction.CallByHash<uint>(_DOOR_CONTROL, 746855201, 262.1981f, 222.5188f, 106.4296f, false, 0f, 0f, 0f);
-                    NativeFunction.CallByHash<uint>(_DOOR_CONTROL, 110411286, 258.2022f, 204.1005f, 106.4049f, false, 0f, 0f, 0f);
+                    if (Main.Player is not null && Main.Player.IsValid() && Main.Player.IsAlive)
+                    {
+                        Main.Player.CanAttackFriendlies = false;
+                        Main.Player.IsInvincible = false;
+                        Game.SetRelationshipBetweenRelationshipGroups(RelationshipGroup.Cop, RobbersRG, Relationship.Hate);
+                        Game.SetRelationshipBetweenRelationshipGroups(RobbersRG, RelationshipGroup.Cop, Relationship.Hate);
+                        Game.SetRelationshipBetweenRelationshipGroups(RobbersRG, Main.Player.RelationshipGroup, Relationship.Hate);
+                        Game.SetRelationshipBetweenRelationshipGroups(Main.Player.RelationshipGroup, RobbersRG, Relationship.Hate);
+                        Game.SetRelationshipBetweenRelationshipGroups(RelationshipGroup.Cop, Main.Player.RelationshipGroup, Relationship.Respect);
+                        Game.SetRelationshipBetweenRelationshipGroups(Main.Player.RelationshipGroup, RelationshipGroup.Cop, Relationship.Respect);
+                        Game.SetRelationshipBetweenRelationshipGroups(HostageRG, Main.Player.RelationshipGroup, Relationship.Respect);
+                        Game.SetRelationshipBetweenRelationshipGroups(SneakRobbersRG, Main.Player.RelationshipGroup, Relationship.Hate);
+                        NativeFunction.Natives.SET_PLAYER_WEAPON_DEFENSE_MODIFIER(Game.LocalPlayer, 0.45f);
+                        NativeFunction.Natives.SET_PLAYER_WEAPON_DAMAGE_MODIFIER(Game.LocalPlayer, 0.92f);
+                        NativeFunction.Natives.SET_AI_MELEE_WEAPON_DAMAGE_MODIFIER(1f);
+                        NativeFunction.CallByHash<uint>(_DOOR_CONTROL, 4072696575, 256.3116f, 220.6579f, 106.4296f, false, 0f, 0f, 0f);
+                        NativeFunction.CallByHash<uint>(_DOOR_CONTROL, 746855201, 262.1981f, 222.5188f, 106.4296f, false, 0f, 0f, 0f);
+                        NativeFunction.CallByHash<uint>(_DOOR_CONTROL, 110411286, 258.2022f, 204.1005f, 106.4049f, false, 0f, 0f, 0f);
+                    }
 
                     // When player has just arrived
                     if (!TalkedToCommander && !IsFighting)
                     {
-                        if (!Main.Player.IsInAnyVehicle(false))
+                        if (Main.Player is not null && Main.Player.IsValid() && Main.Player.IsAlive)
                         {
-                            if (Vector3.Distance(Main.Player.Position, Commander.Position) < 4f)
+                            if (!Main.Player.IsInAnyVehicle(false))
                             {
-                                HudHelpers.DisplayNotification(Localization.GetString("BankHeistWarning"));
-                                KeyHelpers.DisplayKeyHelp("PressToTalkWith", [Localization.GetString("Commander")], Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey);
-                                if (KeyHelpers.IsKeysDown(Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey))
+                                if (Commander is not null && Commander.IsValid() && Commander.IsAlive)
                                 {
-                                    TalkedToCommander = true;
-                                    DetermineInitialDialogue();
+                                    if (Vector3.Distance(Main.Player.Position, Commander.Position) < 4f)
+                                    {
+                                        HudHelpers.DisplayNotification(Localization.GetString("BankHeistWarning"));
+                                        KeyHelpers.DisplayKeyHelp("PressToTalkWith", [Localization.GetString("Commander")], Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey);
+                                        if (KeyHelpers.IsKeysDown(Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey))
+                                        {
+                                            TalkedToCommander = true;
+                                            DetermineInitialDialogue();
+                                        }
+                                    }
+                                    else
+                                    {
+                                        HudHelpers.DisplayHelp(Localization.GetString("TalkToCommander"));
+                                    }
                                 }
-                            }
-                            else
-                            {
-                                HudHelpers.DisplayHelp(Localization.GetString("TalkToCommander"));
                             }
                         }
                     }
@@ -932,14 +876,20 @@ internal class BankHeist : CalloutBase
                     // If player talks to cpt wells during fight
                     if (IsFighting)
                     {
-                        if (!Main.Player.IsInAnyVehicle(false))
+                        if (Main.Player is not null && Main.Player.IsValid() && Main.Player.IsAlive)
                         {
-                            if (Vector3.Distance(Main.Player.Position, Commander.Position) < 3f)
+                            if (!Main.Player.IsInAnyVehicle(false))
                             {
-                                KeyHelpers.DisplayKeyHelp("PressToTalkWith", [Localization.GetString("Commander")], Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey);
-                                if (KeyHelpers.IsKeysDown(Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey))
+                                if (Commander is not null && Commander.IsValid())
                                 {
-                                    Conversations.Talk([(Localization.GetString("Commander"), Localization.GetString("StillFighting"))]);
+                                    if (Vector3.Distance(Main.Player.Position, Commander.Position) < 3f)
+                                    {
+                                        KeyHelpers.DisplayKeyHelp("PressToTalkWith", [Localization.GetString("Commander")], Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey);
+                                        if (KeyHelpers.IsKeysDown(Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey))
+                                        {
+                                            Conversations.Talk([(Localization.GetString("Commander"), Localization.GetString("StillFighting"))]);
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -950,9 +900,12 @@ internal class BankHeist : CalloutBase
                     {
                         foreach (var check in PacificBankInsideChecks)
                         {
-                            if (Vector3.Distance(check, Main.Player.Position) < 2.3f)
+                            if (Main.Player is not null && Main.Player.IsValid() && Main.Player.IsAlive)
                             {
-                                IsFighting = true;
+                                if (Vector3.Distance(check, Main.Player.Position) < 2.3f)
+                                {
+                                    IsFighting = true;
+                                }
                             }
                         }
                     }
@@ -968,11 +921,14 @@ internal class BankHeist : CalloutBase
                     }
                     if (IsSWATFollowing)
                     {
-                        if (Main.Player.IsShooting)
+                        if (Main.Player is not null && Main.Player.IsValid() && Main.Player.IsAlive)
                         {
-                            IsSWATFollowing = false;
-                            HudHelpers.DisplayHelp(Localization.GetString("SWATIsNotFollowing"));
-                            Logger.Info("Follow off - shooting", "Bank Heist");
+                            if (Main.Player.IsShooting)
+                            {
+                                IsSWATFollowing = false;
+                                HudHelpers.DisplayHelp(Localization.GetString("SWATIsNotFollowing"));
+                                Logger.Info("Follow off - shooting", "Bank Heist");
+                            }
                         }
                     }
                 }
@@ -985,18 +941,21 @@ internal class BankHeist : CalloutBase
                     GameFiber.Yield();
 
                     // Constants
-                    Game.SetRelationshipBetweenRelationshipGroups(RelationshipGroup.Cop, RobbersRG, Relationship.Hate);
-                    Game.SetRelationshipBetweenRelationshipGroups(RobbersRG, RelationshipGroup.Cop, Relationship.Hate);
-                    Game.SetRelationshipBetweenRelationshipGroups(RobbersRG, Main.Player.RelationshipGroup, Relationship.Hate);
-                    Game.SetRelationshipBetweenRelationshipGroups(Main.Player.RelationshipGroup, RobbersRG, Relationship.Hate);
-                    Game.SetRelationshipBetweenRelationshipGroups(RelationshipGroup.Cop, Main.Player.RelationshipGroup, Relationship.Companion);
-                    Game.SetRelationshipBetweenRelationshipGroups(Main.Player.RelationshipGroup, RelationshipGroup.Cop, Relationship.Companion);
-                    Game.SetRelationshipBetweenRelationshipGroups(HostageRG, Main.Player.RelationshipGroup, Relationship.Companion);
-                    Game.SetRelationshipBetweenRelationshipGroups(SneakRobbersRG, Main.Player.RelationshipGroup, Relationship.Hate);
-                    Main.Player.IsInvincible = false;
-                    NativeFunction.Natives.SET_PLAYER_WEAPON_DEFENSE_MODIFIER(Game.LocalPlayer, 0.45f);
-                    NativeFunction.Natives.SET_PLAYER_WEAPON_DAMAGE_MODIFIER(Game.LocalPlayer, 0.93f);
-                    NativeFunction.Natives.SET_AI_MELEE_WEAPON_DAMAGE_MODIFIER(1f);
+                    if (Main.Player is not null && Main.Player.IsValid() && Main.Player.IsAlive)
+                    {
+                        Game.SetRelationshipBetweenRelationshipGroups(RelationshipGroup.Cop, RobbersRG, Relationship.Hate);
+                        Game.SetRelationshipBetweenRelationshipGroups(RobbersRG, RelationshipGroup.Cop, Relationship.Hate);
+                        Game.SetRelationshipBetweenRelationshipGroups(RobbersRG, Main.Player.RelationshipGroup, Relationship.Hate);
+                        Game.SetRelationshipBetweenRelationshipGroups(Main.Player.RelationshipGroup, RobbersRG, Relationship.Hate);
+                        Game.SetRelationshipBetweenRelationshipGroups(RelationshipGroup.Cop, Main.Player.RelationshipGroup, Relationship.Companion);
+                        Game.SetRelationshipBetweenRelationshipGroups(Main.Player.RelationshipGroup, RelationshipGroup.Cop, Relationship.Companion);
+                        Game.SetRelationshipBetweenRelationshipGroups(HostageRG, Main.Player.RelationshipGroup, Relationship.Companion);
+                        Game.SetRelationshipBetweenRelationshipGroups(SneakRobbersRG, Main.Player.RelationshipGroup, Relationship.Hate);
+                        Main.Player.IsInvincible = false;
+                        NativeFunction.Natives.SET_PLAYER_WEAPON_DEFENSE_MODIFIER(Game.LocalPlayer, 0.45f);
+                        NativeFunction.Natives.SET_PLAYER_WEAPON_DAMAGE_MODIFIER(Game.LocalPlayer, 0.93f);
+                        NativeFunction.Natives.SET_AI_MELEE_WEAPON_DAMAGE_MODIFIER(1f);
+                    }
                     NativeFunction.CallByHash<uint>(_DOOR_CONTROL, 4072696575, 256.3116f, 220.6579f, 106.4296f, false, 0f, 0f, 0f);
                     NativeFunction.CallByHash<uint>(_DOOR_CONTROL, 746855201, 262.1981f, 222.5188f, 106.4296f, false, 0f, 0f, 0f);
                     NativeFunction.CallByHash<uint>(_DOOR_CONTROL, 110411286, 258.2022f, 204.1005f, 106.4049f, false, 0f, 0f, 0f);
@@ -1012,39 +971,48 @@ internal class BankHeist : CalloutBase
                     }
                     if (IsSWATFollowing)
                     {
-                        if (Main.Player.IsShooting)
+                        if (Main.Player is not null && Main.Player.IsValid() && Main.Player.IsAlive)
                         {
-                            IsSWATFollowing = false;
-                            HudHelpers.DisplayHelp(Localization.GetString("SWATIsNotFollowing"));
-                            Logger.Info("Follow off - shooting", "Bank Heist");
+                            if (Main.Player.IsShooting)
+                            {
+                                IsSWATFollowing = false;
+                                HudHelpers.DisplayHelp(Localization.GetString("SWATIsNotFollowing"));
+                                Logger.Info("Follow off - shooting", "Bank Heist");
+                            }
                         }
                     }
 
-                    if (!Main.Player.IsInAnyVehicle(false))
+                    if (Main.Player is not null && Main.Player.IsValid() && Main.Player.IsAlive)
                     {
-                        if (Vector3.Distance(Main.Player.Position, Commander.Position) < 4f)
+                        if (!Main.Player.IsInAnyVehicle(false))
                         {
-                            KeyHelpers.DisplayKeyHelp("PressToTalk", [Localization.GetString("Commander")], Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey);
-                            if (KeyHelpers.IsKeysDown(Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey))
+                            if (Commander is not null && Commander.IsValid())
                             {
-                                if (!TalkedToWells2nd)
+                                if (Vector3.Distance(Main.Player.Position, Commander.Position) < 4f)
                                 {
-                                    Conversations.Talk(AfterSurrendered);
-                                    TalkedToWells2nd = true;
-                                    IsFighting = true;
-                                    KeyHelpers.DisplayKeyHelp("SWATFollowing", Settings.SWATFollowKey, Settings.SWATFollowModifierKey);
+                                    KeyHelpers.DisplayKeyHelp("PressToTalk", [Localization.GetString("Commander")], Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey);
+                                    if (KeyHelpers.IsKeysDown(Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey))
+                                    {
+                                        if (!TalkedToCommander2nd)
+                                        {
+                                            Conversations.Talk(AfterSurrendered);
+                                            TalkedToCommander2nd = true;
+                                            IsFighting = true;
+                                            KeyHelpers.DisplayKeyHelp("SWATFollowing", Settings.SWATFollowKey, Settings.SWATFollowModifierKey);
+                                        }
+                                        else
+                                        {
+                                            Conversations.Talk([(Localization.GetString("Commander"), Localization.GetString("StillFighting"))]);
+                                        }
+                                    }
                                 }
                                 else
                                 {
-                                    Conversations.Talk([(Localization.GetString("Commander"), Localization.GetString("StillFighting"))]);
+                                    if (!TalkedToCommander2nd)
+                                    {
+                                        HudHelpers.DisplayHelp(Localization.GetString("TalkTo", Localization.GetString("Commander")));
+                                    }
                                 }
-                            }
-                        }
-                        else
-                        {
-                            if (!TalkedToWells2nd)
-                            {
-                                HudHelpers.DisplayHelp(Localization.GetString("TalkTo", Localization.GetString("Commander")));
                             }
                         }
                     }
@@ -1093,7 +1061,6 @@ internal class BankHeist : CalloutBase
             catch (Exception e)
             {
                 Logger.Error(e.ToString());
-                End();
             }
         });
     }
@@ -1266,7 +1233,10 @@ internal class BankHeist : CalloutBase
                                 }
                                 else
                                 {
-                                    cop.Tasks.FollowNavigationMeshToPosition(Main.Player.Position, Main.Player.Heading, 1.6f, Math.Abs(Main.Player.Position.Z - cop.Position.Z) > 1f ? 1f : 4f);
+                                    if (Main.Player is not null && Main.Player.IsValid() && Main.Player.IsAlive)
+                                    {
+                                        cop.Tasks.FollowNavigationMeshToPosition(Main.Player.Position, Main.Player.Heading, 1.6f, Math.Abs(Main.Player.Position.Z - cop.Position.Z) > 1f ? 1f : 4f);
+                                    }
                                 }
                             }
                         }
@@ -2190,49 +2160,46 @@ internal class BankHeist : CalloutBase
                 try
                 {
                     GameFiber.Yield();
-                    if (!HandlingRespawn)
+                    if (IsAlarmPlaying)
                     {
-                        if (IsAlarmPlaying)
+                        if (Vector3.Distance(Main.Player.Position, CalloutPosition) > 70f)
                         {
-                            if (Vector3.Distance(Main.Player.Position, CalloutPosition) > 70f)
-                            {
-                                IsAlarmPlaying = false;
-                                CurrentAlarmState = AlarmState.None;
-                                BankBlip.IsRouteEnabled = true;
-                                AlarmStateChanged = true;
-                            }
-                        }
-                        else
-                        {
-                            if (Vector3.Distance(Main.Player.Position, CalloutPosition) < 55f)
-                            {
-                                IsAlarmPlaying = true;
-                                CurrentAlarmState = AlarmState.Alarm;
-                                BankBlip.IsRouteEnabled = false;
-                                AlarmStateChanged = true;
-                            }
-                        }
-
-                        if (KeyHelpers.IsKeysDown(Settings.ToggleBankHeistAlarmSoundKey, Settings.ToggleBankHeistAlarmSoundModifierKey))
-                        {
-                            CurrentAlarmState = CurrentAlarmState is AlarmState.None ? AlarmState.Alarm : AlarmState.None;
+                            IsAlarmPlaying = false;
+                            CurrentAlarmState = AlarmState.None;
+                            BankBlip.IsRouteEnabled = true;
                             AlarmStateChanged = true;
                         }
-
-                        if (AlarmStateChanged)
+                    }
+                    else
+                    {
+                        if (Vector3.Distance(Main.Player.Position, CalloutPosition) < 55f)
                         {
-                            switch (CurrentAlarmState)
-                            {
-                                case AlarmState.Alarm:
-                                    BankAlarm.PlayLooping();
-                                    break;
-                                default:
-                                case AlarmState.None:
-                                    BankAlarm.Stop();
-                                    break;
-                            }
-                            AlarmStateChanged = false;
+                            IsAlarmPlaying = true;
+                            CurrentAlarmState = AlarmState.Alarm;
+                            BankBlip.IsRouteEnabled = false;
+                            AlarmStateChanged = true;
                         }
+                    }
+
+                    if (KeyHelpers.IsKeysDown(Settings.ToggleBankHeistAlarmSoundKey, Settings.ToggleBankHeistAlarmSoundModifierKey))
+                    {
+                        CurrentAlarmState = CurrentAlarmState is AlarmState.None ? AlarmState.Alarm : AlarmState.None;
+                        AlarmStateChanged = true;
+                    }
+
+                    if (AlarmStateChanged)
+                    {
+                        switch (CurrentAlarmState)
+                        {
+                            case AlarmState.Alarm:
+                                BankAlarm.PlayLooping();
+                                break;
+                            default:
+                            case AlarmState.None:
+                                BankAlarm.Stop();
+                                break;
+                        }
+                        AlarmStateChanged = false;
                     }
                 }
                 catch (Exception e)
@@ -2658,7 +2625,7 @@ internal class BankHeist : CalloutBase
 
     private void TimerBarsProcess(object sender, GraphicsEventArgs e)
     {
-        if (IsFighting || (SurrenderComplete && TalkedToWells2nd))
+        if (IsFighting || (SurrenderComplete && TalkedToCommander2nd))
         {
             if (TBPool is not null)
             {
@@ -2685,7 +2652,6 @@ internal class BankHeist : CalloutBase
                 {
                     GameFiber.Yield();
                     if (CoolDown > 0) CoolDown--;
-                    if (HandlingRespawn) CoolDown = 0;
 
                     if (AllRiot[0] is not null && AllRiot[0].IsValid() && AllRiot[0].Exists())
                     {
@@ -2731,7 +2697,7 @@ internal class BankHeist : CalloutBase
                                 }
                                 else
                                 {
-                                    CoolDown = 50000;
+                                    CoolDown = 30000;
                                     Main.Player.Tasks.EnterVehicle(AllRiot[1], 1).WaitForCompletion();
                                     Main.Player.Armor = 100;
                                     Main.Player.Health = Main.Player.MaxHealth;

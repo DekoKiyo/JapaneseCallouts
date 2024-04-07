@@ -48,9 +48,9 @@ internal abstract class CalloutBase : Callout
 
     public override void End()
     {
-        OnCalloutsEnded?.Invoke();
-        IsCalloutRunning = false;
-        if (!NoLastRadio) Functions.PlayScannerAudio("ATTENTION_ALL_UNITS JP_WE_ARE_CODE JP_FOUR JP_NO_FURTHER_UNITS_REQUIRED");
         base.End();
+        IsCalloutRunning = false;
+        OnCalloutsEnded?.Invoke();
+        if (!NoLastRadio) Functions.PlayScannerAudio("ATTENTION_ALL_UNITS JP_WE_ARE_CODE JP_FOUR JP_NO_FURTHER_UNITS_REQUIRED");
     }
 }

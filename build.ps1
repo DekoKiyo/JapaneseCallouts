@@ -7,7 +7,7 @@ $PluginsFolder = $GrandTheftAutoV + "\plugins"
 $PluginsLSPDFRFolder = $GrandTheftAutoV + "\plugins\LSPDFR"
 
 # ビルド側のディレクトリたち
-$PluginDllFolder = ".\JapaneseCallouts\bin\Release\net48"
+$PluginDllFolder = ".\JapaneseCallouts\bin\Debug\net48"
 $PluginDllFile = $PluginDllFolder + "\JapaneseCallouts.dll"
 $PluginIniFile = ".\JapaneseCallouts\JapaneseCallouts.ini"
 $ProjectFile = ".\JapaneseCallouts\JapaneseCallouts.csproj"
