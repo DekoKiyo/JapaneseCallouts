@@ -1,6 +1,6 @@
 namespace JapaneseCallouts.Callouts;
 
-[CalloutInfo("[JPC] Stolen Vehicle", CalloutProbability.Medium)]
+[CalloutInfo("[JPC] Stolen Vehicle", CalloutProbability.VeryHigh)]
 internal class StolenVehicle : CalloutBase
 {
     private Ped suspect;

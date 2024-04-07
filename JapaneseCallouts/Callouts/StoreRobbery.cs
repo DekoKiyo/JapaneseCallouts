@@ -2,7 +2,7 @@
 
 namespace JapaneseCallouts.Callouts;
 
-[CalloutInfo("[JPC] Store Robbery", CalloutProbability.Medium)]
+[CalloutInfo("[JPC] Store Robbery", CalloutProbability.VeryHigh)]
 internal class StoreRobbery : CalloutBase
 {
     private int index = 0, seconds = 80;
