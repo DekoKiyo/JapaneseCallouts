@@ -41,17 +41,22 @@ internal static class Localization
 
         var data = JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, string>>>(json);
 
-        Translation[lang] = [];
+        var translation = new Dictionary<string, string>();
         foreach (var obj in data)
         {
             foreach (var locale in obj.Value)
             {
 #if DEBUG
-                Logger.Info($"Loading Translation - Key: {locale.Key} Value: {locale.Value}", "Localization");
+                Logger.Info($"Loading Translation - Key: \"{locale.Key}\" Value: \"{locale.Value}\"", "Localization");
 #endif
-                Translation[lang][locale.Key] = locale.Value;
+                if (translation.ContainsKey(locale.Key))
+                {
+                    Logger.Warn($"The translation key is already exists! Key: {locale.Key}", "Localization");
+                }
+                translation[locale.Key] = locale.Value;
             }
         }
+        Translation[lang] = translation;
     }
 
     internal static string GetString(string key)
@@ -62,7 +67,7 @@ internal static class Localization
         }
         else
         {
-            Logger.Warn($"There is no translation. Key: {key} Language: {CurrentLanguage}", "Localization");
+            Logger.Warn($"There is no translation. Key: \"{key}\" Language: \"{CurrentLanguage}\"", "Localization");
             return NO_TRANSLATION;
         }
     }
@@ -75,7 +80,7 @@ internal static class Localization
         }
         else
         {
-            Logger.Warn($"There is no translation. Key: {key} Language: {CurrentLanguage}", "Localization");
+            Logger.Warn($"There is no translation. Key: \"{key}\" Language: \"{CurrentLanguage}\"", "Localization");
             return NO_TRANSLATION;
         }
     }
