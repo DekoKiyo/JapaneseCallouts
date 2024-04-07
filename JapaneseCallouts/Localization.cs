@@ -2,16 +2,21 @@ namespace JapaneseCallouts;
 
 internal static class Localization
 {
-    private static readonly Dictionary<string, Dictionary<string, string>> Translation = [];
+    private static readonly Dictionary<string, string> Translation = [];
     private const string NO_TRANSLATION = "[NO TRANSLATION]";
     private static string CurrentLanguage = "en-US";
-    private static readonly string[] AvailableLanguages = ["Custom", "en-US", "ja-JP"];
+    private static readonly LanguageCode[] AvailableLanguages =
+    [
+        new() { KeyCode = "Custom", Description = "Custom Translations" },
+        new() { KeyCode = "en-US", Description = "English" },
+        new() { KeyCode = "ja-JP", Description = "Japanese" }
+    ];
 
     internal static void Initialize()
     {
         Logger.Info($"Loading {CurrentLanguage}", "Localization");
         Load(CurrentLanguage);
-        Logger.Info("Locale files has loaded", "Localization");
+        Logger.Info("Locale files has loaded.", "Localization");
     }
 
     internal static string Language
@@ -19,11 +24,18 @@ internal static class Localization
         get => CurrentLanguage;
         set
         {
-            if (AvailableLanguages.Contains(value))
+            var index = 0;
+            foreach (var avl in AvailableLanguages)
             {
-                CurrentLanguage = value;
+                if (avl.KeyCode == value)
+                {
+                    CurrentLanguage = value;
+                    break;
+                }
+                index++;
             }
-            else
+
+            if (index == AvailableLanguages.Length)
             {
                 Logger.Warn("The language was not found in the list of available languages. The language will be set to English.");
                 CurrentLanguage = "en-US";
@@ -41,7 +53,6 @@ internal static class Localization
 
         var data = JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, string>>>(json);
 
-        var translation = new Dictionary<string, string>();
         foreach (var obj in data)
         {
             foreach (var locale in obj.Value)
@@ -49,39 +60,40 @@ internal static class Localization
 #if DEBUG
                 Logger.Info($"Loading Translation - Key: \"{locale.Key}\" Value: \"{locale.Value}\"", "Localization");
 #endif
-                if (translation.ContainsKey(locale.Key))
+                if (Translation.ContainsKey(locale.Key))
                 {
                     Logger.Warn($"The translation key is already exists! Key: {locale.Key}", "Localization");
                 }
-                translation[locale.Key] = locale.Value;
+                Translation[locale.Key] = locale.Value;
             }
         }
-        Translation[lang] = translation;
+        CurrentLanguage = lang;
     }
 
     internal static string GetString(string key)
-    {
-        if (Translation[CurrentLanguage].ContainsKey(key))
-        {
-            return Translation[CurrentLanguage][key];
-        }
-        else
-        {
-            Logger.Warn($"There is no translation. Key: \"{key}\" Language: \"{CurrentLanguage}\"", "Localization");
-            return NO_TRANSLATION;
-        }
-    }
+    => Translation.ContainsKey(key) ? Translation[key] : NoTranslation(key);
 
     internal static string GetString(string key, params string[] vars)
+    => Translation.ContainsKey(key) ? string.Format(Translation[key], vars) : NoTranslation(key);
+
+    private static string NoTranslation(string key)
     {
-        if (Translation[CurrentLanguage].ContainsKey(key))
-        {
-            return string.Format(Translation[CurrentLanguage][key], vars);
-        }
-        else
-        {
-            Logger.Warn($"There is no translation. Key: \"{key}\" Language: \"{CurrentLanguage}\"", "Localization");
-            return NO_TRANSLATION;
-        }
+        Logger.Warn($"There is no translation. Key: \"{key}\" Language: \"{CurrentLanguage}\"", "Localization");
+        return NO_TRANSLATION;
+    }
+
+    [ConsoleCommand("Change Japanese Callouts' language.")]
+    internal static void ChangeJPCLanguage([ConsoleCommandParameter("Enter the language key that you want to change or \"Custom\"")] string lang)
+    {
+        CurrentLanguage = lang;
+        Logger.Info($"Loading {CurrentLanguage}", "Localization");
+        Load(CurrentLanguage);
+        Logger.Info("Locale files has loaded.", "Localization");
+    }
+
+    internal struct LanguageCode
+    {
+        internal string KeyCode;
+        internal string Description;
     }
 }

@@ -21,10 +21,11 @@ internal static class Settings
 
     internal static void Initialize()
     {
-        Load();
+        ReloadJPCSettings();
     }
 
-    internal static void Load()
+    [ConsoleCommand("Reload Japanese Callouts' settings.")]
+    internal static void ReloadJPCSettings()
     {
         OfficerName = Ini["General"]["OfficerName"] ??= "Officer";
         WifeName = Ini["General"]["WifeName"] ??= "Maria";

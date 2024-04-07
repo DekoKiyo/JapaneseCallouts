@@ -70,6 +70,7 @@ global using JapaneseCallouts.Modules;
 global using Rage;
 global using Rage.Attributes;
 global using Rage.ConsoleCommands;
+global using Rage.ConsoleCommands.AutoCompleters;
 global using Rage.Euphoria;
 global using Rage.Exceptions;
 global using Rage.Forms;
@@ -135,6 +136,7 @@ internal class Main : Plugin
             CheckLibrary();
             Settings.Initialize();
             Localization.Initialize();
+            Game.AddConsoleCommands();
             CalloutManager.RegisterAllCallouts();
             Logger.Info($"{PLUGIN_NAME} Version.{VERSION_PREFIX}{PLUGIN_VERSION} was loaded.");
             HudHelpers.DisplayNotification(Localization.GetString("PluginLoaded", PLUGIN_NAME, DEVELOPER_NAME), PLUGIN_NAME, PLUGIN_VERSION_DATA);
