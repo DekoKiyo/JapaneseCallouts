@@ -11,6 +11,7 @@
     <UseWindowsForms>true</UseWindowsForms>
     <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <Deterministic>false</Deterministic>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">

@@ -29,4 +29,4 @@
 // 既定値にすることができます:
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion(Main.PLUGIN_VERSION)]
-[assembly: AssemblyFileVersion(Main.PLUGIN_VERSION)]
+// [assembly: AssemblyFileVersion(Main.PLUGIN_VERSION)]
