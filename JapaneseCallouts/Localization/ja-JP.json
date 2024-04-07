@@ -128,19 +128,17 @@
     "RoadRageFinal4": "何があったのかを詳しく聞きたいので、後日警察署に来て頂けますか?",
     "RoadRageFinal5": "もちろんです。良い一日を!"
   },
-  "CalloutsDescriptions": {
-    "BankHeist": "強盗団が人質を取って銀行に立てこもりました。",
-    "DrunkGuys": "複数人が公共の場で酔いつぶれていると、市民から通報がありました。",
-    "RoadRage": "運転中に他の車から危険な運転を繰り返されていると、市民から通報がありました。",
-    "StolenVehicle": "車両盗難が発生しました。容疑者は逃走中です。捜索して確保してください!",
-    "StoreRobbery": "コンビニに強盗が押し入ったと通報がありました。"
-  },
-  "CalloutsName": {
-    "BankHeist": "銀行強盗",
-    "DrunkGuys": "酔っ払い集団",
-    "RoadRage": "煽り運転",
-    "StolenVehicle": "盗難車両",
-    "StoreRobbery": "コンビニ強盗"
+  "Callouts": {
+    "BankHeist": "Bank Heist",
+    "DrunkGuys": "Drunk Guys",
+    "RoadRage": "Road Rage",
+    "StolenVehicle": "Stolen Vehicle",
+    "StoreRobbery": "Store Robbery",
+    "BankHeistDesc": "The robber has taken hostages and barricaded themselves inside the bank.",
+    "DrunkGuysDesc": "A citizen reports that some drunk persons are sleeping in public spaces.",
+    "RoadRageDesc": "A citizen reports being harassed by another vehicle while driving.",
+    "StolenVehicleDesc": "The suspect stolen the vehicle. Search and pursuit it!",
+    "StoreRobberyDesc": "The robbers are robbing the store."
   },
   "CalloutsText": {
     "AlarmSwitchKey": "{0}を押していつでも~r~アラーム~s~を切り替えることができます。",
