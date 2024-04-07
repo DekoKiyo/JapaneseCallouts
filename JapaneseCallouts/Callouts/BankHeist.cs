@@ -337,6 +337,7 @@ internal class BankHeist : CalloutBase
     ];
     private readonly (string, string)[] RequestConversation =
     [
+        (Settings.OfficerName, Localization.GetString("NegotiationSelection2")),
         (Localization.GetString("Robber"), Localization.GetString("Request1")),
         (Localization.GetString("Robber"), Localization.GetString("Request2")),
     ];
@@ -348,17 +349,20 @@ internal class BankHeist : CalloutBase
     };
     private readonly (string, string)[] Request1Conversation =
     [
+        (Settings.OfficerName, Localization.GetString("RequestSelection1")),
         (Localization.GetString("Robber"), Localization.GetString("Request11")),
         (Settings.OfficerName, Localization.GetString("Request12")),
         (Localization.GetString("Robber"), Localization.GetString("Request13")),
     ];
     private readonly (string, string)[] Request2Conversation =
     [
+        (Settings.OfficerName, Localization.GetString("RequestSelection2")),
         (Localization.GetString("Robber"), Localization.GetString("Request21")),
         (Localization.GetString("Robber"), Localization.GetString("Request22")),
     ];
     private readonly (string, string)[] Request3Conversation =
     [
+        (Settings.OfficerName, Localization.GetString("RequestSelection3")),
         (Localization.GetString("Robber"), Localization.GetString("Request31")),
         (Localization.GetString("Robber"), Localization.GetString("Request32")),
         (Localization.GetString("Robber"), Localization.GetString("Request33")),
