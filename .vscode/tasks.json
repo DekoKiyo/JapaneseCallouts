@@ -1,0 +1,35 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "(For Debug) build.ps1",
+      "type": "shell",
+      "command": "powershell -ExecutionPolicy Bypass .\\build.ps1",
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "(For Release) zip.ps1",
+      "type": "shell",
+      "command": "powershell -ExecutionPolicy Bypass .\\zip.ps1",
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "Update Audio",
+      "type": "shell",
+      "command": "powershell -ExecutionPolicy Bypass .\\audio.ps1",
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    }
+  ]
+}

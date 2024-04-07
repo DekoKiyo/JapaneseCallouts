@@ -1,5 +1,5 @@
-.vs/
-.vscode/
+/.vs/
+/.vscode/settings.json
 bin/
 obj/
 /Memo.txt

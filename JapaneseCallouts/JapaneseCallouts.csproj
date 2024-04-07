@@ -7,14 +7,27 @@
     <LangVersion>latest</LangVersion>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <WarningLevel>4</WarningLevel>
-    <ErrorReport>prompt</ErrorReport>
-    <DebugSymbols>false</DebugSymbols>
-    <DebugType>none</DebugType>
     <ImplicitUsings>disable</ImplicitUsings>
     <UseWindowsForms>true</UseWindowsForms>
     <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
-    <Configurations>Release</Configurations>
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <DebugSymbols>false</DebugSymbols>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
 
   <ItemGroup>
