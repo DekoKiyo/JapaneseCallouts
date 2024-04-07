@@ -9,7 +9,7 @@ internal static class Localization
 
     internal static void Initialize()
     {
-        Logger.Info("Loading ", "Localization");
+        Logger.Info($"Loading {CurrentLanguage}", "Localization");
         Load(CurrentLanguage);
         Logger.Info("Locale files has loaded", "Localization");
     }

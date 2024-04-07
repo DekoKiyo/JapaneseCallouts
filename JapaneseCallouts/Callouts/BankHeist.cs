@@ -22,7 +22,7 @@ internal class BankHeist : CalloutBase
 
     private const string ALARM_SOUND_FILE_NAME = "BankHeistAlarm.wav";
 
-    internal static SoundPlayer BankAlarm = new($"{Main.PLUGIN_DIRECTORY}/{Main.PLUGIN_AUDIO_DIRECTORY}/{ALARM_SOUND_FILE_NAME}");
+    internal SoundPlayer BankAlarm;
     private const ulong _DOOR_CONTROL = 0x9b12f9a24fabedb0;
 
     private Vector3 BankLocation = new(250.9f, 219.0f, 106.2f);
@@ -586,7 +586,7 @@ internal class BankHeist : CalloutBase
             ToggleMobilePhone(Main.Player, false);
             if (IsCalloutFinished)
             {
-                HudHelpers.DisplayNotification(Localization.GetString("CalloutCode4"), Localization.GetString("Dispatch"), Localization.GetString("BankHeist"));
+                HudHelpers.DisplayNotification(Localization.GetString("CalloutCode4"), Localization.GetString("Dispatch"), Localization.GetString("BankHeistDesc"));
 
                 if (BankBlip is not null && BankBlip.IsValid() && BankBlip.Exists()) BankBlip.Delete();
                 if (Commander is not null && Commander.IsValid() && Commander.Exists()) Commander.Dismiss();
@@ -699,6 +699,7 @@ internal class BankHeist : CalloutBase
     internal override void Accepted()
     {
         HudHelpers.DisplayNotification(Localization.GetString("BankHeistWarning"));
+        BankAlarm = new($"{Main.PLUGIN_DIRECTORY}/{Main.PLUGIN_AUDIO_DIRECTORY}/{ALARM_SOUND_FILE_NAME}");
         BankAlarm.Load();
         if (Main.Player.IsInAnyVehicle(false))
         {
