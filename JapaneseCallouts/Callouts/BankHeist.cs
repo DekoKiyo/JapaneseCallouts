@@ -5,7 +5,7 @@
 
 namespace JapaneseCallouts.Callouts;
 
-[CalloutInfo("[JPC] Bank Heist", CalloutProbability.Medium)]
+[CalloutInfo("[JPC] Bank Heist", CalloutProbability.High)]
 internal class BankHeist : CalloutBase
 {
     private enum AlarmState

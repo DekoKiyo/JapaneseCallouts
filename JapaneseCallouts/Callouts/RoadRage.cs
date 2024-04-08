@@ -1,6 +1,6 @@
 namespace JapaneseCallouts.Callouts;
 
-[CalloutInfo("[JPC] Road Rage", CalloutProbability.High)]
+[CalloutInfo("[JPC] Road Rage", CalloutProbability.VeryHigh)]
 internal class RoadRage : CalloutBase
 {
     private Vehicle suspectV, victimV;

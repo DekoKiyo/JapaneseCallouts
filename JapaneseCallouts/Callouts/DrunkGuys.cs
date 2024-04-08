@@ -1,6 +1,6 @@
 namespace JapaneseCallouts.Callouts;
 
-[CalloutInfo("[JPC] Drunk Guys", CalloutProbability.Medium)]
+[CalloutInfo("[JPC] Drunk Guys", CalloutProbability.High)]
 internal class DrunkGuys : CalloutBase
 {
     private Ped citizen;
