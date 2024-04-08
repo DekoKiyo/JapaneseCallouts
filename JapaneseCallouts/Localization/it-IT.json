@@ -195,7 +195,6 @@
     "CalloutCode4": "You are ~g~code4~s~. ~r~Return to Patrol~s~.",
     "Dispatch": "Dispatch",
     "PluginLoaded": "~b~{0}~s~ was ~g~successfully loaded!~s~~n~Developed by ~b~{1}~s~.",
-    "PluginUnloaded": "~b~{0}~s~ was ~r~unloaded!~s~",
     "PressToTalk": "Press {0} to talk.",
     "PressToTalkWith": "Press {0} to talk with ~g~{1}~s~.",
     "RespondCode2": "Respond with ~y~Code2~s~.",
