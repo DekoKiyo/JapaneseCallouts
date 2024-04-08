@@ -14,9 +14,6 @@ $ProjectFile = ".\JapaneseCallouts\JapaneseCallouts.csproj"
 $PluginAudioFolder = ".\JapaneseCallouts\Audio"
 $PluginScannerAudioFolder = ".\JapaneseCalloutsAudio"
 
-# 圧縮ファイル
-$ZipOutput = "./Release/Japanese Callouts.zip"
-
 Write-Host "PowerShell $($PSVersionTable.PSEdition) Version $($PSVersionTable.PSVersion)" -ForegroundColor Cyan
 Set-StrictMode -Version 2.0; $ErrorActionPreference = "Stop"; $ConfirmPreference = "None"; trap { Write-Error $_ -ErrorAction Continue; exit 1 }
 
@@ -68,6 +65,8 @@ Write-Host "[Build] In progress..." -ForegroundColor DarkBlue
 Exec { & $env:DOTNET_EXE build $ProjectFile -c Release /nodeReuse:false /p:UseSharedCompilation=false -nologo -clp:NoSummary --verbosity quiet }
 Write-Host "[Build] Done!" -ForegroundColor Green
 
+$PluginVersion = (Get-Command $PluginDllFile).FileVersionInfo.FileVersion
+
 # 環境変数たち
 $GrandTheftAutoV = $env:GrandTheftAutoV
 $JapaneseCallouts = $env:JapaneseCallouts
@@ -115,9 +114,13 @@ Copy-Item $PluginAudioFolder .\Release\GrandTheftAutoV\plugins\LSPDFR\JapaneseCa
 New-Item $AudioFolder -ItemType Directory
 Copy-Item $PluginScannerAudioFolder .\Release\GrandTheftAutoV\LSPDFR\Audio\scanner\ -Recurse
 
+# 圧縮ファイル
+$ZipOutput = "./Release/Japanese Callouts - $($PluginVersion).zip"
+
 # 7-zipで圧縮
 Write-Host "[Zip] Archiving now..." -ForegroundColor DarkMagenta
 7z.exe a $ZipOutput $GrandTheftAutoVFolder
 Write-Host "[Zip] Done!"
 
+Write-Host "Plugin Version is $($PluginVersion)" -ForegroundColor Magenta
 Write-Host "All process was successfully done!" -ForegroundColor Green

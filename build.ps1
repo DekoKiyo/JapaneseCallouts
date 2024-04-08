@@ -55,6 +55,8 @@ Write-Host "[Build] In progress..." -ForegroundColor DarkBlue
 Exec { & $env:DOTNET_EXE build $ProjectFile -c Debug /nodeReuse:false /p:UseSharedCompilation=false -nologo -clp:NoSummary --verbosity quiet }
 Write-Host "[Build] Done!" -ForegroundColor Green
 
+$PluginVersion = (Get-Command $PluginDllFile).FileVersionInfo.FileVersion
+
 # パスの不足に備えて存在しない場合は作成
 If (!(Test-Path $PluginsFolder))
 {
@@ -73,4 +75,5 @@ Copy-Item $PluginDllFile $PluginsLSPDFRFolder
 Copy-Item $PluginIniFile $PluginsLSPDFRFolder
 Write-Host "[Copy] Done!" -ForegroundColor Green
 
+Write-Host "Plugin Version is $($PluginVersion)" -ForegroundColor Magenta
 Write-Host "All process was successfully done!" -ForegroundColor Green

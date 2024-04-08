@@ -141,9 +141,6 @@ internal class Main : Plugin
             Logger.Info($"{PLUGIN_NAME} Version.{VERSION_PREFIX}{PLUGIN_VERSION} was loaded.");
             HudHelpers.DisplayNotification(Localization.GetString("PluginLoaded", PLUGIN_NAME, DEVELOPER_NAME), PLUGIN_NAME, PLUGIN_VERSION_DATA);
         }
-        else
-        {
-        }
     }
 
     private static void CheckLibrary()
