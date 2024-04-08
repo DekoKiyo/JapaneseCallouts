@@ -20,11 +20,11 @@
     <Vehicle chance="100">FIRETRUK</Vehicle>
   </Firetrucks>
   <PoliceOfficerModels>
-    <Ped chance="20" is_sunny="true" is_rainy="false" is_snowy="false" health="200" armor="200" random_props="true">S_M_Y_COP_01</Ped>
-    <Ped chance="20" is_sunny="true" is_rainy="false" is_snowy="false" health="200" armor="200" random_props="true">S_F_Y_COP_01</Ped>
+    <Ped chance="20" is_sunny="true" is_rainy="false" is_snowy="false" health="200" armor="250" random_props="true">S_M_Y_COP_01</Ped>
+    <Ped chance="20" is_sunny="true" is_rainy="false" is_snowy="false" health="200" armor="250" random_props="true">S_F_Y_COP_01</Ped>
   </PoliceOfficerModels>
   <PoliceSWATModels>
-    <Ped chance="20" is_sunny="true" is_rainy="true" is_snowy="true" health="200" armor="200" random_props="true">S_M_Y_SWAT_01</Ped>
+    <Ped chance="20" is_sunny="true" is_rainy="true" is_snowy="true" health="200" armor="400" random_props="true">S_M_Y_SWAT_01</Ped>
   </PoliceSWATModels>
   <ParamedicModels>
     <Ped chance="100" is_sunny="true" is_rainy="true" is_snowy="true" health="200" armor="200" random_props="true">S_M_M_PARAMEDIC_01</Ped>
@@ -42,12 +42,12 @@
     <Ped chance="100" is_sunny="true" is_rainy="true" is_snowy="true" health="200" armor="200" random_props="true">MP_G_M_PROS_01</Ped>
   </RobberModels>
   <HostageModels>
-    <Ped chance="20" is_sunny="true" is_rainy="true" is_snowy="true" health="200" armor="200" random_props="true">A_M_M_BUSINESS_01</Ped>
-    <Ped chance="20" is_sunny="true" is_rainy="true" is_snowy="true" health="200" armor="200" random_props="true">A_M_Y_BUSINESS_01</Ped>
-    <Ped chance="20" is_sunny="true" is_rainy="true" is_snowy="true" health="200" armor="200" random_props="true">A_M_Y_BUSINESS_02</Ped>
-    <Ped chance="20" is_sunny="true" is_rainy="true" is_snowy="true" health="200" armor="200" random_props="true">A_M_Y_BUSINESS_03</Ped>
-    <Ped chance="20" is_sunny="true" is_rainy="true" is_snowy="true" health="200" armor="200" random_props="true">A_F_Y_BUSINESS_01</Ped>
-    <Ped chance="20" is_sunny="true" is_rainy="true" is_snowy="true" health="200" armor="200" random_props="true">A_F_Y_FEMALEAGENT</Ped>
+    <Ped chance="20" is_sunny="true" is_rainy="true" is_snowy="true" random_props="true">A_M_M_BUSINESS_01</Ped>
+    <Ped chance="20" is_sunny="true" is_rainy="true" is_snowy="true" random_props="true">A_M_Y_BUSINESS_01</Ped>
+    <Ped chance="20" is_sunny="true" is_rainy="true" is_snowy="true" random_props="true">A_M_Y_BUSINESS_02</Ped>
+    <Ped chance="20" is_sunny="true" is_rainy="true" is_snowy="true" random_props="true">A_M_Y_BUSINESS_03</Ped>
+    <Ped chance="20" is_sunny="true" is_rainy="true" is_snowy="true" random_props="true">A_F_Y_BUSINESS_01</Ped>
+    <Ped chance="20" is_sunny="true" is_rainy="true" is_snowy="true" random_props="true">A_F_Y_FEMALEAGENT</Ped>
   </HostageModels>
   <OfficerWeapons>
     <Weapon chance="100">

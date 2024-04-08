@@ -473,29 +473,9 @@ internal class BankHeist : CalloutBase
         (Settings.OfficerName, Localization.GetString("Final4")),
     ];
     #endregion
-
-    // Vehicle Model
-    private readonly Model[] PoliceCruiserModels = ["POLICE", "POLICE2", "POLICE3", "POLICE4"];
-    private readonly Model[] PoliceTransportModels = ["POLICET"];
-    private readonly Model[] RiotModels = ["RIOT"];
-    private readonly Model[] AmbulanceModels = ["AMBULANCE"];
-    private readonly Model[] FiretruckModels = ["FIRETRUK"];
     private readonly Model BarrierModel = "PROP_BARRIER_WORK05";
     private readonly Model InvisibleWallModel = "P_ICE_BOX_01_S";
-    private readonly Model[] CopModels = ["S_M_Y_COP_01", "S_F_Y_COP_01"];
-    private readonly Model SwatModel = "S_M_Y_SWAT_01";
-    private readonly Model ParamedicModel = "S_M_M_PARAMEDIC_01";
-    private readonly Model FirefighterModel = "S_M_Y_FIREMAN_01";
-    private readonly Model CommanderModel = "IG_FBISUIT_01";
-    private readonly Model WifeModel = "IG_FBISUIT_01";
-    private readonly Model RobbersModel = "MP_G_M_PROS_01";
     private readonly Model PhoneModel = "PROP_POLICE_PHONE";
-    private readonly Model[] HostageModels = ["A_M_M_BUSINESS_01", "A_M_Y_BUSINESS_01", "A_M_Y_BUSINESS_02", "A_M_Y_BUSINESS_03", "A_F_Y_BUSINESS_01", "A_F_Y_FEMALEAGENT"];
-    private readonly WeaponHash[] OfficerWeapons = [WeaponHash.Pistol];
-    private readonly WeaponHash[] SWATWeapons = [WeaponHash.CarbineRifle, WeaponHash.AssaultRifle];
-    private readonly WeaponHash[] RobbersWeapons = [WeaponHash.SawnOffShotgun, WeaponHash.AssaultRifle, WeaponHash.PumpShotgun, WeaponHash.Pistol, WeaponHash.AdvancedRifle, WeaponHash.AssaultSMG];
-    private readonly WeaponHash[] Grenades = [WeaponHash.Grenade, WeaponHash.SmokeGrenade];
-    private readonly WeaponHash[] RobbersSneakyWeapons = [WeaponHash.Pistol50, WeaponHash.Knife, WeaponHash.AssaultSMG, WeaponHash.Crowbar, WeaponHash.Hammer, WeaponHash.AssaultRifle];
 
     private const string SWAT_ANIMATION_DICTIONARY = "cover@weapon@rpg";
     private const string SWAT_ANIMATION_LEFT = "blindfire_low_l_corner_exit";
@@ -777,6 +757,8 @@ internal class BankHeist : CalloutBase
                     }
                 }
 
+                var weather = CalloutHelpers.GetWeatherType(IPTFunctions.GetWeatherType());
+
                 GameFiber.Yield();
                 CreateSpeedZone();
                 GameFiber.Yield();
@@ -786,11 +768,11 @@ internal class BankHeist : CalloutBase
                 GameFiber.Yield();
                 PlaceBarrier();
                 GameFiber.Yield();
-                SpawnOfficers();
+                SpawnOfficers(weather);
                 GameFiber.Yield();
                 SpawnNegotiationRobbers();
                 GameFiber.Yield();
-                SpawnEMS();
+                SpawnEMS(weather);
                 GameFiber.Yield();
                 SpawnHostages();
                 GameFiber.Yield();
@@ -1067,52 +1049,10 @@ internal class BankHeist : CalloutBase
 
     private void LoadModels()
     {
-        foreach (var model in PoliceCruiserModels)
-        {
-            GameFiber.Yield();
-            model.Load();
-        }
-        foreach (var model in PoliceTransportModels)
-        {
-            GameFiber.Yield();
-            model.Load();
-        }
-        foreach (var model in RiotModels)
-        {
-            GameFiber.Yield();
-            model.Load();
-        }
-        foreach (var model in AmbulanceModels)
-        {
-            GameFiber.Yield();
-            model.Load();
-        }
-        foreach (var model in FiretruckModels)
-        {
-            GameFiber.Yield();
-            model.Load();
-        }
-        foreach (var model in CopModels)
-        {
-            GameFiber.Yield();
-            model.Load();
-        }
-        foreach (var model in HostageModels)
-        {
-            GameFiber.Yield();
-            model.Load();
-        }
         GameFiber.Yield();
         BarrierModel.Load();
         InvisibleWallModel.Load();
-        SwatModel.Load();
-        ParamedicModel.Load();
-        FirefighterModel.Load();
-        CommanderModel.Load();
-        WifeModel.Load();
-        RobbersModel.Load();
         PhoneModel.Load();
-        GameFiber.Yield();
     }
 
     private void DetermineResults()
@@ -1736,59 +1676,129 @@ internal class BankHeist : CalloutBase
     {
         foreach (var (pos, heading) in PoliceCruiserPositions)
         {
-            var vehicle = new Vehicle(PoliceCruiserModels[Main.MersenneTwister.Next(PoliceCruiserModels.Length)], pos, heading)
+            var data = CalloutHelpers.Select([.. XmlManager.BankHeist.PoliceCruisers]);
+            var vehicle = new Vehicle(data.Model, pos, heading)
             {
                 IsPersistent = true,
                 IsSirenOn = true,
                 IsSirenSilent = true,
             };
-            AllPoliceVehicles.Add(vehicle);
-            CalloutEntities.Add(vehicle);
+            if (vehicle is not null && vehicle.IsValid() && vehicle.Exists())
+            {
+                if (NativeFunction.Natives.GET_VEHICLE_LIVERY_COUNT<int>(vehicle) is -1 && data.Livery is -1)
+                {
+                    NativeFunction.Natives.SET_VEHICLE_CUSTOM_PRIMARY_COLOUR(vehicle, data.ColorR, data.ColorG, data.ColorB);
+                    NativeFunction.Natives.SET_VEHICLE_CUSTOM_SECONDARY_COLOUR(vehicle, data.ColorR, data.ColorG, data.ColorB);
+                }
+                else
+                {
+                    NativeFunction.Natives.SET_VEHICLE_LIVERY(vehicle, data.Livery);
+                }
+
+                AllPoliceVehicles.Add(vehicle);
+                CalloutEntities.Add(vehicle);
+            }
         }
         foreach (var (pos, heading) in PoliceTransportPositions)
         {
-            var vehicle = new Vehicle(PoliceTransportModels[Main.MersenneTwister.Next(PoliceTransportModels.Length)], pos, heading)
+            var data = CalloutHelpers.Select([.. XmlManager.BankHeist.PoliceTransporters]);
+            var vehicle = new Vehicle(data.Model, pos, heading)
             {
                 IsPersistent = true,
                 IsSirenOn = true,
                 IsSirenSilent = true,
             };
-            AllPoliceVehicles.Add(vehicle);
-            CalloutEntities.Add(vehicle);
+            if (vehicle is not null && vehicle.IsValid() && vehicle.Exists())
+            {
+                if (NativeFunction.Natives.GET_VEHICLE_LIVERY_COUNT<int>(vehicle) is -1 && data.Livery is -1)
+                {
+                    NativeFunction.Natives.SET_VEHICLE_CUSTOM_PRIMARY_COLOUR(vehicle, data.ColorR, data.ColorG, data.ColorB);
+                    NativeFunction.Natives.SET_VEHICLE_CUSTOM_SECONDARY_COLOUR(vehicle, data.ColorR, data.ColorG, data.ColorB);
+                }
+                else
+                {
+                    NativeFunction.Natives.SET_VEHICLE_LIVERY(vehicle, data.Livery);
+                }
+
+                AllPoliceVehicles.Add(vehicle);
+                CalloutEntities.Add(vehicle);
+            }
         }
         foreach (var (pos, heading) in RiotPositions)
         {
-            var vehicle = new Vehicle(RiotModels[Main.MersenneTwister.Next(RiotModels.Length)], pos, heading)
+            var data = CalloutHelpers.Select([.. XmlManager.BankHeist.PoliceRiots]);
+            var vehicle = new Vehicle(data.Model, pos, heading)
             {
                 IsPersistent = true,
                 IsSirenOn = true,
                 IsSirenSilent = true,
             };
-            AllPoliceVehicles.Add(vehicle);
-            AllRiot.Add(vehicle);
-            CalloutEntities.Add(vehicle);
+            if (vehicle is not null && vehicle.IsValid() && vehicle.Exists())
+            {
+                if (NativeFunction.Natives.GET_VEHICLE_LIVERY_COUNT<int>(vehicle) is -1 && data.Livery is -1)
+                {
+                    NativeFunction.Natives.SET_VEHICLE_CUSTOM_PRIMARY_COLOUR(vehicle, data.ColorR, data.ColorG, data.ColorB);
+                    NativeFunction.Natives.SET_VEHICLE_CUSTOM_SECONDARY_COLOUR(vehicle, data.ColorR, data.ColorG, data.ColorB);
+                }
+                else
+                {
+                    NativeFunction.Natives.SET_VEHICLE_LIVERY(vehicle, data.Livery);
+                }
+
+                AllPoliceVehicles.Add(vehicle);
+                AllRiot.Add(vehicle);
+                CalloutEntities.Add(vehicle);
+            }
         }
         foreach (var (pos, heading) in AmbulancePositions)
         {
-            var vehicle = new Vehicle(AmbulanceModels[Main.MersenneTwister.Next(AmbulanceModels.Length)], pos, heading)
+            var data = CalloutHelpers.Select([.. XmlManager.BankHeist.Ambulances]);
+            var vehicle = new Vehicle(data.Model, pos, heading)
             {
                 IsPersistent = true,
                 IsSirenOn = true,
                 IsSirenSilent = true,
             };
-            AllAmbulance.Add(vehicle);
-            CalloutEntities.Add(vehicle);
+            if (vehicle is not null && vehicle.IsValid() && vehicle.Exists())
+            {
+                if (NativeFunction.Natives.GET_VEHICLE_LIVERY_COUNT<int>(vehicle) is -1 && data.Livery is -1)
+                {
+                    NativeFunction.Natives.SET_VEHICLE_CUSTOM_PRIMARY_COLOUR(vehicle, data.ColorR, data.ColorG, data.ColorB);
+                    NativeFunction.Natives.SET_VEHICLE_CUSTOM_SECONDARY_COLOUR(vehicle, data.ColorR, data.ColorG, data.ColorB);
+                }
+                else
+                {
+                    NativeFunction.Natives.SET_VEHICLE_LIVERY(vehicle, data.Livery);
+                }
+
+                AllAmbulance.Add(vehicle);
+                CalloutEntities.Add(vehicle);
+            }
         }
         foreach (var (pos, heading) in FiretruckPositions)
         {
-            var vehicle = new Vehicle(FiretruckModels[Main.MersenneTwister.Next(FiretruckModels.Length)], pos, heading)
+            var data = CalloutHelpers.Select([.. XmlManager.BankHeist.Firetrucks]);
+            var vehicle = new Vehicle(data.Model, pos, heading)
             {
                 IsPersistent = true,
                 IsSirenOn = true,
                 IsSirenSilent = true,
             };
-            AllFiretruck.Add(vehicle);
-            CalloutEntities.Add(vehicle);
+            if (vehicle is not null && vehicle.IsValid() && vehicle.Exists())
+            {
+                if (NativeFunction.Natives.GET_VEHICLE_LIVERY_COUNT<int>(vehicle) is -1 && data.Livery is -1)
+                {
+                    NativeFunction.Natives.SET_VEHICLE_CUSTOM_PRIMARY_COLOUR(vehicle, data.ColorR, data.ColorG, data.ColorB);
+                    NativeFunction.Natives.SET_VEHICLE_CUSTOM_SECONDARY_COLOUR(vehicle, data.ColorR, data.ColorG, data.ColorB);
+                }
+                else
+                {
+                    NativeFunction.Natives.SET_VEHICLE_LIVERY(vehicle, data.Livery);
+                }
+
+                AllFiretruck.Add(vehicle);
+                CalloutEntities.Add(vehicle);
+            }
         }
     }
 
@@ -1819,143 +1829,434 @@ internal class BankHeist : CalloutBase
         }
     }
 
-    private void SpawnOfficers()
+    private void SpawnOfficers(EWeather weather)
     {
         foreach (var (pos, heading) in LeftSittingSWATPositions)
         {
-            var swat = new Ped(SwatModel, pos, heading)
+            var data = CalloutHelpers.SelectPed(weather, [.. XmlManager.BankHeist.PoliceSWATModels]);
+            var swat = new Ped(data.Model, pos, heading)
             {
                 IsPersistent = true,
                 BlockPermanentEvents = true,
                 RelationshipGroup = RelationshipGroup.Cop,
                 CanBeTargetted = true,
                 CanAttackFriendlies = false,
-                Health = 250,
-                Armor = 400,
+                MaxHealth = data.Health,
+                Health = data.Health,
+                Armor = data.Armor,
             };
-            Functions.SetPedAsCop(swat);
-            Functions.SetCopAsBusy(swat, true);
-            swat.Inventory.GiveNewWeapon(SWATWeapons[Main.MersenneTwister.Next(SWATWeapons.Length)], 10000, true);
-            swat.Tasks.PlayAnimation(SWAT_ANIMATION_DICTIONARY, SWAT_ANIMATION_LEFT, 1f, AnimationFlags.StayInEndFrame);
+            if (swat is not null && swat.IsValid() && swat.Exists())
+            {
+                if (CalloutHelpers.IsRandomProps(data))
+                {
+                    swat.RandomizeVariation();
+                    NativeFunction.Natives.SET_PED_RANDOM_PROPS(swat);
+                }
+                else
+                {
+                    swat.GenerateRandomFace();
+                    swat.SetVariation((int)EComponents.Mask, data.MaskModel - 1, data.MaskTexture - 1);
+                    swat.SetVariation((int)EComponents.UpperSkin, data.UpperSkinModel - 1, data.UpperSkinTexture - 1);
+                    swat.SetVariation((int)EComponents.Pants, data.PantsModel - 1, data.PantsTexture - 1);
+                    swat.SetVariation((int)EComponents.Parachute, data.ParachuteModel - 1, data.ParachuteTexture - 1);
+                    swat.SetVariation((int)EComponents.Shoes, data.ShoesModel - 1, data.ShoesTexture - 1);
+                    swat.SetVariation((int)EComponents.Accessories, data.AccessoriesModel - 1, data.AccessoriesTexture - 1);
+                    swat.SetVariation((int)EComponents.Undercoat, data.UndercoatModel - 1, data.UndercoatTexture - 1);
+                    swat.SetVariation((int)EComponents.Armor, data.ArmorModel - 1, data.ArmorTexture - 1);
+                    swat.SetVariation((int)EComponents.Decal, data.DecalModel - 1, data.DecalTexture - 1);
+                    swat.SetVariation((int)EComponents.Top, data.TopModel - 1, data.TopTexture - 1);
+                    NativeFunction.Natives.CLEAR_ALL_PED_PROPS(swat);
+                    NativeFunction.Natives.SET_PED_PROP_INDEX(swat, (int)EProps.Hat, data.HatModel - 1, data.HatTexture - 1, false);
+                    NativeFunction.Natives.SET_PED_PROP_INDEX(swat, (int)EProps.Glasses, data.GlassesModel - 1, data.GlassesTexture - 1, false);
+                    NativeFunction.Natives.SET_PED_PROP_INDEX(swat, (int)EProps.Ear, data.EarModel - 1, data.EarTexture - 1, false);
+                    NativeFunction.Natives.SET_PED_PROP_INDEX(swat, (int)EProps.Watch, data.WatchModel - 1, data.WatchTexture - 1, false);
+                }
+                Functions.SetPedAsCop(swat);
+                Functions.SetCopAsBusy(swat, true);
 
-            AllSWATUnits.Add(swat);
-            CalloutEntities.Add(swat);
+                var weapon = CalloutHelpers.Select([.. XmlManager.BankHeist.SWATWeapons]);
+                var hash = NativeFunction.Natives.GET_HASH_KEY<Model>(weapon.Model);
+                NativeFunction.Natives.REQUEST_MODEL(hash);
+                NativeFunction.Natives.GIVE_WEAPON_TO_PED(swat, hash, 5000, false, false);
+                foreach (var comp in weapon.Components)
+                {
+                    var compHash = NativeFunction.Natives.GET_HASH_KEY<Model>(comp);
+                    NativeFunction.Natives.REQUEST_MODEL(compHash);
+                    NativeFunction.Natives.GIVE_WEAPON_TO_PED(swat, hash, compHash);
+                }
+
+                swat.Tasks.PlayAnimation(SWAT_ANIMATION_DICTIONARY, SWAT_ANIMATION_LEFT, 1f, AnimationFlags.StayInEndFrame);
+                AllSWATUnits.Add(swat);
+                CalloutEntities.Add(swat);
+            }
         }
         foreach (var (pos, heading) in RightLookingSWATPositions)
         {
-            var swat = new Ped(SwatModel, pos, heading)
+            var data = CalloutHelpers.SelectPed(weather, [.. XmlManager.BankHeist.PoliceSWATModels]);
+            var swat = new Ped(data.Model, pos, heading)
             {
                 IsPersistent = true,
                 BlockPermanentEvents = true,
                 RelationshipGroup = RelationshipGroup.Cop,
                 CanBeTargetted = true,
                 CanAttackFriendlies = false,
-                Health = 250,
-                Armor = 400,
+                MaxHealth = data.Health,
+                Health = data.Health,
+                Armor = data.Armor,
             };
-            Functions.SetPedAsCop(swat);
-            Functions.SetCopAsBusy(swat, true);
-            swat.Inventory.GiveNewWeapon(SWATWeapons[Main.MersenneTwister.Next(SWATWeapons.Length)], 10000, true);
-            swat.Tasks.PlayAnimation(SWAT_ANIMATION_DICTIONARY, SWAT_ANIMATION_RIGHT_LOOKING, 1f, AnimationFlags.StayInEndFrame);
-            AllSWATUnits.Add(swat);
-            CalloutEntities.Add(swat);
+            if (swat is not null && swat.IsValid() && swat.Exists())
+            {
+                if (CalloutHelpers.IsRandomProps(data))
+                {
+                    swat.RandomizeVariation();
+                    NativeFunction.Natives.SET_PED_RANDOM_PROPS(swat);
+                }
+                else
+                {
+                    swat.GenerateRandomFace();
+                    swat.SetVariation((int)EComponents.Mask, data.MaskModel - 1, data.MaskTexture - 1);
+                    swat.SetVariation((int)EComponents.UpperSkin, data.UpperSkinModel - 1, data.UpperSkinTexture - 1);
+                    swat.SetVariation((int)EComponents.Pants, data.PantsModel - 1, data.PantsTexture - 1);
+                    swat.SetVariation((int)EComponents.Parachute, data.ParachuteModel - 1, data.ParachuteTexture - 1);
+                    swat.SetVariation((int)EComponents.Shoes, data.ShoesModel - 1, data.ShoesTexture - 1);
+                    swat.SetVariation((int)EComponents.Accessories, data.AccessoriesModel - 1, data.AccessoriesTexture - 1);
+                    swat.SetVariation((int)EComponents.Undercoat, data.UndercoatModel - 1, data.UndercoatTexture - 1);
+                    swat.SetVariation((int)EComponents.Armor, data.ArmorModel - 1, data.ArmorTexture - 1);
+                    swat.SetVariation((int)EComponents.Decal, data.DecalModel - 1, data.DecalTexture - 1);
+                    swat.SetVariation((int)EComponents.Top, data.TopModel - 1, data.TopTexture - 1);
+                    NativeFunction.Natives.CLEAR_ALL_PED_PROPS(swat);
+                    NativeFunction.Natives.SET_PED_PROP_INDEX(swat, (int)EProps.Hat, data.HatModel - 1, data.HatTexture - 1, false);
+                    NativeFunction.Natives.SET_PED_PROP_INDEX(swat, (int)EProps.Glasses, data.GlassesModel - 1, data.GlassesTexture - 1, false);
+                    NativeFunction.Natives.SET_PED_PROP_INDEX(swat, (int)EProps.Ear, data.EarModel - 1, data.EarTexture - 1, false);
+                    NativeFunction.Natives.SET_PED_PROP_INDEX(swat, (int)EProps.Watch, data.WatchModel - 1, data.WatchTexture - 1, false);
+                }
+                Functions.SetPedAsCop(swat);
+                Functions.SetCopAsBusy(swat, true);
+
+                var weapon = CalloutHelpers.Select([.. XmlManager.BankHeist.SWATWeapons]);
+                var hash = NativeFunction.Natives.GET_HASH_KEY<Model>(weapon.Model);
+                NativeFunction.Natives.REQUEST_MODEL(hash);
+                NativeFunction.Natives.GIVE_WEAPON_TO_PED(swat, hash, 5000, false, false);
+                foreach (var comp in weapon.Components)
+                {
+                    var compHash = NativeFunction.Natives.GET_HASH_KEY<Model>(comp);
+                    NativeFunction.Natives.REQUEST_MODEL(compHash);
+                    NativeFunction.Natives.GIVE_WEAPON_TO_PED(swat, hash, compHash);
+                }
+
+                swat.Tasks.PlayAnimation(SWAT_ANIMATION_DICTIONARY, SWAT_ANIMATION_RIGHT_LOOKING, 1f, AnimationFlags.StayInEndFrame);
+                AllSWATUnits.Add(swat);
+                CalloutEntities.Add(swat);
+            }
         }
         foreach (var (pos, heading) in RightSittingSWATPositions)
         {
-            var swat = new Ped(SwatModel, pos, heading)
+            var data = CalloutHelpers.SelectPed(weather, [.. XmlManager.BankHeist.PoliceSWATModels]);
+            var swat = new Ped(data.Model, pos, heading)
             {
                 IsPersistent = true,
                 BlockPermanentEvents = true,
                 RelationshipGroup = RelationshipGroup.Cop,
                 CanBeTargetted = true,
                 CanAttackFriendlies = false,
-                Health = 200,
-                Armor = 200,
+                MaxHealth = data.Health,
+                Health = data.Health,
+                Armor = data.Armor,
             };
-            Functions.SetPedAsCop(swat);
-            Functions.SetCopAsBusy(swat, true);
-            swat.Inventory.GiveNewWeapon(SWATWeapons[Main.MersenneTwister.Next(SWATWeapons.Length)], 10000, true);
-            swat.Tasks.PlayAnimation(SWAT_ANIMATION_DICTIONARY, SWAT_ANIMATION_RIGHT, 1f, AnimationFlags.StayInEndFrame);
-            AllSWATUnits.Add(swat);
-            CalloutEntities.Add(swat);
+            if (swat is not null && swat.IsValid() && swat.Exists())
+            {
+                if (CalloutHelpers.IsRandomProps(data))
+                {
+                    swat.RandomizeVariation();
+                    NativeFunction.Natives.SET_PED_RANDOM_PROPS(swat);
+                }
+                else
+                {
+                    swat.GenerateRandomFace();
+                    swat.SetVariation((int)EComponents.Mask, data.MaskModel - 1, data.MaskTexture - 1);
+                    swat.SetVariation((int)EComponents.UpperSkin, data.UpperSkinModel - 1, data.UpperSkinTexture - 1);
+                    swat.SetVariation((int)EComponents.Pants, data.PantsModel - 1, data.PantsTexture - 1);
+                    swat.SetVariation((int)EComponents.Parachute, data.ParachuteModel - 1, data.ParachuteTexture - 1);
+                    swat.SetVariation((int)EComponents.Shoes, data.ShoesModel - 1, data.ShoesTexture - 1);
+                    swat.SetVariation((int)EComponents.Accessories, data.AccessoriesModel - 1, data.AccessoriesTexture - 1);
+                    swat.SetVariation((int)EComponents.Undercoat, data.UndercoatModel - 1, data.UndercoatTexture - 1);
+                    swat.SetVariation((int)EComponents.Armor, data.ArmorModel - 1, data.ArmorTexture - 1);
+                    swat.SetVariation((int)EComponents.Decal, data.DecalModel - 1, data.DecalTexture - 1);
+                    swat.SetVariation((int)EComponents.Top, data.TopModel - 1, data.TopTexture - 1);
+                    NativeFunction.Natives.CLEAR_ALL_PED_PROPS(swat);
+                    NativeFunction.Natives.SET_PED_PROP_INDEX(swat, (int)EProps.Hat, data.HatModel - 1, data.HatTexture - 1, false);
+                    NativeFunction.Natives.SET_PED_PROP_INDEX(swat, (int)EProps.Glasses, data.GlassesModel - 1, data.GlassesTexture - 1, false);
+                    NativeFunction.Natives.SET_PED_PROP_INDEX(swat, (int)EProps.Ear, data.EarModel - 1, data.EarTexture - 1, false);
+                    NativeFunction.Natives.SET_PED_PROP_INDEX(swat, (int)EProps.Watch, data.WatchModel - 1, data.WatchTexture - 1, false);
+                }
+                Functions.SetPedAsCop(swat);
+                Functions.SetCopAsBusy(swat, true);
+
+                var weapon = CalloutHelpers.Select([.. XmlManager.BankHeist.SWATWeapons]);
+                var hash = NativeFunction.Natives.GET_HASH_KEY<Model>(weapon.Model);
+                NativeFunction.Natives.REQUEST_MODEL(hash);
+                NativeFunction.Natives.GIVE_WEAPON_TO_PED(swat, hash, 5000, false, false);
+                foreach (var comp in weapon.Components)
+                {
+                    var compHash = NativeFunction.Natives.GET_HASH_KEY<Model>(comp);
+                    NativeFunction.Natives.REQUEST_MODEL(compHash);
+                    NativeFunction.Natives.GIVE_WEAPON_TO_PED(swat, hash, compHash);
+                }
+
+                swat.Tasks.PlayAnimation(SWAT_ANIMATION_DICTIONARY, SWAT_ANIMATION_RIGHT, 1f, AnimationFlags.StayInEndFrame);
+                AllSWATUnits.Add(swat);
+                CalloutEntities.Add(swat);
+            }
         }
         foreach (var (pos, heading) in AimingOfficerPositions)
         {
-            var officer = new Ped(CopModels[Main.MersenneTwister.Next(CopModels.Length)], pos, heading)
+            var data = CalloutHelpers.SelectPed(weather, [.. XmlManager.BankHeist.PoliceOfficerModels]);
+            var officer = new Ped(data.Model, pos, heading)
             {
                 IsPersistent = true,
                 BlockPermanentEvents = true,
                 RelationshipGroup = RelationshipGroup.Cop,
                 CanBeTargetted = true,
                 CanAttackFriendlies = false,
-                Health = 200,
-                Armor = 200,
+                MaxHealth = data.Health,
+                Health = data.Health,
+                Armor = data.Armor,
             };
-            Functions.SetPedAsCop(officer);
-            Functions.SetCopAsBusy(officer, true);
-            officer.Inventory.GiveNewWeapon(OfficerWeapons[Main.MersenneTwister.Next(OfficerWeapons.Length)], 10000, true);
-            var aimPoint = Vector3.Distance(officer.Position, BankDoorPositions[0]) < Vector3.Distance(officer.Position, BankDoorPositions[1]) ? BankDoorPositions[0] : BankDoorPositions[1];
-            NativeFunction.Natives.TASK_AIM_GUN_AT_COORD(officer, aimPoint.X, aimPoint.Y, aimPoint.Z, -1, false, false);
-            AllOfficers.Add(officer);
-            AllAimingOfficers.Add(officer);
-            CalloutEntities.Add(officer);
+            if (officer is not null && officer.IsValid() && officer.Exists())
+            {
+                if (CalloutHelpers.IsRandomProps(data))
+                {
+                    officer.RandomizeVariation();
+                    NativeFunction.Natives.SET_PED_RANDOM_PROPS(officer);
+                }
+                else
+                {
+                    officer.GenerateRandomFace();
+                    officer.SetVariation((int)EComponents.Mask, data.MaskModel - 1, data.MaskTexture - 1);
+                    officer.SetVariation((int)EComponents.UpperSkin, data.UpperSkinModel - 1, data.UpperSkinTexture - 1);
+                    officer.SetVariation((int)EComponents.Pants, data.PantsModel - 1, data.PantsTexture - 1);
+                    officer.SetVariation((int)EComponents.Parachute, data.ParachuteModel - 1, data.ParachuteTexture - 1);
+                    officer.SetVariation((int)EComponents.Shoes, data.ShoesModel - 1, data.ShoesTexture - 1);
+                    officer.SetVariation((int)EComponents.Accessories, data.AccessoriesModel - 1, data.AccessoriesTexture - 1);
+                    officer.SetVariation((int)EComponents.Undercoat, data.UndercoatModel - 1, data.UndercoatTexture - 1);
+                    officer.SetVariation((int)EComponents.Armor, data.ArmorModel - 1, data.ArmorTexture - 1);
+                    officer.SetVariation((int)EComponents.Decal, data.DecalModel - 1, data.DecalTexture - 1);
+                    officer.SetVariation((int)EComponents.Top, data.TopModel - 1, data.TopTexture - 1);
+                    NativeFunction.Natives.CLEAR_ALL_PED_PROPS(officer);
+                    NativeFunction.Natives.SET_PED_PROP_INDEX(officer, (int)EProps.Hat, data.HatModel - 1, data.HatTexture - 1, false);
+                    NativeFunction.Natives.SET_PED_PROP_INDEX(officer, (int)EProps.Glasses, data.GlassesModel - 1, data.GlassesTexture - 1, false);
+                    NativeFunction.Natives.SET_PED_PROP_INDEX(officer, (int)EProps.Ear, data.EarModel - 1, data.EarTexture - 1, false);
+                    NativeFunction.Natives.SET_PED_PROP_INDEX(officer, (int)EProps.Watch, data.WatchModel - 1, data.WatchTexture - 1, false);
+                }
+                Functions.SetPedAsCop(officer);
+                Functions.SetCopAsBusy(officer, true);
+
+                var weapon = CalloutHelpers.Select([.. XmlManager.BankHeist.SWATWeapons]);
+                var hash = NativeFunction.Natives.GET_HASH_KEY<Model>(weapon.Model);
+                NativeFunction.Natives.REQUEST_MODEL(hash);
+                NativeFunction.Natives.GIVE_WEAPON_TO_PED(officer, hash, 5000, false, false);
+                foreach (var comp in weapon.Components)
+                {
+                    var compHash = NativeFunction.Natives.GET_HASH_KEY<Model>(comp);
+                    NativeFunction.Natives.REQUEST_MODEL(compHash);
+                    NativeFunction.Natives.GIVE_WEAPON_TO_PED(officer, hash, compHash);
+                }
+
+                var aimPoint = Vector3.Distance(officer.Position, BankDoorPositions[0]) < Vector3.Distance(officer.Position, BankDoorPositions[1]) ? BankDoorPositions[0] : BankDoorPositions[1];
+                NativeFunction.Natives.TASK_AIM_GUN_AT_COORD(officer, aimPoint.X, aimPoint.Y, aimPoint.Z, -1, false, false);
+
+                AllOfficers.Add(officer);
+                AllStandingOfficers.Add(officer);
+                CalloutEntities.Add(officer);
+            }
         }
         foreach (var (pos, heading) in StandingOfficerPositions)
         {
-            var officer = new Ped(CopModels[Main.MersenneTwister.Next(CopModels.Length)], pos, heading)
+            var data = CalloutHelpers.SelectPed(weather, [.. XmlManager.BankHeist.PoliceOfficerModels]);
+            var officer = new Ped(data.Model, pos, heading)
             {
                 IsPersistent = true,
                 BlockPermanentEvents = true,
                 RelationshipGroup = RelationshipGroup.Cop,
                 CanBeTargetted = true,
                 CanAttackFriendlies = false,
-                Health = 200,
-                Armor = 200,
+                MaxHealth = data.Health,
+                Health = data.Health,
+                Armor = data.Armor,
             };
-            Functions.SetPedAsCop(officer);
-            Functions.SetCopAsBusy(officer, true);
-            officer.Inventory.GiveNewWeapon(OfficerWeapons[Main.MersenneTwister.Next(OfficerWeapons.Length)], 10000, true);
-            AllOfficers.Add(officer);
-            AllStandingOfficers.Add(officer);
-            CalloutEntities.Add(officer);
+            if (officer is not null && officer.IsValid() && officer.Exists())
+            {
+                if (CalloutHelpers.IsRandomProps(data))
+                {
+                    officer.RandomizeVariation();
+                    NativeFunction.Natives.SET_PED_RANDOM_PROPS(officer);
+                }
+                else
+                {
+                    officer.GenerateRandomFace();
+                    officer.SetVariation((int)EComponents.Mask, data.MaskModel - 1, data.MaskTexture - 1);
+                    officer.SetVariation((int)EComponents.UpperSkin, data.UpperSkinModel - 1, data.UpperSkinTexture - 1);
+                    officer.SetVariation((int)EComponents.Pants, data.PantsModel - 1, data.PantsTexture - 1);
+                    officer.SetVariation((int)EComponents.Parachute, data.ParachuteModel - 1, data.ParachuteTexture - 1);
+                    officer.SetVariation((int)EComponents.Shoes, data.ShoesModel - 1, data.ShoesTexture - 1);
+                    officer.SetVariation((int)EComponents.Accessories, data.AccessoriesModel - 1, data.AccessoriesTexture - 1);
+                    officer.SetVariation((int)EComponents.Undercoat, data.UndercoatModel - 1, data.UndercoatTexture - 1);
+                    officer.SetVariation((int)EComponents.Armor, data.ArmorModel - 1, data.ArmorTexture - 1);
+                    officer.SetVariation((int)EComponents.Decal, data.DecalModel - 1, data.DecalTexture - 1);
+                    officer.SetVariation((int)EComponents.Top, data.TopModel - 1, data.TopTexture - 1);
+                    NativeFunction.Natives.CLEAR_ALL_PED_PROPS(officer);
+                    NativeFunction.Natives.SET_PED_PROP_INDEX(officer, (int)EProps.Hat, data.HatModel - 1, data.HatTexture - 1, false);
+                    NativeFunction.Natives.SET_PED_PROP_INDEX(officer, (int)EProps.Glasses, data.GlassesModel - 1, data.GlassesTexture - 1, false);
+                    NativeFunction.Natives.SET_PED_PROP_INDEX(officer, (int)EProps.Ear, data.EarModel - 1, data.EarTexture - 1, false);
+                    NativeFunction.Natives.SET_PED_PROP_INDEX(officer, (int)EProps.Watch, data.WatchModel - 1, data.WatchTexture - 1, false);
+                }
+                Functions.SetPedAsCop(officer);
+                Functions.SetCopAsBusy(officer, true);
+
+                var weapon = CalloutHelpers.Select([.. XmlManager.BankHeist.SWATWeapons]);
+                var hash = NativeFunction.Natives.GET_HASH_KEY<Model>(weapon.Model);
+                NativeFunction.Natives.REQUEST_MODEL(hash);
+                NativeFunction.Natives.GIVE_WEAPON_TO_PED(officer, hash, 5000, false, false);
+                foreach (var comp in weapon.Components)
+                {
+                    var compHash = NativeFunction.Natives.GET_HASH_KEY<Model>(comp);
+                    NativeFunction.Natives.REQUEST_MODEL(compHash);
+                    NativeFunction.Natives.GIVE_WEAPON_TO_PED(officer, hash, compHash);
+                }
+
+                AllOfficers.Add(officer);
+                AllStandingOfficers.Add(officer);
+                CalloutEntities.Add(officer);
+            }
         }
-        Commander = new Ped(CommanderModel, CaptainPosition.pos, CaptainPosition.heading)
+        var cData = CalloutHelpers.SelectPed(weather, [.. XmlManager.BankHeist.CommanderModels]);
+        Commander = new Ped(cData.Model, CaptainPosition.pos, CaptainPosition.heading)
         {
             BlockPermanentEvents = true,
             IsPersistent = true,
             IsInvincible = true,
-            RelationshipGroup = RelationshipGroup.Cop
+            RelationshipGroup = RelationshipGroup.Cop,
+            MaxHealth = cData.Health,
+            Health = cData.Health,
+            Armor = cData.Armor,
         };
-        Functions.SetPedCantBeArrestedByPlayer(Commander, true);
+        if (Commander is not null && Commander.IsValid() && Commander.Exists())
+        {
+            if (CalloutHelpers.IsRandomProps(cData))
+            {
+                Commander.RandomizeVariation();
+                NativeFunction.Natives.SET_PED_RANDOM_PROPS(Commander);
+            }
+            else
+            {
+                Commander.GenerateRandomFace();
+                Commander.SetVariation((int)EComponents.Mask, cData.MaskModel - 1, cData.MaskTexture - 1);
+                Commander.SetVariation((int)EComponents.UpperSkin, cData.UpperSkinModel - 1, cData.UpperSkinTexture - 1);
+                Commander.SetVariation((int)EComponents.Pants, cData.PantsModel - 1, cData.PantsTexture - 1);
+                Commander.SetVariation((int)EComponents.Parachute, cData.ParachuteModel - 1, cData.ParachuteTexture - 1);
+                Commander.SetVariation((int)EComponents.Shoes, cData.ShoesModel - 1, cData.ShoesTexture - 1);
+                Commander.SetVariation((int)EComponents.Accessories, cData.AccessoriesModel - 1, cData.AccessoriesTexture - 1);
+                Commander.SetVariation((int)EComponents.Undercoat, cData.UndercoatModel - 1, cData.UndercoatTexture - 1);
+                Commander.SetVariation((int)EComponents.Armor, cData.ArmorModel - 1, cData.ArmorTexture - 1);
+                Commander.SetVariation((int)EComponents.Decal, cData.DecalModel - 1, cData.DecalTexture - 1);
+                Commander.SetVariation((int)EComponents.Top, cData.TopModel - 1, cData.TopTexture - 1);
+                NativeFunction.Natives.CLEAR_ALL_PED_PROPS(Commander);
+                NativeFunction.Natives.SET_PED_PROP_INDEX(Commander, (int)EProps.Hat, cData.HatModel - 1, cData.HatTexture - 1, false);
+                NativeFunction.Natives.SET_PED_PROP_INDEX(Commander, (int)EProps.Glasses, cData.GlassesModel - 1, cData.GlassesTexture - 1, false);
+                NativeFunction.Natives.SET_PED_PROP_INDEX(Commander, (int)EProps.Ear, cData.EarModel - 1, cData.EarTexture - 1, false);
+                NativeFunction.Natives.SET_PED_PROP_INDEX(Commander, (int)EProps.Watch, cData.WatchModel - 1, cData.WatchTexture - 1, false);
+            }
+            Functions.SetPedCantBeArrestedByPlayer(Commander, true);
 
-        CommanderBlip = Commander.AttachBlip();
-        CommanderBlip.Color = Color.Green;
-        CalloutEntities.Add(Commander);
+            CommanderBlip = Commander.AttachBlip();
+            CommanderBlip.Color = Color.Green;
+            CalloutEntities.Add(Commander);
+        }
     }
 
-    private void SpawnEMS()
+    private void SpawnEMS(EWeather weather)
     {
         foreach (var (pos, heading) in ParamedicPositions)
         {
-            var paramedic = new Ped(ParamedicModel, pos, heading)
+            var data = CalloutHelpers.SelectPed(weather, [.. XmlManager.BankHeist.ParamedicModels]);
+            var paramedic = new Ped(data.Model, pos, heading)
             {
                 IsPersistent = true,
                 BlockPermanentEvents = true,
-                Health = 200
+                MaxHealth = data.Health,
+                Health = data.Health,
+                Armor = data.Armor,
             };
-            AllEMS.Add(paramedic);
-            CalloutEntities.Add(paramedic);
+            if (paramedic is not null && paramedic.IsValid() && paramedic.Exists())
+            {
+                if (CalloutHelpers.IsRandomProps(data))
+                {
+                    paramedic.RandomizeVariation();
+                    NativeFunction.Natives.SET_PED_RANDOM_PROPS(paramedic);
+                }
+                else
+                {
+                    paramedic.GenerateRandomFace();
+                    paramedic.SetVariation((int)EComponents.Mask, data.MaskModel - 1, data.MaskTexture - 1);
+                    paramedic.SetVariation((int)EComponents.UpperSkin, data.UpperSkinModel - 1, data.UpperSkinTexture - 1);
+                    paramedic.SetVariation((int)EComponents.Pants, data.PantsModel - 1, data.PantsTexture - 1);
+                    paramedic.SetVariation((int)EComponents.Parachute, data.ParachuteModel - 1, data.ParachuteTexture - 1);
+                    paramedic.SetVariation((int)EComponents.Shoes, data.ShoesModel - 1, data.ShoesTexture - 1);
+                    paramedic.SetVariation((int)EComponents.Accessories, data.AccessoriesModel - 1, data.AccessoriesTexture - 1);
+                    paramedic.SetVariation((int)EComponents.Undercoat, data.UndercoatModel - 1, data.UndercoatTexture - 1);
+                    paramedic.SetVariation((int)EComponents.Armor, data.ArmorModel - 1, data.ArmorTexture - 1);
+                    paramedic.SetVariation((int)EComponents.Decal, data.DecalModel - 1, data.DecalTexture - 1);
+                    paramedic.SetVariation((int)EComponents.Top, data.TopModel - 1, data.TopTexture - 1);
+                    NativeFunction.Natives.CLEAR_ALL_PED_PROPS(paramedic);
+                    NativeFunction.Natives.SET_PED_PROP_INDEX(paramedic, (int)EProps.Hat, data.HatModel - 1, data.HatTexture - 1, false);
+                    NativeFunction.Natives.SET_PED_PROP_INDEX(paramedic, (int)EProps.Glasses, data.GlassesModel - 1, data.GlassesTexture - 1, false);
+                    NativeFunction.Natives.SET_PED_PROP_INDEX(paramedic, (int)EProps.Ear, data.EarModel - 1, data.EarTexture - 1, false);
+                    NativeFunction.Natives.SET_PED_PROP_INDEX(paramedic, (int)EProps.Watch, data.WatchModel - 1, data.WatchTexture - 1, false);
+                }
+                AllEMS.Add(paramedic);
+                CalloutEntities.Add(paramedic);
+            }
         }
         foreach (var (pos, heading) in FirefighterPositions)
         {
-            var firefighter = new Ped(FirefighterModel, pos, heading)
+            var data = CalloutHelpers.SelectPed(weather, [.. XmlManager.BankHeist.FirefighterModels]);
+            var firefighter = new Ped(data.Model, pos, heading)
             {
                 IsPersistent = true,
                 BlockPermanentEvents = true,
-                Armor = 200
+                MaxHealth = data.Health,
+                Health = data.Health,
+                Armor = data.Armor,
             };
-            AllEMS.Add(firefighter);
-            CalloutEntities.Add(firefighter);
+            if (firefighter is not null && firefighter.IsValid() && firefighter.Exists())
+            {
+                if (CalloutHelpers.IsRandomProps(data))
+                {
+                    firefighter.RandomizeVariation();
+                    NativeFunction.Natives.SET_PED_RANDOM_PROPS(firefighter);
+                }
+                else
+                {
+                    firefighter.GenerateRandomFace();
+                    firefighter.SetVariation((int)EComponents.Mask, data.MaskModel - 1, data.MaskTexture - 1);
+                    firefighter.SetVariation((int)EComponents.UpperSkin, data.UpperSkinModel - 1, data.UpperSkinTexture - 1);
+                    firefighter.SetVariation((int)EComponents.Pants, data.PantsModel - 1, data.PantsTexture - 1);
+                    firefighter.SetVariation((int)EComponents.Parachute, data.ParachuteModel - 1, data.ParachuteTexture - 1);
+                    firefighter.SetVariation((int)EComponents.Shoes, data.ShoesModel - 1, data.ShoesTexture - 1);
+                    firefighter.SetVariation((int)EComponents.Accessories, data.AccessoriesModel - 1, data.AccessoriesTexture - 1);
+                    firefighter.SetVariation((int)EComponents.Undercoat, data.UndercoatModel - 1, data.UndercoatTexture - 1);
+                    firefighter.SetVariation((int)EComponents.Armor, data.ArmorModel - 1, data.ArmorTexture - 1);
+                    firefighter.SetVariation((int)EComponents.Decal, data.DecalModel - 1, data.DecalTexture - 1);
+                    firefighter.SetVariation((int)EComponents.Top, data.TopModel - 1, data.TopTexture - 1);
+                    NativeFunction.Natives.CLEAR_ALL_PED_PROPS(firefighter);
+                    NativeFunction.Natives.SET_PED_PROP_INDEX(firefighter, (int)EProps.Hat, data.HatModel - 1, data.HatTexture - 1, false);
+                    NativeFunction.Natives.SET_PED_PROP_INDEX(firefighter, (int)EProps.Glasses, data.GlassesModel - 1, data.GlassesTexture - 1, false);
+                    NativeFunction.Natives.SET_PED_PROP_INDEX(firefighter, (int)EProps.Ear, data.EarModel - 1, data.EarTexture - 1, false);
+                    NativeFunction.Natives.SET_PED_PROP_INDEX(firefighter, (int)EProps.Watch, data.WatchModel - 1, data.WatchTexture - 1, false);
+                }
+                AllEMS.Add(firefighter);
+                CalloutEntities.Add(firefighter);
+            }
         }
     }
 
@@ -1963,25 +2264,54 @@ internal class BankHeist : CalloutBase
     {
         for (int i = 0; i < 8; i++)
         {
+            var data = CalloutHelpers.Select([.. XmlManager.BankHeist.HostageModels]);
             var index = Main.MersenneTwister.Next(HostagePositions.Count);
-            var hostage = new Ped(new Model(HostageModels[Main.MersenneTwister.Next(HostageModels.Length)]), HostagePositions[index], Main.MersenneTwister.Next(0, 360))
+            var hostage = new Ped(data.Model, HostagePositions[index], Main.MersenneTwister.Next(0, 360))
             {
                 IsPersistent = true,
                 BlockPermanentEvents = true,
                 RelationshipGroup = HostageRG,
                 CanAttackFriendlies = false,
-                Armor = 0,
-                Health = 100,
+                MaxHealth = data.Health,
+                Health = data.Health,
+                Armor = data.Armor,
             };
-            NativeFunction.Natives.SET_PED_CAN_RAGDOLL(hostage, false);
-            AllHostages.Add(hostage);
-            SpawnedHostages.Add(hostage);
-            CalloutEntities.Add(hostage);
-            hostage.Tasks.PlayAnimation(HOSTAGE_ANIMATION_DICTIONARY, HOSTAGE_ANIMATION_KNEELING, 1f, AnimationFlags.Loop);
-            GameFiber.Yield();
-            HostagePositions.RemoveAt(index);
-            AliveHostagesCount++;
-            TotalHostagesCount++;
+            if (hostage is not null && hostage.IsValid() && hostage.Exists())
+            {
+                NativeFunction.Natives.SET_PED_CAN_RAGDOLL(hostage, false);
+                if (CalloutHelpers.IsRandomProps(data))
+                {
+                    hostage.RandomizeVariation();
+                    NativeFunction.Natives.SET_PED_RANDOM_PROPS(hostage);
+                }
+                else
+                {
+                    hostage.GenerateRandomFace();
+                    hostage.SetVariation((int)EComponents.Mask, data.MaskModel - 1, data.MaskTexture - 1);
+                    hostage.SetVariation((int)EComponents.UpperSkin, data.UpperSkinModel - 1, data.UpperSkinTexture - 1);
+                    hostage.SetVariation((int)EComponents.Pants, data.PantsModel - 1, data.PantsTexture - 1);
+                    hostage.SetVariation((int)EComponents.Parachute, data.ParachuteModel - 1, data.ParachuteTexture - 1);
+                    hostage.SetVariation((int)EComponents.Shoes, data.ShoesModel - 1, data.ShoesTexture - 1);
+                    hostage.SetVariation((int)EComponents.Accessories, data.AccessoriesModel - 1, data.AccessoriesTexture - 1);
+                    hostage.SetVariation((int)EComponents.Undercoat, data.UndercoatModel - 1, data.UndercoatTexture - 1);
+                    hostage.SetVariation((int)EComponents.Armor, data.ArmorModel - 1, data.ArmorTexture - 1);
+                    hostage.SetVariation((int)EComponents.Decal, data.DecalModel - 1, data.DecalTexture - 1);
+                    hostage.SetVariation((int)EComponents.Top, data.TopModel - 1, data.TopTexture - 1);
+                    NativeFunction.Natives.CLEAR_ALL_PED_PROPS(hostage);
+                    NativeFunction.Natives.SET_PED_PROP_INDEX(hostage, (int)EProps.Hat, data.HatModel - 1, data.HatTexture - 1, false);
+                    NativeFunction.Natives.SET_PED_PROP_INDEX(hostage, (int)EProps.Glasses, data.GlassesModel - 1, data.GlassesTexture - 1, false);
+                    NativeFunction.Natives.SET_PED_PROP_INDEX(hostage, (int)EProps.Ear, data.EarModel - 1, data.EarTexture - 1, false);
+                    NativeFunction.Natives.SET_PED_PROP_INDEX(hostage, (int)EProps.Watch, data.WatchModel - 1, data.WatchTexture - 1, false);
+                }
+                AllHostages.Add(hostage);
+                SpawnedHostages.Add(hostage);
+                CalloutEntities.Add(hostage);
+                hostage.Tasks.PlayAnimation(HOSTAGE_ANIMATION_DICTIONARY, HOSTAGE_ANIMATION_KNEELING, 1f, AnimationFlags.Loop);
+                GameFiber.Yield();
+                HostagePositions.RemoveAt(index);
+                AliveHostagesCount++;
+                TotalHostagesCount++;
+            }
         }
     }
 
@@ -1989,29 +2319,71 @@ internal class BankHeist : CalloutBase
     {
         for (int i = 0; i < NormalRobbersPositions.Length; i++)
         {
-            var ped = new Ped(RobbersModel, NormalRobbersPositions[i].pos, NormalRobbersPositions[i].heading)
+            var data = CalloutHelpers.Select([.. XmlManager.BankHeist.RobberModels]);
+            var ped = new Ped(data.Model, NormalRobbersPositions[i].pos, NormalRobbersPositions[i].heading)
             {
                 IsPersistent = true,
                 BlockPermanentEvents = true,
                 CanAttackFriendlies = false,
-                Armor = Main.MersenneTwister.Next(500, 750),
-                Health = Main.MersenneTwister.Next(180, 250),
+                MaxHealth = data.Health,
+                Health = data.Health,
+                Armor = data.Armor,
                 RelationshipGroup = RobbersRG,
             };
-            if (Main.MersenneTwister.Next(2) is 0)
+            if (ped is not null && ped.IsValid() && ped.Exists())
             {
-                NativeFunction.Natives.SET_PED_COMPONENT_VARIATION(ped, 9, 2, 1, 0);
+                if (CalloutHelpers.IsRandomProps(data))
+                {
+                    ped.RandomizeVariation();
+                    NativeFunction.Natives.SET_PED_RANDOM_PROPS(ped);
+                }
+                else
+                {
+                    ped.GenerateRandomFace();
+                    ped.SetVariation((int)EComponents.Mask, data.MaskModel - 1, data.MaskTexture - 1);
+                    ped.SetVariation((int)EComponents.UpperSkin, data.UpperSkinModel - 1, data.UpperSkinTexture - 1);
+                    ped.SetVariation((int)EComponents.Pants, data.PantsModel - 1, data.PantsTexture - 1);
+                    ped.SetVariation((int)EComponents.Parachute, data.ParachuteModel - 1, data.ParachuteTexture - 1);
+                    ped.SetVariation((int)EComponents.Shoes, data.ShoesModel - 1, data.ShoesTexture - 1);
+                    ped.SetVariation((int)EComponents.Accessories, data.AccessoriesModel - 1, data.AccessoriesTexture - 1);
+                    ped.SetVariation((int)EComponents.Undercoat, data.UndercoatModel - 1, data.UndercoatTexture - 1);
+                    ped.SetVariation((int)EComponents.Armor, data.ArmorModel - 1, data.ArmorTexture - 1);
+                    ped.SetVariation((int)EComponents.Decal, data.DecalModel - 1, data.DecalTexture - 1);
+                    ped.SetVariation((int)EComponents.Top, data.TopModel - 1, data.TopTexture - 1);
+                    NativeFunction.Natives.CLEAR_ALL_PED_PROPS(ped);
+                    NativeFunction.Natives.SET_PED_PROP_INDEX(ped, (int)EProps.Hat, data.HatModel - 1, data.HatTexture - 1, false);
+                    NativeFunction.Natives.SET_PED_PROP_INDEX(ped, (int)EProps.Glasses, data.GlassesModel - 1, data.GlassesTexture - 1, false);
+                    NativeFunction.Natives.SET_PED_PROP_INDEX(ped, (int)EProps.Ear, data.EarModel - 1, data.EarTexture - 1, false);
+                    NativeFunction.Natives.SET_PED_PROP_INDEX(ped, (int)EProps.Watch, data.WatchModel - 1, data.WatchTexture - 1, false);
+                }
+                Functions.SetPedCantBeArrestedByPlayer(ped, true);
+
+                var weapon = CalloutHelpers.Select([.. XmlManager.BankHeist.RobbersWeapons]);
+                var hash = NativeFunction.Natives.GET_HASH_KEY<Model>(weapon.Model);
+                NativeFunction.Natives.REQUEST_MODEL(hash);
+                NativeFunction.Natives.GIVE_WEAPON_TO_PED(ped, hash, 5000, false, false);
+                foreach (var comp in weapon.Components)
+                {
+                    var compHash = NativeFunction.Natives.GET_HASH_KEY<Model>(comp);
+                    NativeFunction.Natives.REQUEST_MODEL(compHash);
+                    NativeFunction.Natives.GIVE_WEAPON_TO_PED(ped, hash, compHash);
+                }
+
+                var trWeapon = CalloutHelpers.Select([.. XmlManager.BankHeist.RobbersThrowableWeapons]);
+                var trHash = NativeFunction.Natives.GET_HASH_KEY<Model>(trWeapon.Model);
+                NativeFunction.Natives.REQUEST_MODEL(trHash);
+                NativeFunction.Natives.GIVE_WEAPON_TO_PED(ped, trHash, 5000, false, false);
+                foreach (var comp in trWeapon.Components)
+                {
+                    var twCompHash = NativeFunction.Natives.GET_HASH_KEY<Model>(comp);
+                    NativeFunction.Natives.REQUEST_MODEL(twCompHash);
+                    NativeFunction.Natives.GIVE_WEAPON_TO_PED(ped, trHash, twCompHash);
+                }
+
+                NativeFunction.Natives.SetPedCombatAbility(ped, 3);
+                AllRobbers.Add(ped);
+                CalloutEntities.Add(ped);
             }
-            else
-            {
-                NativeFunction.Natives.SET_PED_COMPONENT_VARIATION(ped, 9, 1, 1, 0);
-            }
-            Functions.SetPedCantBeArrestedByPlayer(ped, true);
-            ped.Inventory.GiveNewWeapon(RobbersWeapons[Main.MersenneTwister.Next(RobbersWeapons.Length)], 10000, true);
-            ped.Inventory.GiveNewWeapon(Grenades[Main.MersenneTwister.Next(Grenades.Length)], 4, false);
-            NativeFunction.Natives.SetPedCombatAbility(ped, 3);
-            AllRobbers.Add(ped);
-            CalloutEntities.Add(ped);
         }
     }
 
@@ -2019,28 +2391,71 @@ internal class BankHeist : CalloutBase
     {
         for (int i = 0; i < RobbersInVaultPositions.Length; i++)
         {
-            var ped = new Ped(RobbersModel, RobbersInVaultPositions[i].pos, RobbersInVaultPositions[i].heading)
+            var data = CalloutHelpers.Select([.. XmlManager.BankHeist.RobberModels]);
+            var ped = new Ped(data.Model, RobbersInVaultPositions[i].pos, RobbersInVaultPositions[i].heading)
             {
                 IsPersistent = true,
                 BlockPermanentEvents = true,
                 CanAttackFriendlies = false,
-                Armor = Main.MersenneTwister.Next(500, 750),
-                Health = Main.MersenneTwister.Next(180, 250),
+                MaxHealth = data.Health,
+                Health = data.Health,
+                Armor = data.Armor,
                 RelationshipGroup = RobbersRG,
             };
-            if (Main.MersenneTwister.Next(2) is 0)
+            if (ped is not null && ped.IsValid() && ped.Exists())
             {
-                NativeFunction.Natives.SET_PED_COMPONENT_VARIATION(ped, 9, 2, 1, 0);
+                if (CalloutHelpers.IsRandomProps(data))
+                {
+                    ped.RandomizeVariation();
+                    NativeFunction.Natives.SET_PED_RANDOM_PROPS(ped);
+                }
+                else
+                {
+                    ped.GenerateRandomFace();
+                    ped.SetVariation((int)EComponents.Mask, data.MaskModel - 1, data.MaskTexture - 1);
+                    ped.SetVariation((int)EComponents.UpperSkin, data.UpperSkinModel - 1, data.UpperSkinTexture - 1);
+                    ped.SetVariation((int)EComponents.Pants, data.PantsModel - 1, data.PantsTexture - 1);
+                    ped.SetVariation((int)EComponents.Parachute, data.ParachuteModel - 1, data.ParachuteTexture - 1);
+                    ped.SetVariation((int)EComponents.Shoes, data.ShoesModel - 1, data.ShoesTexture - 1);
+                    ped.SetVariation((int)EComponents.Accessories, data.AccessoriesModel - 1, data.AccessoriesTexture - 1);
+                    ped.SetVariation((int)EComponents.Undercoat, data.UndercoatModel - 1, data.UndercoatTexture - 1);
+                    ped.SetVariation((int)EComponents.Armor, data.ArmorModel - 1, data.ArmorTexture - 1);
+                    ped.SetVariation((int)EComponents.Decal, data.DecalModel - 1, data.DecalTexture - 1);
+                    ped.SetVariation((int)EComponents.Top, data.TopModel - 1, data.TopTexture - 1);
+                    NativeFunction.Natives.CLEAR_ALL_PED_PROPS(ped);
+                    NativeFunction.Natives.SET_PED_PROP_INDEX(ped, (int)EProps.Hat, data.HatModel - 1, data.HatTexture - 1, false);
+                    NativeFunction.Natives.SET_PED_PROP_INDEX(ped, (int)EProps.Glasses, data.GlassesModel - 1, data.GlassesTexture - 1, false);
+                    NativeFunction.Natives.SET_PED_PROP_INDEX(ped, (int)EProps.Ear, data.EarModel - 1, data.EarTexture - 1, false);
+                    NativeFunction.Natives.SET_PED_PROP_INDEX(ped, (int)EProps.Watch, data.WatchModel - 1, data.WatchTexture - 1, false);
+                }
+                Functions.SetPedCantBeArrestedByPlayer(ped, true);
+
+                var weapon = CalloutHelpers.Select([.. XmlManager.BankHeist.RobbersWeapons]);
+                var hash = NativeFunction.Natives.GET_HASH_KEY<Model>(weapon.Model);
+                NativeFunction.Natives.REQUEST_MODEL(hash);
+                NativeFunction.Natives.GIVE_WEAPON_TO_PED(ped, hash, 5000, false, false);
+                foreach (var comp in weapon.Components)
+                {
+                    var compHash = NativeFunction.Natives.GET_HASH_KEY<Model>(comp);
+                    NativeFunction.Natives.REQUEST_MODEL(compHash);
+                    NativeFunction.Natives.GIVE_WEAPON_TO_PED(ped, hash, compHash);
+                }
+
+                var trWeapon = CalloutHelpers.Select([.. XmlManager.BankHeist.RobbersThrowableWeapons]);
+                var trHash = NativeFunction.Natives.GET_HASH_KEY<Model>(trWeapon.Model);
+                NativeFunction.Natives.REQUEST_MODEL(trHash);
+                NativeFunction.Natives.GIVE_WEAPON_TO_PED(ped, trHash, 5000, false, false);
+                foreach (var comp in trWeapon.Components)
+                {
+                    var twCompHash = NativeFunction.Natives.GET_HASH_KEY<Model>(comp);
+                    NativeFunction.Natives.REQUEST_MODEL(twCompHash);
+                    NativeFunction.Natives.GIVE_WEAPON_TO_PED(ped, trHash, twCompHash);
+                }
+
+                NativeFunction.Natives.SetPedCombatAbility(ped, 3);
+                AllVaultRobbers.Add(ped);
+                CalloutEntities.Add(ped);
             }
-            else
-            {
-                NativeFunction.Natives.SET_PED_COMPONENT_VARIATION(ped, 9, 1, 1, 0);
-            }
-            Functions.SetPedCantBeArrestedByPlayer(ped, true);
-            ped.Inventory.GiveNewWeapon(new WeaponAsset("WEAPON_ASSAULTSMG"), 10000, true);
-            NativeFunction.Natives.SetPedCombatAbility(ped, 3);
-            AllVaultRobbers.Add(ped);
-            CalloutEntities.Add(ped);
         }
         HandleVaultRobbers();
     }
@@ -2049,29 +2464,60 @@ internal class BankHeist : CalloutBase
     {
         for (int i = 0; i < RobbersNegotiationPositions.Length; i++)
         {
-            var ped = new Ped(RobbersModel, RobbersNegotiationPositions[i].pos, RobbersNegotiationPositions[i].heading)
+            var data = CalloutHelpers.Select([.. XmlManager.BankHeist.RobberModels]);
+            var ped = new Ped(data.Model, RobbersNegotiationPositions[i].pos, RobbersNegotiationPositions[i].heading)
             {
                 IsPersistent = true,
                 BlockPermanentEvents = true,
                 CanAttackFriendlies = false,
-                Armor = Main.MersenneTwister.Next(300, 500),
-                Health = Main.MersenneTwister.Next(200, 230),
+                MaxHealth = data.Health,
+                Health = data.Health,
+                Armor = data.Armor,
                 RelationshipGroup = RobbersRG,
             };
-            if (Main.MersenneTwister.Next(2) is 0)
+            if (ped is not null && ped.IsValid() && ped.Exists())
             {
-                NativeFunction.Natives.SET_PED_COMPONENT_VARIATION(ped, 9, 2, 1, 0);
-            }
-            else
-            {
-                NativeFunction.Natives.SET_PED_COMPONENT_VARIATION(ped, 9, 1, 1, 0);
-            }
-            Functions.SetPedCantBeArrestedByPlayer(ped, true);
+                if (CalloutHelpers.IsRandomProps(data))
+                {
+                    ped.RandomizeVariation();
+                    NativeFunction.Natives.SET_PED_RANDOM_PROPS(ped);
+                }
+                else
+                {
+                    ped.GenerateRandomFace();
+                    ped.SetVariation((int)EComponents.Mask, data.MaskModel - 1, data.MaskTexture - 1);
+                    ped.SetVariation((int)EComponents.UpperSkin, data.UpperSkinModel - 1, data.UpperSkinTexture - 1);
+                    ped.SetVariation((int)EComponents.Pants, data.PantsModel - 1, data.PantsTexture - 1);
+                    ped.SetVariation((int)EComponents.Parachute, data.ParachuteModel - 1, data.ParachuteTexture - 1);
+                    ped.SetVariation((int)EComponents.Shoes, data.ShoesModel - 1, data.ShoesTexture - 1);
+                    ped.SetVariation((int)EComponents.Accessories, data.AccessoriesModel - 1, data.AccessoriesTexture - 1);
+                    ped.SetVariation((int)EComponents.Undercoat, data.UndercoatModel - 1, data.UndercoatTexture - 1);
+                    ped.SetVariation((int)EComponents.Armor, data.ArmorModel - 1, data.ArmorTexture - 1);
+                    ped.SetVariation((int)EComponents.Decal, data.DecalModel - 1, data.DecalTexture - 1);
+                    ped.SetVariation((int)EComponents.Top, data.TopModel - 1, data.TopTexture - 1);
+                    NativeFunction.Natives.CLEAR_ALL_PED_PROPS(ped);
+                    NativeFunction.Natives.SET_PED_PROP_INDEX(ped, (int)EProps.Hat, data.HatModel - 1, data.HatTexture - 1, false);
+                    NativeFunction.Natives.SET_PED_PROP_INDEX(ped, (int)EProps.Glasses, data.GlassesModel - 1, data.GlassesTexture - 1, false);
+                    NativeFunction.Natives.SET_PED_PROP_INDEX(ped, (int)EProps.Ear, data.EarModel - 1, data.EarTexture - 1, false);
+                    NativeFunction.Natives.SET_PED_PROP_INDEX(ped, (int)EProps.Watch, data.WatchModel - 1, data.WatchTexture - 1, false);
+                }
+                Functions.SetPedCantBeArrestedByPlayer(ped, true);
 
-            ped.Inventory.GiveNewWeapon(RobbersWeapons[Main.MersenneTwister.Next(RobbersWeapons.Length)], 10000, true);
-            NativeFunction.Natives.SetPedCombatAbility(ped, 3);
-            AllRobbers.Add(ped);
-            CalloutEntities.Add(ped);
+                var weapon = CalloutHelpers.Select([.. XmlManager.BankHeist.RobbersWeapons]);
+                var hash = NativeFunction.Natives.GET_HASH_KEY<Model>(weapon.Model);
+                NativeFunction.Natives.REQUEST_MODEL(hash);
+                NativeFunction.Natives.GIVE_WEAPON_TO_PED(ped, hash, 5000, false, false);
+                foreach (var comp in weapon.Components)
+                {
+                    var compHash = NativeFunction.Natives.GET_HASH_KEY<Model>(comp);
+                    NativeFunction.Natives.REQUEST_MODEL(compHash);
+                    NativeFunction.Natives.GIVE_WEAPON_TO_PED(ped, hash, compHash);
+                }
+
+                NativeFunction.Natives.SetPedCombatAbility(ped, 3);
+                AllRobbers.Add(ped);
+                CalloutEntities.Add(ped);
+            }
         }
     }
 
@@ -2081,28 +2527,61 @@ internal class BankHeist : CalloutBase
         {
             if (Main.MersenneTwister.Next(5) is >= 2)
             {
-                var ped = new Ped(RobbersModel, RobbersSneakPosition[i].pos, RobbersSneakPosition[i].heading)
+                var data = CalloutHelpers.Select([.. XmlManager.BankHeist.RobberModels]);
+                var ped = new Ped(data.Model, RobbersSneakPosition[i].pos, RobbersSneakPosition[i].heading)
                 {
                     IsPersistent = true,
                     BlockPermanentEvents = true,
                     CanAttackFriendlies = false,
-                    Armor = Main.MersenneTwister.Next(300, 500),
-                    Health = Main.MersenneTwister.Next(200, 230),
+                    MaxHealth = data.Health,
+                    Health = data.Health,
+                    Armor = data.Armor,
                     RelationshipGroup = SneakRobbersRG
                 };
-                if (Main.MersenneTwister.Next(2) is 0)
+                if (ped is not null && ped.IsValid() && ped.Exists())
                 {
-                    NativeFunction.Natives.SET_PED_COMPONENT_VARIATION(ped, 9, 2, 1, 0);
+                    if (CalloutHelpers.IsRandomProps(data))
+                    {
+                        ped.RandomizeVariation();
+                        NativeFunction.Natives.SET_PED_RANDOM_PROPS(ped);
+                    }
+                    else
+                    {
+                        ped.GenerateRandomFace();
+                        ped.SetVariation((int)EComponents.Mask, data.MaskModel - 1, data.MaskTexture - 1);
+                        ped.SetVariation((int)EComponents.UpperSkin, data.UpperSkinModel - 1, data.UpperSkinTexture - 1);
+                        ped.SetVariation((int)EComponents.Pants, data.PantsModel - 1, data.PantsTexture - 1);
+                        ped.SetVariation((int)EComponents.Parachute, data.ParachuteModel - 1, data.ParachuteTexture - 1);
+                        ped.SetVariation((int)EComponents.Shoes, data.ShoesModel - 1, data.ShoesTexture - 1);
+                        ped.SetVariation((int)EComponents.Accessories, data.AccessoriesModel - 1, data.AccessoriesTexture - 1);
+                        ped.SetVariation((int)EComponents.Undercoat, data.UndercoatModel - 1, data.UndercoatTexture - 1);
+                        ped.SetVariation((int)EComponents.Armor, data.ArmorModel - 1, data.ArmorTexture - 1);
+                        ped.SetVariation((int)EComponents.Decal, data.DecalModel - 1, data.DecalTexture - 1);
+                        ped.SetVariation((int)EComponents.Top, data.TopModel - 1, data.TopTexture - 1);
+                        NativeFunction.Natives.CLEAR_ALL_PED_PROPS(ped);
+                        NativeFunction.Natives.SET_PED_PROP_INDEX(ped, (int)EProps.Hat, data.HatModel - 1, data.HatTexture - 1, false);
+                        NativeFunction.Natives.SET_PED_PROP_INDEX(ped, (int)EProps.Glasses, data.GlassesModel - 1, data.GlassesTexture - 1, false);
+                        NativeFunction.Natives.SET_PED_PROP_INDEX(ped, (int)EProps.Ear, data.EarModel - 1, data.EarTexture - 1, false);
+                        NativeFunction.Natives.SET_PED_PROP_INDEX(ped, (int)EProps.Watch, data.WatchModel - 1, data.WatchTexture - 1, false);
+                    }
+                    Functions.SetPedCantBeArrestedByPlayer(ped, true);
+
+                    var weapon = CalloutHelpers.Select([.. XmlManager.BankHeist.RobbersWeapons]);
+                    var hash = NativeFunction.Natives.GET_HASH_KEY<Model>(weapon.Model);
+                    NativeFunction.Natives.REQUEST_MODEL(hash);
+                    NativeFunction.Natives.GIVE_WEAPON_TO_PED(ped, hash, 5000, false, false);
+                    foreach (var comp in weapon.Components)
+                    {
+                        var compHash = NativeFunction.Natives.GET_HASH_KEY<Model>(comp);
+                        NativeFunction.Natives.REQUEST_MODEL(compHash);
+                        NativeFunction.Natives.GIVE_WEAPON_TO_PED(ped, hash, compHash);
+                    }
+
+                    NativeFunction.Natives.SetPedCombatAbility(ped, 3);
+                    ped.Tasks.PlayAnimation(SWAT_ANIMATION_DICTIONARY, RobbersSneakPosition[i].isRight ? SWAT_ANIMATION_RIGHT : SWAT_ANIMATION_LEFT, 1f, AnimationFlags.StayInEndFrame);
+                    AllSneakRobbers.Add(ped);
+                    CalloutEntities.Add(ped);
                 }
-                else
-                {
-                    NativeFunction.Natives.SET_PED_COMPONENT_VARIATION(ped, 9, 1, 1, 0);
-                }
-                Functions.SetPedCantBeArrestedByPlayer(ped, true);
-                ped.Inventory.GiveNewWeapon(RobbersSneakyWeapons[Main.MersenneTwister.Next(RobbersSneakyWeapons.Length)], 10000, true);
-                ped.Tasks.PlayAnimation(SWAT_ANIMATION_DICTIONARY, RobbersSneakPosition[i].isRight ? SWAT_ANIMATION_RIGHT : SWAT_ANIMATION_LEFT, 1f, AnimationFlags.StayInEndFrame);
-                AllSneakRobbers.Add(ped);
-                CalloutEntities.Add(ped);
             }
             else
             {
@@ -2669,8 +3148,18 @@ internal class BankHeist : CalloutBase
                                     Main.Player.Tasks.EnterVehicle(AllRiot[0], 1).WaitForCompletion();
                                     Main.Player.Armor = 100;
                                     Main.Player.Health = Main.Player.MaxHealth;
-                                    Main.Player.Inventory.GiveNewWeapon(WeaponHash.CarbineRifle, 150, true);
-                                    Main.Player.Inventory.GiveNewWeapon(Grenades[1], 3, false);
+
+                                    var weapon = CalloutHelpers.Select([.. XmlManager.BankHeist.WeaponInRiot]);
+                                    var hash = NativeFunction.Natives.GET_HASH_KEY<Model>(weapon.Model);
+                                    NativeFunction.Natives.REQUEST_MODEL(hash);
+                                    NativeFunction.Natives.GIVE_WEAPON_TO_PED(Main.Player, hash, 180, false, false);
+                                    foreach (var comp in weapon.Components)
+                                    {
+                                        var compHash = NativeFunction.Natives.GET_HASH_KEY<Model>(comp);
+                                        NativeFunction.Natives.REQUEST_MODEL(compHash);
+                                        NativeFunction.Natives.GIVE_WEAPON_TO_PED(Main.Player, hash, compHash);
+                                    }
+
                                     NativeFunction.Natives.PLAY_SOUND_FRONTEND(-1, "PURCHASE", "HUD_LIQUOR_STORE_SOUNDSET", 1);
                                     Main.Player.Tasks.LeaveVehicle(LeaveVehicleFlags.None).WaitForCompletion();
                                 }
@@ -2701,8 +3190,18 @@ internal class BankHeist : CalloutBase
                                     Main.Player.Tasks.EnterVehicle(AllRiot[1], 1).WaitForCompletion();
                                     Main.Player.Armor = 100;
                                     Main.Player.Health = Main.Player.MaxHealth;
-                                    Main.Player.Inventory.GiveNewWeapon(WeaponHash.CarbineRifle, 150, true);
-                                    Main.Player.Inventory.GiveNewWeapon(Grenades[1], 3, false);
+
+                                    var weapon = CalloutHelpers.Select([.. XmlManager.BankHeist.WeaponInRiot]);
+                                    var hash = NativeFunction.Natives.GET_HASH_KEY<Model>(weapon.Model);
+                                    NativeFunction.Natives.REQUEST_MODEL(hash);
+                                    NativeFunction.Natives.GIVE_WEAPON_TO_PED(Main.Player, hash, 180, false, false);
+                                    foreach (var comp in weapon.Components)
+                                    {
+                                        var compHash = NativeFunction.Natives.GET_HASH_KEY<Model>(comp);
+                                        NativeFunction.Natives.REQUEST_MODEL(compHash);
+                                        NativeFunction.Natives.GIVE_WEAPON_TO_PED(Main.Player, hash, compHash);
+                                    }
+
                                     NativeFunction.Natives.PLAY_SOUND_FRONTEND(-1, "PURCHASE", "HUD_LIQUOR_STORE_SOUNDSET", 1);
                                     Main.Player.Tasks.LeaveVehicle(LeaveVehicleFlags.None).WaitForCompletion();
                                 }
@@ -2751,7 +3250,8 @@ internal class BankHeist : CalloutBase
     private void GetWife()
     {
         Main.Player.IsPositionFrozen = true;
-        WifeCar = new(PoliceCruiserModels[Main.MersenneTwister.Next(PoliceCruiserModels.Length)], WifePosition.pos, Wife.Heading)
+        var vData = CalloutHelpers.Select([.. XmlManager.BankHeist.PoliceCruisers]);
+        WifeCar = new(vData.Model, WifePosition.pos, Wife.Heading)
         {
             IsPersistent = true,
             IsSirenOn = true
@@ -2759,7 +3259,8 @@ internal class BankHeist : CalloutBase
         WifeDriver = WifeCar.CreateRandomDriver();
         WifeDriver.IsPersistent = true;
         WifeDriver.BlockPermanentEvents = true;
-        Wife = new Ped(WifeModel, WifePosition.pos, Wife.Heading)
+        var wData = CalloutHelpers.Select([.. XmlManager.BankHeist.WifeModels]);
+        Wife = new Ped(wData.Model, WifePosition.pos, Wife.Heading)
         {
             IsPersistent = true,
             BlockPermanentEvents = true,
