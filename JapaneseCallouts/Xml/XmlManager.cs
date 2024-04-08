@@ -8,7 +8,7 @@ internal static class XmlManager
 
     internal static void Initialize()
     {
-        var bhPath = @$"{Main.PLUGIN_DIRECTORY}/{BANK_HEIST_XML}";
+        var bhPath = @$"{Main.PLUGIN_DIRECTORY}/Xml/{BANK_HEIST_XML}";
         var bhSerializer = new XmlSerializer(typeof(BankHeistConfig));
 
         var assembly = Assembly.GetExecutingAssembly();

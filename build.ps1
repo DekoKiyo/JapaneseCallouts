@@ -10,6 +10,7 @@ $PluginsLSPDFRFolder = $GrandTheftAutoV + "\plugins\LSPDFR"
 $PluginDllFolder = ".\JapaneseCallouts\bin\Debug\net48"
 $PluginDllFile = $PluginDllFolder + "\JapaneseCallouts.dll"
 $PluginIniFile = ".\JapaneseCallouts\JapaneseCallouts.ini"
+$XmlFolder = ".\Xml\"
 $ProjectFile = ".\JapaneseCallouts\JapaneseCallouts.csproj"
 
 Write-Host "PowerShell $($PSVersionTable.PSEdition) Version $($PSVersionTable.PSVersion)" -ForegroundColor Cyan
@@ -73,6 +74,7 @@ If (!(Test-Path $PluginsLSPDFRFolder))
 Write-Host "[Copy] In progress..." -ForegroundColor DarkBlue
 Copy-Item $PluginDllFile $PluginsLSPDFRFolder
 Copy-Item $PluginIniFile $PluginsLSPDFRFolder
+Copy-Item $XmlFolder "$($PluginsLSPDFRFolder)\JapaneseCallouts\" -Recurse -Force
 Write-Host "[Copy] Done!" -ForegroundColor Green
 
 Write-Host "Plugin Version is $($PluginVersion)" -ForegroundColor Magenta

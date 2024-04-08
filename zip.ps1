@@ -10,6 +10,7 @@ $NAudioCoreDllFile = $PluginDllFolder + "\NAudio.Core.dll"
 $CalloutInterfaceAPIDllFile = $PluginDllFolder + "\CalloutInterfaceAPI.dll"
 $PluginDllFile = $PluginDllFolder + "\JapaneseCallouts.dll"
 $PluginIniFile = ".\JapaneseCallouts\JapaneseCallouts.ini"
+$XmlFolder = ".\Xml\"
 $ProjectFile = ".\JapaneseCallouts\JapaneseCallouts.csproj"
 $PluginAudioFolder = ".\JapaneseCallouts\Audio"
 $PluginScannerAudioFolder = ".\JapaneseCalloutsAudio"
@@ -93,6 +94,7 @@ If (!(Test-Path $PluginsLSPDFRFolder))
 Write-Host "[Copy] In progress..." -ForegroundColor DarkBlue
 Copy-Item $PluginDllFile $PluginsLSPDFRFolder
 Copy-Item $PluginIniFile $PluginsLSPDFRFolder
+Copy-Item $XmlFolder "$($PluginsLSPDFRFolder)\JapaneseCallouts\" -Recurse -Force
 Write-Host "[Copy] Done!" -ForegroundColor Green
 
 # GTA5へのファイルコピーここまで
@@ -108,6 +110,7 @@ Copy-Item $NAudioCoreDllFile .\Release\GrandTheftAutoV\
 Copy-Item $CalloutInterfaceAPIDllFile .\Release\GrandTheftAutoV\
 Copy-Item $PluginDllFile .\Release\GrandTheftAutoV\plugins\LSPDFR
 Copy-Item $PluginIniFile .\Release\GrandTheftAutoV\plugins\LSPDFR
+Copy-Item $XmlFolder .\Release\GrandTheftAutoV\plugins\LSPDFR\JapaneseCallouts\ -Recurse
 Copy-Item $PluginAudioFolder .\Release\GrandTheftAutoV\plugins\LSPDFR\JapaneseCallouts\ -Recurse
 
 # 音声ファイル(LSPDFRフォルダ側)をコピー
