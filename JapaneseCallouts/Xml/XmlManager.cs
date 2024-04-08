@@ -24,10 +24,6 @@ internal static class XmlManager
             var stream = assembly.GetManifestResourceStream($"JapaneseCallouts.Resources.{BANK_HEIST_XML}");
             using var sr = new StreamReader(stream);
             BankHeist = (BankHeistConfig)bhSerializer.Deserialize(sr);
-
-#if DEBUG
-            bhSerializer.Serialize(Console.Out, BankHeist);
-#endif
         }
     }
 }

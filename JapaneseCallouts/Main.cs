@@ -97,7 +97,7 @@ namespace JapaneseCallouts;
 internal class Main : Plugin
 {
     // Change here if you want to change the version.
-    internal const string PLUGIN_VERSION = "0.1.*";
+    internal const string VERSION = "0.1.*";
 
     internal const string PLUGIN_NAME = "Japanese Callouts";
     internal const string DEVELOPER_NAME = "DekoKiyo";
@@ -109,8 +109,9 @@ internal class Main : Plugin
     internal const string PLUGIN_LANGUAGE_DIRECTORY = @"Languages";
     internal const string SETTINGS_INI_FILE = @"JapaneseCallouts.ini";
 
+    internal static readonly string PLUGIN_VERSION = Assembly.GetExecutingAssembly().GetName().Version.ToString();
     internal static readonly string PLUGIN_INFO = $"~b~{PLUGIN_NAME}~s~ {PLUGIN_VERSION_DATA}";
-    internal static readonly string PLUGIN_VERSION_DATA = $"Version.{VERSION_PREFIX}{Assembly.GetExecutingAssembly().GetName().Version}";
+    internal static readonly string PLUGIN_VERSION_DATA = $"Version.{VERSION_PREFIX}{PLUGIN_VERSION}";
 
     internal const string CALLOUT_INTERFACE_API_DLL = "CalloutInterfaceAPI.dll";
 
@@ -128,27 +129,30 @@ internal class Main : Plugin
     public override void Initialize()
     {
         Functions.OnOnDutyStateChanged += OnDutyStateChanged;
-        Logger.Info($"{PLUGIN_NAME} was loaded.");
+        Logger.Info($"{PLUGIN_NAME} {PLUGIN_VERSION_DATA} was loaded.");
     }
 
     public override void Finally()
     {
-        Logger.Info($"{PLUGIN_NAME} was unloaded.");
+        Logger.Info($"{PLUGIN_NAME} {PLUGIN_VERSION_DATA} was unloaded.");
     }
 
     private static void OnDutyStateChanged(bool OnDuty)
     {
         if (OnDuty)
         {
-            Logger.Info($"Loading {PLUGIN_NAME}, Version.{VERSION_PREFIX}{PLUGIN_VERSION}");
+            Logger.Info($"Initializing {PLUGIN_NAME}, {PLUGIN_VERSION_DATA}");
             CheckLibrary();
             Settings.Initialize();
             XmlManager.Initialize();
             Localization.Initialize();
             Game.AddConsoleCommands();
             CalloutManager.RegisterAllCallouts();
-            Logger.Info($"{PLUGIN_NAME} Version.{VERSION_PREFIX}{PLUGIN_VERSION} was loaded.");
             HudHelpers.DisplayNotification(Localization.GetString("PluginLoaded", PLUGIN_NAME, DEVELOPER_NAME), PLUGIN_NAME, PLUGIN_VERSION_DATA);
+#if DEBUG
+            HudHelpers.DisplayNotification(Localization.GetString("PluginIsDebug", PLUGIN_NAME, $"{VERSION_PREFIX}{PLUGIN_VERSION}"), PLUGIN_NAME, "");
+#endif
+            Logger.Info($"{PLUGIN_NAME} {PLUGIN_VERSION_DATA} was successfully initialized.");
         }
     }
 

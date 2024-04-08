@@ -201,6 +201,7 @@
     "RespondCode3": "~r~緊急走行~s~で対応してください。",
     "SomethingWrong": "~r~どこかでエラーが発生~s~したようです。原因を調査するために、~o~RagePluginHook.log~s~を~p~Discordサーバー~s~で~b~開発者~s~に送信してください。",
     "CalloutNotificationText": "内容: ~b~{0}~s~~n~場所: ~y~{1}~s~",
-    "CalloutNotificationSubtitle": "110番通報"
+    "CalloutNotificationSubtitle": "110番通報",
+    "PluginIsDebug": "~y~警告~s~: これは{0}の~r~デバッグ版~s~です。~n~バージョン: {1}"
   }
 }
