@@ -201,6 +201,7 @@
     "RespondCode3": "Respond with ~r~Code3~s~.",
     "SomethingWrong": "It seems like ~r~an error occurred somewhere~s~. Please give ~o~RagePluginHook.log~s~ to ~b~the developer~s~ on ~p~our Discord server~s~ to investigate the cause.",
     "CalloutNotificationText": "Call: ~b~{0}~s~~n~Location: ~y~{1}~s~",
-    "CalloutNotificationSubtitle": "EMERGENCY CALL"
+    "CalloutNotificationSubtitle": "EMERGENCY CALL",
+    "PluginIsDebug": "~y~WARNING~s~: This is the ~r~debug version~s~ of {0}.~n~Version: {1}"
   }
 }
