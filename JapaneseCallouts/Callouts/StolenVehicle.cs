@@ -91,7 +91,7 @@ internal class StolenVehicle : CalloutBase
 
     internal override void Accepted()
     {
-        HudHelpers.DisplayNotification(Localization.GetString("StolenVehicle"));
+        HudHelpers.DisplayNotification(Localization.GetString("StolenVehicleDesc"));
         HudHelpers.DisplayNotification(Localization.GetString("StolenVehicleData"), stolen.LicensePlate, ColorData.name, stolen.Class.ToString());
         if (stolen && stolen.IsValid() && stolen.Exists())
         {

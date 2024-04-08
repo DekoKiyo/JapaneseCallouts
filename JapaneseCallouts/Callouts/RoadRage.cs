@@ -96,7 +96,7 @@ internal class RoadRage : CalloutBase
 
     internal override void Accepted()
     {
-        HudHelpers.DisplayNotification($"{Localization.GetString("RoadRage")} {Localization.GetString("RespondCode2")}", Localization.GetString("Dispatch"), Localization.GetString("RoadRage"));
+        HudHelpers.DisplayNotification($"{Localization.GetString("RoadRageDesc")} {Localization.GetString("RespondCode2")}", Localization.GetString("Dispatch"), Localization.GetString("RoadRage"));
         area = new(victimV.Position.Around(Main.MersenneTwister.Next(100)), Main.MersenneTwister.Next(75, 120))
         {
             Color = Color.Yellow,

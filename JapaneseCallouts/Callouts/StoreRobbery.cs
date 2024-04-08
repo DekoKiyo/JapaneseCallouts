@@ -184,7 +184,7 @@ internal class StoreRobbery : CalloutBase
     internal override void Accepted()
     {
         RobbersModel.Load();
-        HudHelpers.DisplayNotification($"{Localization.GetString("StoreRobbery")} {Localization.GetString("RespondCode3")}", Localization.GetString("Dispatch"), Localization.GetString("StoreRobbery"));
+        HudHelpers.DisplayNotification($"{Localization.GetString("StoreRobberyDesc")} {Localization.GetString("RespondCode3")}", Localization.GetString("Dispatch"), Localization.GetString("StoreRobbery"));
         foreach (var (pos, weapon, ammo) in robbersData[index].robbersPos)
         {
             var robber = new Ped(RobbersModel, pos, 0f)
