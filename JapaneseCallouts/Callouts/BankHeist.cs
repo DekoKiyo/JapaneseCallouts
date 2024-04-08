@@ -1877,12 +1877,12 @@ internal class BankHeist : CalloutBase
                 var weapon = CalloutHelpers.Select([.. XmlManager.BankHeist.SWATWeapons]);
                 var hash = NativeFunction.Natives.GET_HASH_KEY<Model>(weapon.Model);
                 NativeFunction.Natives.REQUEST_MODEL(hash);
-                NativeFunction.Natives.GIVE_WEAPON_TO_PED(swat, hash, 5000, false, false);
+                NativeFunction.Natives.GIVE_WEAPON_TO_PED(swat, hash, 5000, false, true);
                 foreach (var comp in weapon.Components)
                 {
                     var compHash = NativeFunction.Natives.GET_HASH_KEY<Model>(comp);
                     NativeFunction.Natives.REQUEST_MODEL(compHash);
-                    NativeFunction.Natives.GIVE_WEAPON_TO_PED(swat, hash, compHash);
+                    NativeFunction.Natives.GIVE_WEAPON_COMPONENT_TO_PED(swat, hash, compHash);
                 }
 
                 swat.Tasks.PlayAnimation(SWAT_ANIMATION_DICTIONARY, SWAT_ANIMATION_LEFT, 1f, AnimationFlags.StayInEndFrame);
@@ -1936,12 +1936,12 @@ internal class BankHeist : CalloutBase
                 var weapon = CalloutHelpers.Select([.. XmlManager.BankHeist.SWATWeapons]);
                 var hash = NativeFunction.Natives.GET_HASH_KEY<Model>(weapon.Model);
                 NativeFunction.Natives.REQUEST_MODEL(hash);
-                NativeFunction.Natives.GIVE_WEAPON_TO_PED(swat, hash, 5000, false, false);
+                NativeFunction.Natives.GIVE_WEAPON_TO_PED(swat, hash, 5000, false, true);
                 foreach (var comp in weapon.Components)
                 {
                     var compHash = NativeFunction.Natives.GET_HASH_KEY<Model>(comp);
                     NativeFunction.Natives.REQUEST_MODEL(compHash);
-                    NativeFunction.Natives.GIVE_WEAPON_TO_PED(swat, hash, compHash);
+                    NativeFunction.Natives.GIVE_WEAPON_COMPONENT_TO_PED(swat, hash, compHash);
                 }
 
                 swat.Tasks.PlayAnimation(SWAT_ANIMATION_DICTIONARY, SWAT_ANIMATION_RIGHT_LOOKING, 1f, AnimationFlags.StayInEndFrame);
@@ -1995,12 +1995,12 @@ internal class BankHeist : CalloutBase
                 var weapon = CalloutHelpers.Select([.. XmlManager.BankHeist.SWATWeapons]);
                 var hash = NativeFunction.Natives.GET_HASH_KEY<Model>(weapon.Model);
                 NativeFunction.Natives.REQUEST_MODEL(hash);
-                NativeFunction.Natives.GIVE_WEAPON_TO_PED(swat, hash, 5000, false, false);
+                NativeFunction.Natives.GIVE_WEAPON_TO_PED(swat, hash, 5000, false, true);
                 foreach (var comp in weapon.Components)
                 {
                     var compHash = NativeFunction.Natives.GET_HASH_KEY<Model>(comp);
                     NativeFunction.Natives.REQUEST_MODEL(compHash);
-                    NativeFunction.Natives.GIVE_WEAPON_TO_PED(swat, hash, compHash);
+                    NativeFunction.Natives.GIVE_WEAPON_COMPONENT_TO_PED(swat, hash, compHash);
                 }
 
                 swat.Tasks.PlayAnimation(SWAT_ANIMATION_DICTIONARY, SWAT_ANIMATION_RIGHT, 1f, AnimationFlags.StayInEndFrame);
@@ -2054,12 +2054,12 @@ internal class BankHeist : CalloutBase
                 var weapon = CalloutHelpers.Select([.. XmlManager.BankHeist.SWATWeapons]);
                 var hash = NativeFunction.Natives.GET_HASH_KEY<Model>(weapon.Model);
                 NativeFunction.Natives.REQUEST_MODEL(hash);
-                NativeFunction.Natives.GIVE_WEAPON_TO_PED(officer, hash, 5000, false, false);
+                NativeFunction.Natives.GIVE_WEAPON_TO_PED(officer, hash, 5000, false, true);
                 foreach (var comp in weapon.Components)
                 {
                     var compHash = NativeFunction.Natives.GET_HASH_KEY<Model>(comp);
                     NativeFunction.Natives.REQUEST_MODEL(compHash);
-                    NativeFunction.Natives.GIVE_WEAPON_TO_PED(officer, hash, compHash);
+                    NativeFunction.Natives.GIVE_WEAPON_COMPONENT_TO_PED(officer, hash, compHash);
                 }
 
                 var aimPoint = Vector3.Distance(officer.Position, BankDoorPositions[0]) < Vector3.Distance(officer.Position, BankDoorPositions[1]) ? BankDoorPositions[0] : BankDoorPositions[1];
@@ -2116,12 +2116,12 @@ internal class BankHeist : CalloutBase
                 var weapon = CalloutHelpers.Select([.. XmlManager.BankHeist.SWATWeapons]);
                 var hash = NativeFunction.Natives.GET_HASH_KEY<Model>(weapon.Model);
                 NativeFunction.Natives.REQUEST_MODEL(hash);
-                NativeFunction.Natives.GIVE_WEAPON_TO_PED(officer, hash, 5000, false, false);
+                NativeFunction.Natives.GIVE_WEAPON_TO_PED(officer, hash, 5000, false, true);
                 foreach (var comp in weapon.Components)
                 {
                     var compHash = NativeFunction.Natives.GET_HASH_KEY<Model>(comp);
                     NativeFunction.Natives.REQUEST_MODEL(compHash);
-                    NativeFunction.Natives.GIVE_WEAPON_TO_PED(officer, hash, compHash);
+                    NativeFunction.Natives.GIVE_WEAPON_COMPONENT_TO_PED(officer, hash, compHash);
                 }
 
                 AllOfficers.Add(officer);
@@ -2361,12 +2361,12 @@ internal class BankHeist : CalloutBase
                 var weapon = CalloutHelpers.Select([.. XmlManager.BankHeist.RobbersWeapons]);
                 var hash = NativeFunction.Natives.GET_HASH_KEY<Model>(weapon.Model);
                 NativeFunction.Natives.REQUEST_MODEL(hash);
-                NativeFunction.Natives.GIVE_WEAPON_TO_PED(ped, hash, 5000, false, false);
+                NativeFunction.Natives.GIVE_WEAPON_TO_PED(ped, hash, 5000, false, true);
                 foreach (var comp in weapon.Components)
                 {
                     var compHash = NativeFunction.Natives.GET_HASH_KEY<Model>(comp);
                     NativeFunction.Natives.REQUEST_MODEL(compHash);
-                    NativeFunction.Natives.GIVE_WEAPON_TO_PED(ped, hash, compHash);
+                    NativeFunction.Natives.GIVE_WEAPON_COMPONENT_TO_PED(ped, hash, compHash);
                 }
 
                 var trWeapon = CalloutHelpers.Select([.. XmlManager.BankHeist.RobbersThrowableWeapons]);
@@ -2377,7 +2377,7 @@ internal class BankHeist : CalloutBase
                 {
                     var twCompHash = NativeFunction.Natives.GET_HASH_KEY<Model>(comp);
                     NativeFunction.Natives.REQUEST_MODEL(twCompHash);
-                    NativeFunction.Natives.GIVE_WEAPON_TO_PED(ped, trHash, twCompHash);
+                    NativeFunction.Natives.GIVE_WEAPON_COMPONENT_TO_PED(ped, trHash, twCompHash);
                 }
 
                 NativeFunction.Natives.SetPedCombatAbility(ped, 3);
@@ -2433,12 +2433,12 @@ internal class BankHeist : CalloutBase
                 var weapon = CalloutHelpers.Select([.. XmlManager.BankHeist.RobbersWeapons]);
                 var hash = NativeFunction.Natives.GET_HASH_KEY<Model>(weapon.Model);
                 NativeFunction.Natives.REQUEST_MODEL(hash);
-                NativeFunction.Natives.GIVE_WEAPON_TO_PED(ped, hash, 5000, false, false);
+                NativeFunction.Natives.GIVE_WEAPON_TO_PED(ped, hash, 5000, false, true);
                 foreach (var comp in weapon.Components)
                 {
                     var compHash = NativeFunction.Natives.GET_HASH_KEY<Model>(comp);
                     NativeFunction.Natives.REQUEST_MODEL(compHash);
-                    NativeFunction.Natives.GIVE_WEAPON_TO_PED(ped, hash, compHash);
+                    NativeFunction.Natives.GIVE_WEAPON_COMPONENT_TO_PED(ped, hash, compHash);
                 }
 
                 var trWeapon = CalloutHelpers.Select([.. XmlManager.BankHeist.RobbersThrowableWeapons]);
@@ -2449,7 +2449,7 @@ internal class BankHeist : CalloutBase
                 {
                     var twCompHash = NativeFunction.Natives.GET_HASH_KEY<Model>(comp);
                     NativeFunction.Natives.REQUEST_MODEL(twCompHash);
-                    NativeFunction.Natives.GIVE_WEAPON_TO_PED(ped, trHash, twCompHash);
+                    NativeFunction.Natives.GIVE_WEAPON_COMPONENT_TO_PED(ped, trHash, twCompHash);
                 }
 
                 NativeFunction.Natives.SetPedCombatAbility(ped, 3);
@@ -2506,12 +2506,12 @@ internal class BankHeist : CalloutBase
                 var weapon = CalloutHelpers.Select([.. XmlManager.BankHeist.RobbersWeapons]);
                 var hash = NativeFunction.Natives.GET_HASH_KEY<Model>(weapon.Model);
                 NativeFunction.Natives.REQUEST_MODEL(hash);
-                NativeFunction.Natives.GIVE_WEAPON_TO_PED(ped, hash, 5000, false, false);
+                NativeFunction.Natives.GIVE_WEAPON_TO_PED(ped, hash, 5000, false, true);
                 foreach (var comp in weapon.Components)
                 {
                     var compHash = NativeFunction.Natives.GET_HASH_KEY<Model>(comp);
                     NativeFunction.Natives.REQUEST_MODEL(compHash);
-                    NativeFunction.Natives.GIVE_WEAPON_TO_PED(ped, hash, compHash);
+                    NativeFunction.Natives.GIVE_WEAPON_COMPONENT_TO_PED(ped, hash, compHash);
                 }
 
                 NativeFunction.Natives.SetPedCombatAbility(ped, 3);
@@ -2569,12 +2569,12 @@ internal class BankHeist : CalloutBase
                     var weapon = CalloutHelpers.Select([.. XmlManager.BankHeist.RobbersWeapons]);
                     var hash = NativeFunction.Natives.GET_HASH_KEY<Model>(weapon.Model);
                     NativeFunction.Natives.REQUEST_MODEL(hash);
-                    NativeFunction.Natives.GIVE_WEAPON_TO_PED(ped, hash, 5000, false, false);
+                    NativeFunction.Natives.GIVE_WEAPON_TO_PED(ped, hash, 5000, false, true);
                     foreach (var comp in weapon.Components)
                     {
                         var compHash = NativeFunction.Natives.GET_HASH_KEY<Model>(comp);
                         NativeFunction.Natives.REQUEST_MODEL(compHash);
-                        NativeFunction.Natives.GIVE_WEAPON_TO_PED(ped, hash, compHash);
+                        NativeFunction.Natives.GIVE_WEAPON_COMPONENT_TO_PED(ped, hash, compHash);
                     }
 
                     NativeFunction.Natives.SetPedCombatAbility(ped, 3);
@@ -3132,85 +3132,46 @@ internal class BankHeist : CalloutBase
                     GameFiber.Yield();
                     if (CoolDown > 0) CoolDown--;
 
-                    if (AllRiot[0] is not null && AllRiot[0].IsValid() && AllRiot[0].Exists())
+                    foreach (var riot in AllRiot)
                     {
-                        if (Vector3.Distance(AllRiot[0].GetOffsetPosition(Vector3.RelativeBack * 4f), Main.Player.Position) < 2f)
+                        if (riot is not null && riot.IsValid() && riot.Exists())
                         {
-                            if (KeyHelpers.IsKeysDownRightNow(Settings.EnterRiotVanKey, Settings.EnterRiotVanModifierKey))
+                            if (Vector3.Distance(riot.GetOffsetPosition(Vector3.RelativeBack * 4f), Main.Player.Position) < 2f)
                             {
-                                if (CoolDown > 0)
+                                if (KeyHelpers.IsKeysDownRightNow(Settings.EnterRiotVanKey, Settings.EnterRiotVanModifierKey))
                                 {
-                                    HudHelpers.DisplayNotification(Localization.GetString("GearRunOut"));
+                                    if (CoolDown > 0)
+                                    {
+                                        HudHelpers.DisplayNotification(Localization.GetString("GearRunOut"));
+                                    }
+                                    else
+                                    {
+                                        CoolDown = 10000;
+                                        Main.Player.Tasks.EnterVehicle(riot, 1).WaitForCompletion();
+                                        Main.Player.Armor = 100;
+                                        Main.Player.Health = Main.Player.MaxHealth;
+
+                                        var weapon = CalloutHelpers.Select([.. XmlManager.BankHeist.WeaponInRiot]);
+                                        var hash = NativeFunction.Natives.GET_HASH_KEY<Model>(weapon.Model);
+                                        NativeFunction.Natives.REQUEST_MODEL(hash);
+                                        NativeFunction.Natives.GIVE_WEAPON_TO_PED(Main.Player, hash, 180, false, true);
+                                        foreach (var comp in weapon.Components)
+                                        {
+                                            var compHash = NativeFunction.Natives.GET_HASH_KEY<Model>(comp);
+                                            NativeFunction.Natives.REQUEST_MODEL(compHash);
+                                            NativeFunction.Natives.GIVE_WEAPON_COMPONENT_TO_PED(Main.Player, hash, compHash);
+                                        }
+
+                                        NativeFunction.Natives.PLAY_SOUND_FRONTEND(-1, "PURCHASE", "HUD_LIQUOR_STORE_SOUNDSET", 1);
+                                        Main.Player.Tasks.LeaveVehicle(LeaveVehicleFlags.None).WaitForCompletion();
+                                    }
                                 }
                                 else
                                 {
-                                    CoolDown = 10000;
-                                    Main.Player.Tasks.EnterVehicle(AllRiot[0], 1).WaitForCompletion();
-                                    Main.Player.Armor = 100;
-                                    Main.Player.Health = Main.Player.MaxHealth;
-
-                                    var weapon = CalloutHelpers.Select([.. XmlManager.BankHeist.WeaponInRiot]);
-                                    var hash = NativeFunction.Natives.GET_HASH_KEY<Model>(weapon.Model);
-                                    NativeFunction.Natives.REQUEST_MODEL(hash);
-                                    NativeFunction.Natives.GIVE_WEAPON_TO_PED(Main.Player, hash, 180, false, false);
-                                    foreach (var comp in weapon.Components)
+                                    if (CoolDown is 0)
                                     {
-                                        var compHash = NativeFunction.Natives.GET_HASH_KEY<Model>(comp);
-                                        NativeFunction.Natives.REQUEST_MODEL(compHash);
-                                        NativeFunction.Natives.GIVE_WEAPON_TO_PED(Main.Player, hash, compHash);
+                                        KeyHelpers.DisplayKeyHelp("EnterRiot", Settings.EnterRiotVanKey, Settings.EnterRiotVanModifierKey);
                                     }
-
-                                    NativeFunction.Natives.PLAY_SOUND_FRONTEND(-1, "PURCHASE", "HUD_LIQUOR_STORE_SOUNDSET", 1);
-                                    Main.Player.Tasks.LeaveVehicle(LeaveVehicleFlags.None).WaitForCompletion();
-                                }
-                            }
-                            else
-                            {
-                                if (CoolDown is 0)
-                                {
-                                    KeyHelpers.DisplayKeyHelp("EnterRiot", Settings.EnterRiotVanKey, Settings.EnterRiotVanModifierKey);
-                                }
-                            }
-                        }
-                    }
-
-                    if (AllRiot[1] is not null && AllRiot[1].IsValid() && AllRiot[1].Exists())
-                    {
-                        if (Vector3.Distance(AllRiot[1].GetOffsetPosition(Vector3.RelativeBack * 4f), Main.Player.Position) < 2f)
-                        {
-                            if (KeyHelpers.IsKeysDownRightNow(Settings.EnterRiotVanKey, Settings.EnterRiotVanModifierKey))
-                            {
-                                if (CoolDown > 0)
-                                {
-                                    HudHelpers.DisplayNotification(Localization.GetString("GearRunOut"));
-                                }
-                                else
-                                {
-                                    CoolDown = 30000;
-                                    Main.Player.Tasks.EnterVehicle(AllRiot[1], 1).WaitForCompletion();
-                                    Main.Player.Armor = 100;
-                                    Main.Player.Health = Main.Player.MaxHealth;
-
-                                    var weapon = CalloutHelpers.Select([.. XmlManager.BankHeist.WeaponInRiot]);
-                                    var hash = NativeFunction.Natives.GET_HASH_KEY<Model>(weapon.Model);
-                                    NativeFunction.Natives.REQUEST_MODEL(hash);
-                                    NativeFunction.Natives.GIVE_WEAPON_TO_PED(Main.Player, hash, 180, false, false);
-                                    foreach (var comp in weapon.Components)
-                                    {
-                                        var compHash = NativeFunction.Natives.GET_HASH_KEY<Model>(comp);
-                                        NativeFunction.Natives.REQUEST_MODEL(compHash);
-                                        NativeFunction.Natives.GIVE_WEAPON_TO_PED(Main.Player, hash, compHash);
-                                    }
-
-                                    NativeFunction.Natives.PLAY_SOUND_FRONTEND(-1, "PURCHASE", "HUD_LIQUOR_STORE_SOUNDSET", 1);
-                                    Main.Player.Tasks.LeaveVehicle(LeaveVehicleFlags.None).WaitForCompletion();
-                                }
-                            }
-                            else
-                            {
-                                if (CoolDown is 0)
-                                {
-                                    KeyHelpers.DisplayKeyHelp("EnterRiot", Settings.EnterRiotVanKey, Settings.EnterRiotVanModifierKey);
                                 }
                             }
                         }
