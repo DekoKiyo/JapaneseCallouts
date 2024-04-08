@@ -1,5 +1,11 @@
 namespace EUPConverter;
 
+internal enum Gender
+{
+    Male,
+    Female
+}
+
 internal static class Program
 {
     /// <summary>
@@ -13,4 +19,22 @@ internal static class Program
         ApplicationConfiguration.Initialize();
         Application.Run(new Main());
     }
+}
+
+internal class Preset
+{
+    internal string[] Hat { get; set; } = ["0", "0"];
+    internal string[] Glasses { get; set; } = ["0", "0"];
+    internal string[] Ear { get; set; } = ["0", "0"];
+    internal string[] Watch { get; set; } = ["0", "0"];
+    internal string[] Mask { get; set; } = ["0", "0"];
+    internal string[] Top { get; set; } = ["0", "0"];
+    internal string[] UpperSkin { get; set; } = ["0", "0"];
+    internal string[] Decal { get; set; } = ["0", "0"];
+    internal string[] UnderCoat { get; set; } = ["0", "0"];
+    internal string[] Pants { get; set; } = ["0", "0"];
+    internal string[] Shoes { get; set; } = ["0", "0"];
+    internal string[] Accessories { get; set; } = ["0", "0"];
+    internal string[] Armor { get; set; } = ["0", "0"];
+    internal string[] Parachute { get; set; } = ["0", "0"];
 }
