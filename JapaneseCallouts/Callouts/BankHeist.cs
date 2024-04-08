@@ -211,31 +211,31 @@ internal class BankHeist : CalloutBase
     ];
     private readonly (string, string)[] Request22Conversation1 =
     [
-        (Settings.OfficerName, Localization.GetString("Request221", Settings.WifeName)),
+        (Settings.OfficerName, Localization.GetString("Request221", XmlManager.BankHeistConfig.WifeName)),
         (Localization.GetString("Robber"), Localization.GetString("Negotiation1112")),
     ];
     private readonly (string, string)[] Request22Conversation2 =
     [
-        (Settings.OfficerName, Localization.GetString("Request221", Settings.WifeName)),
+        (Settings.OfficerName, Localization.GetString("Request221", XmlManager.BankHeistConfig.WifeName)),
         (Localization.GetString("Robber"), Localization.GetString("Request222")),
         (Settings.OfficerName, Localization.GetString("Request223")),
     ];
     private readonly (string, string)[] Request22Conversation3 =
     [
-        (Settings.WifeName, Localization.GetString("Request224")),
-        (Settings.WifeName, Localization.GetString("Request225")),
-        (Localization.GetString("Robber"), Localization.GetString("Request226", Settings.WifeName)),
+        (XmlManager.BankHeistConfig.WifeName, Localization.GetString("Request224")),
+        (XmlManager.BankHeistConfig.WifeName, Localization.GetString("Request225")),
+        (Localization.GetString("Robber"), Localization.GetString("Request226", XmlManager.BankHeistConfig.WifeName)),
         (Localization.GetString("Robber"), Localization.GetString("Request227")),
-        (Localization.GetString("Robber"), Localization.GetString("Request228", Settings.WifeName)),
+        (Localization.GetString("Robber"), Localization.GetString("Request228", XmlManager.BankHeistConfig.WifeName)),
     ];
     private readonly (string, string)[] Request22Conversation4 =
     [
-        (Settings.OfficerName, Localization.GetString("Request229", Settings.WifeName)),
-        (Settings.WifeName, Localization.GetString("Request220")),
+        (Settings.OfficerName, Localization.GetString("Request229", XmlManager.BankHeistConfig.WifeName)),
+        (XmlManager.BankHeistConfig.WifeName, Localization.GetString("Request220")),
     ];
     private readonly (string, string)[] Negotiation3Conversation =
     [
-        (Settings.OfficerName, Localization.GetString("NegotiationSelection3")),
+    (Settings.OfficerName, Localization.GetString("NegotiationSelection3")),
         (Localization.GetString("Robber"), Localization.GetString("Negotiation31")),
     ];
     private readonly Dictionary<string, Keys> Negotiation3Selection = new()
