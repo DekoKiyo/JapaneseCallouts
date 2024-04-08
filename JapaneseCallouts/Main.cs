@@ -139,6 +139,7 @@ internal class Main : Plugin
             Logger.Info($"Loading {PLUGIN_NAME}, Version.{VERSION_PREFIX}{PLUGIN_VERSION}");
             CheckLibrary();
             Settings.Initialize();
+            XmlManager.Initialize();
             Localization.Initialize();
             Game.AddConsoleCommands();
             CalloutManager.RegisterAllCallouts();

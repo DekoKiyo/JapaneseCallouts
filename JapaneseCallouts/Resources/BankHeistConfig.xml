@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BankHeistConfig>
+  <PoliceCruisers>
+    <Vehicle chance="50">POLICE</Vehicle>
+    <Vehicle chance="30">POLICE2</Vehicle>
+    <Vehicle chance="80">POLICE3</Vehicle>
+    <Vehicle chance="15">POLICE4</Vehicle>
+    <Vehicle chance="40">POLICE5</Vehicle>
+  </PoliceCruisers>
+  <PoliceTransporters>
+    <Vehicle chance="100">POLICET</Vehicle>
+  </PoliceTransporters>
+  <PoliceRiots>
+    <Vehicle chance="100">RIOT</Vehicle>
+  </PoliceRiots>
+  <Ambulances>
+    <Vehicle chance="100">AMBULANCE</Vehicle>
+  </Ambulances>
+  <Firetrucks>
+    <Vehicle chance="100">FIRETRUK</Vehicle>
+  </Firetrucks>
+  <PoliceOfficerModels>
+    <Ped chance="20" is_sunny="true" is_rainy="false" is_snowy="false" health="200" armor="200" random_props="true">S_M_Y_COP_01</Ped>
+    <Ped chance="20" is_sunny="true" is_rainy="false" is_snowy="false" health="200" armor="200" random_props="true">S_F_Y_COP_01</Ped>
+  </PoliceOfficerModels>
+  <PoliceSWATModels>
+    <Ped chance="20" is_sunny="true" is_rainy="true" is_snowy="true" health="200" armor="200" random_props="true">S_M_Y_SWAT_01</Ped>
+  </PoliceSWATModels>
+  <ParamedicModels>
+    <Ped chance="100" is_sunny="true" is_rainy="true" is_snowy="true" health="200" armor="200" random_props="true">S_M_M_PARAMEDIC_01</Ped>
+  </ParamedicModels>
+  <FirefighterModels>
+    <Ped chance="100" is_sunny="true" is_rainy="true" is_snowy="true" health="200" armor="200" random_props="true">S_M_Y_FIREMAN_01</Ped>
+  </FirefighterModels>
+  <CommanderModels>
+    <Ped chance="20" is_sunny="true" is_rainy="true" is_snowy="true" health="200" armor="200" random_props="true">IG_FBISUIT_01</Ped>
+  </CommanderModels>
+  <WifeModels>
+    <Ped chance="100" is_sunny="true" is_rainy="true" is_snowy="true" health="200" armor="200" random_props="true">A_F_Y_EASTSA_01</Ped>
+  </WifeModels>
+  <RobberModels>
+    <Ped chance="100" is_sunny="true" is_rainy="true" is_snowy="true" health="200" armor="200" random_props="true">MP_G_M_PROS_01</Ped>
+  </RobberModels>
+  <HostageModels>
+    <Ped chance="20" is_sunny="true" is_rainy="true" is_snowy="true" health="200" armor="200" random_props="true">A_M_M_BUSINESS_01</Ped>
+    <Ped chance="20" is_sunny="true" is_rainy="true" is_snowy="true" health="200" armor="200" random_props="true">A_M_Y_BUSINESS_01</Ped>
+    <Ped chance="20" is_sunny="true" is_rainy="true" is_snowy="true" health="200" armor="200" random_props="true">A_M_Y_BUSINESS_02</Ped>
+    <Ped chance="20" is_sunny="true" is_rainy="true" is_snowy="true" health="200" armor="200" random_props="true">A_M_Y_BUSINESS_03</Ped>
+    <Ped chance="20" is_sunny="true" is_rainy="true" is_snowy="true" health="200" armor="200" random_props="true">A_F_Y_BUSINESS_01</Ped>
+    <Ped chance="20" is_sunny="true" is_rainy="true" is_snowy="true" health="200" armor="200" random_props="true">A_F_Y_FEMALEAGENT</Ped>
+  </HostageModels>
+  <OfficerWeapons>
+    <Weapon chance="100">
+      <Model>WEAPON_PISTOL</Model>
+      <Components>
+        <Component>COMPONENT_AT_PI_FLSH</Component>
+      </Components>
+    </Weapon>
+    <Weapon chance="50">
+      <Model>WEAPON_COMBATPISTOL</Model>
+      <Components>
+        <Component>COMPONENT_AT_PI_FLSH</Component>
+      </Components>
+    </Weapon>
+  </OfficerWeapons>
+  <SWATWeapons>
+    <Weapon chance="100">
+      <Model>WEAPON_CARBINERIFLE</Model>
+      <Components>
+        <Component>COMPONENT_AT_AR_FLSH</Component>
+      </Components>
+    </Weapon>
+    <Weapon chance="50">
+      <Model>WEAPON_ASSAULTRIFLE</Model>
+      <Components>
+        <Component>COMPONENT_AT_AR_FLSH</Component>
+      </Components>
+    </Weapon>
+  </SWATWeapons>
+  <RobbersWeapons>
+    <Weapon chance="100">
+      <Model>WEAPON_SAWNOFFSHOTGUN</Model>
+    </Weapon>
+    <Weapon chance="80">
+      <Model>WEAPON_ASSAULTRIFLE</Model>
+    </Weapon>
+    <Weapon chance="80">
+      <Model>WEAPON_PUMPSHOTGUN</Model>
+    </Weapon>
+    <Weapon chance="80">
+      <Model>WEAPON_ADVANCEDRIFLE</Model>
+    </Weapon>
+    <Weapon chance="30">
+      <Model>WEAPON_PISTOL</Model>
+    </Weapon>
+    <Weapon chance="50">
+      <Model>WEAPON_ASSAULTSMG</Model>
+    </Weapon>
+  </RobbersWeapons>
+  <RobbersThrowableWeapons>
+    <Weapon chance="50">
+      <Model>WEAPON_GRENADE</Model>
+    </Weapon>
+    <Weapon chance="50">
+      <Model>WEAPON_SMOKEGRENADE</Model>
+    </Weapon>
+  </RobbersThrowableWeapons>
+  <WeaponInRiot>
+    <Weapon chance="100">
+      <Model>WEAPON_CARBINERIFLE</Model>
+      <Components>
+        <Component>COMPONENT_AT_AR_FLSH</Component>
+      </Components>
+    </Weapon>
+    <Weapon chance="100">
+      <Model>WEAPON_ASSAULTRIFLE</Model>
+      <Components>
+        <Component>COMPONENT_AT_AR_FLSH</Component>
+      </Components>
+    </Weapon>
+  </WeaponInRiot>
+</BankHeistConfig>
