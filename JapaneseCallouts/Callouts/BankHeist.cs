@@ -3170,7 +3170,7 @@ internal class BankHeist : CalloutBase
                                 {
                                     if (CoolDown is 0)
                                     {
-                                        KeyHelpers.DisplayKeyHelp("EnterRiot", Settings.EnterRiotVanKey, Settings.EnterRiotVanModifierKey);
+                                        KeyHelpers.DisplayKeyHelp("EnterRiot", Settings.EnterRiotVanKey, Settings.EnterRiotVanModifierKey, sound: false);
                                     }
                                 }
                             }
