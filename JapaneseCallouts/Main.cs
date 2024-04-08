@@ -96,17 +96,21 @@ namespace JapaneseCallouts;
 
 internal class Main : Plugin
 {
+    // Change here if you want to change the version.
+    internal const string PLUGIN_VERSION = "0.1.*";
+
     internal const string PLUGIN_NAME = "Japanese Callouts";
     internal const string DEVELOPER_NAME = "DekoKiyo";
-    internal const string PLUGIN_VERSION = "0.1.*";
     internal const string VERSION_PREFIX = "Beta.";
-    internal const string PLUGIN_INFO = $"~b~{PLUGIN_NAME}~s~ {PLUGIN_VERSION_DATA}";
-    internal const string PLUGIN_VERSION_DATA = $"Version.{VERSION_PREFIX}{PLUGIN_VERSION}";
+
     internal const string LSPDFR_DIRECTORY = @"plugins/LSPDFR";
     internal const string PLUGIN_DIRECTORY = @$"{LSPDFR_DIRECTORY}/JapaneseCallouts";
     internal const string PLUGIN_AUDIO_DIRECTORY = @"Audio";
     internal const string PLUGIN_LANGUAGE_DIRECTORY = @"Languages";
     internal const string SETTINGS_INI_FILE = @"JapaneseCallouts.ini";
+
+    internal static readonly string PLUGIN_INFO = $"~b~{PLUGIN_NAME}~s~ {PLUGIN_VERSION_DATA}";
+    internal static readonly string PLUGIN_VERSION_DATA = $"Version.{VERSION_PREFIX}{Assembly.GetExecutingAssembly().GetName().Version}";
 
     internal const string CALLOUT_INTERFACE_API_DLL = "CalloutInterfaceAPI.dll";
 
