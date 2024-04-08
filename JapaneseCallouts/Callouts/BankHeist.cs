@@ -2066,7 +2066,7 @@ internal class BankHeist : CalloutBase
                 NativeFunction.Natives.TASK_AIM_GUN_AT_COORD(officer, aimPoint.X, aimPoint.Y, aimPoint.Z, -1, false, false);
 
                 AllOfficers.Add(officer);
-                AllStandingOfficers.Add(officer);
+                AllAimingOfficers.Add(officer);
                 CalloutEntities.Add(officer);
             }
         }
