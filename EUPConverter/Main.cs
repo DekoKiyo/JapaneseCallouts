@@ -64,8 +64,7 @@ public partial class Main : Form
         if (listBox.SelectedItem is not null)
         {
             var gender = AllPresets[listBox.SelectedItem as string].gender;
-            // var sb = new StringBuilder("<Ped chance=\"100\" is_sunny=\"true\" is_rainy=\"false\" is_snowy=\"false\" ");
-            var sb = new StringBuilder("<Ped chance=\"100\" ");
+            var sb = new StringBuilder("<Ped chance=\"100\" is_sunny=\"true\" is_rainy=\"false\" is_snowy=\"false\" health=\"200\" armor=\"200\" ");
             var preset = AllPresets[listBox.SelectedItem as string].preset;
             if (preset.Hat[0] is not "0")
             {
