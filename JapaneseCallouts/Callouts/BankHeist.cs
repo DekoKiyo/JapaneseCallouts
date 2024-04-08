@@ -377,7 +377,7 @@ internal class BankHeist : CalloutBase
         CalloutPosition = BankLocation;
         CalloutMessage = Localization.GetString("BankHeist");
         ShowCalloutAreaBlipBeforeAccepting(CalloutPosition, 30f);
-        Functions.PlayScannerAudioUsingPosition("CITIZENS_REPORT JP_CRIME_BANK_ROBBERY IN_OR_ON_POSITION UNITS_RESPOND_CODE_99", CalloutPosition);
+        Functions.PlayScannerAudioUsingPosition(XmlManager.CalloutsSoundConfig.BankHeist, CalloutPosition);
 
         if (Main.IsCalloutInterfaceAPIExist)
         {

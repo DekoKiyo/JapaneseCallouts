@@ -155,7 +155,7 @@ internal class StoreRobbery : CalloutBase
         CalloutPosition = robbersData[index].pos;
         CalloutMessage = Localization.GetString("StoreRobbery");
         ShowCalloutAreaBlipBeforeAccepting(CalloutPosition, 50f);
-        Functions.PlayScannerAudioUsingPosition("CITIZENS_REPORT CRIME_ROBBERY IN_OR_ON_POSITION", CalloutPosition);
+        Functions.PlayScannerAudioUsingPosition(XmlManager.CalloutsSoundConfig.StoreRobbery, CalloutPosition);
 
         if (Main.IsCalloutInterfaceAPIExist)
         {

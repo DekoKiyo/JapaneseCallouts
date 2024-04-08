@@ -57,7 +57,7 @@ internal class RoadRage : CalloutBase
 
         CalloutMessage = Localization.GetString("RoadRage");
         ShowCalloutAreaBlipBeforeAccepting(CalloutPosition, 50f);
-        Functions.PlayScannerAudioUsingPosition("CITIZENS_REPORT JP_CRIME_TRAFFIC_VIOLATION IN_OR_ON_POSITION", CalloutPosition);
+        Functions.PlayScannerAudioUsingPosition(XmlManager.CalloutsSoundConfig.RoadRage, CalloutPosition);
 
         if (Main.IsCalloutInterfaceAPIExist)
         {

@@ -59,7 +59,7 @@ internal class StolenVehicle : CalloutBase
         CalloutMessage = Localization.GetString("StolenVehicle");
 
         ShowCalloutAreaBlipBeforeAccepting(CalloutPosition, 50f);
-        Functions.PlayScannerAudioUsingPosition("WE_HAVE JP_CRIME_STOLEN_VEHICLE IN_OR_ON_POSITION", CalloutPosition);
+        Functions.PlayScannerAudioUsingPosition(XmlManager.CalloutsSoundConfig.StolenVehicle, CalloutPosition);
 
         if (Main.IsCalloutInterfaceAPIExist)
         {
