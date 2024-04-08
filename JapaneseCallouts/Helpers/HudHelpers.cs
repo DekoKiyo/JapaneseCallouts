@@ -55,9 +55,9 @@ internal static class HudHelpers
     internal static void DisplaySubtitle(string message) => DisplaySubtitle(message, 2500);
     internal static void DisplaySubtitle(string message, int duration)
     {
-        NativeHelpers.BEGIN_TEXT_COMMAND_PRINT("CELL_EMAIL_BCON");
+        NativeFunction.Natives.BEGIN_TEXT_COMMAND_PRINT("CELL_EMAIL_BCON");
         PushLongString(message);
-        NativeHelpers.END_TEXT_COMMAND_PRINT(duration, true);
+        NativeFunction.Natives.END_TEXT_COMMAND_PRINT(duration, true);
     }
 
     internal static void DisplayHelp(string message) => DisplayHelp(message, 5000, true);
@@ -65,48 +65,48 @@ internal static class HudHelpers
     internal static void DisplayHelp(string message, int duration) => DisplayHelp(message, duration, true);
     internal static void DisplayHelp(string message, int duration, bool sound)
     {
-        NativeHelpers.BEGIN_TEXT_COMMAND_DISPLAY_HELP("CELL_EMAIL_BCON");
+        NativeFunction.Natives.BEGIN_TEXT_COMMAND_DISPLAY_HELP("CELL_EMAIL_BCON");
         PushLongString(message);
-        NativeHelpers.END_TEXT_COMMAND_DISPLAY_HELP(0, false, sound, duration);
+        NativeFunction.Natives.END_TEXT_COMMAND_DISPLAY_HELP(0, false, sound, duration);
     }
 
     private static void PostTickerWithShortMessageWithTitle(string title, string subTitle, string text, string textureDic, string textureName, bool isImportant = false, bool cacheMessage = true)
     {
-        NativeHelpers.BEGIN_TEXT_COMMAND_THEFEED_POST("STRING");
-        NativeHelpers.ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME(text);
-        NativeHelpers.END_TEXT_COMMAND_THEFEED_POST_MESSAGETEXT(textureDic, textureName, false, 0, title, subTitle);
-        NativeHelpers.END_TEXT_COMMAND_THEFEED_POST_TICKER(isImportant, cacheMessage);
+        NativeFunction.Natives.BEGIN_TEXT_COMMAND_THEFEED_POST("STRING");
+        NativeFunction.Natives.ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME(text);
+        NativeFunction.Natives.END_TEXT_COMMAND_THEFEED_POST_MESSAGETEXT(textureDic, textureName, false, 0, title, subTitle);
+        NativeFunction.Natives.END_TEXT_COMMAND_THEFEED_POST_TICKER(isImportant, cacheMessage);
     }
 
     private static void PostTickerWithLongMessageWithTitle(string title, string subTitle, string text, string textureDic, string textureName, bool isImportant, bool cacheMessage = true)
     {
         // For RPH version, I had to make this custom method because TextExtensions.DisplayNotification doesn't consider non-ASCII characters and it carelessly uses string.Length and not parsing UTF-8 strings at all before splitting into chunks
-        NativeHelpers.BEGIN_TEXT_COMMAND_THEFEED_POST("CELL_EMAIL_BCON");
+        NativeFunction.Natives.BEGIN_TEXT_COMMAND_THEFEED_POST("CELL_EMAIL_BCON");
         PushLongString(text);
-        NativeHelpers.END_TEXT_COMMAND_THEFEED_POST_MESSAGETEXT(textureDic, textureName, false, 0, title, subTitle);
-        NativeHelpers.END_TEXT_COMMAND_THEFEED_POST_TICKER(isImportant, cacheMessage);
+        NativeFunction.Natives.END_TEXT_COMMAND_THEFEED_POST_MESSAGETEXT(textureDic, textureName, false, 0, title, subTitle);
+        NativeFunction.Natives.END_TEXT_COMMAND_THEFEED_POST_TICKER(isImportant, cacheMessage);
     }
 
     private static void PostTickerWithShortMessage(string text, bool isImportant, bool cacheMessage = true)
     {
-        NativeHelpers.BEGIN_TEXT_COMMAND_THEFEED_POST("STRING");
-        NativeHelpers.ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME(text);
-        NativeHelpers.END_TEXT_COMMAND_THEFEED_POST_TICKER(isImportant, cacheMessage);
+        NativeFunction.Natives.BEGIN_TEXT_COMMAND_THEFEED_POST("STRING");
+        NativeFunction.Natives.ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME(text);
+        NativeFunction.Natives.END_TEXT_COMMAND_THEFEED_POST_TICKER(isImportant, cacheMessage);
     }
 
     private static void PostTickerWithLongMessage(string text, bool isImportant, bool cacheMessage = true)
     {
         // For RPH version, I had to make this custom method because TextExtensions.DisplayNotification doesn't consider non-ASCII characters and it carelessly uses string.Length and not parsing UTF-8 strings at all before splitting into chunks
-        NativeHelpers.BEGIN_TEXT_COMMAND_THEFEED_POST("CELL_EMAIL_BCON");
+        NativeFunction.Natives.BEGIN_TEXT_COMMAND_THEFEED_POST("CELL_EMAIL_BCON");
         PushLongString(text);
-        NativeHelpers.END_TEXT_COMMAND_THEFEED_POST_TICKER(isImportant, cacheMessage);
+        NativeFunction.Natives.END_TEXT_COMMAND_THEFEED_POST_TICKER(isImportant, cacheMessage);
     }
 
     internal static void PushLongString(string str, int maxLengthUtf8 = 99) => PushLongString(str, PushStringInternal, maxLengthUtf8);
 
     private static void PushStringInternal(string str)
     {
-        NativeHelpers.ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME(str);
+        NativeFunction.Natives.ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME(str);
     }
 
     private static void PushLongString(string str, Action<string> action, int maxLengthUtf8 = 99)
