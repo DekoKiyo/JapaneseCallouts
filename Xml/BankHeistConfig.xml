@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <BankHeistConfig>
+  <HostageCount>8</HostageCount>
+  <WifeName>Maria</WifeName>
   <PoliceCruisers>
     <Vehicle chance="50">POLICE</Vehicle>
     <Vehicle chance="30">POLICE2</Vehicle>
@@ -155,4 +157,142 @@
       </Components>
     </Weapon>
   </WeaponInRiot>
+  <PoliceCruiserPositions>
+    <Position x="271.3" y="180.6" z="104.3" heading="69.4" />
+    <Position x="258.9" y="185.2" z="104.4" heading="69.8" />
+    <Position x="246.8" y="189.8" z="104.8" heading="68.1" />
+    <Position x="236.9" y="193.9" z="104.9" heading="-110.7" />
+    <Position x="227.7" y="197.9" z="105.0" heading="64.5" />
+    <Position x="220.6" y="217.9" z="105.1" heading="-18.9" />
+    <Position x="223.9" y="226.8" z="105.1" heading="-20.0" />
+    <Position x="231.3" y="173.6" z="104.9" heading="-110.2" />
+  </PoliceCruiserPositions>
+  <PoliceTransportPositions>
+    <Position x="273.9" y="191.7" z="104.6" heading="54.3" />
+    <Position x="219.0" y="175.1" z="105.2" heading="-111.1" />
+  </PoliceTransportPositions>
+  <RiotPositions>
+    <Position x="220.2" y="209.2" z="105.1" heading="23.2" />
+    <Position x="265.4" y="192.2" z="104.4" heading="-139.9" />
+  </RiotPositions>
+  <AmbulancePositions>
+    <Position x="263.2" y="158.9" z="104.2" heading="-110.3" />
+    <Position x="254.0" y="162.2" z="104.4" heading="-109.2" />
+  </AmbulancePositions>
+  <FiretruckPositions>
+    <Position x="239.6" y="170.7" z="105.1" heading="-109.9" />
+  </FiretruckPositions>
+  <BarrierPositions>
+    <Position x="266.5" y="182.4" z="103.6" heading="-20.1" />
+    <Position x="263.4" y="183.6" z="103.7" heading="-20.1" />
+    <Position x="254.3" y="186.8" z="103.9" heading="-20.1" />
+    <Position x="251.2" y="187.9" z="103.9" heading="-20.1" />
+    <Position x="241.6" y="192.0" z="104.1" heading="-21.5" />
+    <Position x="232.2" y="195.8" z="104.2" heading="-22.2" />
+    <Position x="223.8" y="200.1" z="104.4" heading="-33.5" />
+    <Position x="220.9" y="203.0" z="104.4" heading="-53.1" />
+    <Position x="222.2" y="222.2" z="104.4" heading="-110.2" />
+    <Position x="227.7" y="228.2" z="104.5" heading="159.8" />
+    <Position x="230.5" y="227.2" z="104.5" heading="159.8" />
+  </BarrierPositions>
+  <AimingOfficerPositions>
+    <Position x="219.8" y="220.3" z="105.5" heading="-120.1" />
+    <Position x="218.5" y="216.5" z="105.5" heading="-105.7" />
+    <Position x="226.1" y="197.0" z="105.4" heading="-19.9" />
+    <Position x="234.4" y="193.3" z="105.2" heading="-21.4" />
+    <Position x="247.8" y="187.9" z="105.0" heading="-29.9" />
+    <Position x="257.3" y="184.2" z="104.9" heading="2.6" />
+    <Position x="260.5" y="183.1" z="104.8" heading="-12.2" />
+  </AimingOfficerPositions>
+  <StandingOfficerPositions>
+    <Position x="215.2" y="177.1" z="105.3" heading="70.4" />
+    <Position x="218.6" y="207.0" z="105.4" heading="113.0" />
+  </StandingOfficerPositions>
+  <NormalRobbersPositions>
+    <Position x="262.5" y="211.9" z="106.2" heading="161.0" />
+    <Position x="257.3" y="214.9" z="106.2" heading="160.5" />
+    <Position x="235.4" y="217.3" z="106.2" heading="116.3" />
+    <Position x="237.9" y="213.6" z="106.2" heading="69.5" />
+    <Position x="243.7" y="212.4" z="110.2" heading="-20.6" />
+    <Position x="266.6" y="220.1" z="110.2" heading="69.9" />
+    <Position x="254.7" y="228.1" z="106.2" heading="161.5" />
+    <Position x="268.2" y="223.0" z="103.4" heading="159.4" />
+    <Position x="246.7" y="218.7" z="106.2" heading="169.6" />
+    <Position x="251.0" y="208.6" z="106.2" heading="-21.0" />
+  </NormalRobbersPositions>
+  <RobbersNegotiationPositions>
+    <Position x="235.3" y="216.8" z="106.2" heading="115.5" />
+    <Position x="243.0" y="222.6" z="106.2" heading="70.8" />
+    <Position x="256.1" y="216.8" z="106.2" heading="-109.0" />
+    <Position x="254.0" y="213.1" z="106.2" heading="-109.1" />
+    <Position x="257.6" y="222.5" z="106.2" heading="159.9" />
+    <Position x="264.0" y="224.6" z="101.6" heading="-110.5" />
+    <Position x="237.0" y="218.3" z="110.2" heading="-66.1" />
+  </RobbersNegotiationPositions>
+  <RobbersSneakPosition>
+    <Position x="255.1" y="222.0" z="106.2" heading="-18.7" is_right="false" />
+    <Position x="263.1" y="215.4" z="110.2" heading="-175.0" is_right="false" />
+    <Position x="265.2" y="222.3" z="101.6" heading="125.6" is_right="false" />
+    <Position x="257.0" y="205.4" z="110.2" heading="-24.9" is_right="true" />
+    <Position x="235.8" y="228.0" z="110.2" heading="-122.6" is_right="true" />
+    <Position x="238.9" y="228.3" z="106.2" heading="34.7" is_right="true" />
+    <Position x="245.7" y="214.3" z="106.2" heading="69.8" is_right="true" />
+  </RobbersSneakPosition>
+  <RobbersInVaultPositions>
+    <Position x="255.9" y="217.0" z="101.6" heading="69.9" />
+    <Position x="258.5" y="216.0" z="101.6" heading="70.8" />
+    <Position x="251.3" y="218.9" z="101.6" heading="-19.1" />
+  </RobbersInVaultPositions>
+  <RobbersSurrenderingPositions>
+    <Position x="229.2" y="207.9" z="105.4" heading="160.1" />
+    <Position x="233.8" y="206.2" z="105.3" heading="160.1" />
+    <Position x="238.2" y="204.6" z="105.3" heading="160.1" />
+    <Position x="242.8" y="202.9" z="105.2" heading="160.1" />
+    <Position x="246.8" y="201.4" z="105.1" heading="160.1" />
+    <Position x="251.5" y="199.7" z="105.0" heading="160.1" />
+    <Position x="257.1" y="197.7" z="104.9" heading="160.1" />
+  </RobbersSurrenderingPositions>
+  <FirefighterPositions>
+    <Position x="244.9" y="168.3" z="104.9" heading="-24.0" />
+  </FirefighterPositions>
+  <ParamedicPositions>
+    <Position x="250.8" y="165.5" z="104.7" heading="-21.2" />
+    <Position x="259.8" y="162.4" z="104.6" heading="-20.5" />
+  </ParamedicPositions>
+  <LeftSittingSWATPositions>
+    <Position x="231.6" y="211.8" z="105.4" heading="84.4" />
+    <Position x="232.0" y="211.0" z="105.4" heading="93.8" />
+    <Position x="232.9" y="210.4" z="105.4" heading="129.7" />
+    <Position x="260.7" y="200.2" z="104.9" heading="133.2" />
+    <Position x="261.5" y="199.9" z="104.9" heading="118.9" />
+    <Position x="262.3" y="199.6" z="104.9" heading="127.6" />
+  </LeftSittingSWATPositions>
+  <RightSittingSWATPositions>
+    <Position x="228.7" y="218.0" z="105.5" heading="150.2" />
+    <Position x="228.9" y="219.2" z="105.5" heading="125.3" />
+    <Position x="255.7" y="202.1" z="105.0" heading="-128.7" />
+    <Position x="254.8" y="202.5" z="105.0" heading="-145.8" />
+  </RightSittingSWATPositions>
+  <RightLookingSWATPositions>
+    <Position x="229.1" y="217.1" z="105.5" heading="171.3" />
+    <Position x="256.6" y="201.8" z="105.0" heading="-138.0" />
+  </RightLookingSWATPositions>
+  <HostagePositions>
+    <Position x="242.8" y="228.3" z="106.2" />
+    <Position x="248.3" y="229.7" z="106.2" />
+    <Position x="241.4" y="221.5" z="106.2" />
+    <Position x="245.6" y="216.6" z="106.2" />
+    <Position x="253.6" y="218.9" z="106.2" />
+    <Position x="267.2" y="223.0" z="110.2" />
+    <Position x="262.3" y="224.8" z="101.6" />
+    <Position x="262.6" y="208.2" z="110.2" />
+    <Position x="250.6" y="209.1" z="110.2" />
+    <Position x="243.3" y="211.7" z="110.2" />
+    <Position x="236.1" y="216.3" z="110.2" />
+    <Position x="255.0" y="224.7" z="106.2" />
+  </HostagePositions>
+  <HostageSafePosition x="248.6" y="169.1" z="104.9" heading="158.3" />
+  <CommanderPosition x="271.9" y="190.8" z="104.7" heading="138.2" />
+  <WifePosition x="178.6" y="120.6" z="95.6" heading="-17.2" />
+  <WifeVehicleDestination x="241.7" y="178.9" z="104.7" />
 </BankHeistConfig>

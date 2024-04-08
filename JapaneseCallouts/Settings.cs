@@ -6,7 +6,6 @@ internal static class Settings
     private static IniData Ini { get; } = Parser.ReadFile($"{Main.LSPDFR_DIRECTORY}/{Main.SETTINGS_INI_FILE}");
 
     internal static string OfficerName { get; private set; } = "Officer";
-    internal static string WifeName { get; private set; } = "Maria";
 
     internal static Keys SpeakWithThePersonKey { get; private set; } = Keys.Y;
     internal static Keys SpeakWithThePersonModifierKey { get; private set; } = Keys.None;
@@ -28,7 +27,6 @@ internal static class Settings
     internal static void ReloadJPCSettings()
     {
         OfficerName = Ini["General"]["OfficerName"] ??= "Officer";
-        WifeName = Ini["General"]["WifeName"] ??= "Maria";
         Localization.Language = Ini["General"]["Language"] ??= "en-US";
         SpeakWithThePersonKey = (Ini["Keys"]["SpeakWithThePersonKey"] ??= "Y").ConvertToKey();
         SpeakWithThePersonModifierKey = (Ini["Keys"]["SpeakWithThePersonModifierKey"] ??= "None").ConvertToKey();

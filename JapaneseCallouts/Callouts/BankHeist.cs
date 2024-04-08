@@ -28,186 +28,17 @@ internal class BankHeist : CalloutBase
     private Vector3 BankLocation = new(250.9f, 219.0f, 106.2f);
     private Vector3 OutsideBankVault = new(257.2f, 225.2f, 101.8f);
     private readonly Vector3[] PacificBankInsideChecks = [new(235.9f, 220.6f, 106.2f), new(238.3f, 214.8f, 106.2f), new(261.0f, 208.1f, 106.2f), new(235.2f, 217.1f, 106.2f)];
+    private readonly Vector3[] BankDoorPositions =
+    [
+        new Vector3(231.5f, 215.2f, 106.2f),
+        new Vector3(259.1f, 202.7f, 106.2f)
+    ];
 
     // Timer Bars
     internal static TimerBarPool TBPool = [];
     internal static TextTimerBar RescuedHostagesTB;
     internal static TextTimerBar DiedHostagesTB;
 
-    #region Positions
-    // Vehicles
-    private readonly (Vector3 pos, float heading)[] PoliceCruiserPositions =
-    [
-        (new(271.3f, 180.6f, 104.3f), 69.4f),
-        (new(258.9f, 185.2f, 104.4f), 69.8f),
-        (new(246.8f, 189.8f, 104.8f), 68.1f),
-        (new(236.9f, 193.9f, 104.9f), -110.7f),
-        (new(227.7f, 197.9f, 105.0f), 64.5f),
-        (new(220.6f, 217.9f, 105.1f), -18.9f),
-        (new(223.9f, 226.8f, 105.1f), -20.0f),
-        (new(231.3f, 173.6f, 104.9f), -110.2f)
-    ];
-    private readonly (Vector3 pos, float heading)[] PoliceTransportPositions =
-    [
-        (new(273.9f, 191.7f, 104.6f), 54.3f),
-        (new(219.0f, 175.1f, 105.2f), -111.1f)
-    ];
-    private readonly (Vector3 pos, float heading)[] RiotPositions =
-    [
-        (new(220.2f, 209.2f, 105.1f), 23.2f),
-        (new(265.4f, 192.2f, 104.4f), -139.9f)
-    ];
-    private readonly (Vector3 pos, float heading)[] AmbulancePositions =
-    [
-        (new(263.2f, 158.9f, 104.2f), -110.3f),
-        (new(254.0f, 162.2f, 104.4f), -109.2f)
-    ];
-    private readonly (Vector3 pos, float heading)[] FiretruckPositions =
-    [
-        (new(239.6f, 170.7f, 105.1f), -109.9f)
-    ];
-    // Barrier
-    private readonly (Vector3 pos, float heading)[] BarrierPositions =
-    [
-        (new(266.5f, 182.4f, 103.6f), -20.1f),
-        (new(263.4f, 183.6f, 103.7f), -20.1f),
-        (new(254.3f, 186.8f, 103.9f), -20.1f),
-        (new(251.2f, 187.9f, 103.9f), -20.1f),
-        (new(241.6f, 192.0f, 104.1f), -21.5f),
-        (new(232.2f, 195.8f, 104.2f), -22.2f),
-        (new(223.8f, 200.1f, 104.4f), -33.5f),
-        (new(220.9f, 203.0f, 104.4f), -53.1f),
-        (new(222.2f, 222.2f, 104.4f), -110.2f),
-        (new(227.7f, 228.2f, 104.5f), 159.8f),
-        (new(230.5f, 227.2f, 104.5f), 159.8f)
-    ];
-    // Officers
-    private readonly (Vector3 pos, float heading)[] AimingOfficerPositions =
-    [
-        (new(219.8f, 220.3f, 105.5f), -120.1f),
-        (new(218.5f, 216.5f, 105.5f), -105.7f),
-        (new(226.1f, 197.0f, 105.4f), -19.9f),
-        (new(234.4f, 193.3f, 105.2f), -21.4f),
-        (new(247.8f, 187.9f, 105.0f), -29.9f),
-        (new(257.3f, 184.2f, 104.9f), 2.6f),
-        (new(260.5f, 183.1f, 104.8f), -12.2f)
-    ];
-    private readonly (Vector3 pos, float heading)[] StandingOfficerPositions =
-    [
-        (new(215.2f, 177.1f, 105.3f), 70.4f),
-        (new(218.6f, 207.0f, 105.4f), 113.0f)
-    ];
-    // Robbers
-    private readonly (Vector3 pos, float heading)[] NormalRobbersPositions =
-    [
-        (new(262.5f, 211.9f, 106.2f), 161.0f),
-        (new(257.3f, 214.9f, 106.2f), 160.5f),
-        (new(235.4f, 217.3f, 106.2f), 116.3f),
-        (new(237.9f, 213.6f, 106.2f), 69.5f),
-        (new(243.7f, 212.4f, 110.2f), -20.6f),
-        (new(266.6f, 220.1f, 110.2f), 69.9f),
-        (new(254.7f, 228.1f, 106.2f), 161.5f),
-        (new(268.2f, 223.0f, 103.4f), 159.4f),
-        (new(246.7f, 218.7f, 106.2f), 169.6f),
-        (new(251.0f, 208.6f, 106.2f), -21.0f),
-    ];
-    private readonly (Vector3 pos, float heading)[] RobbersNegotiationPositions =
-    [
-        (new(235.3f, 216.8f, 106.2f), 115.5f),
-        (new(243.0f, 222.6f, 106.2f), 70.8f),
-        (new(256.1f, 216.8f, 106.2f), -109.0f),
-        (new(254.0f, 213.1f, 106.2f), -109.1f),
-        (new(257.6f, 222.5f, 106.2f), 159.9f),
-        (new(264.0f, 224.6f, 101.6f), -110.5f),
-        (new(237.0f, 218.3f, 110.2f), -66.1f),
-    ];
-    private readonly (Vector3 pos, float heading, bool isRight)[] RobbersSneakPosition =
-    [
-        (new(255.1f, 222.0f, 106.2f), -18.7f, false),
-        (new(263.1f, 215.4f, 110.2f), -175.0f, false),
-        (new(265.2f, 222.3f, 101.6f), 125.6f, false),
-        (new(257.0f, 205.4f, 110.2f), -24.9f, true),
-        (new(235.8f, 228.0f, 110.2f), -122.6f, true),
-        (new(238.9f, 228.3f, 106.2f), 34.7f, true),
-        (new(245.7f, 214.3f, 106.2f), 69.8f, true),
-    ];
-    private readonly (Vector3 pos, float heading)[] RobbersInVaultPositions =
-    [
-        (new(255.9f, 217.0f, 101.6f), 69.9f),
-        (new(258.5f, 216.0f, 101.6f), 70.8f),
-        (new(251.3f, 218.9f, 101.6f), -19.1f),
-    ];
-    private readonly (Vector3 pos, float heading)[] RobbersSurrenderingPositions =
-    [
-        (new(229.2f, 207.9f, 105.4f), 160.1f),
-        (new(233.8f, 206.2f, 105.3f), 160.1f),
-        (new(238.2f, 204.6f, 105.3f), 160.1f),
-        (new(242.8f, 202.9f, 105.2f), 160.1f),
-        (new(246.8f, 201.4f, 105.1f), 160.1f),
-        (new(251.5f, 199.7f, 105.0f), 160.1f),
-        (new(257.1f, 197.7f, 104.9f), 160.1f),
-    ];
-    // EMS
-    private readonly (Vector3 pos, float heading)[] FirefighterPositions =
-    [
-        (new(244.9f, 168.3f, 104.9f), -24.0f)
-    ];
-    private readonly (Vector3 pos, float heading)[] ParamedicPositions =
-    [
-        (new(250.8f, 165.5f, 104.7f), -21.2f),
-        (new(259.8f, 162.4f, 104.6f), -20.5f)
-    ];
-    // SWAT
-    private readonly (Vector3 pos, float heading)[] LeftSittingSWATPositions =
-    [
-        (new(231.6f, 211.8f, 105.4f), 84.4f),
-        (new(232.0f, 211.0f, 105.4f), 93.8f),
-        (new(232.9f, 210.4f, 105.4f), 129.7f),
-        (new(260.7f, 200.2f, 104.9f), 133.2f),
-        (new(261.5f, 199.9f, 104.9f), 118.9f),
-        (new(262.3f, 199.6f, 104.9f), 127.6f)
-    ];
-    private readonly (Vector3 pos, float heading)[] RightSittingSWATPositions =
-    [
-        (new(228.7f, 218.0f, 105.5f), 150.2f),
-        (new(228.9f, 219.2f, 105.5f), 125.3f),
-        (new(255.7f, 202.1f, 105.0f), -128.7f),
-        (new(254.8f, 202.5f, 105.0f), -145.8f)
-    ];
-    private readonly (Vector3 pos, float heading)[] RightLookingSWATPositions =
-    [
-        (new(229.1f, 217.1f, 105.5f), 171.3f),
-        (new(256.6f, 201.8f, 105.0f), -138.0f)
-    ];
-    // Bank Door
-    private readonly Vector3[] BankDoorPositions =
-    [
-        new Vector3(231.5f, 215.2f, 106.2f),
-        new Vector3(259.1f, 202.7f, 106.2f)
-    ];
-    // Captain
-    private readonly (Vector3 pos, float heading) CaptainPosition = (new(271.9f, 190.8f, 104.7f), 138.2f);
-    // Wife
-    private readonly (Vector3 pos, float heading) WifePosition = (new(178.6f, 120.6f, 95.6f), -17.2f);
-    private readonly Vector3 WifeCarDestination = new(241.7f, 178.9f, 104.7f);
-    // Hostage
-    private readonly List<Vector3> HostagePositions =
-    [
-        new(242.8f, 228.3f, 106.2f),
-        new(248.3f, 229.7f, 106.2f),
-        new(241.4f, 221.5f, 106.2f),
-        new(245.6f, 216.6f, 106.2f),
-        new(253.6f, 218.9f, 106.2f),
-        new(267.2f, 223.0f, 110.2f),
-        new(262.3f, 224.8f, 101.6f),
-        new(262.6f, 208.2f, 110.2f),
-        new(250.6f, 209.1f, 110.2f),
-        new(243.3f, 211.7f, 110.2f),
-        new(236.1f, 216.3f, 110.2f),
-        new(255.0f, 224.7f, 106.2f)
-    ];
-    private readonly (Vector3 pos, float heading) HostageSafePosition = (new(248.6f, 169.1f, 104.9f), 158.3f);
-    #endregion
     #region Conversations
     // Conversation
     private readonly (string, string)[] IntroConversation =
@@ -318,7 +149,7 @@ internal class BankHeist : CalloutBase
     ];
     private readonly (string, string)[] Negotiation111Conversation =
     [
-        (Settings.OfficerName, Localization.GetString("Negotiation1111", Settings.WifeName)),
+        (Settings.OfficerName, Localization.GetString("Negotiation1111", XmlManager.BankHeistConfig.WifeName)),
         (Localization.GetString("Robber"), Localization.GetString("Negotiation1112")),
     ];
     private readonly (string, string)[] Negotiation112Conversation =
@@ -1254,10 +1085,12 @@ internal class BankHeist : CalloutBase
             {
                 if (AllStandingOfficers[i].IsAlive)
                 {
-                    if (Vector3.Distance(AllStandingOfficers[i].Position, StandingOfficerPositions[i].pos) > 0.5f)
+                    var data = XmlManager.BankHeistConfig.StandingOfficerPositions[i];
+                    var pos = new Vector3(data.X, data.Y, data.Z);
+                    if (Vector3.Distance(AllStandingOfficers[i].Position, new Vector3(data.X, data.Y, data.Z)) > 0.5f)
                     {
                         AllStandingOfficers[i].BlockPermanentEvents = true;
-                        AllStandingOfficers[i].Tasks.FollowNavigationMeshToPosition(StandingOfficerPositions[i].pos, StandingOfficerPositions[i].heading, 2f);
+                        AllStandingOfficers[i].Tasks.FollowNavigationMeshToPosition(pos, data.Heading, 2f);
                     }
                 }
             }
@@ -1268,10 +1101,12 @@ internal class BankHeist : CalloutBase
             {
                 if (AllAimingOfficers[i].IsAlive)
                 {
-                    if (Vector3.Distance(AllAimingOfficers[i].Position, AimingOfficerPositions[i].pos) > 0.5f)
+                    var data = XmlManager.BankHeistConfig.AimingOfficerPositions[i];
+                    var pos = new Vector3(data.X, data.Y, data.Z);
+                    if (Vector3.Distance(AllAimingOfficers[i].Position, pos) > 0.5f)
                     {
                         AllAimingOfficers[i].BlockPermanentEvents = true;
-                        AllAimingOfficers[i].Tasks.FollowNavigationMeshToPosition(AimingOfficerPositions[i].pos, AimingOfficerPositions[i].heading, 2f);
+                        AllAimingOfficers[i].Tasks.FollowNavigationMeshToPosition(pos, data.Heading, 2f);
                     }
                     else
                     {
@@ -1560,8 +1395,10 @@ internal class BankHeist : CalloutBase
                 for (int i = 0; i < AllRobbers.Count; i++)
                 {
                     GameFiber.Yield();
+                    var data = XmlManager.BankHeistConfig.RobbersSurrenderingPositions[i];
+                    var pos = new Vector3(data.X, data.Y, data.Z);
                     AllRobbers[i].Tasks.PlayAnimation("random@getawaydriver", "idle_2_hands_up", 1f, AnimationFlags.UpperBodyOnly | AnimationFlags.StayInEndFrame | AnimationFlags.SecondaryTask);
-                    AllRobbers[i].Tasks.FollowNavigationMeshToPosition(RobbersSurrenderingPositions[i].pos, RobbersSurrenderingPositions[i].heading, 1.45f);
+                    AllRobbers[i].Tasks.FollowNavigationMeshToPosition(pos, data.Heading, 1.45f);
                     NativeFunction.Natives.SET_PED_CAN_RAGDOLL(AllRobbers[i], false);
                 }
                 int count = 0;
@@ -1573,15 +1410,19 @@ internal class BankHeist : CalloutBase
                     {
                         for (int i = 0; i < AllRobbers.Count; i++)
                         {
-                            AllRobbers[i].Position = RobbersSurrenderingPositions[i].pos;
-                            AllRobbers[i].Heading = RobbersSurrenderingPositions[i].heading;
+                            var data = XmlManager.BankHeistConfig.RobbersSurrenderingPositions[i];
+                            var pos = new Vector3(data.X, data.Y, data.Z);
+                            AllRobbers[i].Position = pos;
+                            AllRobbers[i].Heading = data.Heading;
                         }
                         break;
                     }
                     for (int i = 0; i < AllRobbers.Count; i++)
                     {
                         GameFiber.Yield();
-                        if (Vector3.Distance(AllRobbers[i].Position, RobbersSurrenderingPositions[i].pos) < 0.8f)
+                        var data = XmlManager.BankHeistConfig.RobbersSurrenderingPositions[i];
+                        var pos = new Vector3(data.X, data.Y, data.Z);
+                        if (Vector3.Distance(AllRobbers[i].Position, pos) < 0.8f)
                         {
                             AllRobbersAtLocation = true;
                         }
@@ -1674,10 +1515,10 @@ internal class BankHeist : CalloutBase
 
     private void SpawnVehicles()
     {
-        foreach (var (pos, heading) in PoliceCruiserPositions)
+        foreach (var p in XmlManager.BankHeistConfig.PoliceCruiserPositions)
         {
-            var data = CalloutHelpers.Select([.. XmlManager.BankHeist.PoliceCruisers]);
-            var vehicle = new Vehicle(data.Model, pos, heading)
+            var data = CalloutHelpers.Select([.. XmlManager.BankHeistConfig.PoliceCruisers]);
+            var vehicle = new Vehicle(data.Model, new(p.X, p.Y, p.Z), p.Heading)
             {
                 IsPersistent = true,
                 IsSirenOn = true,
@@ -1699,10 +1540,10 @@ internal class BankHeist : CalloutBase
                 CalloutEntities.Add(vehicle);
             }
         }
-        foreach (var (pos, heading) in PoliceTransportPositions)
+        foreach (var p in XmlManager.BankHeistConfig.PoliceTransportPositions)
         {
-            var data = CalloutHelpers.Select([.. XmlManager.BankHeist.PoliceTransporters]);
-            var vehicle = new Vehicle(data.Model, pos, heading)
+            var data = CalloutHelpers.Select([.. XmlManager.BankHeistConfig.PoliceTransporters]);
+            var vehicle = new Vehicle(data.Model, new(p.X, p.Y, p.Z), p.Heading)
             {
                 IsPersistent = true,
                 IsSirenOn = true,
@@ -1724,10 +1565,10 @@ internal class BankHeist : CalloutBase
                 CalloutEntities.Add(vehicle);
             }
         }
-        foreach (var (pos, heading) in RiotPositions)
+        foreach (var p in XmlManager.BankHeistConfig.RiotPositions)
         {
-            var data = CalloutHelpers.Select([.. XmlManager.BankHeist.PoliceRiots]);
-            var vehicle = new Vehicle(data.Model, pos, heading)
+            var data = CalloutHelpers.Select([.. XmlManager.BankHeistConfig.PoliceRiots]);
+            var vehicle = new Vehicle(data.Model, new(p.X, p.Y, p.Z), p.Heading)
             {
                 IsPersistent = true,
                 IsSirenOn = true,
@@ -1750,10 +1591,10 @@ internal class BankHeist : CalloutBase
                 CalloutEntities.Add(vehicle);
             }
         }
-        foreach (var (pos, heading) in AmbulancePositions)
+        foreach (var p in XmlManager.BankHeistConfig.AmbulancePositions)
         {
-            var data = CalloutHelpers.Select([.. XmlManager.BankHeist.Ambulances]);
-            var vehicle = new Vehicle(data.Model, pos, heading)
+            var data = CalloutHelpers.Select([.. XmlManager.BankHeistConfig.Ambulances]);
+            var vehicle = new Vehicle(data.Model, new(p.X, p.Y, p.Z), p.Heading)
             {
                 IsPersistent = true,
                 IsSirenOn = true,
@@ -1775,10 +1616,10 @@ internal class BankHeist : CalloutBase
                 CalloutEntities.Add(vehicle);
             }
         }
-        foreach (var (pos, heading) in FiretruckPositions)
+        foreach (var p in XmlManager.BankHeistConfig.FiretruckPositions)
         {
-            var data = CalloutHelpers.Select([.. XmlManager.BankHeist.Firetrucks]);
-            var vehicle = new Vehicle(data.Model, pos, heading)
+            var data = CalloutHelpers.Select([.. XmlManager.BankHeistConfig.Firetrucks]);
+            var vehicle = new Vehicle(data.Model, new(p.X, p.Y, p.Z), p.Heading)
             {
                 IsPersistent = true,
                 IsSirenOn = true,
@@ -1804,14 +1645,14 @@ internal class BankHeist : CalloutBase
 
     private void PlaceBarrier()
     {
-        foreach (var (pos, heading) in BarrierPositions)
+        foreach (var p in XmlManager.BankHeistConfig.BarrierPositions)
         {
-            var barrier = new RObject(BarrierModel, pos, heading)
+            var barrier = new RObject(BarrierModel, new(p.X, p.Y, p.Z), p.Heading)
             {
                 IsPositionFrozen = true,
                 IsPersistent = true
             };
-            var invisibleWall = new RObject(InvisibleWallModel, barrier.Position, heading)
+            var invisibleWall = new RObject(InvisibleWallModel, barrier.Position, p.Heading)
             {
                 IsVisible = false,
                 IsPersistent = true
@@ -1831,10 +1672,10 @@ internal class BankHeist : CalloutBase
 
     private void SpawnOfficers(EWeather weather)
     {
-        foreach (var (pos, heading) in LeftSittingSWATPositions)
+        foreach (var p in XmlManager.BankHeistConfig.LeftSittingSWATPositions)
         {
-            var data = CalloutHelpers.SelectPed(weather, [.. XmlManager.BankHeist.PoliceSWATModels]);
-            var swat = new Ped(data.Model, pos, heading)
+            var data = CalloutHelpers.SelectPed(weather, [.. XmlManager.BankHeistConfig.PoliceSWATModels]);
+            var swat = new Ped(data.Model, new(p.X, p.Y, p.Z), p.Heading)
             {
                 IsPersistent = true,
                 BlockPermanentEvents = true,
@@ -1874,7 +1715,7 @@ internal class BankHeist : CalloutBase
                 Functions.SetPedAsCop(swat);
                 Functions.SetCopAsBusy(swat, true);
 
-                var weapon = CalloutHelpers.Select([.. XmlManager.BankHeist.SWATWeapons]);
+                var weapon = CalloutHelpers.Select([.. XmlManager.BankHeistConfig.SWATWeapons]);
                 var hash = NativeFunction.Natives.GET_HASH_KEY<Model>(weapon.Model);
                 NativeFunction.Natives.REQUEST_MODEL(hash);
                 NativeFunction.Natives.GIVE_WEAPON_TO_PED(swat, hash, 5000, false, true);
@@ -1890,10 +1731,10 @@ internal class BankHeist : CalloutBase
                 CalloutEntities.Add(swat);
             }
         }
-        foreach (var (pos, heading) in RightLookingSWATPositions)
+        foreach (var p in XmlManager.BankHeistConfig.RightLookingSWATPositions)
         {
-            var data = CalloutHelpers.SelectPed(weather, [.. XmlManager.BankHeist.PoliceSWATModels]);
-            var swat = new Ped(data.Model, pos, heading)
+            var data = CalloutHelpers.SelectPed(weather, [.. XmlManager.BankHeistConfig.PoliceSWATModels]);
+            var swat = new Ped(data.Model, new(p.X, p.Y, p.Z), p.Heading)
             {
                 IsPersistent = true,
                 BlockPermanentEvents = true,
@@ -1933,7 +1774,7 @@ internal class BankHeist : CalloutBase
                 Functions.SetPedAsCop(swat);
                 Functions.SetCopAsBusy(swat, true);
 
-                var weapon = CalloutHelpers.Select([.. XmlManager.BankHeist.SWATWeapons]);
+                var weapon = CalloutHelpers.Select([.. XmlManager.BankHeistConfig.SWATWeapons]);
                 var hash = NativeFunction.Natives.GET_HASH_KEY<Model>(weapon.Model);
                 NativeFunction.Natives.REQUEST_MODEL(hash);
                 NativeFunction.Natives.GIVE_WEAPON_TO_PED(swat, hash, 5000, false, true);
@@ -1949,10 +1790,10 @@ internal class BankHeist : CalloutBase
                 CalloutEntities.Add(swat);
             }
         }
-        foreach (var (pos, heading) in RightSittingSWATPositions)
+        foreach (var p in XmlManager.BankHeistConfig.RightSittingSWATPositions)
         {
-            var data = CalloutHelpers.SelectPed(weather, [.. XmlManager.BankHeist.PoliceSWATModels]);
-            var swat = new Ped(data.Model, pos, heading)
+            var data = CalloutHelpers.SelectPed(weather, [.. XmlManager.BankHeistConfig.PoliceSWATModels]);
+            var swat = new Ped(data.Model, new(p.X, p.Y, p.Z), p.Heading)
             {
                 IsPersistent = true,
                 BlockPermanentEvents = true,
@@ -1992,7 +1833,7 @@ internal class BankHeist : CalloutBase
                 Functions.SetPedAsCop(swat);
                 Functions.SetCopAsBusy(swat, true);
 
-                var weapon = CalloutHelpers.Select([.. XmlManager.BankHeist.SWATWeapons]);
+                var weapon = CalloutHelpers.Select([.. XmlManager.BankHeistConfig.SWATWeapons]);
                 var hash = NativeFunction.Natives.GET_HASH_KEY<Model>(weapon.Model);
                 NativeFunction.Natives.REQUEST_MODEL(hash);
                 NativeFunction.Natives.GIVE_WEAPON_TO_PED(swat, hash, 5000, false, true);
@@ -2008,10 +1849,10 @@ internal class BankHeist : CalloutBase
                 CalloutEntities.Add(swat);
             }
         }
-        foreach (var (pos, heading) in AimingOfficerPositions)
+        foreach (var p in XmlManager.BankHeistConfig.AimingOfficerPositions)
         {
-            var data = CalloutHelpers.SelectPed(weather, [.. XmlManager.BankHeist.PoliceOfficerModels]);
-            var officer = new Ped(data.Model, pos, heading)
+            var data = CalloutHelpers.SelectPed(weather, [.. XmlManager.BankHeistConfig.PoliceOfficerModels]);
+            var officer = new Ped(data.Model, new(p.X, p.Y, p.Z), p.Heading)
             {
                 IsPersistent = true,
                 BlockPermanentEvents = true,
@@ -2051,7 +1892,7 @@ internal class BankHeist : CalloutBase
                 Functions.SetPedAsCop(officer);
                 Functions.SetCopAsBusy(officer, true);
 
-                var weapon = CalloutHelpers.Select([.. XmlManager.BankHeist.SWATWeapons]);
+                var weapon = CalloutHelpers.Select([.. XmlManager.BankHeistConfig.SWATWeapons]);
                 var hash = NativeFunction.Natives.GET_HASH_KEY<Model>(weapon.Model);
                 NativeFunction.Natives.REQUEST_MODEL(hash);
                 NativeFunction.Natives.GIVE_WEAPON_TO_PED(officer, hash, 5000, false, true);
@@ -2070,10 +1911,10 @@ internal class BankHeist : CalloutBase
                 CalloutEntities.Add(officer);
             }
         }
-        foreach (var (pos, heading) in StandingOfficerPositions)
+        foreach (var p in XmlManager.BankHeistConfig.StandingOfficerPositions)
         {
-            var data = CalloutHelpers.SelectPed(weather, [.. XmlManager.BankHeist.PoliceOfficerModels]);
-            var officer = new Ped(data.Model, pos, heading)
+            var data = CalloutHelpers.SelectPed(weather, [.. XmlManager.BankHeistConfig.PoliceOfficerModels]);
+            var officer = new Ped(data.Model, new(p.X, p.Y, p.Z), p.Heading)
             {
                 IsPersistent = true,
                 BlockPermanentEvents = true,
@@ -2113,7 +1954,7 @@ internal class BankHeist : CalloutBase
                 Functions.SetPedAsCop(officer);
                 Functions.SetCopAsBusy(officer, true);
 
-                var weapon = CalloutHelpers.Select([.. XmlManager.BankHeist.SWATWeapons]);
+                var weapon = CalloutHelpers.Select([.. XmlManager.BankHeistConfig.SWATWeapons]);
                 var hash = NativeFunction.Natives.GET_HASH_KEY<Model>(weapon.Model);
                 NativeFunction.Natives.REQUEST_MODEL(hash);
                 NativeFunction.Natives.GIVE_WEAPON_TO_PED(officer, hash, 5000, false, true);
@@ -2129,8 +1970,9 @@ internal class BankHeist : CalloutBase
                 CalloutEntities.Add(officer);
             }
         }
-        var cData = CalloutHelpers.SelectPed(weather, [.. XmlManager.BankHeist.CommanderModels]);
-        Commander = new Ped(cData.Model, CaptainPosition.pos, CaptainPosition.heading)
+        var cP = XmlManager.BankHeistConfig.CommanderPosition;
+        var cData = CalloutHelpers.SelectPed(weather, [.. XmlManager.BankHeistConfig.CommanderModels]);
+        Commander = new Ped(cData.Model, new(cP.X, cP.Y, cP.Z), cP.Heading)
         {
             BlockPermanentEvents = true,
             IsPersistent = true,
@@ -2176,10 +2018,10 @@ internal class BankHeist : CalloutBase
 
     private void SpawnEMS(EWeather weather)
     {
-        foreach (var (pos, heading) in ParamedicPositions)
+        foreach (var p in XmlManager.BankHeistConfig.ParamedicPositions)
         {
-            var data = CalloutHelpers.SelectPed(weather, [.. XmlManager.BankHeist.ParamedicModels]);
-            var paramedic = new Ped(data.Model, pos, heading)
+            var data = CalloutHelpers.SelectPed(weather, [.. XmlManager.BankHeistConfig.ParamedicModels]);
+            var paramedic = new Ped(data.Model, new(p.X, p.Y, p.Z), p.Heading)
             {
                 IsPersistent = true,
                 BlockPermanentEvents = true,
@@ -2217,10 +2059,10 @@ internal class BankHeist : CalloutBase
                 CalloutEntities.Add(paramedic);
             }
         }
-        foreach (var (pos, heading) in FirefighterPositions)
+        foreach (var p in XmlManager.BankHeistConfig.FirefighterPositions)
         {
-            var data = CalloutHelpers.SelectPed(weather, [.. XmlManager.BankHeist.FirefighterModels]);
-            var firefighter = new Ped(data.Model, pos, heading)
+            var data = CalloutHelpers.SelectPed(weather, [.. XmlManager.BankHeistConfig.FirefighterModels]);
+            var firefighter = new Ped(data.Model, new(p.X, p.Y, p.Z), p.Heading)
             {
                 IsPersistent = true,
                 BlockPermanentEvents = true,
@@ -2262,11 +2104,13 @@ internal class BankHeist : CalloutBase
 
     private void SpawnHostages()
     {
-        for (int i = 0; i < 8; i++)
+        var hostageCount = XmlManager.BankHeistConfig.HostageCount > XmlManager.BankHeistConfig.HostagePositions.Count ? XmlManager.BankHeistConfig.HostagePositions.Count : XmlManager.BankHeistConfig.HostageCount;
+        var positions = XmlManager.BankHeistConfig.HostagePositions.Shuffle();
+        for (int i = 0; i < hostageCount; i++)
         {
-            var data = CalloutHelpers.Select([.. XmlManager.BankHeist.HostageModels]);
-            var index = Main.MersenneTwister.Next(HostagePositions.Count);
-            var hostage = new Ped(data.Model, HostagePositions[index], Main.MersenneTwister.Next(0, 360))
+            var data = CalloutHelpers.Select([.. XmlManager.BankHeistConfig.HostageModels]);
+            var pos = new Vector3(positions[i].X, positions[i].Y, positions[i].Z);
+            var hostage = new Ped(data.Model, pos, Main.MersenneTwister.Next(0, 360))
             {
                 IsPersistent = true,
                 BlockPermanentEvents = true,
@@ -2308,7 +2152,6 @@ internal class BankHeist : CalloutBase
                 CalloutEntities.Add(hostage);
                 hostage.Tasks.PlayAnimation(HOSTAGE_ANIMATION_DICTIONARY, HOSTAGE_ANIMATION_KNEELING, 1f, AnimationFlags.Loop);
                 GameFiber.Yield();
-                HostagePositions.RemoveAt(index);
                 AliveHostagesCount++;
                 TotalHostagesCount++;
             }
@@ -2317,10 +2160,11 @@ internal class BankHeist : CalloutBase
 
     private void SpawnAssaultRobbers()
     {
-        for (int i = 0; i < NormalRobbersPositions.Length; i++)
+        var nrP = XmlManager.BankHeistConfig.NormalRobbersPositions;
+        for (int i = 0; i < nrP.Count; i++)
         {
-            var data = CalloutHelpers.Select([.. XmlManager.BankHeist.RobberModels]);
-            var ped = new Ped(data.Model, NormalRobbersPositions[i].pos, NormalRobbersPositions[i].heading)
+            var data = CalloutHelpers.Select([.. XmlManager.BankHeistConfig.RobberModels]);
+            var ped = new Ped(data.Model, new(nrP[i].X, nrP[i].Y, nrP[i].Z), nrP[i].Heading)
             {
                 IsPersistent = true,
                 BlockPermanentEvents = true,
@@ -2358,7 +2202,7 @@ internal class BankHeist : CalloutBase
                 }
                 Functions.SetPedCantBeArrestedByPlayer(ped, true);
 
-                var weapon = CalloutHelpers.Select([.. XmlManager.BankHeist.RobbersWeapons]);
+                var weapon = CalloutHelpers.Select([.. XmlManager.BankHeistConfig.RobbersWeapons]);
                 var hash = NativeFunction.Natives.GET_HASH_KEY<Model>(weapon.Model);
                 NativeFunction.Natives.REQUEST_MODEL(hash);
                 NativeFunction.Natives.GIVE_WEAPON_TO_PED(ped, hash, 5000, false, true);
@@ -2369,7 +2213,7 @@ internal class BankHeist : CalloutBase
                     NativeFunction.Natives.GIVE_WEAPON_COMPONENT_TO_PED(ped, hash, compHash);
                 }
 
-                var trWeapon = CalloutHelpers.Select([.. XmlManager.BankHeist.RobbersThrowableWeapons]);
+                var trWeapon = CalloutHelpers.Select([.. XmlManager.BankHeistConfig.RobbersThrowableWeapons]);
                 var trHash = NativeFunction.Natives.GET_HASH_KEY<Model>(trWeapon.Model);
                 NativeFunction.Natives.REQUEST_MODEL(trHash);
                 NativeFunction.Natives.GIVE_WEAPON_TO_PED(ped, trHash, 5000, false, false);
@@ -2389,10 +2233,11 @@ internal class BankHeist : CalloutBase
 
     private void SpawnVaultRobbers()
     {
-        for (int i = 0; i < RobbersInVaultPositions.Length; i++)
+        for (int i = 0; i < XmlManager.BankHeistConfig.RobbersInVaultPositions.Count; i++)
         {
-            var data = CalloutHelpers.Select([.. XmlManager.BankHeist.RobberModels]);
-            var ped = new Ped(data.Model, RobbersInVaultPositions[i].pos, RobbersInVaultPositions[i].heading)
+            var rvP = XmlManager.BankHeistConfig.RobbersInVaultPositions[i];
+            var data = CalloutHelpers.Select([.. XmlManager.BankHeistConfig.RobberModels]);
+            var ped = new Ped(data.Model, new(rvP.X, rvP.Y, rvP.Z), rvP.Heading)
             {
                 IsPersistent = true,
                 BlockPermanentEvents = true,
@@ -2430,7 +2275,7 @@ internal class BankHeist : CalloutBase
                 }
                 Functions.SetPedCantBeArrestedByPlayer(ped, true);
 
-                var weapon = CalloutHelpers.Select([.. XmlManager.BankHeist.RobbersWeapons]);
+                var weapon = CalloutHelpers.Select([.. XmlManager.BankHeistConfig.RobbersWeapons]);
                 var hash = NativeFunction.Natives.GET_HASH_KEY<Model>(weapon.Model);
                 NativeFunction.Natives.REQUEST_MODEL(hash);
                 NativeFunction.Natives.GIVE_WEAPON_TO_PED(ped, hash, 5000, false, true);
@@ -2441,7 +2286,7 @@ internal class BankHeist : CalloutBase
                     NativeFunction.Natives.GIVE_WEAPON_COMPONENT_TO_PED(ped, hash, compHash);
                 }
 
-                var trWeapon = CalloutHelpers.Select([.. XmlManager.BankHeist.RobbersThrowableWeapons]);
+                var trWeapon = CalloutHelpers.Select([.. XmlManager.BankHeistConfig.RobbersThrowableWeapons]);
                 var trHash = NativeFunction.Natives.GET_HASH_KEY<Model>(trWeapon.Model);
                 NativeFunction.Natives.REQUEST_MODEL(trHash);
                 NativeFunction.Natives.GIVE_WEAPON_TO_PED(ped, trHash, 5000, false, false);
@@ -2462,10 +2307,11 @@ internal class BankHeist : CalloutBase
 
     private void SpawnNegotiationRobbers()
     {
-        for (int i = 0; i < RobbersNegotiationPositions.Length; i++)
+        for (int i = 0; i < XmlManager.BankHeistConfig.RobbersNegotiationPositions.Count; i++)
         {
-            var data = CalloutHelpers.Select([.. XmlManager.BankHeist.RobberModels]);
-            var ped = new Ped(data.Model, RobbersNegotiationPositions[i].pos, RobbersNegotiationPositions[i].heading)
+            var rnP = XmlManager.BankHeistConfig.RobbersNegotiationPositions[i];
+            var data = CalloutHelpers.Select([.. XmlManager.BankHeistConfig.RobberModels]);
+            var ped = new Ped(data.Model, new(rnP.X, rnP.Y, rnP.Z), rnP.Heading)
             {
                 IsPersistent = true,
                 BlockPermanentEvents = true,
@@ -2503,7 +2349,7 @@ internal class BankHeist : CalloutBase
                 }
                 Functions.SetPedCantBeArrestedByPlayer(ped, true);
 
-                var weapon = CalloutHelpers.Select([.. XmlManager.BankHeist.RobbersWeapons]);
+                var weapon = CalloutHelpers.Select([.. XmlManager.BankHeistConfig.RobbersWeapons]);
                 var hash = NativeFunction.Natives.GET_HASH_KEY<Model>(weapon.Model);
                 NativeFunction.Natives.REQUEST_MODEL(hash);
                 NativeFunction.Natives.GIVE_WEAPON_TO_PED(ped, hash, 5000, false, true);
@@ -2523,12 +2369,13 @@ internal class BankHeist : CalloutBase
 
     private void SpawnSneakyRobbers()
     {
-        for (int i = 0; i < RobbersSneakPosition.Length; i++)
+        for (int i = 0; i < XmlManager.BankHeistConfig.RobbersSneakPosition.Count; i++)
         {
+            var rsP = XmlManager.BankHeistConfig.RobbersSneakPosition[i];
             if (Main.MersenneTwister.Next(5) is >= 2)
             {
-                var data = CalloutHelpers.Select([.. XmlManager.BankHeist.RobberModels]);
-                var ped = new Ped(data.Model, RobbersSneakPosition[i].pos, RobbersSneakPosition[i].heading)
+                var data = CalloutHelpers.Select([.. XmlManager.BankHeistConfig.RobberModels]);
+                var ped = new Ped(data.Model, new(rsP.X, rsP.Y, rsP.Z), rsP.Heading)
                 {
                     IsPersistent = true,
                     BlockPermanentEvents = true,
@@ -2566,7 +2413,7 @@ internal class BankHeist : CalloutBase
                     }
                     Functions.SetPedCantBeArrestedByPlayer(ped, true);
 
-                    var weapon = CalloutHelpers.Select([.. XmlManager.BankHeist.RobbersWeapons]);
+                    var weapon = CalloutHelpers.Select([.. XmlManager.BankHeistConfig.RobbersWeapons]);
                     var hash = NativeFunction.Natives.GET_HASH_KEY<Model>(weapon.Model);
                     NativeFunction.Natives.REQUEST_MODEL(hash);
                     NativeFunction.Natives.GIVE_WEAPON_TO_PED(ped, hash, 5000, false, true);
@@ -2578,7 +2425,7 @@ internal class BankHeist : CalloutBase
                     }
 
                     NativeFunction.Natives.SetPedCombatAbility(ped, 3);
-                    ped.Tasks.PlayAnimation(SWAT_ANIMATION_DICTIONARY, RobbersSneakPosition[i].isRight ? SWAT_ANIMATION_RIGHT : SWAT_ANIMATION_LEFT, 1f, AnimationFlags.StayInEndFrame);
+                    ped.Tasks.PlayAnimation(SWAT_ANIMATION_DICTIONARY, rsP.IsRight ? SWAT_ANIMATION_RIGHT : SWAT_ANIMATION_LEFT, 1f, AnimationFlags.StayInEndFrame);
                     AllSneakRobbers.Add(ped);
                     CalloutEntities.Add(ped);
                 }
@@ -2760,13 +2607,16 @@ internal class BankHeist : CalloutBase
                             {
                                 if (!FightingSneakRobbers.Contains(robber))
                                 {
-                                    if (Vector3.Distance(robber.Position, RobbersSneakPosition[AllSneakRobbers.IndexOf(robber)].pos) > 0.7f)
+                                    var rsP = XmlManager.BankHeistConfig.RobbersSneakPosition;
+                                    var index = AllSneakRobbers.IndexOf(robber);
+                                    var pos = new Vector3(rsP[index].X, rsP[index].Y, rsP[index].Z);
+                                    if (Vector3.Distance(robber.Position, pos) > 0.7f)
                                     {
-                                        robber.Tasks.FollowNavigationMeshToPosition(RobbersSneakPosition[AllSneakRobbers.IndexOf(robber)].pos, RobbersSneakPosition[AllSneakRobbers.IndexOf(robber)].heading, 2f).WaitForCompletion(300);
+                                        robber.Tasks.FollowNavigationMeshToPosition(pos, rsP[index].Heading, 2f).WaitForCompletion(300);
                                     }
                                     else
                                     {
-                                        if (RobbersSneakPosition[AllSneakRobbers.IndexOf(robber)].isRight)
+                                        if (rsP[index].IsRight)
                                         {
                                             if (!NativeFunction.Natives.IS_ENTITY_PLAYING_ANIM<bool>(robber, SWAT_ANIMATION_DICTIONARY, SWAT_ANIMATION_RIGHT, 3))
                                             {
@@ -2957,7 +2807,9 @@ internal class BankHeist : CalloutBase
                                                 Main.Player.Tasks.ClearImmediately();
                                                 if (hostage.IsAlive)
                                                 {
-                                                    hostage.Tasks.FollowNavigationMeshToPosition(HostageSafePosition.pos, HostageSafePosition.heading, 1.55f);
+                                                    var data = XmlManager.BankHeistConfig.HostageSafePosition;
+                                                    var pos = new Vector3(data.X, data.Y, data.Z);
+                                                    hostage.Tasks.FollowNavigationMeshToPosition(pos, data.Heading, 1.55f);
                                                     RescuedHostages.Add(hostage);
                                                     SpawnedHostages.Remove(hostage);
                                                 }
@@ -2976,7 +2828,7 @@ internal class BankHeist : CalloutBase
                                         {
                                             subtitleCount++;
                                             closeHostage = hostage;
-                                            if (subtitleCount > 10)
+                                            if (subtitleCount > 5)
                                             {
                                                 KeyHelpers.DisplayKeyHelp("BankHeistReleaseHostage", Settings.HostageRescueKey, Settings.HostageRescueModifierKey);
                                             }
@@ -3011,7 +2863,9 @@ internal class BankHeist : CalloutBase
                             {
                                 SpawnedHostages.Remove(rescued);
                             }
-                            if (Vector3.Distance(rescued.Position, HostageSafePosition.pos) < 3f)
+                            var data = XmlManager.BankHeistConfig.HostageSafePosition;
+                            var pos = new Vector3(data.X, data.Y, data.Z);
+                            if (Vector3.Distance(rescued.Position, pos) < 3f)
                             {
                                 SafeHostages.Add(rescued);
                                 SafeHostagesCount++;
@@ -3020,7 +2874,7 @@ internal class BankHeist : CalloutBase
                             {
                                 RescuedHostages[RescuedHostages.IndexOf(rescued)] = rescued.ClonePed();
                             }
-                            rescued.Tasks.FollowNavigationMeshToPosition(HostageSafePosition.pos, HostageSafePosition.heading, 1.55f).WaitForCompletion(200);
+                            rescued.Tasks.FollowNavigationMeshToPosition(pos, data.Heading, 1.55f).WaitForCompletion(200);
 
                             if (waitCountForceAttack > 150)
                             {
@@ -3151,7 +3005,7 @@ internal class BankHeist : CalloutBase
                                         Main.Player.Armor = 100;
                                         Main.Player.Health = Main.Player.MaxHealth;
 
-                                        var weapon = CalloutHelpers.Select([.. XmlManager.BankHeist.WeaponInRiot]);
+                                        var weapon = CalloutHelpers.Select([.. XmlManager.BankHeistConfig.WeaponInRiot]);
                                         var hash = NativeFunction.Natives.GET_HASH_KEY<Model>(weapon.Model);
                                         NativeFunction.Natives.REQUEST_MODEL(hash);
                                         NativeFunction.Natives.GIVE_WEAPON_TO_PED(Main.Player, hash, 180, false, true);
@@ -3211,8 +3065,9 @@ internal class BankHeist : CalloutBase
     private void GetWife()
     {
         Main.Player.IsPositionFrozen = true;
-        var vData = CalloutHelpers.Select([.. XmlManager.BankHeist.PoliceCruisers]);
-        WifeCar = new(vData.Model, WifePosition.pos, Wife.Heading)
+        var vData = CalloutHelpers.Select([.. XmlManager.BankHeistConfig.PoliceCruisers]);
+        var data = XmlManager.BankHeistConfig.WifePosition;
+        WifeCar = new(vData.Model, new(data.X, data.Y, data.Z), Wife.Heading)
         {
             IsPersistent = true,
             IsSirenOn = true
@@ -3220,8 +3075,8 @@ internal class BankHeist : CalloutBase
         WifeDriver = WifeCar.CreateRandomDriver();
         WifeDriver.IsPersistent = true;
         WifeDriver.BlockPermanentEvents = true;
-        var wData = CalloutHelpers.Select([.. XmlManager.BankHeist.WifeModels]);
-        Wife = new Ped(wData.Model, WifePosition.pos, Wife.Heading)
+        var wData = CalloutHelpers.Select([.. XmlManager.BankHeistConfig.WifeModels]);
+        Wife = new Ped(wData.Model, Vector3.Zero, 0f)
         {
             IsPersistent = true,
             BlockPermanentEvents = true,
@@ -3231,11 +3086,12 @@ internal class BankHeist : CalloutBase
         CalloutEntities.Add(WifeDriver);
         CalloutEntities.Add(WifeCar);
 
-        WifeDriver.Tasks.DriveToPosition(WifeCarDestination, 20f, VehicleDrivingFlags.DriveAroundVehicles | VehicleDrivingFlags.DriveAroundObjects | VehicleDrivingFlags.DriveAroundPeds);
+        var destination = new Vector3(XmlManager.BankHeistConfig.WifeVehicleDestination.X, XmlManager.BankHeistConfig.WifeVehicleDestination.Y, XmlManager.BankHeistConfig.WifeVehicleDestination.Z);
+        WifeDriver.Tasks.DriveToPosition(destination, 20f, VehicleDrivingFlags.DriveAroundVehicles | VehicleDrivingFlags.DriveAroundObjects | VehicleDrivingFlags.DriveAroundPeds);
         while (true)
         {
             GameFiber.Yield();
-            if (Vector3.Distance(WifeCar.Position, WifeCarDestination) < 6f) break;
+            if (Vector3.Distance(WifeCar.Position, destination) < 6f) break;
         }
         Wife.Tasks.LeaveVehicle(LeaveVehicleFlags.None);
         Wife.Tasks.FollowNavigationMeshToPosition(Main.Player.GetOffsetPosition(Vector3.RelativeRight * 1.5f), Main.Player.Heading, 1.9f).WaitForCompletion(60000);
