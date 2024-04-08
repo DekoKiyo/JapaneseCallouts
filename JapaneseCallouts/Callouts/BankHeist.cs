@@ -486,7 +486,7 @@ internal class BankHeist : CalloutBase
     private readonly Model SwatModel = "S_M_Y_SWAT_01";
     private readonly Model ParamedicModel = "S_M_M_PARAMEDIC_01";
     private readonly Model FirefighterModel = "S_M_Y_FIREMAN_01";
-    private readonly Model CaptainModel = "IG_FBISUIT_01";
+    private readonly Model CommanderModel = "IG_FBISUIT_01";
     private readonly Model WifeModel = "IG_FBISUIT_01";
     private readonly Model RobbersModel = "MP_G_M_PROS_01";
     private readonly Model PhoneModel = "PROP_POLICE_PHONE";
@@ -1108,7 +1108,7 @@ internal class BankHeist : CalloutBase
         SwatModel.Load();
         ParamedicModel.Load();
         FirefighterModel.Load();
-        CaptainModel.Load();
+        CommanderModel.Load();
         WifeModel.Load();
         RobbersModel.Load();
         PhoneModel.Load();
@@ -1919,7 +1919,7 @@ internal class BankHeist : CalloutBase
             AllStandingOfficers.Add(officer);
             CalloutEntities.Add(officer);
         }
-        Commander = new Ped(CaptainModel, CaptainPosition.pos, CaptainPosition.heading)
+        Commander = new Ped(CommanderModel, CaptainPosition.pos, CaptainPosition.heading)
         {
             BlockPermanentEvents = true,
             IsPersistent = true,

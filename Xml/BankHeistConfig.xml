@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BankHeistConfig>
+  <PoliceCruisers>
+    <Vehicle chance="50">POLICE</Vehicle>
+    <Vehicle chance="30">POLICE2</Vehicle>
+    <Vehicle chance="80">POLICE3</Vehicle>
+    <Vehicle chance="15">POLICE4</Vehicle>
+    <Vehicle chance="40">POLICE5</Vehicle>
+  </PoliceCruisers>
+  <PoliceTransporters>
+    <Vehicle chance="100">POLICET</Vehicle>
+  </PoliceTransporters>
+  <PoliceRiots>
+    <Vehicle chance="100">RIOT</Vehicle>
+  </PoliceRiots>
+  <Ambulances>
+    <Vehicle chance="100">AMBULANCE</Vehicle>
+  </Ambulances>
+  <Firetrucks>
+    <Vehicle chance="100">FIRETRUK</Vehicle>
+  </Firetrucks>
+  <PoliceOfficerModels>
+    
+  </PoliceOfficerModels>
+  <PoliceSWATModels>
+
+  </PoliceSWATModels>
+  <ParamedicModels>
+
+  </ParamedicModels>
+  <FirefighterModels>
+
+  </FirefighterModels>
+  <CommanderModels>
+
+  </CommanderModels>
+  <WifeModels>
+
+  </WifeModels>
+  <RobberModels>
+
+  </RobberModels>
+  <HostageModels>
+
+  </HostageModels>
+  <OfficerWeapons>
+
+  </OfficerWeapons>
+  <SWATWeapons>
+
+  </SWATWeapons>
+  <RobbersWeapons>
+
+  </RobbersWeapons>
+  <RobbersThrowableWeapons>
+
+  </RobbersThrowableWeapons>
+  <WeaponInRiot>
+
+  </WeaponInRiot>
+</BankHeistConfig>
