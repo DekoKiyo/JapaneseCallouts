@@ -13,3 +13,18 @@ internal enum EComponents : int
     Decal = 10,
     Top = 11,
 }
+
+internal enum EProps : int
+{
+    Hat = 0,
+    Glasses = 1,
+    Ear = 2,
+    Watch = 6,
+}
+
+internal enum EWeather
+{
+    Sunny,
+    Rainy,
+    Snowy,
+}
