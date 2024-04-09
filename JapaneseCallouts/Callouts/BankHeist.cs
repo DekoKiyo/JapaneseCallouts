@@ -1526,14 +1526,21 @@ internal class BankHeist : CalloutBase
             };
             if (vehicle is not null && vehicle.IsValid() && vehicle.Exists())
             {
-                if (NativeFunction.Natives.GET_VEHICLE_LIVERY_COUNT<int>(vehicle) is -1 && data.Livery is -1)
+                var liveryCount = NativeFunction.Natives.GET_VEHICLE_LIVERY_COUNT<int>(vehicle);
+                if (liveryCount is -1)
                 {
-                    NativeFunction.Natives.SET_VEHICLE_CUSTOM_PRIMARY_COLOUR(vehicle, data.ColorR, data.ColorG, data.ColorB);
-                    NativeFunction.Natives.SET_VEHICLE_CUSTOM_SECONDARY_COLOUR(vehicle, data.ColorR, data.ColorG, data.ColorB);
+                    if (data.ColorR is >= 0 and < 256 && data.ColorG is >= 0 and < 256 && data.ColorB is >= 0 and < 256)
+                    {
+                        NativeFunction.Natives.SET_VEHICLE_CUSTOM_PRIMARY_COLOUR(vehicle, data.ColorR, data.ColorG, data.ColorB);
+                        NativeFunction.Natives.SET_VEHICLE_CUSTOM_SECONDARY_COLOUR(vehicle, data.ColorR, data.ColorG, data.ColorB);
+                    }
                 }
                 else
                 {
-                    NativeFunction.Natives.SET_VEHICLE_LIVERY(vehicle, data.Livery);
+                    if (liveryCount <= data.Livery)
+                    {
+                        NativeFunction.Natives.SET_VEHICLE_LIVERY(vehicle, data.Livery);
+                    }
                 }
 
                 AllPoliceVehicles.Add(vehicle);
@@ -1551,14 +1558,21 @@ internal class BankHeist : CalloutBase
             };
             if (vehicle is not null && vehicle.IsValid() && vehicle.Exists())
             {
-                if (NativeFunction.Natives.GET_VEHICLE_LIVERY_COUNT<int>(vehicle) is -1 && data.Livery is -1)
+                var liveryCount = NativeFunction.Natives.GET_VEHICLE_LIVERY_COUNT<int>(vehicle);
+                if (liveryCount is -1)
                 {
-                    NativeFunction.Natives.SET_VEHICLE_CUSTOM_PRIMARY_COLOUR(vehicle, data.ColorR, data.ColorG, data.ColorB);
-                    NativeFunction.Natives.SET_VEHICLE_CUSTOM_SECONDARY_COLOUR(vehicle, data.ColorR, data.ColorG, data.ColorB);
+                    if (data.ColorR is >= 0 and < 256 && data.ColorG is >= 0 and < 256 && data.ColorB is >= 0 and < 256)
+                    {
+                        NativeFunction.Natives.SET_VEHICLE_CUSTOM_PRIMARY_COLOUR(vehicle, data.ColorR, data.ColorG, data.ColorB);
+                        NativeFunction.Natives.SET_VEHICLE_CUSTOM_SECONDARY_COLOUR(vehicle, data.ColorR, data.ColorG, data.ColorB);
+                    }
                 }
                 else
                 {
-                    NativeFunction.Natives.SET_VEHICLE_LIVERY(vehicle, data.Livery);
+                    if (liveryCount <= data.Livery)
+                    {
+                        NativeFunction.Natives.SET_VEHICLE_LIVERY(vehicle, data.Livery);
+                    }
                 }
 
                 AllPoliceVehicles.Add(vehicle);
@@ -1576,14 +1590,21 @@ internal class BankHeist : CalloutBase
             };
             if (vehicle is not null && vehicle.IsValid() && vehicle.Exists())
             {
-                if (NativeFunction.Natives.GET_VEHICLE_LIVERY_COUNT<int>(vehicle) is -1 && data.Livery is -1)
+                var liveryCount = NativeFunction.Natives.GET_VEHICLE_LIVERY_COUNT<int>(vehicle);
+                if (liveryCount is -1)
                 {
-                    NativeFunction.Natives.SET_VEHICLE_CUSTOM_PRIMARY_COLOUR(vehicle, data.ColorR, data.ColorG, data.ColorB);
-                    NativeFunction.Natives.SET_VEHICLE_CUSTOM_SECONDARY_COLOUR(vehicle, data.ColorR, data.ColorG, data.ColorB);
+                    if (data.ColorR is >= 0 and < 256 && data.ColorG is >= 0 and < 256 && data.ColorB is >= 0 and < 256)
+                    {
+                        NativeFunction.Natives.SET_VEHICLE_CUSTOM_PRIMARY_COLOUR(vehicle, data.ColorR, data.ColorG, data.ColorB);
+                        NativeFunction.Natives.SET_VEHICLE_CUSTOM_SECONDARY_COLOUR(vehicle, data.ColorR, data.ColorG, data.ColorB);
+                    }
                 }
                 else
                 {
-                    NativeFunction.Natives.SET_VEHICLE_LIVERY(vehicle, data.Livery);
+                    if (liveryCount <= data.Livery)
+                    {
+                        NativeFunction.Natives.SET_VEHICLE_LIVERY(vehicle, data.Livery);
+                    }
                 }
 
                 AllPoliceVehicles.Add(vehicle);
@@ -1602,14 +1623,21 @@ internal class BankHeist : CalloutBase
             };
             if (vehicle is not null && vehicle.IsValid() && vehicle.Exists())
             {
-                if (NativeFunction.Natives.GET_VEHICLE_LIVERY_COUNT<int>(vehicle) is -1 && data.Livery is -1)
+                var liveryCount = NativeFunction.Natives.GET_VEHICLE_LIVERY_COUNT<int>(vehicle);
+                if (liveryCount is -1)
                 {
-                    NativeFunction.Natives.SET_VEHICLE_CUSTOM_PRIMARY_COLOUR(vehicle, data.ColorR, data.ColorG, data.ColorB);
-                    NativeFunction.Natives.SET_VEHICLE_CUSTOM_SECONDARY_COLOUR(vehicle, data.ColorR, data.ColorG, data.ColorB);
+                    if (data.ColorR is >= 0 and < 256 && data.ColorG is >= 0 and < 256 && data.ColorB is >= 0 and < 256)
+                    {
+                        NativeFunction.Natives.SET_VEHICLE_CUSTOM_PRIMARY_COLOUR(vehicle, data.ColorR, data.ColorG, data.ColorB);
+                        NativeFunction.Natives.SET_VEHICLE_CUSTOM_SECONDARY_COLOUR(vehicle, data.ColorR, data.ColorG, data.ColorB);
+                    }
                 }
                 else
                 {
-                    NativeFunction.Natives.SET_VEHICLE_LIVERY(vehicle, data.Livery);
+                    if (liveryCount <= data.Livery)
+                    {
+                        NativeFunction.Natives.SET_VEHICLE_LIVERY(vehicle, data.Livery);
+                    }
                 }
 
                 AllAmbulance.Add(vehicle);
@@ -1627,14 +1655,21 @@ internal class BankHeist : CalloutBase
             };
             if (vehicle is not null && vehicle.IsValid() && vehicle.Exists())
             {
-                if (NativeFunction.Natives.GET_VEHICLE_LIVERY_COUNT<int>(vehicle) is -1 && data.Livery is -1)
+                var liveryCount = NativeFunction.Natives.GET_VEHICLE_LIVERY_COUNT<int>(vehicle);
+                if (liveryCount is -1)
                 {
-                    NativeFunction.Natives.SET_VEHICLE_CUSTOM_PRIMARY_COLOUR(vehicle, data.ColorR, data.ColorG, data.ColorB);
-                    NativeFunction.Natives.SET_VEHICLE_CUSTOM_SECONDARY_COLOUR(vehicle, data.ColorR, data.ColorG, data.ColorB);
+                    if (data.ColorR is >= 0 and < 256 && data.ColorG is >= 0 and < 256 && data.ColorB is >= 0 and < 256)
+                    {
+                        NativeFunction.Natives.SET_VEHICLE_CUSTOM_PRIMARY_COLOUR(vehicle, data.ColorR, data.ColorG, data.ColorB);
+                        NativeFunction.Natives.SET_VEHICLE_CUSTOM_SECONDARY_COLOUR(vehicle, data.ColorR, data.ColorG, data.ColorB);
+                    }
                 }
                 else
                 {
-                    NativeFunction.Natives.SET_VEHICLE_LIVERY(vehicle, data.Livery);
+                    if (liveryCount <= data.Livery)
+                    {
+                        NativeFunction.Natives.SET_VEHICLE_LIVERY(vehicle, data.Livery);
+                    }
                 }
 
                 AllFiretruck.Add(vehicle);
