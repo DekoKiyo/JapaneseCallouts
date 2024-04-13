@@ -3,17 +3,21 @@ namespace JapaneseCallouts.Xml;
 internal static class XmlManager
 {
     private const string BANK_HEIST_XML = @"BankHeistConfig.xml";
+    private const string DRUNK_GUYS_XML = @"DrunkGuysConfig.xml";
     private const string CALLOUTS_SOUND_XML = @"CalloutsSoundConfig.xml";
 
     internal static BankHeistConfig BankHeistConfig { get; private set; }
+    internal static DrunkGuysConfig DrunkGuysConfig { get; private set; }
     internal static CalloutsSoundConfig CalloutsSoundConfig { get; private set; }
 
     internal static void Initialize()
     {
         var bhSerializer = new XmlSerializer(typeof(BankHeistConfig));
+        var gdSerializer = new XmlSerializer(typeof(DrunkGuysConfig));
         var csSerializer = new XmlSerializer(typeof(CalloutsSoundConfig));
 
         BankHeistConfig = LoadXml<BankHeistConfig>(BANK_HEIST_XML, bhSerializer);
+        DrunkGuysConfig = LoadXml<DrunkGuysConfig>(DRUNK_GUYS_XML, gdSerializer);
         CalloutsSoundConfig = LoadXml<CalloutsSoundConfig>(CALLOUTS_SOUND_XML, csSerializer);
     }
 

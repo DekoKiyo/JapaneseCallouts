@@ -6,56 +6,12 @@ internal class DrunkGuys : CalloutBase
     private Ped citizen;
     private Blip citizenB;
     private readonly List<Ped> peds = [];
-    private bool arrived = false, talked = false;
+    private bool arrived = false;
     private const string CLIP_SET = "MOVE_M@DRUNK@VERYDRUNK";
     private const string ANIM_DICTIONARY = "missarmenian2";
     private const string ANIM_TYPE1 = "corpse_search_exit_ped";
     private const string ANIM_TYPE2 = "drunk_loop";
-    private readonly Dictionary<Vector3, (float citizenHeading, (Vector3 pos, float heading)[] customers)> positions = new()
-    {
-        {
-            new(118.3f, -1313.6f, 29.1f),
-            (-142.6f,
-                [
-                    (new(120.9f, -1310.5f, 29.2f), -2.6f),
-                    (new(125.5f, -1309.6f, 29.1f), 93.9f),
-                    (new(128.6f, -1308.5f, 29.1f), 93.8f),
-                ]
-            )
-        },
-        {
-            new(-559.8f, 273.6f, 83.0f),
-            (176.7f,
-                [
-                    (new(-562.3f, 273.6f, 83.0f), -17.4f),
-                    (new(-565.5f, 272.5f, 83.0f), 16.2f),
-                    (new(-569.3f, 274.2f, 82.9f), 36.8f),
-                ]
-            )
-        },
-        {
-            new(223.0f, 340.1f, 105.6f),
-            (-16.4f,
-                [
-                    (new(208.1f, 349.3f, 105.7f), 115.5f),
-                    (new(217.3f, 346.1f, 105.5f), 97.3f),
-                    (new(223.3f, 344.1f, 105.5f), -56.6f),
-                    (new(227.5f, 345.3f, 106.7f), -98.4f),
-                ]
-            )
-        },
-        {
-            new(-301.9f, 6254.2f, 31.5f),
-            (-141.1f,
-                [
-                    (new(-291.5f, 6257.1f, 31.4f), -155.6f),
-                    (new(-295.8f, 6256.6f, 31.4f), 8.6f),
-                    (new(-302.2f, 6249.8f, 31.4f), 30.8f),
-                    (new(-307.1f, 6244.9f, 31.2f), 89.8f),
-                ]
-            )
-        }
-    };
+    private DrunkGuysPosition calloutData;
 
     private readonly (string, string)[] TalkToCitizen =
     [
@@ -68,8 +24,14 @@ internal class DrunkGuys : CalloutBase
 
     internal override void Setup()
     {
-        var pos = Vector3Helpers.GetNearestPos([.. positions.Keys]);
-        CalloutPosition = pos;
+        var positions = new List<Vector3>();
+        foreach (var p in XmlManager.DrunkGuysConfig.DrunkGuysPositions)
+        {
+            positions.Add(new(p.X, p.Y, p.Z));
+        }
+        var index = Vector3Helpers.GetNearestPosIndex(positions);
+        calloutData = XmlManager.DrunkGuysConfig.DrunkGuysPositions[index];
+        CalloutPosition = positions[index];
         CalloutMessage = Localization.GetString("DrunkGuys");
         NoLastRadio = true;
         ShowCalloutAreaBlipBeforeAccepting(CalloutPosition, 20f);
@@ -94,7 +56,7 @@ internal class DrunkGuys : CalloutBase
 
     internal override void Accepted()
     {
-        citizen = new(CalloutPosition, positions[CalloutPosition].citizenHeading)
+        citizen = new(CalloutPosition, calloutData.Heading)
         {
             IsPersistent = true,
             BlockPermanentEvents = true,
@@ -106,9 +68,9 @@ internal class DrunkGuys : CalloutBase
             citizenB.Color = Color.Green;
             citizenB.IsRouteEnabled = true;
         }
-        foreach (var (pos, heading) in positions[CalloutPosition].customers)
+        foreach (var data in calloutData.DrunkPos)
         {
-            var cus = new Ped(x => x.IsPed, pos, heading)
+            var cus = new Ped(x => x.IsPed, new(data.X, data.Y, data.Z), data.Heading)
             {
                 IsPersistent = true,
                 BlockPermanentEvents = true,
@@ -137,7 +99,7 @@ internal class DrunkGuys : CalloutBase
             arrived = true;
         }
 
-        if (arrived && !talked && Main.Player.DistanceTo(citizen.Position) < 4f && !Main.Player.IsInAnyVehicle(false))
+        if (arrived && Main.Player.DistanceTo(citizen.Position) < 4f && !Main.Player.IsInAnyVehicle(false))
         {
             KeyHelpers.DisplayKeyHelp("PressToTalkWith", [Localization.GetString("Victim")], Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey);
             if (KeyHelpers.IsKeysDown(Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey))
