@@ -11,6 +11,10 @@
     <a href="https://twitter.com/DekoKiyomori"><img alt="X (formerly Twitter) Follow" src="https://img.shields.io/twitter/follow/DekoKiyomori?style=social&logo=X"></a>
 </p>
 
+> [!NOTE]
+> [English Wiki](https://jpc-wiki.vercel.app/en-US)
+> [Japanese Wiki](https://jpc-wiki.vercel.app/ja-JP)
+
 > [!IMPORTANT]
 > **For other mods developers**:<br/>
 > This plugin is developed under the [GNU General Public License](https://github.com/DekoKiyo/JapaneseCallouts?tab=GPL-3.0-1-ov-file).<br/>
