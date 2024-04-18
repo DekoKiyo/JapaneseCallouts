@@ -17,11 +17,11 @@ internal static class Logger
     {
         if (!string.IsNullOrEmpty(tag))
         {
-            Game.Console.Print($"[{Main.PLUGIN_NAME} - {type} - {tag}] {text}");
+            Game.Console.Print($"{Main.PLUGIN_NAME}: [{type} - {tag}] {text}");
         }
         else
         {
-            Game.Console.Print($"[{Main.PLUGIN_NAME} - {type}] {text}");
+            Game.Console.Print($"{Main.PLUGIN_NAME}: [{type}] {text}");
         }
     }
 }
