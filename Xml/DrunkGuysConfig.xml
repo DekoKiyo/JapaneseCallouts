@@ -4,9 +4,9 @@
     <CalloutPosition>
       <CitizenPosition x="118.3" y="-1313.6" z="29.1" heading="-142.6" />
       <DrunkPositions>
-        <Position x="120.9f" y="-1310.5" z="29.2" heading="-2.6" />
-        <Position x="125.5f" y="-1309.6" z="29.1" heading="93.9" />
-        <Position x="128.6f" y="-1308.5" z="29.1" heading="93.8" />
+        <Position x="120.9" y="-1310.5" z="29.2" heading="-2.6" />
+        <Position x="125.5" y="-1309.6" z="29.1" heading="93.9" />
+        <Position x="128.6" y="-1308.5" z="29.1" heading="93.8" />
       </DrunkPositions>
     </CalloutPosition>
     <CalloutPosition>
