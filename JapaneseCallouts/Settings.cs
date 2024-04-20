@@ -26,17 +26,17 @@ internal static class Settings
     [ConsoleCommand("Reload Japanese Callouts' settings.")]
     internal static void ReloadJPCSettings()
     {
-        OfficerName = Ini["General"]["OfficerName"] ??= "Officer";
-        Localization.Language = Ini["General"]["Language"] ??= "en-US";
-        SpeakWithThePersonKey = (Ini["Keys"]["SpeakWithThePersonKey"] ??= "Y").ConvertToKey();
-        SpeakWithThePersonModifierKey = (Ini["Keys"]["SpeakWithThePersonModifierKey"] ??= "None").ConvertToKey();
-        ToggleBankHeistAlarmSoundKey = (Ini["Keys"]["ToggleBankHeistAlarmSoundKey"] ??= "F5").ConvertToKey();
-        ToggleBankHeistAlarmSoundModifierKey = (Ini["Keys"]["ToggleBankHeistAlarmSoundModifierKey"] ??= "None").ConvertToKey();
-        SWATFollowKey = (Ini["Keys"]["SWATFollowKey"] ??= "I").ConvertToKey();
-        SWATFollowModifierKey = (Ini["Keys"]["SWATFollowModifierKey"] ??= "None").ConvertToKey();
-        HostageRescueKey = (Ini["Keys"]["HostageRescueKey"] ??= "D0").ConvertToKey();
-        HostageRescueModifierKey = (Ini["Keys"]["HostageRescueModifierKey"] ??= "None").ConvertToKey();
-        EnterRiotVanKey = (Ini["Keys"]["EnterRiotVanKey"] ??= "Enter").ConvertToKey();
-        EnterRiotVanModifierKey = (Ini["Keys"]["EnterRiotVanModifierKey"] ??= "None").ConvertToKey();
+        OfficerName = Ini["General"][nameof(OfficerName)] ??= "Officer";
+        Localization.Language = Ini["General"][nameof(Localization.Language)] ??= "en-US";
+        SpeakWithThePersonKey = (Ini["Keys"][nameof(SpeakWithThePersonKey)] ??= "Y").ConvertToKey();
+        SpeakWithThePersonModifierKey = (Ini["Keys"][nameof(SpeakWithThePersonModifierKey)] ??= "None").ConvertToKey();
+        ToggleBankHeistAlarmSoundKey = (Ini["Keys"][nameof(ToggleBankHeistAlarmSoundKey)] ??= "F5").ConvertToKey();
+        ToggleBankHeistAlarmSoundModifierKey = (Ini["Keys"][nameof(ToggleBankHeistAlarmSoundModifierKey)] ??= "None").ConvertToKey();
+        SWATFollowKey = (Ini["Keys"][nameof(SWATFollowKey)] ??= "I").ConvertToKey();
+        SWATFollowModifierKey = (Ini["Keys"][nameof(SWATFollowModifierKey)] ??= "None").ConvertToKey();
+        HostageRescueKey = (Ini["Keys"][nameof(HostageRescueKey)] ??= "D0").ConvertToKey();
+        HostageRescueModifierKey = (Ini["Keys"][nameof(HostageRescueModifierKey)] ??= "None").ConvertToKey();
+        EnterRiotVanKey = (Ini["Keys"][nameof(EnterRiotVanKey)] ??= "Enter").ConvertToKey();
+        EnterRiotVanModifierKey = (Ini["Keys"][nameof(EnterRiotVanModifierKey)] ??= "None").ConvertToKey();
     }
 }
