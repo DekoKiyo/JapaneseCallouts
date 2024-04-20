@@ -65,6 +65,7 @@ The **Japanese Callouts** is a plugin for [LSPDFR](https://www.lcpdfr.com/lspdfr
 **DekoKiyo**: Main Developer / Project Leader / Japanese & English Translator<br/>
 **Charlie686**: Advice about the new locale system. Especially callout notifications' translation. Thanks!<br/>
 **Albo1125**: The original idea and source code for Bank Heist callout and its dialog system came from his [Assorted Callouts](https://github.com/Albo1125/Assorted-Callouts).<br/>
+**YobB1n**: The original source code for generating random freemode peds face system came from his [Yobbin Callouts](https://github.com/YobB1n/YobbinCallouts).<br/>
 **kagikn**: One of the developer of [ScriptHookV .NET](https://github.com/scripthookvdotnet/scripthookvdotnet) and wrote the fixed program of help popup, notification, and subtitle's character limits and bugs, when its byte is 2 or higher.<br/>
 
 **Libraries**<br/>

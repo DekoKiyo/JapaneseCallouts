@@ -78,7 +78,7 @@ internal static class CalloutHelpers
         }
         else
         {
-            ped.GenerateRandomFace();
+            ped.GenerateRandomCharacter();
             ped.SetVariation((int)EComponents.Mask, data.MaskModel - 1, data.MaskTexture - 1);
             ped.SetVariation((int)EComponents.UpperSkin, data.UpperSkinModel - 1, data.UpperSkinTexture - 1);
             ped.SetVariation((int)EComponents.Pants, data.PantsModel - 1, data.PantsTexture - 1);
