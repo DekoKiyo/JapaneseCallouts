@@ -2,7 +2,7 @@ namespace JapaneseCallouts;
 
 internal static class PluginUpdater
 {
-    private const string DATA_JSON = @"https://github.com/DekoKiyo/JapaneseCallouts/blob/main/update.json";
+    private const string DATA_JSON = @"https://raw.githubusercontent.com/DekoKiyo/JapaneseCallouts/main/update.json";
     private const string DOWNLOAD_LINK = @"https://github.com/DekoKiyo/JapaneseCallouts/releases/download/{0}/JapaneseCallouts.dll";
 
     private static readonly HttpClient Client = new();
