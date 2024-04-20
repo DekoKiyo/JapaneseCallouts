@@ -108,7 +108,7 @@ internal class Main : Plugin
     internal const string PLUGIN_DIRECTORY = @$"{LSPDFR_DIRECTORY}/{PLUGIN_NAME_NO_SPACE}";
     internal const string PLUGIN_AUDIO_DIRECTORY = @"Audio";
     internal const string PLUGIN_LANGUAGE_DIRECTORY = @"Languages";
-    internal const string SETTINGS_INI_FILE = @"{PLUGIN_NAME_NO_SPACE}.ini";
+    internal const string SETTINGS_INI_FILE = @$"{PLUGIN_NAME_NO_SPACE}.ini";
 
     internal const string REPOSITORY_OWNER = "DekoKiyo";
     internal const string REPOSITORY_NAME = "JapaneseCallouts";
@@ -157,6 +157,8 @@ internal class Main : Plugin
             HudHelpers.DisplayNotification(Localization.GetString("PluginIsDebug", PLUGIN_NAME, $"{VERSION_PREFIX}{PLUGIN_VERSION}"), PLUGIN_NAME, "");
 #endif
             Logger.Info($"{PLUGIN_NAME} {PLUGIN_VERSION_DATA} was successfully initialized.");
+
+            if (PluginUpdater.CheckUpdate()) Logger.Info("UPDATE AVAILABLE!!!!!!!!!!!");
         }
     }
 
