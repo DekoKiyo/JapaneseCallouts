@@ -23,19 +23,27 @@ internal static class XmlManager
 
     private static T LoadXml<T>(string filename, XmlSerializer serializer)
     {
-        var assembly = Assembly.GetExecutingAssembly();
-        var path = @$"{Main.PLUGIN_DIRECTORY}/Xml/{filename}";
-        if (File.Exists(path))
+        try
         {
-            using var stream = new FileStream(path, FileMode.Open);
-            return (T)serializer.Deserialize(stream);
+            var assembly = Assembly.GetExecutingAssembly();
+            var path = @$"{Main.PLUGIN_DIRECTORY}/Xml/{filename}";
+            if (File.Exists(path))
+            {
+                using var stream = new FileStream(path, FileMode.Open);
+                return (T)serializer.Deserialize(stream);
+            }
+            else
+            {
+                Logger.Warn($"The xml file named '{filename}' was not found. Check whether the filename is correct or the file exists in the correct directory.", filename);
+                var stream = assembly.GetManifestResourceStream($"JapaneseCallouts.Resources.{filename}");
+                using var sr = new StreamReader(stream);
+                return (T)serializer.Deserialize(sr);
+            }
         }
-        else
+        catch (Exception e)
         {
-            Logger.Warn($"The xml file named '{filename}' was not found. Check whether the filename is correct or the file exists in the correct directory.", filename);
-            var stream = assembly.GetManifestResourceStream($"JapaneseCallouts.Resources.{filename}");
-            using var sr = new StreamReader(stream);
-            return (T)serializer.Deserialize(sr);
+            Logger.Error(e.ToString());
+            throw new Exception($"The xml file ({filename}) was not loaded.");
         }
     }
 }
