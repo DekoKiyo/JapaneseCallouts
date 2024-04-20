@@ -100,14 +100,18 @@ internal class Main : Plugin
     internal const string VERSION = "0.1.*";
 
     internal const string PLUGIN_NAME = "Japanese Callouts";
+    internal const string PLUGIN_NAME_NO_SPACE = "JapaneseCallouts";
     internal const string DEVELOPER_NAME = "DekoKiyo";
     internal const string VERSION_PREFIX = "Beta.";
 
     internal const string LSPDFR_DIRECTORY = @"plugins/LSPDFR";
-    internal const string PLUGIN_DIRECTORY = @$"{LSPDFR_DIRECTORY}/JapaneseCallouts";
+    internal const string PLUGIN_DIRECTORY = @$"{LSPDFR_DIRECTORY}/{PLUGIN_NAME_NO_SPACE}";
     internal const string PLUGIN_AUDIO_DIRECTORY = @"Audio";
     internal const string PLUGIN_LANGUAGE_DIRECTORY = @"Languages";
-    internal const string SETTINGS_INI_FILE = @"JapaneseCallouts.ini";
+    internal const string SETTINGS_INI_FILE = @"{PLUGIN_NAME_NO_SPACE}.ini";
+
+    internal const string REPOSITORY_OWNER = "DekoKiyo";
+    internal const string REPOSITORY_NAME = "JapaneseCallouts";
 
     internal static readonly string PLUGIN_VERSION = Assembly.GetExecutingAssembly().GetName().Version.ToString();
     internal static readonly string PLUGIN_INFO = $"~b~{PLUGIN_NAME}~s~ {PLUGIN_VERSION_DATA}";
