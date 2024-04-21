@@ -161,16 +161,22 @@ internal class Main : Plugin
                 if (PluginUpdater.CheckUpdate())
                 {
                     Logger.Info($"The latest update found. Latest Version: {PluginUpdater.LatestVersion}");
-                    var answer = Conversations.DisplayQuestionPopup(Localization.GetString("PluginUpdateAvailable"), new() { { Localization.GetString("UpdateYes"), Keys.D1 }, { Localization.GetString("UpdateNo"), Keys.D2 } }, true);
-                    if (answer is 0)
+
+                    if (Settings.EnableAutoUpdate)
                     {
                         PluginUpdater.Update();
-                        HudHelpers.DisplayNotification(Localization.GetString("UpdateAuto"), PLUGIN_NAME, "");
-                        Logger.Info($"{PLUGIN_NAME} was updated to {PluginUpdater.LatestVersion}.");
                     }
                     else
                     {
-                        HudHelpers.DisplayNotification(Localization.GetString("UpdateManual"), PLUGIN_NAME, "");
+                        var answer = Conversations.DisplayQuestionPopup(Localization.GetString("PluginUpdateAvailable"), new() { { Localization.GetString("UpdateYes"), Keys.D1 }, { Localization.GetString("UpdateNo"), Keys.D2 } }, true);
+                        if (answer is 0)
+                        {
+                            PluginUpdater.Update();
+                        }
+                        else
+                        {
+                            HudHelpers.DisplayNotification(Localization.GetString("UpdateManual"), PLUGIN_NAME, "");
+                        }
                     }
                 }
             });
