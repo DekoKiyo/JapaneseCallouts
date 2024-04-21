@@ -137,6 +137,13 @@ internal class Main : Plugin
     {
         if (OnDuty)
         {
+            Logger.Info(@"       __                                          ______      ____            __");
+            Logger.Info(@"      / /___ _____  ____ _____  ___  ________     / ____/___ _/ / /___  __  __/ /______");
+            Logger.Info(@" __  / / __ `/ __ \/ __ `/ __ \/ _ \/ ___/ _ \   / /   / __ `/ / / __ \/ / / / __/ ___/");
+            Logger.Info(@"/ /_/ / /_/ / /_/ / /_/ / / / /  __(__  )  __/  / /___/ /_/ / / / /_/ / /_/ / /_(__  )");
+            Logger.Info(@"\____/\__,_/ .___/\__,_/_/ /_/\___/____/\___/   \____/\__,_/_/_/\____/\__,_/\__/____/");
+            Logger.Info(@"          /_/");
+
             Logger.Info($"Initializing {PLUGIN_NAME}, {PLUGIN_VERSION_DATA}");
             var missing = FileCheck();
             if (missing.Length is not 0)
