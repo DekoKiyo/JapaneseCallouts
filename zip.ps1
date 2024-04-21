@@ -1,8 +1,8 @@
 # リリース用フォルダたち
 $ReleaseFolder = ".\Release"
-$GrandTheftAutoVFolder = ".\Release\GrandTheftAutoV"
-$JapaneseCalloutsFolder = ".\Release\GrandTheftAutoV\plugins\LSPDFR\JapaneseCallouts"
-$AudioFolder = ".\Release\GrandTheftAutoV\LSPDFR\Audio\scanner"
+$GrandTheftAutoVFolder = ".\Release\Zip"
+$JapaneseCalloutsFolder = ".\Release\Zip\GrandTheftAutoV\plugins\LSPDFR\JapaneseCallouts"
+$AudioFolder = ".\Release\Zip\GrandTheftAutoV\LSPDFR\Audio\scanner"
 
 # コピー元のフォルダ&ファイル
 $PluginDllFolder = ".\JapaneseCallouts\bin\Release\net48"
@@ -11,6 +11,7 @@ $CalloutInterfaceAPIDllFile = $PluginDllFolder + "\CalloutInterfaceAPI.dll"
 $PluginDllFile = $PluginDllFolder + "\JapaneseCallouts.dll"
 $PluginIniFile = ".\JapaneseCallouts\JapaneseCallouts.ini"
 $XmlFolder = ".\Xml\"
+$ReadmeFolder = ".\Readme\"
 $ProjectFile = ".\JapaneseCallouts\JapaneseCallouts.csproj"
 $PluginAudioFolder = ".\JapaneseCallouts\Audio"
 $PluginScannerAudioFolder = ".\JapaneseCalloutsAudio"
@@ -106,23 +107,28 @@ Write-Host "[Zip] Create the folder" -ForegroundColor DarkGray
 New-Item $JapaneseCalloutsFolder -ItemType Directory
 # 圧縮フォルダへのデータコピー
 Write-Host "[Zip] Copy the files to archive folder" -ForegroundColor DarkBlue
-Copy-Item $NAudioCoreDllFile .\Release\GrandTheftAutoV\
-Copy-Item $CalloutInterfaceAPIDllFile .\Release\GrandTheftAutoV\
-Copy-Item $PluginDllFile .\Release\GrandTheftAutoV\plugins\LSPDFR
-Copy-Item $PluginIniFile .\Release\GrandTheftAutoV\plugins\LSPDFR
-Copy-Item $XmlFolder .\Release\GrandTheftAutoV\plugins\LSPDFR\JapaneseCallouts\ -Recurse
-Copy-Item $PluginAudioFolder .\Release\GrandTheftAutoV\plugins\LSPDFR\JapaneseCallouts\ -Recurse
+Copy-Item $NAudioCoreDllFile .\Release\Zip\GrandTheftAutoV\
+Copy-Item $CalloutInterfaceAPIDllFile .\Release\Zip\GrandTheftAutoV\
+Copy-Item $PluginDllFile .\Release\Zip\GrandTheftAutoV\plugins\LSPDFR
+Copy-Item $PluginIniFile .\Release\Zip\GrandTheftAutoV\plugins\LSPDFR
+Copy-Item $XmlFolder .\Release\Zip\GrandTheftAutoV\plugins\LSPDFR\JapaneseCallouts\ -Recurse
+Copy-Item $ReadmeFolder .\Release\Zip\ -Recurse
+Copy-Item $PluginAudioFolder .\Release\Zip\GrandTheftAutoV\plugins\LSPDFR\JapaneseCallouts\ -Recurse
 
 # 音声ファイル(LSPDFRフォルダ側)をコピー
 New-Item $AudioFolder -ItemType Directory
-Copy-Item $PluginScannerAudioFolder .\Release\GrandTheftAutoV\LSPDFR\Audio\scanner\ -Recurse
+Copy-Item $PluginScannerAudioFolder .\Release\Zip\GrandTheftAutoV\LSPDFR\Audio\scanner\ -Recurse
+
 
 # 圧縮ファイル
-$ZipOutput = "./Release/Japanese Callouts - $($PluginVersion).zip"
+$ZipFileName = "Japanese Callouts - $($PluginVersion)"
+$ZipOutput = "./Release/$($ZipFileName).zip"
+
+Move-Item $GrandTheftAutoVFolder ".\Release\$($ZipFileName)"
 
 # 7-zipで圧縮
 Write-Host "[Zip] Archiving now..." -ForegroundColor DarkMagenta
-7z.exe a $ZipOutput $GrandTheftAutoVFolder
+7z.exe a $ZipOutput ".\Release\$($ZipFileName)"
 Write-Host "[Zip] Done!"
 
 Write-Host "Plugin Version is $($PluginVersion)" -ForegroundColor Magenta
