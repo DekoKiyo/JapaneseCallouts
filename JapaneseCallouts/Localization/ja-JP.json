@@ -129,16 +129,16 @@
     "RoadRageFinal5": "もちろんです。良い一日を!"
   },
   "Callouts": {
-    "BankHeist": "Bank Heist",
-    "DrunkGuys": "Drunk Guys",
-    "RoadRage": "Road Rage",
-    "StolenVehicle": "Stolen Vehicle",
-    "StoreRobbery": "Store Robbery",
-    "BankHeistDesc": "The robber has taken hostages and barricaded themselves inside the bank.",
-    "DrunkGuysDesc": "A citizen reports that some drunk persons are sleeping in public spaces.",
-    "RoadRageDesc": "A citizen reports being harassed by another vehicle while driving.",
-    "StolenVehicleDesc": "The suspect stolen the vehicle. Search and pursuit it!",
-    "StoreRobberyDesc": "The robbers are robbing the store."
+    "BankHeist": "銀行強盗",
+    "DrunkGuys": "酔っ払い集団",
+    "RoadRage": "煽り運転",
+    "StolenVehicle": "盗難車両",
+    "StoreRobbery": "コンビニ強盗",
+    "BankHeistDesc": "強盗団が人質を取って銀行に立てこもりました。",
+    "DrunkGuysDesc": "複数人が公共の場で酔いつぶれていると、市民から通報がありました。",
+    "RoadRageDesc": "運転中に他の車から危険な運転を繰り返されていると、市民から通報がありました。",
+    "StolenVehicleDesc": "車両盗難が発生しました。容疑者は逃走中です。捜索して確保してください!",
+    "StoreRobberyDesc": "コンビニに強盗が押し入ったと通報がありました。"
   },
   "CalloutsText": {
     "AlarmSwitchKey": "{0}を押していつでも~r~アラーム~s~を切り替えることができます。",
@@ -202,12 +202,12 @@
     "SomethingWrong": "~r~どこかでエラーが発生~s~したようです。原因を調査するために、~o~RagePluginHook.log~s~を~p~Discordサーバー~s~で~b~開発者~s~に送信してください。",
     "CalloutNotificationText": "内容: ~b~{0}~s~~n~場所: ~y~{1}~s~",
     "CalloutNotificationSubtitle": "110番通報",
-    "PluginIsDebug": "~y~WARNING~s~: This is the ~r~debug version~s~ of {0}.~n~Version: {1}",
-    "PluginUpdated": "~b~{0}~s~ was ~o~updated automatically~s~ in the last play. Thank you for playing! ~g~Enjoy!~s~",
-    "PluginUpdateAvailable": "There are the latest release of {0}. Do you want to update?",
-    "UpdateYes": "Yes (Reload LSPDFR Require)",
-    "UpdateNo": "No (You have to update manually)",
-    "UpdateManual": "The ~g~latest~s~ version of ~b~{0}~s~ is available! ~y~Please update yourself.~s~ You can download them from ~b~GitHub~s~ or ~b~lcpdfr.com~s~.",
-    "UpdateAuto": "The ~g~latest~s~ version of ~b~{0}~s~ was ~g~successfully updated~s~! ~y~Please reload LSPDFR now to apply the new version.~s~"
+    "PluginIsDebug": "~y~警告~s~: これは{0}の~r~デバッグ版~s~です。~n~バージョン: {1}",
+    "PluginUpdated": "~b~{0}~s~が最後のプレイ時に~o~自動アップデート~s~されました。 遊んでいただきありがとうございます! ~g~楽しんでください!~s~",
+    "PluginUpdateAvailable": "{0}の最新アップデートがあります。アップデートしますか?",
+    "UpdateYes": "はい (LSPDFRのリロードが必要です)",
+    "UpdateNo": "いいえ (手動で更新する必要があります)",
+    "UpdateManual": "~g~最新~s~のバージョンの~b~{0}~s~が利用可能です! ~y~手動で更新してください。~s~~b~GitHub~s~または~b~lcpdfr.com~s~からダウンロードできます。",
+    "UpdateAuto": "~g~最新~s~のバージョンの~b~{0}~s~が~g~正常に更新されました~s~! ~y~変更を適用するために今すぐLSPDFRをリロードしてください。~s~"
   }
 }
