@@ -20,7 +20,7 @@ internal class BankHeist : CalloutBase
         Fight,
     }
 
-    private const string ALARM_SOUND_FILE_NAME = "BankHeistAlarm.wav";
+    internal const string ALARM_SOUND_FILE_NAME = "BankHeistAlarm.wav";
 
     internal SoundPlayer BankAlarm;
     private const ulong _DOOR_CONTROL = 0x9b12f9a24fabedb0;
@@ -378,11 +378,7 @@ internal class BankHeist : CalloutBase
         CalloutMessage = Localization.GetString("BankHeist");
         ShowCalloutAreaBlipBeforeAccepting(CalloutPosition, 30f);
         Functions.PlayScannerAudioUsingPosition(XmlManager.CalloutsSoundConfig.BankHeist, CalloutPosition);
-
-        if (Main.IsCalloutInterfaceAPIExist)
-        {
-            CalloutInterfaceAPIFunctions.SendMessage(this, Localization.GetString("BankHeist"));
-        }
+        CalloutInterfaceAPIFunctions.SendMessage(this, Localization.GetString("BankHeist"));
 
         OnCalloutsEnded += () =>
         {

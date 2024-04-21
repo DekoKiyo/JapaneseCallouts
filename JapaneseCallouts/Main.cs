@@ -107,18 +107,13 @@ internal class Main : Plugin
     internal const string LSPDFR_DIRECTORY = @"plugins/LSPDFR";
     internal const string PLUGIN_DIRECTORY = @$"{LSPDFR_DIRECTORY}/{PLUGIN_NAME_NO_SPACE}";
     internal const string PLUGIN_AUDIO_DIRECTORY = @"Audio";
-    internal const string PLUGIN_LANGUAGE_DIRECTORY = @"Languages";
     internal const string SETTINGS_INI_FILE = @$"{PLUGIN_NAME_NO_SPACE}.ini";
+    internal const string NAUDIO_CORE_DLL = @"NAudio.Core.dll";
+    internal const string CALLOUT_INTERFACE_API_DLL = @"CalloutInterfaceAPI.dll";
 
     internal static readonly string PLUGIN_VERSION = Assembly.GetExecutingAssembly().GetName().Version.ToString();
     internal static readonly string PLUGIN_INFO = $"~b~{PLUGIN_NAME}~s~ {PLUGIN_VERSION_DATA}";
     internal static readonly string PLUGIN_VERSION_DATA = $"Version.{VERSION_PREFIX}{PLUGIN_VERSION}";
-
-    internal const string CALLOUT_INTERFACE_API_DLL = "CalloutInterfaceAPI.dll";
-
-    internal const string ERROR_CALLOUT_INTERFACE_API = "CalloutInterfaceAPI.dll was not found. Some functions automatically disabled.";
-
-    internal static bool IsCalloutInterfaceAPIExist { get; } = Plugins.IsCalloutInterfaceAPIExist();
 
     internal static MersenneTwister MersenneTwister = new((int)DateTime.Now.Ticks);
 
@@ -143,7 +138,16 @@ internal class Main : Plugin
         if (OnDuty)
         {
             Logger.Info($"Initializing {PLUGIN_NAME}, {PLUGIN_VERSION_DATA}");
-            CheckLibrary();
+            var missing = FileCheck();
+            if (missing.Length is not 0)
+            {
+                Logger.Warn($"Some files are missing to load {PLUGIN_NAME}.");
+                Logger.Warn("================== Missing Files List ==================");
+                foreach (var file in missing) Logger.Warn(file);
+                Logger.Warn("================== Missing Files List ==================");
+                Logger.Warn("Plugin won't be loaded.");
+                throw new FileNotFoundException($"Some files that are necessary to load {PLUGIN_NAME} were not found.");
+            }
             Settings.Initialize();
             XmlManager.Initialize();
             Localization.Initialize();
@@ -183,12 +187,20 @@ internal class Main : Plugin
         }
     }
 
-    private static void CheckLibrary()
+    private static string[] FileCheck()
     {
-        if (!IsCalloutInterfaceAPIExist)
-        {
-            Logger.Info(ERROR_CALLOUT_INTERFACE_API);
-        }
+        var missing = new List<string>();
+        if (!File.Exists(NAUDIO_CORE_DLL)) missing.Add(NAUDIO_CORE_DLL);
+        if (!File.Exists(CALLOUT_INTERFACE_API_DLL)) missing.Add(CALLOUT_INTERFACE_API_DLL);
+        if (!File.Exists($"{LSPDFR_DIRECTORY}/{SETTINGS_INI_FILE}")) missing.Add($"{LSPDFR_DIRECTORY}/{SETTINGS_INI_FILE}");
+        if (!File.Exists($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.BANK_HEIST_XML}")) missing.Add($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.BANK_HEIST_XML}");
+        if (!File.Exists($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.DRUNK_GUYS_XML}")) missing.Add($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.DRUNK_GUYS_XML}");
+        if (!File.Exists($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.CALLOUTS_SOUND_XML}")) missing.Add($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.CALLOUTS_SOUND_XML}");
+        if (!File.Exists($"{PLUGIN_DIRECTORY}/{PLUGIN_AUDIO_DIRECTORY}/{BankHeist.ALARM_SOUND_FILE_NAME}")) missing.Add($"{PLUGIN_DIRECTORY}/{PLUGIN_AUDIO_DIRECTORY}/{BankHeist.ALARM_SOUND_FILE_NAME}");
+        if (!File.Exists($"{PLUGIN_DIRECTORY}/{PLUGIN_AUDIO_DIRECTORY}/{Conversations.PHONE_CALLING_SOUND}")) missing.Add($"{PLUGIN_DIRECTORY}/{PLUGIN_AUDIO_DIRECTORY}/{Conversations.PHONE_CALLING_SOUND}");
+        if (!File.Exists($"{PLUGIN_DIRECTORY}/{PLUGIN_AUDIO_DIRECTORY}/{Conversations.PHONE_BUSY_SOUND}")) missing.Add($"{PLUGIN_DIRECTORY}/{PLUGIN_AUDIO_DIRECTORY}/{Conversations.PHONE_BUSY_SOUND}");
+
+        return [.. missing];
     }
 }
 

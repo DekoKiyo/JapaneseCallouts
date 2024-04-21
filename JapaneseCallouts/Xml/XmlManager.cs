@@ -2,9 +2,9 @@ namespace JapaneseCallouts.Xml;
 
 internal static class XmlManager
 {
-    private const string BANK_HEIST_XML = @"BankHeistConfig.xml";
-    private const string DRUNK_GUYS_XML = @"DrunkGuysConfig.xml";
-    private const string CALLOUTS_SOUND_XML = @"CalloutsSoundConfig.xml";
+    internal const string BANK_HEIST_XML = @"BankHeistConfig.xml";
+    internal const string DRUNK_GUYS_XML = @"DrunkGuysConfig.xml";
+    internal const string CALLOUTS_SOUND_XML = @"CalloutsSoundConfig.xml";
 
     internal static BankHeistConfig BankHeistConfig { get; private set; }
     internal static DrunkGuysConfig DrunkGuysConfig { get; private set; }
