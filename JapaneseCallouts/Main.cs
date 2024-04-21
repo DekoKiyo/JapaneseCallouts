@@ -97,7 +97,7 @@ namespace JapaneseCallouts;
 internal class Main : Plugin
 {
     // Change here if you want to change the version.
-    internal const string VERSION = "1.0.0.0";
+    internal const string VERSION = "0.1.0";
 
     internal const string PLUGIN_NAME = "Japanese Callouts";
     internal const string PLUGIN_NAME_NO_SPACE = "JapaneseCallouts";
