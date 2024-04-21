@@ -203,6 +203,11 @@
     "CalloutNotificationText": "内容: ~b~{0}~s~~n~場所: ~y~{1}~s~",
     "CalloutNotificationSubtitle": "110番通報",
     "PluginIsDebug": "~y~WARNING~s~: This is the ~r~debug version~s~ of {0}.~n~Version: {1}",
-    "PluginUpdated": "~b~{0}~s~ was ~o~updated automatically~s~ in the last play. Thank you for playing! ~g~Enjoy!~s~"
+    "PluginUpdated": "~b~{0}~s~ was ~o~updated automatically~s~ in the last play. Thank you for playing! ~g~Enjoy!~s~",
+    "PluginUpdateAvailable": "There are the latest release of {0}. Do you want to update?",
+    "UpdateYes": "Yes (Reload LSPDFR Require)",
+    "UpdateNo": "No (You have to update manually)",
+    "UpdateManual": "The ~g~latest~s~ version of ~b~{0}~s~ is available! ~y~Please update yourself.~s~ You can download them from ~b~GitHub~s~ or ~b~lcpdfr.com~s~.",
+    "UpdateAuto": "The ~g~latest~s~ version of ~b~{0}~s~ was ~g~successfully updated~s~! ~y~Please reload LSPDFR now to apply the new version.~s~"
   }
 }
