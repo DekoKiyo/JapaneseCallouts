@@ -166,7 +166,7 @@
     "Robber": "強盗",
     "SelectAnswerText": "表示されたキーを押して回答を選択してください。",
     "SpawnAmbulance": "スポーン時に{0}を押して、救急車にスポーンします。",
-    "StolenVehicleData": "盗難車両の情報~n~~b~ナンバー~s~: {0}~n~~b~車体色~s~: {1}~n~~b~車種~s~: {2}",
+    "StolenVehicleData": "Stolen Vehicle Data~n~~b~License Plate~s~: {0}~n~~b~Type~s~: {1}",
     "StolenVehicleDataUpdate": "~b~対象車両のGPS情報が更新されました。~s~",
     "SurrenderHelp": "~b~他の警官~s~が~b~逮捕~s~を行い、~b~移送~s~します。~n~~b~その場~s~で強盗犯が~b~暴れないように警戒~s~してください。",
     "SWATFollowing": "{0}を押して特殊部隊を追従させます。",
@@ -177,19 +177,6 @@
     "TalkToGetInfo": "~y~{0}~s~と話して情報を入手してください。",
     "TargetIsIn": "対象者は~b~{0}~s~周辺に居ます。",
     "Victim": "被害者"
-  },
-  "ColorName": {
-    "Black": "黒色",
-    "Blue": "青色",
-    "Brown": "茶色",
-    "Gray": "灰色",
-    "Green": "緑色",
-    "LiteBlue": "水色",
-    "Orange": "橙色",
-    "Purple": "紫色",
-    "Red": "赤色",
-    "White": "白色",
-    "Yellow": "黄色"
   },
   "General": {
     "CalloutCode4": "~g~Code4~s~です。~r~パトロールに戻ってください~s~。",
