@@ -1121,7 +1121,7 @@ internal class BankHeist : CalloutBase
     private void DetermineInitialDialogue()
     {
         Conversations.Talk(IntroConversation);
-        var intro = Conversations.DisplayAnswers(IntroSelection);
+        var intro = Conversations.DisplayAnswersForCallout(IntroSelection);
         // Try to discuss
         if (intro is 0)
         {
@@ -1149,7 +1149,7 @@ internal class BankHeist : CalloutBase
 
     private void SwitchAlarmQuestion()
     {
-        int alarm = Conversations.DisplayAnswers(AlarmSelection);
+        int alarm = Conversations.DisplayAnswersForCallout(AlarmSelection);
         if (alarm is 0)
         {
             Conversations.Talk(AlarmOffConversation);
@@ -1172,19 +1172,19 @@ internal class BankHeist : CalloutBase
         GameFiber.Wait(5800);
         NegotiationResult = Negotiation.Fight;
         Conversations.Talk(NegotiationIntroConversation);
-        var intro = Conversations.DisplayAnswers(NegotiationIntroSelection);
+        var intro = Conversations.DisplayAnswersForCallout(NegotiationIntroSelection);
         switch (intro)
         {
             default:
             case 0:
                 Conversations.Talk(Negotiation1Conversation);
-                var ng1 = Conversations.DisplayAnswers(Negotiation1Selection);
+                var ng1 = Conversations.DisplayAnswersForCallout(Negotiation1Selection);
                 switch (ng1)
                 {
                     default:
                     case 0:
                         Conversations.Talk(Negotiation11Conversation);
-                        var ng11 = Conversations.DisplayAnswers(Negotiation11Selection);
+                        var ng11 = Conversations.DisplayAnswersForCallout(Negotiation11Selection);
                         switch (ng11)
                         {
                             default:
@@ -1207,7 +1207,7 @@ internal class BankHeist : CalloutBase
                         break;
                     case 2:
                         Conversations.Talk(Negotiation13Conversation);
-                        var ng13 = Conversations.DisplayAnswers(Negotiation13Selection);
+                        var ng13 = Conversations.DisplayAnswersForCallout(Negotiation13Selection);
                         switch (ng13)
                         {
                             default:
@@ -1241,7 +1241,7 @@ internal class BankHeist : CalloutBase
                 break;
             case 2:
                 Conversations.Talk(Negotiation3Conversation);
-                var ng3 = Conversations.DisplayAnswers(Negotiation3Selection);
+                var ng3 = Conversations.DisplayAnswersForCallout(Negotiation3Selection);
                 switch (ng3)
                 {
                     default:
@@ -1251,7 +1251,7 @@ internal class BankHeist : CalloutBase
                         break;
                     case 1:
                         Conversations.Talk(Negotiation32Conversation);
-                        var ng32 = Conversations.DisplayAnswers(Negotiation32Selection);
+                        var ng32 = Conversations.DisplayAnswersForCallout(Negotiation32Selection);
                         switch (ng32)
                         {
                             default:
@@ -1318,7 +1318,7 @@ internal class BankHeist : CalloutBase
     private void Request()
     {
         Conversations.Talk(RequestConversation);
-        int intro = Conversations.DisplayAnswers(RequestSelection);
+        int intro = Conversations.DisplayAnswersForCallout(RequestSelection);
         switch (intro)
         {
             default:
@@ -1328,7 +1328,7 @@ internal class BankHeist : CalloutBase
                 break;
             case 1:
                 Conversations.Talk(Request2Conversation);
-                int req2 = Conversations.DisplayAnswers(Request2Selection);
+                int req2 = Conversations.DisplayAnswersForCallout(Request2Selection);
                 switch (req2)
                 {
                     default:

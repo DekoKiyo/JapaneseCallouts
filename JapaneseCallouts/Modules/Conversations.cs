@@ -91,10 +91,10 @@ internal static class Conversations
         });
     }
 
-    internal static bool DisplayTime = false;
+    private static bool DisplayTime = false;
     internal static List<string> Answers = [];
     internal static List<Keys> AnswerKeys = [];
-    internal static int DisplayAnswers(Dictionary<string, Keys> dic)
+    internal static int DisplayAnswersForCallout(Dictionary<string, Keys> dic)
     {
         DisplayTime = true;
 
@@ -107,7 +107,7 @@ internal static class Conversations
         {
             var border = new ResRectangle(new(Game.Resolution.Width / 5 - 5, Game.Resolution.Height / 7 - 5), new(700, 180), Color.FromArgb(90, Color.Black));
             var rect = new ResRectangle(new(Game.Resolution.Width / 5, Game.Resolution.Height / 7), new(700, 180), Color.Black);
-            var text = new ResText(Localization.GetString("SelectAnswerText"), new(border.Position.X + 100, border.Position.Y + 15), 0.4f, Color.White, Common.EFont.ChaletLondon, ResText.Alignment.Left);
+            var text = new ResText(Localization.GetString("SelectAnswerText"), new(border.Position.X + 250, border.Position.Y + 15), 0.4f, Color.White, Common.EFont.ChaletLondon, ResText.Alignment.Left);
             var answers = new List<ResText>();
 
             int YIncreaser = 45;
@@ -158,6 +158,59 @@ internal static class Conversations
         }
         NativeFunction.Natives.SET_PED_CAN_SWITCH_WEAPON(Main.Player, true);
         DisplayTime = false;
+        return answerIndex;
+    }
+
+    internal static int DisplayQuestionPopup(string title, Dictionary<string, Keys> dic, bool pauseGame)
+    {
+        DisplayTime = true;
+
+        Answers = [.. dic.Keys];
+        AnswerKeys = [.. dic.Values];
+
+        int answerIndex = -1;
+
+        GameFiber.StartNew(() =>
+        {
+            var border = new ResRectangle(new(Game.Resolution.Width / 5 - 5, Game.Resolution.Height / 7 - 5), new(700, 180), Color.FromArgb(90, Color.Black));
+            var rect = new ResRectangle(new(Game.Resolution.Width / 5, Game.Resolution.Height / 7), new(700, 180), Color.Black);
+            var text = new ResText(title, new(border.Position.X + 20, border.Position.Y + 10), 0.4f, Color.White, Common.EFont.ChaletLondon, ResText.Alignment.Left);
+            var answers = new List<ResText>();
+
+            int YIncreaser = 40;
+            for (int i = 0; i < Answers.Count; i++)
+            {
+                answers.Add(new($"[{AnswerKeys[i]}] {Answers[i]}", new(rect.Position.X + 10, rect.Position.Y + YIncreaser), 0.3f, Color.White, Common.EFont.ChaletLondon, ResText.Alignment.Left));
+                YIncreaser += 25;
+            }
+            while (DisplayTime)
+            {
+                GameFiber.Yield();
+                if (pauseGame && !Game.IsPaused) Game.IsPaused = true;
+
+                border.Draw();
+                rect.Draw();
+                text.Draw();
+                foreach (var answer in answers)
+                {
+                    answer.Draw();
+                }
+
+                for (int i = 0; i < AnswerKeys.Count; i++)
+                {
+                    if (KeyHelpers.IsKeysDown(AnswerKeys[i]))
+                    {
+                        if (dic.Count >= i + 1)
+                        {
+                            answerIndex = i;
+                        }
+                    }
+                }
+            }
+        });
+        GameFiber.WaitUntil(() => answerIndex is not -1);
+        DisplayTime = false;
+        if (pauseGame) Game.IsPaused = false;
         return answerIndex;
     }
 }
