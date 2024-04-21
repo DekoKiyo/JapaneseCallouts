@@ -18,21 +18,35 @@ internal static class PluginUpdater
             HudHelpers.DisplayNotification(Localization.GetString("PluginUpdated", Main.PLUGIN_NAME), Main.PLUGIN_NAME, Main.PLUGIN_VERSION_DATA);
         }
 
-        var data = Client.GetStringAsync(DATA_JSON).Result;
-        var dic = JsonConvert.DeserializeObject<Dictionary<string, string>>(data);
-        LatestVersion = dic["latest"];
+        try
+        {
+            var data = Client.GetStringAsync(DATA_JSON).Result;
+            var dic = JsonConvert.DeserializeObject<Dictionary<string, string>>(data);
+            LatestVersion = dic["latest"];
+        }
+        catch (Exception e)
+        {
+            Logger.Error(e.ToString());
+        }
 
         return Version.Parse(LatestVersion) > Version.Parse(Main.PLUGIN_VERSION);
     }
 
     internal static async void Update()
     {
-        var data = await Client.GetByteArrayAsync(string.Format(DOWNLOAD_LINK, LatestVersion));
+        try
+        {
+            var data = await Client.GetByteArrayAsync(string.Format(DOWNLOAD_LINK, LatestVersion));
 
-        if (File.Exists(OLD_PATH)) File.Delete(OLD_PATH);
-        if (File.Exists(DLL_PATH)) File.Move(DLL_PATH, OLD_PATH);
+            if (File.Exists(OLD_PATH)) File.Delete(OLD_PATH);
+            if (File.Exists(DLL_PATH)) File.Move(DLL_PATH, OLD_PATH);
 
-        File.WriteAllBytes(DLL_PATH, data);
+            File.WriteAllBytes(DLL_PATH, data);
+        }
+        catch (Exception e)
+        {
+            Logger.Error(e.ToString());
+        }
 
         HudHelpers.DisplayNotification(Localization.GetString("UpdateAuto"), Main.PLUGIN_NAME, "");
         Logger.Info($"{Main.PLUGIN_NAME} was updated to {LatestVersion}.");
