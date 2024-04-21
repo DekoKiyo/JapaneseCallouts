@@ -6,7 +6,7 @@ internal static class Settings
     private static IniData Ini { get; } = Parser.ReadFile($"{Main.LSPDFR_DIRECTORY}/{Main.SETTINGS_INI_FILE}");
 
     internal static string OfficerName { get; private set; } = "Officer";
-    internal static bool EnableAutoUpdate { get; private set; } = true;
+    internal static bool EnableAutoUpdate { get; private set; } = false;
 
     internal static Keys SpeakWithThePersonKey { get; private set; } = Keys.Y;
     internal static Keys SpeakWithThePersonModifierKey { get; private set; } = Keys.None;
@@ -29,7 +29,7 @@ internal static class Settings
     {
         OfficerName = Ini["General"][nameof(OfficerName)] ??= "Officer";
         Localization.Language = Ini["General"][nameof(Localization.Language)] ??= "en-US";
-        EnableAutoUpdate = bool.Parse(Ini["General"][nameof(EnableAutoUpdate)] ??= "true");
+        EnableAutoUpdate = bool.Parse(Ini["General"][nameof(EnableAutoUpdate)] ??= "false");
         SpeakWithThePersonKey = (Ini["Keys"][nameof(SpeakWithThePersonKey)] ??= "Y").ConvertToKey();
         SpeakWithThePersonModifierKey = (Ini["Keys"][nameof(SpeakWithThePersonModifierKey)] ??= "None").ConvertToKey();
         ToggleBankHeistAlarmSoundKey = (Ini["Keys"][nameof(ToggleBankHeistAlarmSoundKey)] ??= "F5").ConvertToKey();
