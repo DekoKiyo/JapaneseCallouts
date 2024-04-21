@@ -202,6 +202,7 @@
     "SomethingWrong": "It seems like ~r~an error occurred somewhere~s~. Please give ~o~RagePluginHook.log~s~ to ~b~the developer~s~ on ~p~our Discord server~s~ to investigate the cause.",
     "CalloutNotificationText": "Call: ~b~{0}~s~~n~Location: ~y~{1}~s~",
     "CalloutNotificationSubtitle": "EMERGENCY CALL",
-    "PluginIsDebug": "~y~WARNING~s~: This is the ~r~debug version~s~ of {0}.~n~Version: {1}"
+    "PluginIsDebug": "~y~WARNING~s~: This is the ~r~debug version~s~ of {0}.~n~Version: {1}",
+    "PluginUpdated": "~b~{0}~s~ was ~o~updated automatically~s~ in the last play. Thank you for playing! ~g~Enjoy!~s~"
   }
 }
