@@ -6,6 +6,7 @@ internal static class Settings
     private static IniData Ini { get; } = Parser.ReadFile($"{Main.LSPDFR_DIRECTORY}/{Main.SETTINGS_INI_FILE}");
 
     internal static string OfficerName { get; private set; } = "Officer";
+    internal static bool EnableAutoUpdate { get; private set; } = true;
 
     internal static Keys SpeakWithThePersonKey { get; private set; } = Keys.Y;
     internal static Keys SpeakWithThePersonModifierKey { get; private set; } = Keys.None;
@@ -28,6 +29,7 @@ internal static class Settings
     {
         OfficerName = Ini["General"][nameof(OfficerName)] ??= "Officer";
         Localization.Language = Ini["General"][nameof(Localization.Language)] ??= "en-US";
+        EnableAutoUpdate = bool.Parse(Ini["General"][nameof(EnableAutoUpdate)] ??= "true");
         SpeakWithThePersonKey = (Ini["Keys"][nameof(SpeakWithThePersonKey)] ??= "Y").ConvertToKey();
         SpeakWithThePersonModifierKey = (Ini["Keys"][nameof(SpeakWithThePersonModifierKey)] ??= "None").ConvertToKey();
         ToggleBankHeistAlarmSoundKey = (Ini["Keys"][nameof(ToggleBankHeistAlarmSoundKey)] ??= "F5").ConvertToKey();
@@ -38,5 +40,28 @@ internal static class Settings
         HostageRescueModifierKey = (Ini["Keys"][nameof(HostageRescueModifierKey)] ??= "None").ConvertToKey();
         EnterRiotVanKey = (Ini["Keys"][nameof(EnterRiotVanKey)] ??= "Enter").ConvertToKey();
         EnterRiotVanModifierKey = (Ini["Keys"][nameof(EnterRiotVanModifierKey)] ??= "None").ConvertToKey();
+
+        Log();
+    }
+
+    private static void Log()
+    {
+        Logger.Info("=================== Japanese Callouts Settings ===================");
+        Logger.Info("General Settings");
+        Logger.Info($"{nameof(OfficerName)}: {OfficerName}", "Settings");
+        Logger.Info($"{nameof(Localization.Language)}: {Localization.Language}", "Settings");
+        Logger.Info($"{nameof(EnableAutoUpdate)}: {EnableAutoUpdate}", "Settings");
+        Logger.Info("Keys Settings");
+        Logger.Info($"{nameof(SpeakWithThePersonKey)}: {SpeakWithThePersonKey}", "Settings");
+        Logger.Info($"{nameof(SpeakWithThePersonModifierKey)}: {SpeakWithThePersonModifierKey}", "Settings");
+        Logger.Info($"{nameof(ToggleBankHeistAlarmSoundKey)}: {ToggleBankHeistAlarmSoundKey}", "Settings");
+        Logger.Info($"{nameof(ToggleBankHeistAlarmSoundModifierKey)}: {ToggleBankHeistAlarmSoundModifierKey}", "Settings");
+        Logger.Info($"{nameof(SWATFollowKey)}: {SWATFollowKey}", "Settings");
+        Logger.Info($"{nameof(SWATFollowModifierKey)}: {SWATFollowModifierKey}", "Settings");
+        Logger.Info($"{nameof(HostageRescueKey)}: {HostageRescueKey}", "Settings");
+        Logger.Info($"{nameof(HostageRescueModifierKey)}: {HostageRescueModifierKey}", "Settings");
+        Logger.Info($"{nameof(EnterRiotVanKey)}: {EnterRiotVanKey}", "Settings");
+        Logger.Info($"{nameof(EnterRiotVanModifierKey)}: {EnterRiotVanModifierKey}", "Settings");
+        Logger.Info("=================== Japanese Callouts Settings ===================");
     }
 }
