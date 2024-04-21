@@ -430,22 +430,22 @@ public class MersenneTwister : Random
 
     private static uint TemperingShiftU(uint y)
     {
-        return (y >> 11);
+        return y >> 11;
     }
 
     private static uint TemperingShiftS(uint y)
     {
-        return (y << 7);
+        return y << 7;
     }
 
     private static uint TemperingShiftT(uint y)
     {
-        return (y << 15);
+        return y << 15;
     }
 
     private static uint TemperingShiftL(uint y)
     {
-        return (y >> 18);
+        return y >> 18;
     }
 
     private readonly uint[] _mt = new uint[N]; /* the array for the state vector  */
@@ -476,7 +476,7 @@ public class MersenneTwister : Random
 
         var keyLength = key.Length;
         i = 1; j = 0;
-        k = (N > keyLength ? N : keyLength);
+        k = N > keyLength ? N : keyLength;
 
         for (; k > 0; k--)
         {
@@ -522,7 +522,7 @@ public class MersenneTwister : Random
 
         // shift the 27 pseudo-random bits (a) over by 26 bits (* 67108864.0) and
         // add another pseudo-random 26 bits (+ b).
-        return ((a * 67108864.0 + b) + translate) * scale;
+        return (a * 67108864.0 + b + translate) * scale;
 
         // What about the following instead of the above? Is the multiply better?
         // Why? (Is it the FMUL instruction? Does this count in .Net? Will the JITter notice?)
