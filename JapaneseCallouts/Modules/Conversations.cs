@@ -9,7 +9,7 @@ internal static class Conversations
 
     internal static bool IsTalking = false;
 
-    internal static void Talk((string speaker, string text)[] lines, Ped ped = null)
+    internal static void Talk((string speaker, string text)[] lines, bool displayCount = true, Ped ped = null)
     {
         IsTalking = true;
         var pos = Main.Player.Position;
@@ -41,7 +41,8 @@ internal static class Conversations
         }
         for (int i = 0; i < lines.Length; i++)
         {
-            HudHelpers.DisplaySubtitle($"~b~{lines[i].speaker}~s~: {lines[i].text} ({i + 1}/{lines.Length})", 10000);
+            var text = $"~b~{lines[i].speaker}~s~: {lines[i].text} {(displayCount ? $"({i + 1}/{lines.Length})" : "")}";
+            HudHelpers.DisplaySubtitle(text, 10000);
             while (i < lines.Length - 1)
             {
                 GameFiber.Yield();

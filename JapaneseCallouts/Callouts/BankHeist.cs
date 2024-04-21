@@ -2534,7 +2534,7 @@ internal class BankHeist : CalloutBase
                                             RescuingHostage = true;
                                             Main.Player.Tasks.AchieveHeading(MathHelper.ConvertDirectionToHeading(direction)).WaitForCompletion(1200);
                                             hostage.RelationshipGroup = "COP";
-                                            Conversations.Talk([(Settings.OfficerName, Localization.GetString("RescueHostage"))]);
+                                            Conversations.Talk([(Settings.OfficerName, Localization.GetString("RescueHostage"))], false);
                                             Main.Player.Tasks.PlayAnimation("random@rescue_hostage", "bystander_helping_girl_loop", 1.5f, AnimationFlags.None).WaitForCompletion(3000);
 
                                             if (hostage.IsAlive)
