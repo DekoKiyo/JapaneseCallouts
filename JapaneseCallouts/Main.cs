@@ -179,7 +179,7 @@ internal class Main : Plugin
                     }
                     else
                     {
-                        var answer = Conversations.DisplayQuestionPopup(Localization.GetString("PluginUpdateAvailable"), new() { { Localization.GetString("UpdateYes"), Keys.D1 }, { Localization.GetString("UpdateNo"), Keys.D2 } }, true);
+                        var answer = Conversations.DisplayQuestionPopup(Localization.GetString("PluginUpdateAvailable", PLUGIN_NAME), new() { { Localization.GetString("UpdateYes"), Keys.D1 }, { Localization.GetString("UpdateNo"), Keys.D2 } }, true);
                         if (answer is 0)
                         {
                             PluginUpdater.Update();
