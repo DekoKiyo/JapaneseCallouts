@@ -110,9 +110,6 @@ internal class Main : Plugin
     internal const string PLUGIN_LANGUAGE_DIRECTORY = @"Languages";
     internal const string SETTINGS_INI_FILE = @$"{PLUGIN_NAME_NO_SPACE}.ini";
 
-    internal const string REPOSITORY_OWNER = "DekoKiyo";
-    internal const string REPOSITORY_NAME = "JapaneseCallouts";
-
     internal static readonly string PLUGIN_VERSION = Assembly.GetExecutingAssembly().GetName().Version.ToString();
     internal static readonly string PLUGIN_INFO = $"~b~{PLUGIN_NAME}~s~ {PLUGIN_VERSION_DATA}";
     internal static readonly string PLUGIN_VERSION_DATA = $"Version.{VERSION_PREFIX}{PLUGIN_VERSION}";
@@ -158,7 +155,15 @@ internal class Main : Plugin
 #endif
             Logger.Info($"{PLUGIN_NAME} {PLUGIN_VERSION_DATA} was successfully initialized.");
 
-            if (PluginUpdater.CheckUpdate()) Logger.Info("UPDATE AVAILABLE!!!!!!!!!!!");
+            GameFiber.StartNew(() =>
+            {
+                GameFiber.Yield();
+                if (PluginUpdater.CheckUpdate())
+                {
+                    Logger.Info("The latest update found. The plugin will be automatically updated.");
+                    PluginUpdater.Update();
+                }
+            });
         }
     }
 
