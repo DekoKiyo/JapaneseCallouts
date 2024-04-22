@@ -5,7 +5,7 @@ layout: home
 hero:
   name: "Japanese Callouts Docs"
   text: "Japanese style & customizable callouts pack"
-  tagline: My great project tagline
+  # tagline: I'll add this when I find a good sentence.
   actions:
     - theme: brand
       text: Markdown Examples
