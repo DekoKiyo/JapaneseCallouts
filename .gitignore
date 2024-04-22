@@ -11,3 +11,4 @@ obj/
 *.psd
 /Discord/
 node_modules/
+cache/
