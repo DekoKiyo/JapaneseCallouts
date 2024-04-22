@@ -10,3 +10,4 @@ obj/
 /HIDEIT.md
 *.psd
 /Discord/
+node_modules/
