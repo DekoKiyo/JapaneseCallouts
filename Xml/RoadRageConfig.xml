@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RoadRageConfig>
+  <VictimVehicles>
+    <Vehicle></Vehicle>
+  </VictimVehicles>
+  <SuspectVehicles>
+    <Vehicle></Vehicle>
+  </SuspectVehicles>
+  <VictimPeds>
+    <Ped></Ped>
+  </VictimPeds>
+  <SuspectPeds>
+    <Ped></Ped>
+  </SuspectPeds>
+</RoadRageConfig>
