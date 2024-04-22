@@ -3,8 +3,12 @@ import { defineConfig } from 'vitepress'
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: "Japanese Callouts Docs",
+  titleTemplate: "JPC Docs",
   description: "Japanese style & customizable callouts pack",
   base: "/JapaneseCallouts/",
+  cleanUrls: true,
+  srcDir: './pages',
+  head: [['link', { rel: 'icon', type: 'image/png', href: '/JapaneseCallouts/Icon.png' }]],
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
