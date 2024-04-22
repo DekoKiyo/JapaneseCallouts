@@ -23,7 +23,9 @@ export default defineConfig({
     ],
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/vuejs/vitepress' }
+      { icon: 'github', link: 'https://github.com/DekoKiyo/JapaneseCallouts' },
+      { icon: 'discord', link: 'https://discord.gg/aBer7YvDPA' },
+      { icon: 'twitter', link: 'https://twitter.com/DekoKiyomori' },
     ]
   }
 })
