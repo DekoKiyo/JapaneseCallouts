@@ -4,6 +4,7 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({
   title: "Japanese Callouts Docs",
   description: "Japanese style & customizable callouts pack",
+  base: "/JapaneseCallouts/",
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
