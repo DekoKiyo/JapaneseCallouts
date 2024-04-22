@@ -166,7 +166,7 @@
     "Robber": "Robber",
     "SelectAnswerText": "Press the key displayed to select the answer.",
     "SpawnAmbulance": "Press {0} when spawned to spawn to the ambulance.",
-    "StolenVehicleData": "Stolen Vehicle Data~n~~b~License Plate~s~: {0}~n~~b~Body Color~s~: {1}~n~~b~Type~s~: {2}",
+    "StolenVehicleData": "Stolen Vehicle Data~n~~b~License Plate~s~: {0}~n~~b~Type~s~: {1}",
     "StolenVehicleDataUpdate": "~b~The target location on GPS has been updated.~s~",
     "SurrenderHelp": "~b~Other officers~s~ will perform the ~b~arrests~s~ and then ~b~deal with the robbers~s~.~n~~b~Hold your position~s~ and keep the robbers under control by ~b~aiming in their direction~s~.",
     "SWATFollowing": "Press {0} to make the SWAT teams follow you.",
@@ -177,19 +177,6 @@
     "TalkToGetInfo": "Talk to ~y~{0}~s~ to get the information.",
     "TargetIsIn": "Target is in around of ~b~{0}~s~.",
     "Victim": "Victim"
-  },
-  "ColorName": {
-    "Black": "Black",
-    "Blue": "Blue",
-    "Brown": "Brown",
-    "Gray": "Gray",
-    "Green": "Green",
-    "LiteBlue": "LiteBlue",
-    "Orange": "Orange",
-    "Purple": "Purple",
-    "Red": "Red",
-    "White": "White",
-    "Yellow": "Yellow"
   },
   "General": {
     "CalloutCode4": "You are ~g~code4~s~. ~r~Return to Patrol~s~.",
