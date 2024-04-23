@@ -1,19 +1,19 @@
-# Bank Heist Callouts
+# 銀行強盗
 
-## Overview
+## 概要
 
-The robber has taken hostages and barricaded themselves inside the pacific bank.<br/>
-Which do you choose, the lives of hostages or solve the incident quickly?
+大規模な強盗団がパシフィック銀行に人質を取って立てこもりました。<br/>
+人質の命か、事件の解決か、どちらを優先するかはあなた次第です。
 
 :::warning
-This callout **contains some violent words**. Please be careful **it is not for you**.
+このコールアウトには**複数の暴力的な言葉が含まれています**。 決して**あなたに対してではない**ことに注意してください。
 :::
 
-## Callout Settings
+## コールアウトの設定
 
-**Config File**: `plugins/LSPDFR/JapaneseCallouts/Xml/BankHeistConfig.xml`
+**設定ファイル**: `plugins/LSPDFR/JapaneseCallouts/Xml/BankHeistConfig.xml`
 
-### The config used in this callout
+### 使用する設定項目
 
 <!-- <Cards>
     <Card title="Vehicle" href="/config/vehicle" />
@@ -22,52 +22,52 @@ This callout **contains some violent words**. Please be careful **it is not for 
     <Card title="Position" href="/config/position" />
 </Cards> -->
 
-### Settings List
+### 各設定項目
 
-|           Setting Name           |                                                                  Description                                                                  |                               Note                              |
-| :------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------: |
-|         **HostageCount**         |                                                     The count of hostages.                                                    | Its maximum will be `HostagePositions`'s count. |
-|           **WifeName**           |                                   The wife name of the robber who you can talk to by phone.                                   |                                                                 |
-|        **PoliceCruisers**        |                                                           Police Cruisers' settings                                                           |                                                                 |
-|      **PoliceTransporters**      |                                                         Police Transporters' settings                                                         |                                                                 |
-|          **PoliceRiots**         |                                                             Police Riots' settings                                                            |                                                                 |
-|          **Ambulances**          |                                                              Ambulances' settings                                                             |                                                                 |
-|          **Firetrucks**          |                                                              Firetrucks' settings                                                             |                                                                 |
-|      **PoliceOfficerModels**     |                                                           Police Officers' settings                                                           |                                                                 |
-|       **PoliceSWATModels**       |                                                                SWATs' settings                                                                |                                                                 |
-|        **ParamedicModels**       |                                                              Paramedics' settings                                                             |                                                                 |
-|       **FirefighterModels**      |                                                             Firefighters' settings                                                            |                                                                 |
-|        **CommanderModels**       |                                                              Commander's settings                                                             |                                                                 |
-|          **WifeModels**          |                                                                Wife's settings                                                                |                                                                 |
-|         **RobberModels**         |                                                               Robber's settings                                                               |                                                                 |
-|         **HostageModels**        |                                                               Hostages' settings                                                              |                                                                 |
-|        **OfficerWeapons**        |                                                           Officers' weapon settings                                                           |                                                                 |
-|          **SWATWeapons**         |                                                             SWATs' weapon settings                                                            |                                                                 |
-|        **RobbersWeapons**        |                                                            Robbers' weapon settings                                                           |                                                                 |
-|    **RobbersThrowableWeapons**   |                                                          Robber's sub weapon settings                                                         |           You can set a weapon which not throwable too          |
-|         **WeaponInRiot**         |                                               The weapons which you can get in the riot settings                                              |                                                                 |
-|    **PoliceCruiserPositions**    |                                                     Police Cruisers' position and heading                                                     |                                                                 |
-|   **PoliceTransportPositions**   |                                                   Police Transporters' position and heading                                                   |                                                                 |
-|         **RiotPositions**        |                                                       Police Riots' position and heading                                                      |                                                                 |
-|      **AmbulancePositions**      |                                                        Ambulances' position and heading                                                       |                                                                 |
-|      **FiretruckPositions**      |                                                        Firetrucks' position and heading                                                       |                                                                 |
-|    **AimingOfficerPositions**    |                                                     Aiming officers' position and heading                                                     |                                                                 |
-|   **StandingOfficerPositions**   |                                                    Standing officer's position and heading                                                    |                                                                 |
-|    **NormalRobbersPositions**    |                                                         Robbers' position and heading                                                         |                                                                 |
-|  **RobbersNegotiationPositions** |                                                  Robbers' position and heading in negotiation                                                 |                                                                 |
-|     **RobbersSneakPosition**     |                                                   Robbers who sneaking position and heading                                                   |    Set \"is_right\" true to turn right   |
-|    **RobbersInVaultPositions**   |                                                  Robbers who is in vault position and heading                                                 |                                                                 |
-| **RobbersSurrenderingPositions** |                                                         Surrender position and heading                                                        |                                                                 |
-|     **FirefighterPositions**     |                                                       Firefighters' position and heading                                                      |                                                                 |
-|      **ParamedicPositions**      |                                                        Paramedics' position and heading                                                       |                                                                 |
-|   **LeftSittingSWATPositions**   |              The position and heading settings of SWAT officers who are on the left side of the door of the bank.             |                                                                 |
-|   **RightSittingSWATPositions**  |             The position and heading settings of SWAT officers who are on the right side of the door of the bank.             |                                                                 |
-|   **RightLookingSWATPositions**  | The position and heading settings of SWAT officers who are on the right side of the door of the bank and looking at the door. |                                                                 |
-|       **HostagePositions**       |                                                               Hostages' position                                                              |                        Cannot set heading                       |
-|      **HostageSafePosition**     |                                                   Rescued hotages' safe position and heading                                                  |                                                                 |
-|       **CommanderPosition**      |                                                        Commander's position and heading                                                       |                                                                 |
-|         **WifePosition**         |                                                  The robber's wife spawn position and heading                                                 |                                                                 |
-|    **WifeVehicleDestination**    |                                                        The destination of wife position                                                       |                        Cannot set heading                       |
+|                設定名               |                                                                       説明                                                                      |                            Note                            |
+| :------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------: |
+|   <span>**HostageCount**<span>   |                                                     The count of hostages.                                                    |           `HostagePositions`に登録されている座標の数が最大値となる。           |
+|           **WifeName**           |                                                             電話で会話することができる強盗の妻の名前。                                                             |                                                            |
+|        **PoliceCruisers**        |                                                           Police Cruisers' settings                                                           |                                                            |
+|      **PoliceTransporters**      |                                                         Police Transporters' settings                                                         |                                                            |
+|          **PoliceRiots**         |                                                             Police Riots' settings                                                            |                                                            |
+|          **Ambulances**          |                                                              Ambulances' settings                                                             |                                                            |
+|          **Firetrucks**          |                                                              Firetrucks' settings                                                             |                                                            |
+|      **PoliceOfficerModels**     |                                                           Police Officers' settings                                                           |                                                            |
+|       **PoliceSWATModels**       |                                                                SWATs' settings                                                                |                                                            |
+|        **ParamedicModels**       |                                                              Paramedics' settings                                                             |                                                            |
+|       **FirefighterModels**      |                                                             Firefighters' settings                                                            |                                                            |
+|        **CommanderModels**       |                                                              Commander's settings                                                             |                                                            |
+|          **WifeModels**          |                                                                Wife's settings                                                                |                                                            |
+|         **RobberModels**         |                                                               Robber's settings                                                               |                                                            |
+|         **HostageModels**        |                                                               Hostages' settings                                                              |                                                            |
+|        **OfficerWeapons**        |                                                           Officers' weapon settings                                                           |                                                            |
+|          **SWATWeapons**         |                                                             SWATs' weapon settings                                                            |                                                            |
+|        **RobbersWeapons**        |                                                            Robbers' weapon settings                                                           |                                                            |
+|    **RobbersThrowableWeapons**   |                                                          Robber's sub weapon settings                                                         |        You can set a weapon which not throwable too        |
+|         **WeaponInRiot**         |                                               The weapons which you can get in the riot settings                                              |                                                            |
+|    **PoliceCruiserPositions**    |                                                     Police Cruisers' position and heading                                                     |                                                            |
+|   **PoliceTransportPositions**   |                                                   Police Transporters' position and heading                                                   |                                                            |
+|         **RiotPositions**        |                                                       Police Riots' position and heading                                                      |                                                            |
+|      **AmbulancePositions**      |                                                        Ambulances' position and heading                                                       |                                                            |
+|      **FiretruckPositions**      |                                                        Firetrucks' position and heading                                                       |                                                            |
+|    **AimingOfficerPositions**    |                                                     Aiming officers' position and heading                                                     |                                                            |
+|   **StandingOfficerPositions**   |                                                    Standing officer's position and heading                                                    |                                                            |
+|    **NormalRobbersPositions**    |                                                         Robbers' position and heading                                                         |                                                            |
+|  **RobbersNegotiationPositions** |                                                  Robbers' position and heading in negotiation                                                 |                                                            |
+|     **RobbersSneakPosition**     |                                                   Robbers who sneaking position and heading                                                   | Set \"is_right\" true to turn right |
+|    **RobbersInVaultPositions**   |                                                  Robbers who is in vault position and heading                                                 |                                                            |
+| **RobbersSurrenderingPositions** |                                                         Surrender position and heading                                                        |                                                            |
+|     **FirefighterPositions**     |                                                       Firefighters' position and heading                                                      |                                                            |
+|      **ParamedicPositions**      |                                                        Paramedics' position and heading                                                       |                                                            |
+|   **LeftSittingSWATPositions**   |              The position and heading settings of SWAT officers who are on the left side of the door of the bank.             |                                                            |
+|   **RightSittingSWATPositions**  |             The position and heading settings of SWAT officers who are on the right side of the door of the bank.             |                                                            |
+|   **RightLookingSWATPositions**  | The position and heading settings of SWAT officers who are on the right side of the door of the bank and looking at the door. |                                                            |
+|       **HostagePositions**       |                                                               Hostages' position                                                              |                     Cannot set heading                     |
+|      **HostageSafePosition**     |                                                   Rescued hotages' safe position and heading                                                  |                                                            |
+|       **CommanderPosition**      |                                                        Commander's position and heading                                                       |                                                            |
+|         **WifePosition**         |                                                  The robber's wife spawn position and heading                                                 |                                                            |
+|    **WifeVehicleDestination**    |                                                        The destination of wife position                                                       |                     Cannot set heading                     |
 
 Original config file
 
