@@ -26,7 +26,7 @@ This callout **contains some violent words**. Please be careful **it is not for 
 
 |           Setting Name           |                                                                  Description                                                                  |                               Note                              |
 | :------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------: |
-|         **HostageCount**         |                                                     The count of hostages.                                                    | Its maximum will be `HostagePositions`'s count. |
+|   <span>**HostageCount**<span>   |                                                     The count of hostages.                                                    | Its maximum will be `HostagePositions`'s count. |
 |           **WifeName**           |                                   The wife name of the robber who you can talk to by phone.                                   |                                                                 |
 |        **PoliceCruisers**        |                                                           Police Cruisers' settings                                                           |                                                                 |
 |      **PoliceTransporters**      |                                                         Police Transporters' settings                                                         |                                                                 |
