@@ -19,7 +19,7 @@ export default defineConfig({
       {
         text: 'Information',
         items: [
-          { text: 'Japanese Callouts', link: '/index1' },
+          { text: 'Japanese Callouts', link: '/about' },
           { text: 'Recommendation Mods', link: '/recommendation' },
           { text: 'Installation', link: '/installation' },
           { text: 'Contributing', link: '/contributing' },
