@@ -3,3 +3,5 @@ pull_request_title: '[Crowdin] Update Localization Files'
 files:
   - source: /JapaneseCallouts/Localization/en-US.json
     translation: /JapaneseCallouts/Localization/%locale%.json
+  - source: /docs/pages/*.md
+    translation: /docs/%locale%/%original_file_name%
