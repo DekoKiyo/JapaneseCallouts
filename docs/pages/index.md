@@ -8,18 +8,20 @@ hero:
   # tagline: I'll add this when I find a good sentence.
   actions:
     - theme: brand
-      text: Markdown Examples
-      link: /markdown-examples
+      text: About
+      link: /docs/about
     - theme: alt
-      text: API Examples
-      link: /api-examples
+      text: Callouts
+      link: /docs/callouts
+    - theme: alt
+      text: Contributing
+      link: /docs/contributing
 
 features:
-  - title: Feature A
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature B
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature C
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+  - title: Localized
+    details: This callouts pack available multi languages. And you can make your original custom translations.
+  - title: Open Source
+    details: You can check all of the source code yourself on my GitHub repository.
+  - title: Customizable
+    details: You can edit the callouts with the XML files.
 ---
-
