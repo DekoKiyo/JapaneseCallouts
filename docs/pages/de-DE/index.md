@@ -1,0 +1,23 @@
+---
+layout: home
+hero:
+  name: Japanese Callouts Docs
+  text: Japanese style & customizable callouts pack
+  actions:
+    - theme: brand
+      text: About
+      link: /docs/about
+    - theme: alt
+      text: Callouts
+      link: /docs/callouts
+    - theme: alt
+      text: Contributing
+      link: /docs/contributing
+features:
+  - title: Localized
+    details: This callouts pack available multi languages. And you can make your original custom translations.
+  - title: Open Source
+    details: You can check all of the source code yourself on my GitHub repository.
+  - title: Customizable
+    details: You can edit the callouts with the XML files.
+---
