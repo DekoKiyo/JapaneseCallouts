@@ -5,9 +5,9 @@ files:
     translation: /JapaneseCallouts/Localization/%locale%.json
   - source: /docs/pages/*.md
     translation: /docs/pages/%locale%/%original_file_name%
-  - source: /docs/pages/callouts/*.md
-    translation: /docs/pages/%locale%/callouts/%original_file_name%
-  - source: /docs/pages/config/*.md
-    translation: /docs/pages/%locale%/config/%original_file_name%
-  - source: /docs/pages/installation/*.md
-    translation: /docs/pages/%locale%/installation/%original_file_name%
+  - source: /docs/pages/docs/callouts/*.md
+    translation: /docs/pages/%locale%/docs/callouts/%original_file_name%
+  - source: /docs/pages/docs/config/*.md
+    translation: /docs/pages/%locale%/docs/config/%original_file_name%
+  - source: /docs/pages/docs/installation/*.md
+    translation: /docs/pages/%locale%/docs/installation/%original_file_name%
