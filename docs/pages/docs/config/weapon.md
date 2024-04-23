@@ -5,11 +5,11 @@
 - Check [here](https://wiki.rage.mp/index.php?title=Weapons_Components) about the weapon components.
 :::
 
-|Setting Name|Description|Init value|Note|
-|:-:|:-:|:-:|:-:|
-|**chance**|The rate of using this preset.|100||
-|**Model**|Weapon Model|Empty String||
-|**Components**|The components that attach to the weapon.||Omittable|
+|  Setting Name  |                Description                |  Init value  |   Note    |
+| :------------: | :---------------------------------------: | :----------: | :-------: |
+|   **chance**   |      The rate of using this preset.       |     100      |           |
+|   **Model**    |               Weapon Model                | Empty String |           |
+| **Components** | The components that attach to the weapon. |              | Omittable |
 
 ### XML Example
 Example 1

@@ -6,12 +6,12 @@
  Check more information in each callouts description.
 :::
 
-|Setting Name|Description|
-|:-:|:-:|
-|**x**|X coord|
-|**y**|Y coord|
-|**z**|Z coord|
-|**heading**|heading|
+| Setting Name | Description |
+| :----------: | :---------: |
+|    **x**     |   X coord   |
+|    **y**     |   Y coord   |
+|    **z**     |   Z coord   |
+| **heading**  |   heading   |
 
 ### XML Example
 Example 1

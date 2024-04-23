@@ -8,14 +8,14 @@
 - \"livery\" and all color settings are omitted, the vehicle will be spawned with initialized.
 :::
 
-|Setting Name|Description|Init value|
-|:-:|:-:|:-:|
-|**chance**|The rate of using this preset.|100|
-|**livery**|Set the livery of vehicle|-1|
-|**color_r**|Set RGB's R [0-255]|-1|
-|**color_g**|Set RGB's G [0-255]|-1|
-|**color_b**|Set RGB's B [0-255]|-1|
-|**Vehicle Model**|Enter the vehicle model in the element of XML|Empty String|
+|   Setting Name    |                  Description                  |  Init value  |
+| :---------------: | :-------------------------------------------: | :----------: |
+|    **chance**     |        The rate of using this preset.         |     100      |
+|    **livery**     |           Set the livery of vehicle           |      -1      |
+|    **color_r**    |              Set RGB's R [0-255]              |      -1      |
+|    **color_g**    |              Set RGB's G [0-255]              |      -1      |
+|    **color_b**    |              Set RGB's B [0-255]              |      -1      |
+| **Vehicle Model** | Enter the vehicle model in the element of XML | Empty String |
 
 ### XML Example
 Example 1

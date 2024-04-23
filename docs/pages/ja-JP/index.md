@@ -9,13 +9,13 @@ hero:
   actions:
     - theme: brand
       text: About
-      link: /docs/about
+      link: /ja-JP/docs/about
     - theme: alt
       text: Callouts
-      link: /docs/callouts
+      link: /ja-JP/docs/callouts
     - theme: alt
       text: Contributing
-      link: /docs/contributing
+      link: /ja-JP/docs/contributing
 
 features:
   - title: Localized

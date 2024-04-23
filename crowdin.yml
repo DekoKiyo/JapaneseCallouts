@@ -4,4 +4,10 @@ files:
   - source: /JapaneseCallouts/Localization/en-US.json
     translation: /JapaneseCallouts/Localization/%locale%.json
   - source: /docs/pages/*.md
-    translation: /docs/%locale%/%original_file_name%
+    translation: /docs/pages/%locale%/%original_file_name%
+  - source: /docs/pages/callouts/*.md
+    translation: /docs/pages/%locale%/callouts/%original_file_name%
+  - source: /docs/pages/config/*.md
+    translation: /docs/pages/%locale%/config/%original_file_name%
+  - source: /docs/pages/installation/*.md
+    translation: /docs/pages/%locale%/installation/%original_file_name%

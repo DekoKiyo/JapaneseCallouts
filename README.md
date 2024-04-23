@@ -62,7 +62,7 @@ The **Japanese Callouts** is a plugin for [LSPDFR](https://www.lcpdfr.com/lspdfr
 4. Run the GTA5 with Rage Plugin Hook. And check the plugin is successfully activated.
 
 ## Credits & Resources
-**DekoKiyo**: Main Developer / Project Leader / Japanese & English Translator<br/>
+**DekoKiyo**: Main Developer / Japanese & English Translator<br/>
 **Charlie686**: Advice about the new locale system. Especially callout notifications' translation. Thanks!<br/>
 **Albo1125**: The original idea and source code for Bank Heist callout and its dialog system came from his [Assorted Callouts](https://github.com/Albo1125/Assorted-Callouts).<br/>
 **YobB1n**: The original source code for generating random freemode peds face system came from his [Yobbin Callouts](https://github.com/YobB1n/YobbinCallouts).<br/>
