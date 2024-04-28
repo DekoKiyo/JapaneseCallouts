@@ -23,14 +23,58 @@ internal class RoadRage : CalloutBase
     {
         CalloutPosition = World.GetNextPositionOnStreet(Main.Player.Position.Around(Main.MersenneTwister.Next(450, 800)));
 
-        suspectV = new(x => x.IsCar && !x.IsEmergencyVehicle, CalloutPosition)
         {
-            IsPersistent = true,
-        };
-        victimV = new(x => x.IsCar && !x.IsEmergencyVehicle, suspectV.GetOffsetPositionFront(5f))
+            var sVData = CalloutHelpers.Select([.. XmlManager.RoadRageConfig.SuspectVehicles]);
+            suspectV = new(sVData.Model, CalloutPosition)
+            {
+                IsPersistent = true,
+            };
+            if (suspectV is not null && suspectV.IsValid() && suspectV.Exists())
+            {
+                var liveryCount = NativeFunction.Natives.GET_VEHICLE_LIVERY_COUNT<int>(suspectV);
+                if (liveryCount is -1)
+                {
+                    if (sVData.ColorR is >= 0 and < 256 && sVData.ColorG is >= 0 and < 256 && sVData.ColorB is >= 0 and < 256)
+                    {
+                        NativeFunction.Natives.SET_VEHICLE_CUSTOM_PRIMARY_COLOUR(suspectV, sVData.ColorR, sVData.ColorG, sVData.ColorB);
+                        NativeFunction.Natives.SET_VEHICLE_CUSTOM_SECONDARY_COLOUR(suspectV, sVData.ColorR, sVData.ColorG, sVData.ColorB);
+                    }
+                }
+                else
+                {
+                    if (liveryCount <= sVData.Livery)
+                    {
+                        NativeFunction.Natives.SET_VEHICLE_LIVERY(suspectV, sVData.Livery);
+                    }
+                }
+            }
+        }
         {
-            IsPersistent = true,
-        };
+            var vVData = CalloutHelpers.Select([.. XmlManager.RoadRageConfig.SuspectVehicles]);
+            victimV = new(x => x.IsCar && !x.IsEmergencyVehicle, suspectV.GetOffsetPositionFront(5f))
+            {
+                IsPersistent = true,
+            };
+            if (victimV is not null && victimV.IsValid() && victimV.Exists())
+            {
+                var liveryCount = NativeFunction.Natives.GET_VEHICLE_LIVERY_COUNT<int>(victimV);
+                if (liveryCount is -1)
+                {
+                    if (vVData.ColorR is >= 0 and < 256 && vVData.ColorG is >= 0 and < 256 && vVData.ColorB is >= 0 and < 256)
+                    {
+                        NativeFunction.Natives.SET_VEHICLE_CUSTOM_PRIMARY_COLOUR(victimV, vVData.ColorR, vVData.ColorG, vVData.ColorB);
+                        NativeFunction.Natives.SET_VEHICLE_CUSTOM_SECONDARY_COLOUR(victimV, vVData.ColorR, vVData.ColorG, vVData.ColorB);
+                    }
+                }
+                else
+                {
+                    if (liveryCount <= vVData.Livery)
+                    {
+                        NativeFunction.Natives.SET_VEHICLE_LIVERY(victimV, vVData.Livery);
+                    }
+                }
+            }
+        }
         victim = new(x => x.IsPed)
         {
             IsPersistent = true,
