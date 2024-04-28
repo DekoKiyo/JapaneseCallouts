@@ -24,78 +24,60 @@ internal class RoadRage : CalloutBase
         CalloutPosition = World.GetNextPositionOnStreet(Main.Player.Position.Around(Main.MersenneTwister.Next(450, 800)));
 
         {
-            var sVData = CalloutHelpers.Select([.. XmlManager.RoadRageConfig.SuspectVehicles]);
-            suspectV = new(sVData.Model, CalloutPosition)
+            var data = CalloutHelpers.Select([.. XmlManager.RoadRageConfig.SuspectVehicles]);
+            suspectV = new(data.Model, CalloutPosition)
             {
                 IsPersistent = true,
             };
             if (suspectV is not null && suspectV.IsValid() && suspectV.Exists())
             {
-                var liveryCount = NativeFunction.Natives.GET_VEHICLE_LIVERY_COUNT<int>(suspectV);
-                if (liveryCount is -1)
-                {
-                    if (sVData.ColorR is >= 0 and < 256 && sVData.ColorG is >= 0 and < 256 && sVData.ColorB is >= 0 and < 256)
-                    {
-                        NativeFunction.Natives.SET_VEHICLE_CUSTOM_PRIMARY_COLOUR(suspectV, sVData.ColorR, sVData.ColorG, sVData.ColorB);
-                        NativeFunction.Natives.SET_VEHICLE_CUSTOM_SECONDARY_COLOUR(suspectV, sVData.ColorR, sVData.ColorG, sVData.ColorB);
-                    }
-                }
-                else
-                {
-                    if (liveryCount <= sVData.Livery)
-                    {
-                        NativeFunction.Natives.SET_VEHICLE_LIVERY(suspectV, sVData.Livery);
-                    }
-                }
+                suspectV.ApplyTexture(data);
             }
         }
         {
-            var vVData = CalloutHelpers.Select([.. XmlManager.RoadRageConfig.SuspectVehicles]);
-            victimV = new(x => x.IsCar && !x.IsEmergencyVehicle, suspectV.GetOffsetPositionFront(5f))
+            var data = CalloutHelpers.Select([.. XmlManager.RoadRageConfig.SuspectVehicles]);
+            victimV = new(data.Model, suspectV.GetOffsetPositionFront(5f))
             {
                 IsPersistent = true,
             };
             if (victimV is not null && victimV.IsValid() && victimV.Exists())
             {
-                var liveryCount = NativeFunction.Natives.GET_VEHICLE_LIVERY_COUNT<int>(victimV);
-                if (liveryCount is -1)
-                {
-                    if (vVData.ColorR is >= 0 and < 256 && vVData.ColorG is >= 0 and < 256 && vVData.ColorB is >= 0 and < 256)
-                    {
-                        NativeFunction.Natives.SET_VEHICLE_CUSTOM_PRIMARY_COLOUR(victimV, vVData.ColorR, vVData.ColorG, vVData.ColorB);
-                        NativeFunction.Natives.SET_VEHICLE_CUSTOM_SECONDARY_COLOUR(victimV, vVData.ColorR, vVData.ColorG, vVData.ColorB);
-                    }
-                }
-                else
-                {
-                    if (liveryCount <= vVData.Livery)
-                    {
-                        NativeFunction.Natives.SET_VEHICLE_LIVERY(victimV, vVData.Livery);
-                    }
-                }
+                victimV.ApplyTexture(data);
             }
         }
-        victim = new(x => x.IsPed)
         {
-            IsPersistent = true,
-            BlockPermanentEvents = true,
-        };
-        suspect = new(x => x.IsPed)
-        {
-            IsPersistent = true,
-            BlockPermanentEvents = true,
-        };
-        if (victim is not null && victim.IsValid() && victim.Exists() &&
-            victimV is not null && victimV.IsValid() && victimV.Exists())
-        {
-            victim.WarpIntoVehicle(victimV, -1);
-            victim.Tasks.CruiseWithVehicle(victimV, 10f, VehicleDrivingFlags.Emergency);
-
-            if (suspect is not null && suspect.IsValid() && suspect.Exists() &&
-                suspectV is not null && suspectV.IsValid() && suspectV.Exists())
+            var vData = CalloutHelpers.Select([.. XmlManager.RoadRageConfig.SuspectPeds]);
+            victim = new(x => x.IsPed)
             {
-                suspect.WarpIntoVehicle(suspectV, -1);
-                suspect.Tasks.ChaseWithGroundVehicle(victim);
+                IsPersistent = true,
+                BlockPermanentEvents = true,
+                MaxHealth = vData.Health,
+                Health = vData.Health,
+                Armor = vData.Armor,
+            };
+            var sData = CalloutHelpers.Select([.. XmlManager.RoadRageConfig.SuspectPeds]);
+            suspect = new(sData.Model, Vector3.Zero, 0f)
+            {
+                IsPersistent = true,
+                BlockPermanentEvents = true,
+                MaxHealth = sData.Health,
+                Health = sData.Health,
+                Armor = sData.Armor,
+            };
+            if (victim is not null && victim.IsValid() && victim.Exists() &&
+                victimV is not null && victimV.IsValid() && victimV.Exists())
+            {
+                victim.SetOutfit(vData);
+                victim.WarpIntoVehicle(victimV, -1);
+                victim.Tasks.CruiseWithVehicle(victimV, 10f, VehicleDrivingFlags.Emergency);
+
+                if (suspect is not null && suspect.IsValid() && suspect.Exists() &&
+                    suspectV is not null && suspectV.IsValid() && suspectV.Exists())
+                {
+                    suspect.SetOutfit(sData);
+                    suspect.WarpIntoVehicle(suspectV, -1);
+                    suspect.Tasks.ChaseWithGroundVehicle(victim);
+                }
             }
         }
 
