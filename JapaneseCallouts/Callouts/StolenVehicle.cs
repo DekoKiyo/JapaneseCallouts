@@ -103,7 +103,7 @@ internal class StolenVehicle : CalloutBase
             Functions.PlayScannerAudioUsingPosition("SUSPECT_LAST_SEEN IN_OR_ON_POSITION", stolen.Position);
             count++;
         }
-        if (!found && Vector3.Distance(Main.Player.Position, stolen.Position) < 20f)
+        if (!found && Vector3.Distance(Main.Player.Position, stolen.Position) < 30f)
         {
             found = true;
             if (area is not null && area.IsValid() && area.Exists()) area.Delete();
