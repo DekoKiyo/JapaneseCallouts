@@ -166,7 +166,7 @@ internal class RoadRage : CalloutBase
             {
                 victim.Tasks.Clear();
                 suspect.Tasks.Clear();
-                victim.Tasks.ParkVehicle(victim.Position, victim.Heading).WaitForCompletion(10000);
+                GameFiber.StartNew(() => victim.Tasks.ParkVehicle(victim.Position, victim.Heading).WaitForCompletion(10000));
                 victimB = victim.AttachBlip();
                 if (victimB is not null && victimB.IsValid() && victimB.Exists())
                 {
