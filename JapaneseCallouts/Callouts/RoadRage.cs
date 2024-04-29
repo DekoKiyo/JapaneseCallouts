@@ -25,35 +25,48 @@ internal class RoadRage : CalloutBase
 
         {
             var data = CalloutHelpers.Select([.. XmlManager.RoadRageConfig.SuspectVehicles]);
-            suspectV = new(data.Model, CalloutPosition);
+            suspectV = new(data.Model, CalloutPosition)
+            {
+                IsPersistent = true,
+            };
             if (suspectV is not null && suspectV.IsValid() && suspectV.Exists())
             {
-                suspectV.IsPersistent = true;
                 suspectV.ApplyTexture(data);
             }
         }
         {
             var data = CalloutHelpers.Select([.. XmlManager.RoadRageConfig.SuspectVehicles]);
-            victimV = new(data.Model, suspectV.GetOffsetPositionFront(5f));
+            victimV = new(data.Model, suspectV.GetOffsetPositionFront(5f))
+            {
+                IsPersistent = true,
+            };
             if (victimV is not null && victimV.IsValid() && victimV.Exists())
             {
-                victimV.IsPersistent = true;
                 victimV.ApplyTexture(data);
             }
         }
         {
             var vData = CalloutHelpers.Select([.. XmlManager.RoadRageConfig.SuspectPeds]);
-            victim = new(x => x.IsPed);
+            victim = new(x => x.IsPed)
+            {
+                IsPersistent = true,
+                BlockPermanentEvents = true,
+                MaxHealth = vData.Health,
+                Health = vData.Health,
+                Armor = vData.Armor,
+            };
             var sData = CalloutHelpers.Select([.. XmlManager.RoadRageConfig.SuspectPeds]);
-            suspect = new(sData.Model, Vector3.Zero, 0f);
+            suspect = new(sData.Model, Vector3.Zero, 0f)
+            {
+                IsPersistent = true,
+                BlockPermanentEvents = true,
+                MaxHealth = sData.Health,
+                Health = sData.Health,
+                Armor = sData.Armor,
+            };
             if (victim is not null && victim.IsValid() && victim.Exists() &&
                 victimV is not null && victimV.IsValid() && victimV.Exists())
             {
-                victim.IsPersistent = true;
-                victim.BlockPermanentEvents = true;
-                victim.MaxHealth = vData.Health;
-                victim.Health = vData.Health;
-                victim.Armor = vData.Armor;
                 victim.SetOutfit(vData);
                 victim.WarpIntoVehicle(victimV, -1);
                 victim.Tasks.CruiseWithVehicle(victimV, 10f, VehicleDrivingFlags.Emergency);
@@ -61,11 +74,6 @@ internal class RoadRage : CalloutBase
                 if (suspect is not null && suspect.IsValid() && suspect.Exists() &&
                     suspectV is not null && suspectV.IsValid() && suspectV.Exists())
                 {
-                    suspect.IsPersistent = true;
-                    suspect.BlockPermanentEvents = true;
-                    suspect.MaxHealth = sData.Health;
-                    suspect.Health = sData.Health;
-                    suspect.Armor = sData.Armor;
                     suspect.SetOutfit(sData);
                     suspect.WarpIntoVehicle(suspectV, -1);
                     suspect.Tasks.ChaseWithGroundVehicle(victim);
@@ -112,13 +120,12 @@ internal class RoadRage : CalloutBase
     internal override void Accepted()
     {
         HudHelpers.DisplayNotification($"{Localization.GetString("RoadRageDesc")} {Localization.GetString("RespondCode2")}", Localization.GetString("Dispatch"), Localization.GetString("RoadRage"));
-        area = new(victimV.Position.Around(Main.MersenneTwister.Next(100)), Main.MersenneTwister.Next(75, 120));
-        if (area is not null && area.IsValid() && area.Exists())
+        area = new(victimV.Position.Around(Main.MersenneTwister.Next(100)), Main.MersenneTwister.Next(75, 120))
         {
-            area.Color = Color.Yellow;
-            area.Alpha = 0.5f;
-            area.IsRouteEnabled = true;
-        }
+            Color = Color.Yellow,
+            Alpha = 0.5f,
+            IsRouteEnabled = true
+        };
     }
 
     internal override void NotAccepted()

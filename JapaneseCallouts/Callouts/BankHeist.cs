@@ -24,6 +24,7 @@ internal class BankHeist : CalloutBase
 
     internal SoundPlayer BankAlarm;
     private const ulong _DOOR_CONTROL = 0x9b12f9a24fabedb0;
+    private const BlipSprite SPRITE = BlipSprite.CriminalCarsteal;
 
     private Vector3 BankLocation = new(250.9f, 219.0f, 106.2f);
     private Vector3 OutsideBankVault = new(257.2f, 225.2f, 101.8f);
@@ -547,20 +548,18 @@ internal class BankHeist : CalloutBase
         {
             try
             {
-                BankBlip = new(CalloutPosition);
-                if (BankBlip is not null && BankBlip.IsValid() && BankBlip.Exists())
+                BankBlip = new(CalloutPosition)
                 {
-                    BankBlip.Sprite = BlipSprite.CriminalCarsteal;
-                    BankBlip.Color = Color.Yellow;
-                    BankBlip.RouteColor = Color.Yellow;
-                    BankBlip.IsRouteEnabled = true;
-                }
-                SideDoorBlip = new(new Vector3(258.3f, 200.4f, 104.9f));
-                if (SideDoorBlip is not null && SideDoorBlip.IsValid() && SideDoorBlip.Exists())
+                    Sprite = SPRITE,
+                    Color = Color.Yellow,
+                    RouteColor = Color.Yellow,
+                    IsRouteEnabled = true,
+                };
+                SideDoorBlip = new(new Vector3(258.3f, 200.4f, 104.9f))
                 {
-                    SideDoorBlip.Sprite = BlipSprite.CriminalCarsteal;
-                    SideDoorBlip.Color = Color.Yellow;
-                }
+                    Sprite = SPRITE,
+                    Color = Color.Yellow,
+                };
                 GameFiber.StartNew(() =>
                 {
                     GameFiber.Wait(4800);
@@ -1525,12 +1524,14 @@ internal class BankHeist : CalloutBase
         foreach (var p in XmlManager.BankHeistConfig.PoliceCruiserPositions)
         {
             var data = CalloutHelpers.Select([.. XmlManager.BankHeistConfig.PoliceCruisers]);
-            var vehicle = new Vehicle(data.Model, new(p.X, p.Y, p.Z), p.Heading);
+            var vehicle = new Vehicle(data.Model, new(p.X, p.Y, p.Z), p.Heading)
+            {
+                IsPersistent = true,
+                IsSirenOn = true,
+                IsSirenSilent = true,
+            };
             if (vehicle is not null && vehicle.IsValid() && vehicle.Exists())
             {
-                vehicle.IsPersistent = true;
-                vehicle.IsSirenOn = true;
-                vehicle.IsSirenSilent = true;
                 vehicle.ApplyTexture(data);
                 AllPoliceVehicles.Add(vehicle);
                 CalloutEntities.Add(vehicle);
@@ -1539,12 +1540,14 @@ internal class BankHeist : CalloutBase
         foreach (var p in XmlManager.BankHeistConfig.PoliceTransportPositions)
         {
             var data = CalloutHelpers.Select([.. XmlManager.BankHeistConfig.PoliceTransporters]);
-            var vehicle = new Vehicle(data.Model, new(p.X, p.Y, p.Z), p.Heading);
+            var vehicle = new Vehicle(data.Model, new(p.X, p.Y, p.Z), p.Heading)
+            {
+                IsPersistent = true,
+                IsSirenOn = true,
+                IsSirenSilent = true,
+            };
             if (vehicle is not null && vehicle.IsValid() && vehicle.Exists())
             {
-                vehicle.IsPersistent = true;
-                vehicle.IsSirenOn = true;
-                vehicle.IsSirenSilent = true;
                 vehicle.ApplyTexture(data);
                 AllPoliceVehicles.Add(vehicle);
                 CalloutEntities.Add(vehicle);
@@ -1553,12 +1556,14 @@ internal class BankHeist : CalloutBase
         foreach (var p in XmlManager.BankHeistConfig.RiotPositions)
         {
             var data = CalloutHelpers.Select([.. XmlManager.BankHeistConfig.PoliceRiots]);
-            var vehicle = new Vehicle(data.Model, new(p.X, p.Y, p.Z), p.Heading);
+            var vehicle = new Vehicle(data.Model, new(p.X, p.Y, p.Z), p.Heading)
+            {
+                IsPersistent = true,
+                IsSirenOn = true,
+                IsSirenSilent = true,
+            };
             if (vehicle is not null && vehicle.IsValid() && vehicle.Exists())
             {
-                vehicle.IsPersistent = true;
-                vehicle.IsSirenOn = true;
-                vehicle.IsSirenSilent = true;
                 vehicle.ApplyTexture(data);
                 AllPoliceVehicles.Add(vehicle);
                 AllRiot.Add(vehicle);
@@ -1568,12 +1573,14 @@ internal class BankHeist : CalloutBase
         foreach (var p in XmlManager.BankHeistConfig.AmbulancePositions)
         {
             var data = CalloutHelpers.Select([.. XmlManager.BankHeistConfig.Ambulances]);
-            var vehicle = new Vehicle(data.Model, new(p.X, p.Y, p.Z), p.Heading);
+            var vehicle = new Vehicle(data.Model, new(p.X, p.Y, p.Z), p.Heading)
+            {
+                IsPersistent = true,
+                IsSirenOn = true,
+                IsSirenSilent = true,
+            };
             if (vehicle is not null && vehicle.IsValid() && vehicle.Exists())
             {
-                vehicle.IsPersistent = true;
-                vehicle.IsSirenOn = true;
-                vehicle.IsSirenSilent = true;
                 vehicle.ApplyTexture(data);
                 AllAmbulance.Add(vehicle);
                 CalloutEntities.Add(vehicle);
@@ -1582,12 +1589,14 @@ internal class BankHeist : CalloutBase
         foreach (var p in XmlManager.BankHeistConfig.FiretruckPositions)
         {
             var data = CalloutHelpers.Select([.. XmlManager.BankHeistConfig.Firetrucks]);
-            var vehicle = new Vehicle(data.Model, new(p.X, p.Y, p.Z), p.Heading);
+            var vehicle = new Vehicle(data.Model, new(p.X, p.Y, p.Z), p.Heading)
+            {
+                IsPersistent = true,
+                IsSirenOn = true,
+                IsSirenSilent = true,
+            };
             if (vehicle is not null && vehicle.IsValid() && vehicle.Exists())
             {
-                vehicle.IsPersistent = true;
-                vehicle.IsSirenOn = true;
-                vehicle.IsSirenSilent = true;
                 vehicle.ApplyTexture(data);
                 AllFiretruck.Add(vehicle);
                 CalloutEntities.Add(vehicle);
@@ -1599,29 +1608,26 @@ internal class BankHeist : CalloutBase
     {
         foreach (var p in XmlManager.BankHeistConfig.BarrierPositions)
         {
-            var barrier = new RObject(BarrierModel, new(p.X, p.Y, p.Z), p.Heading);
-            if (barrier is not null && barrier.IsValid() && barrier.Exists())
+            var barrier = new RObject(BarrierModel, new(p.X, p.Y, p.Z), p.Heading)
             {
-                barrier.IsPositionFrozen = true;
-                barrier.IsPersistent = true;
-                AllBarriers.Add(barrier);
-            }
-            var invisibleWall = new RObject(InvisibleWallModel, barrier.Position, p.Heading);
-            if (invisibleWall is not null && invisibleWall.IsValid() && invisibleWall.Exists())
-            {
-                invisibleWall.IsVisible = false;
-                invisibleWall.IsPersistent = true;
-                AllInvisibleWalls.Add(invisibleWall);
+                IsPositionFrozen = true,
+                IsPersistent = true
             };
-            var barrierPed = new Ped(invisibleWall.Position);
-            if (barrierPed is not null && barrierPed.IsValid() && barrierPed.Exists())
+            var invisibleWall = new RObject(InvisibleWallModel, barrier.Position, p.Heading)
             {
-                barrierPed.IsVisible = false;
-                barrierPed.IsPositionFrozen = true;
-                barrierPed.BlockPermanentEvents = true;
-                barrierPed.IsPersistent = true;
-                AllBarrierPeds.Add(barrierPed);
+                IsVisible = false,
+                IsPersistent = true
             };
+            var barrierPed = new Ped(invisibleWall.Position)
+            {
+                IsVisible = false,
+                IsPositionFrozen = true,
+                BlockPermanentEvents = true,
+                IsPersistent = true
+            };
+            AllBarriers.Add(barrier);
+            AllInvisibleWalls.Add(invisibleWall);
+            AllBarrierPeds.Add(barrierPed);
         }
     }
 
@@ -1630,17 +1636,19 @@ internal class BankHeist : CalloutBase
         foreach (var p in XmlManager.BankHeistConfig.LeftSittingSWATPositions)
         {
             var data = CalloutHelpers.SelectPed(weather, [.. XmlManager.BankHeistConfig.PoliceSWATModels]);
-            var swat = new Ped(data.Model, new(p.X, p.Y, p.Z), p.Heading);
+            var swat = new Ped(data.Model, new(p.X, p.Y, p.Z), p.Heading)
+            {
+                IsPersistent = true,
+                BlockPermanentEvents = true,
+                RelationshipGroup = RelationshipGroup.Cop,
+                CanBeTargetted = true,
+                CanAttackFriendlies = false,
+                MaxHealth = data.Health,
+                Health = data.Health,
+                Armor = data.Armor,
+            };
             if (swat is not null && swat.IsValid() && swat.Exists())
             {
-                swat.IsPersistent = true;
-                swat.BlockPermanentEvents = true;
-                swat.RelationshipGroup = RelationshipGroup.Cop;
-                swat.CanBeTargetted = true;
-                swat.CanAttackFriendlies = false;
-                swat.MaxHealth = data.Health;
-                swat.Health = data.Health;
-                swat.Armor = data.Armor;
                 swat.SetOutfit(data);
                 Functions.SetPedAsCop(swat);
                 Functions.SetCopAsBusy(swat, true);
@@ -1664,17 +1672,19 @@ internal class BankHeist : CalloutBase
         foreach (var p in XmlManager.BankHeistConfig.RightLookingSWATPositions)
         {
             var data = CalloutHelpers.SelectPed(weather, [.. XmlManager.BankHeistConfig.PoliceSWATModels]);
-            var swat = new Ped(data.Model, new(p.X, p.Y, p.Z), p.Heading);
+            var swat = new Ped(data.Model, new(p.X, p.Y, p.Z), p.Heading)
+            {
+                IsPersistent = true,
+                BlockPermanentEvents = true,
+                RelationshipGroup = RelationshipGroup.Cop,
+                CanBeTargetted = true,
+                CanAttackFriendlies = false,
+                MaxHealth = data.Health,
+                Health = data.Health,
+                Armor = data.Armor,
+            };
             if (swat is not null && swat.IsValid() && swat.Exists())
             {
-                swat.IsPersistent = true;
-                swat.BlockPermanentEvents = true;
-                swat.RelationshipGroup = RelationshipGroup.Cop;
-                swat.CanBeTargetted = true;
-                swat.CanAttackFriendlies = false;
-                swat.MaxHealth = data.Health;
-                swat.Health = data.Health;
-                swat.Armor = data.Armor;
                 swat.SetOutfit(data);
                 Functions.SetPedAsCop(swat);
                 Functions.SetCopAsBusy(swat, true);
@@ -1698,17 +1708,19 @@ internal class BankHeist : CalloutBase
         foreach (var p in XmlManager.BankHeistConfig.RightSittingSWATPositions)
         {
             var data = CalloutHelpers.SelectPed(weather, [.. XmlManager.BankHeistConfig.PoliceSWATModels]);
-            var swat = new Ped(data.Model, new(p.X, p.Y, p.Z), p.Heading);
+            var swat = new Ped(data.Model, new(p.X, p.Y, p.Z), p.Heading)
+            {
+                IsPersistent = true,
+                BlockPermanentEvents = true,
+                RelationshipGroup = RelationshipGroup.Cop,
+                CanBeTargetted = true,
+                CanAttackFriendlies = false,
+                MaxHealth = data.Health,
+                Health = data.Health,
+                Armor = data.Armor,
+            };
             if (swat is not null && swat.IsValid() && swat.Exists())
             {
-                swat.IsPersistent = true;
-                swat.BlockPermanentEvents = true;
-                swat.RelationshipGroup = RelationshipGroup.Cop;
-                swat.CanBeTargetted = true;
-                swat.CanAttackFriendlies = false;
-                swat.MaxHealth = data.Health;
-                swat.Health = data.Health;
-                swat.Armor = data.Armor;
                 swat.SetOutfit(data);
                 Functions.SetPedAsCop(swat);
                 Functions.SetCopAsBusy(swat, true);
@@ -1732,17 +1744,19 @@ internal class BankHeist : CalloutBase
         foreach (var p in XmlManager.BankHeistConfig.AimingOfficerPositions)
         {
             var data = CalloutHelpers.SelectPed(weather, [.. XmlManager.BankHeistConfig.PoliceOfficerModels]);
-            var officer = new Ped(data.Model, new(p.X, p.Y, p.Z), p.Heading);
+            var officer = new Ped(data.Model, new(p.X, p.Y, p.Z), p.Heading)
+            {
+                IsPersistent = true,
+                BlockPermanentEvents = true,
+                RelationshipGroup = RelationshipGroup.Cop,
+                CanBeTargetted = true,
+                CanAttackFriendlies = false,
+                MaxHealth = data.Health,
+                Health = data.Health,
+                Armor = data.Armor,
+            };
             if (officer is not null && officer.IsValid() && officer.Exists())
             {
-                officer.IsPersistent = true;
-                officer.BlockPermanentEvents = true;
-                officer.RelationshipGroup = RelationshipGroup.Cop;
-                officer.CanBeTargetted = true;
-                officer.CanAttackFriendlies = false;
-                officer.MaxHealth = data.Health;
-                officer.Health = data.Health;
-                officer.Armor = data.Armor;
                 officer.SetOutfit(data);
                 Functions.SetPedAsCop(officer);
                 Functions.SetCopAsBusy(officer, true);
@@ -1769,17 +1783,19 @@ internal class BankHeist : CalloutBase
         foreach (var p in XmlManager.BankHeistConfig.StandingOfficerPositions)
         {
             var data = CalloutHelpers.SelectPed(weather, [.. XmlManager.BankHeistConfig.PoliceOfficerModels]);
-            var officer = new Ped(data.Model, new(p.X, p.Y, p.Z), p.Heading);
+            var officer = new Ped(data.Model, new(p.X, p.Y, p.Z), p.Heading)
+            {
+                IsPersistent = true,
+                BlockPermanentEvents = true,
+                RelationshipGroup = RelationshipGroup.Cop,
+                CanBeTargetted = true,
+                CanAttackFriendlies = false,
+                MaxHealth = data.Health,
+                Health = data.Health,
+                Armor = data.Armor,
+            };
             if (officer is not null && officer.IsValid() && officer.Exists())
             {
-                officer.IsPersistent = true;
-                officer.BlockPermanentEvents = true;
-                officer.RelationshipGroup = RelationshipGroup.Cop;
-                officer.CanBeTargetted = true;
-                officer.CanAttackFriendlies = false;
-                officer.MaxHealth = data.Health;
-                officer.Health = data.Health;
-                officer.Armor = data.Armor;
                 officer.SetOutfit(data);
                 Functions.SetPedAsCop(officer);
                 Functions.SetCopAsBusy(officer, true);
@@ -1802,16 +1818,18 @@ internal class BankHeist : CalloutBase
         }
         var cP = XmlManager.BankHeistConfig.CommanderPosition;
         var cData = CalloutHelpers.SelectPed(weather, [.. XmlManager.BankHeistConfig.CommanderModels]);
-        Commander = new Ped(cData.Model, new(cP.X, cP.Y, cP.Z), cP.Heading);
+        Commander = new Ped(cData.Model, new(cP.X, cP.Y, cP.Z), cP.Heading)
+        {
+            BlockPermanentEvents = true,
+            IsPersistent = true,
+            IsInvincible = true,
+            RelationshipGroup = RelationshipGroup.Cop,
+            MaxHealth = cData.Health,
+            Health = cData.Health,
+            Armor = cData.Armor,
+        };
         if (Commander is not null && Commander.IsValid() && Commander.Exists())
         {
-            Commander.BlockPermanentEvents = true;
-            Commander.IsPersistent = true;
-            Commander.IsInvincible = true;
-            Commander.RelationshipGroup = RelationshipGroup.Cop;
-            Commander.MaxHealth = cData.Health;
-            Commander.Health = cData.Health;
-            Commander.Armor = cData.Armor;
             Commander.SetOutfit(cData);
             Functions.SetPedCantBeArrestedByPlayer(Commander, true);
 
@@ -1830,14 +1848,16 @@ internal class BankHeist : CalloutBase
         foreach (var p in XmlManager.BankHeistConfig.ParamedicPositions)
         {
             var data = CalloutHelpers.SelectPed(weather, [.. XmlManager.BankHeistConfig.ParamedicModels]);
-            var paramedic = new Ped(data.Model, new(p.X, p.Y, p.Z), p.Heading);
+            var paramedic = new Ped(data.Model, new(p.X, p.Y, p.Z), p.Heading)
+            {
+                IsPersistent = true,
+                BlockPermanentEvents = true,
+                MaxHealth = data.Health,
+                Health = data.Health,
+                Armor = data.Armor,
+            };
             if (paramedic is not null && paramedic.IsValid() && paramedic.Exists())
             {
-                paramedic.IsPersistent = true;
-                paramedic.BlockPermanentEvents = true;
-                paramedic.MaxHealth = data.Health;
-                paramedic.Health = data.Health;
-                paramedic.Armor = data.Armor;
                 paramedic.SetOutfit(data);
                 AllEMS.Add(paramedic);
                 CalloutEntities.Add(paramedic);
@@ -1846,14 +1866,16 @@ internal class BankHeist : CalloutBase
         foreach (var p in XmlManager.BankHeistConfig.FirefighterPositions)
         {
             var data = CalloutHelpers.SelectPed(weather, [.. XmlManager.BankHeistConfig.FirefighterModels]);
-            var firefighter = new Ped(data.Model, new(p.X, p.Y, p.Z), p.Heading);
+            var firefighter = new Ped(data.Model, new(p.X, p.Y, p.Z), p.Heading)
+            {
+                IsPersistent = true,
+                BlockPermanentEvents = true,
+                MaxHealth = data.Health,
+                Health = data.Health,
+                Armor = data.Armor,
+            };
             if (firefighter is not null && firefighter.IsValid() && firefighter.Exists())
             {
-                firefighter.IsPersistent = true;
-                firefighter.BlockPermanentEvents = true;
-                firefighter.MaxHealth = data.Health;
-                firefighter.Health = data.Health;
-                firefighter.Armor = data.Armor;
                 firefighter.SetOutfit(data);
                 AllEMS.Add(firefighter);
                 CalloutEntities.Add(firefighter);
@@ -1869,16 +1891,18 @@ internal class BankHeist : CalloutBase
         {
             var data = CalloutHelpers.Select([.. XmlManager.BankHeistConfig.HostageModels]);
             var pos = new Vector3(positions[i].X, positions[i].Y, positions[i].Z);
-            var hostage = new Ped(data.Model, pos, Main.MersenneTwister.Next(0, 360));
+            var hostage = new Ped(data.Model, pos, Main.MersenneTwister.Next(0, 360))
+            {
+                IsPersistent = true,
+                BlockPermanentEvents = true,
+                RelationshipGroup = HostageRG,
+                CanAttackFriendlies = false,
+                MaxHealth = data.Health,
+                Health = data.Health,
+                Armor = data.Armor,
+            };
             if (hostage is not null && hostage.IsValid() && hostage.Exists())
             {
-                hostage.IsPersistent = true;
-                hostage.BlockPermanentEvents = true;
-                hostage.RelationshipGroup = HostageRG;
-                hostage.CanAttackFriendlies = false;
-                hostage.MaxHealth = data.Health;
-                hostage.Health = data.Health;
-                hostage.Armor = data.Armor;
                 NativeFunction.Natives.SET_PED_CAN_RAGDOLL(hostage, false);
                 hostage.SetOutfit(data);
                 AllHostages.Add(hostage);
@@ -1898,16 +1922,18 @@ internal class BankHeist : CalloutBase
         for (int i = 0; i < nrP.Count; i++)
         {
             var data = CalloutHelpers.Select([.. XmlManager.BankHeistConfig.RobberModels]);
-            var ped = new Ped(data.Model, new(nrP[i].X, nrP[i].Y, nrP[i].Z), nrP[i].Heading);
+            var ped = new Ped(data.Model, new(nrP[i].X, nrP[i].Y, nrP[i].Z), nrP[i].Heading)
+            {
+                IsPersistent = true,
+                BlockPermanentEvents = true,
+                CanAttackFriendlies = false,
+                MaxHealth = data.Health,
+                Health = data.Health,
+                Armor = data.Armor,
+                RelationshipGroup = RobbersRG,
+            };
             if (ped is not null && ped.IsValid() && ped.Exists())
             {
-                ped.IsPersistent = true;
-                ped.BlockPermanentEvents = true;
-                ped.CanAttackFriendlies = false;
-                ped.MaxHealth = data.Health;
-                ped.Health = data.Health;
-                ped.Armor = data.Armor;
-                ped.RelationshipGroup = RobbersRG;
                 ped.SetOutfit(data);
                 Functions.SetPedCantBeArrestedByPlayer(ped, true);
 
@@ -1946,16 +1972,18 @@ internal class BankHeist : CalloutBase
         {
             var rvP = XmlManager.BankHeistConfig.RobbersInVaultPositions[i];
             var data = CalloutHelpers.Select([.. XmlManager.BankHeistConfig.RobberModels]);
-            var ped = new Ped(data.Model, new(rvP.X, rvP.Y, rvP.Z), rvP.Heading);
+            var ped = new Ped(data.Model, new(rvP.X, rvP.Y, rvP.Z), rvP.Heading)
+            {
+                IsPersistent = true,
+                BlockPermanentEvents = true,
+                CanAttackFriendlies = false,
+                MaxHealth = data.Health,
+                Health = data.Health,
+                Armor = data.Armor,
+                RelationshipGroup = RobbersRG,
+            };
             if (ped is not null && ped.IsValid() && ped.Exists())
             {
-                ped.IsPersistent = true;
-                ped.BlockPermanentEvents = true;
-                ped.CanAttackFriendlies = false;
-                ped.MaxHealth = data.Health;
-                ped.Health = data.Health;
-                ped.Armor = data.Armor;
-                ped.RelationshipGroup = RobbersRG;
                 ped.SetOutfit(data);
                 Functions.SetPedCantBeArrestedByPlayer(ped, true);
 
@@ -1995,16 +2023,18 @@ internal class BankHeist : CalloutBase
         {
             var rnP = XmlManager.BankHeistConfig.RobbersNegotiationPositions[i];
             var data = CalloutHelpers.Select([.. XmlManager.BankHeistConfig.RobberModels]);
-            var ped = new Ped(data.Model, new(rnP.X, rnP.Y, rnP.Z), rnP.Heading);
+            var ped = new Ped(data.Model, new(rnP.X, rnP.Y, rnP.Z), rnP.Heading)
+            {
+                IsPersistent = true,
+                BlockPermanentEvents = true,
+                CanAttackFriendlies = false,
+                MaxHealth = data.Health,
+                Health = data.Health,
+                Armor = data.Armor,
+                RelationshipGroup = RobbersRG,
+            };
             if (ped is not null && ped.IsValid() && ped.Exists())
             {
-                ped.IsPersistent = true;
-                ped.BlockPermanentEvents = true;
-                ped.CanAttackFriendlies = false;
-                ped.MaxHealth = data.Health;
-                ped.Health = data.Health;
-                ped.Armor = data.Armor;
-                ped.RelationshipGroup = RobbersRG;
                 ped.SetOutfit(data);
                 Functions.SetPedCantBeArrestedByPlayer(ped, true);
 
@@ -2034,16 +2064,18 @@ internal class BankHeist : CalloutBase
             if (Main.MersenneTwister.Next(5) is >= 2)
             {
                 var data = CalloutHelpers.Select([.. XmlManager.BankHeistConfig.RobberModels]);
-                var ped = new Ped(data.Model, new(rsP.X, rsP.Y, rsP.Z), rsP.Heading);
+                var ped = new Ped(data.Model, new(rsP.X, rsP.Y, rsP.Z), rsP.Heading)
+                {
+                    IsPersistent = true,
+                    BlockPermanentEvents = true,
+                    CanAttackFriendlies = false,
+                    MaxHealth = data.Health,
+                    Health = data.Health,
+                    Armor = data.Armor,
+                    RelationshipGroup = SneakRobbersRG
+                };
                 if (ped is not null && ped.IsValid() && ped.Exists())
                 {
-                    ped.IsPersistent = true;
-                    ped.BlockPermanentEvents = true;
-                    ped.CanAttackFriendlies = false;
-                    ped.MaxHealth = data.Health;
-                    ped.Health = data.Health;
-                    ped.Armor = data.Armor;
-                    ped.RelationshipGroup = SneakRobbersRG;
                     ped.SetOutfit(data);
                     Functions.SetPedCantBeArrestedByPlayer(ped, true);
 
@@ -2701,40 +2733,35 @@ internal class BankHeist : CalloutBase
         Main.Player.IsPositionFrozen = true;
         var vData = CalloutHelpers.Select([.. XmlManager.BankHeistConfig.PoliceCruisers]);
         var data = XmlManager.BankHeistConfig.WifePosition;
-        WifeCar = new(vData.Model, new(data.X, data.Y, data.Z), Wife.Heading);
-        if (WifeCar is not null && WifeCar.IsValid() && WifeCar.Exists())
+        WifeCar = new(vData.Model, new(data.X, data.Y, data.Z), Wife.Heading)
         {
-            WifeCar.IsPersistent = true;
-            WifeCar.IsSirenOn = true;
-            CalloutEntities.Add(WifeCar);
-            var wData = CalloutHelpers.Select([.. XmlManager.BankHeistConfig.WifeModels]);
-            Wife = new Ped(wData.Model, Vector3.Zero, 0f);
-            if (Wife is not null && Wife.IsValid() && Wife.Exists())
-            {
-                Wife.IsPersistent = true;
-                Wife.BlockPermanentEvents = true;
-                Wife.WarpIntoVehicle(WifeCar, 1);
-                CalloutEntities.Add(Wife);
-            }
-            WifeDriver = WifeCar.CreateRandomDriver();
-            if (WifeDriver is not null && WifeDriver.IsValid() && WifeDriver.Exists())
-            {
-                WifeDriver.IsPersistent = true;
-                WifeDriver.BlockPermanentEvents = true;
-                CalloutEntities.Add(WifeDriver);
+            IsPersistent = true,
+            IsSirenOn = true
+        };
+        WifeDriver = WifeCar.CreateRandomDriver();
+        WifeDriver.IsPersistent = true;
+        WifeDriver.BlockPermanentEvents = true;
+        var wData = CalloutHelpers.Select([.. XmlManager.BankHeistConfig.WifeModels]);
+        Wife = new Ped(wData.Model, Vector3.Zero, 0f)
+        {
+            IsPersistent = true,
+            BlockPermanentEvents = true,
+        };
+        Wife.WarpIntoVehicle(WifeCar, 1);
+        CalloutEntities.Add(Wife);
+        CalloutEntities.Add(WifeDriver);
+        CalloutEntities.Add(WifeCar);
 
-                var destination = new Vector3(XmlManager.BankHeistConfig.WifeVehicleDestination.X, XmlManager.BankHeistConfig.WifeVehicleDestination.Y, XmlManager.BankHeistConfig.WifeVehicleDestination.Z);
-                WifeDriver.Tasks.DriveToPosition(destination, 20f, VehicleDrivingFlags.DriveAroundVehicles | VehicleDrivingFlags.DriveAroundObjects | VehicleDrivingFlags.DriveAroundPeds);
-                while (true)
-                {
-                    GameFiber.Yield();
-                    if (Vector3.Distance(WifeCar.Position, destination) < 6f) break;
-                }
-                Wife.Tasks.LeaveVehicle(LeaveVehicleFlags.None);
-                Wife.Tasks.FollowNavigationMeshToPosition(Main.Player.GetOffsetPosition(Vector3.RelativeRight * 1.5f), Main.Player.Heading, 1.9f).WaitForCompletion(60000);
-                Main.Player.IsPositionFrozen = false;
-            }
+        var destination = new Vector3(XmlManager.BankHeistConfig.WifeVehicleDestination.X, XmlManager.BankHeistConfig.WifeVehicleDestination.Y, XmlManager.BankHeistConfig.WifeVehicleDestination.Z);
+        WifeDriver.Tasks.DriveToPosition(destination, 20f, VehicleDrivingFlags.DriveAroundVehicles | VehicleDrivingFlags.DriveAroundObjects | VehicleDrivingFlags.DriveAroundPeds);
+        while (true)
+        {
+            GameFiber.Yield();
+            if (Vector3.Distance(WifeCar.Position, destination) < 6f) break;
         }
+        Wife.Tasks.LeaveVehicle(LeaveVehicleFlags.None);
+        Wife.Tasks.FollowNavigationMeshToPosition(Main.Player.GetOffsetPosition(Vector3.RelativeRight * 1.5f), Main.Player.Heading, 1.9f).WaitForCompletion(60000);
+        Main.Player.IsPositionFrozen = false;
     }
 
     private void CreateSpeedZone()

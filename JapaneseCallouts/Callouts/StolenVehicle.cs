@@ -17,10 +17,13 @@ internal class StolenVehicle : CalloutBase
 
         try
         {
+            stolen = new(x => x.IsCar, CalloutPosition)
+            {
+                IsPersistent = true,
+                IsStolen = true
+            };
             if (stolen is not null && stolen.IsValid() && stolen.Exists())
             {
-                stolen.IsPersistent = true;
-                stolen.IsStolen = true;
                 suspect = stolen.CreateRandomDriver();
                 if (suspect && suspect.IsValid() && suspect.Exists())
                 {
@@ -70,13 +73,12 @@ internal class StolenVehicle : CalloutBase
         HudHelpers.DisplayNotification(Localization.GetString("StolenVehicleData", stolen.LicensePlate, stolen.Class.ToString()));
         if (stolen && stolen.IsValid() && stolen.Exists())
         {
-            area = new(stolen.Position.Around(Main.MersenneTwister.Next(100)), Main.MersenneTwister.Next(75, 120));
-            if (area is not null && area.IsValid() && area.Exists())
+            area = new(stolen.Position.Around(Main.MersenneTwister.Next(100)), Main.MersenneTwister.Next(75, 120))
             {
-                area.Color = Color.Yellow;
-                area.Alpha = 0.5f;
-                area.IsRouteEnabled = true;
-            }
+                Color = Color.Yellow,
+                Alpha = 0.5f,
+                IsRouteEnabled = true
+            };
         }
     }
 

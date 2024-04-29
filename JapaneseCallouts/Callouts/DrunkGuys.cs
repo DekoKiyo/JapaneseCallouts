@@ -56,27 +56,29 @@ internal class DrunkGuys : CalloutBase
 
     internal override void Accepted()
     {
-        citizen = new(CalloutPosition, calloutData.Heading);
+        citizen = new(CalloutPosition, calloutData.Heading)
+        {
+            IsPersistent = true,
+            BlockPermanentEvents = true,
+            KeepTasks = true,
+        };
         if (citizen is not null && citizen.IsValid() && citizen.Exists())
         {
-            citizen.IsPersistent = true;
-            citizen.BlockPermanentEvents = true;
-            citizen.KeepTasks = true;
-
             citizenB = citizen.AttachBlip();
             citizenB.Color = Color.Green;
             citizenB.IsRouteEnabled = true;
         }
         foreach (var data in calloutData.DrunkPos)
         {
-            var cus = new Ped(x => x.IsPed, new(data.X, data.Y, data.Z), data.Heading);
+            var cus = new Ped(x => x.IsPed, new(data.X, data.Y, data.Z), data.Heading)
+            {
+                IsPersistent = true,
+                BlockPermanentEvents = true,
+                KeepTasks = true,
+                MovementAnimationSet = CLIP_SET
+            };
             if (cus is not null && cus.IsValid() && cus.Exists())
             {
-                cus.IsPersistent = true;
-                cus.BlockPermanentEvents = true;
-                cus.KeepTasks = true;
-                cus.MovementAnimationSet = CLIP_SET;
-
                 cus.Tasks.PlayAnimation(ANIM_DICTIONARY, Main.MersenneTwister.Next(2) is 0 ? ANIM_TYPE1 : ANIM_TYPE2, 1f, AnimationFlags.Loop);
                 peds.Add(cus);
             }
