@@ -68,32 +68,4 @@ internal static class CalloutHelpers
             preset.EarModel is 0 &&
             preset.WatchModel is 0);
     }
-
-    internal static void SetOutfit(this Ped ped, PedConfig data)
-    {
-        if (IsRandomProps(data))
-        {
-            ped.RandomizeVariation();
-            NativeFunction.Natives.SET_PED_RANDOM_PROPS(ped);
-        }
-        else
-        {
-            ped.GenerateRandomCharacter();
-            ped.SetVariation((int)EComponents.Mask, data.MaskModel - 1, data.MaskTexture - 1);
-            ped.SetVariation((int)EComponents.UpperSkin, data.UpperSkinModel - 1, data.UpperSkinTexture - 1);
-            ped.SetVariation((int)EComponents.Pants, data.PantsModel - 1, data.PantsTexture - 1);
-            ped.SetVariation((int)EComponents.Parachute, data.ParachuteModel - 1, data.ParachuteTexture - 1);
-            ped.SetVariation((int)EComponents.Shoes, data.ShoesModel - 1, data.ShoesTexture - 1);
-            ped.SetVariation((int)EComponents.Accessories, data.AccessoriesModel - 1, data.AccessoriesTexture - 1);
-            ped.SetVariation((int)EComponents.Undercoat, data.UndercoatModel - 1, data.UndercoatTexture - 1);
-            ped.SetVariation((int)EComponents.Armor, data.ArmorModel - 1, data.ArmorTexture - 1);
-            ped.SetVariation((int)EComponents.Decal, data.DecalModel - 1, data.DecalTexture - 1);
-            ped.SetVariation((int)EComponents.Top, data.TopModel - 1, data.TopTexture - 1);
-            NativeFunction.Natives.CLEAR_ALL_PED_PROPS(ped);
-            NativeFunction.Natives.SET_PED_PROP_INDEX(ped, (int)EProps.Hat, data.HatModel - 1, data.HatTexture - 1, false);
-            NativeFunction.Natives.SET_PED_PROP_INDEX(ped, (int)EProps.Glasses, data.GlassesModel - 1, data.GlassesTexture - 1, false);
-            NativeFunction.Natives.SET_PED_PROP_INDEX(ped, (int)EProps.Ear, data.EarModel - 1, data.EarTexture - 1, false);
-            NativeFunction.Natives.SET_PED_PROP_INDEX(ped, (int)EProps.Watch, data.WatchModel - 1, data.WatchTexture - 1, false);
-        }
-    }
 }
