@@ -550,6 +550,7 @@ internal class BankHeist : CalloutBase
                 BankBlip = new(CalloutPosition);
                 if (BankBlip is not null && BankBlip.IsValid() && BankBlip.Exists())
                 {
+                    BankBlip.Sprite = BlipSprite.CriminalCarsteal;
                     BankBlip.Color = Color.Yellow;
                     BankBlip.RouteColor = Color.Yellow;
                     BankBlip.IsRouteEnabled = true;
@@ -557,6 +558,7 @@ internal class BankHeist : CalloutBase
                 SideDoorBlip = new(new Vector3(258.3f, 200.4f, 104.9f));
                 if (SideDoorBlip is not null && SideDoorBlip.IsValid() && SideDoorBlip.Exists())
                 {
+                    SideDoorBlip.Sprite = BlipSprite.CriminalCarsteal;
                     SideDoorBlip.Color = Color.Yellow;
                 }
                 GameFiber.StartNew(() =>
@@ -1807,7 +1809,11 @@ internal class BankHeist : CalloutBase
             Functions.SetPedCantBeArrestedByPlayer(Commander, true);
 
             CommanderBlip = Commander.AttachBlip();
-            CommanderBlip.Color = Color.Green;
+            if (CommanderBlip is not null && CommanderBlip.IsValid() && CommanderBlip.Exists())
+            {
+                CommanderBlip.Sprite = BlipSprite.Friend;
+                CommanderBlip.Color = Color.Green;
+            }
             CalloutEntities.Add(Commander);
         }
     }
