@@ -192,19 +192,6 @@ internal class Main : Plugin
                     }
                 }
             });
-
-            GameFiber.StartNew(() =>
-            {
-                while (true)
-                {
-                    GameFiber.Yield();
-                    if (KeyHelpers.IsKeysDown(Keys.O))
-                    {
-                        var ped = new Ped(Player.Position, 0f);
-                        var eb = new EnemyBlip(ped);
-                    }
-                }
-            });
         }
     }
 
