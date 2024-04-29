@@ -169,7 +169,7 @@ internal class Main : Plugin
             GameFiber.StartNew(() =>
             {
                 GameFiber.Yield();
-                if (PluginUpdater.CheckUpdate())
+                if (PluginUpdater.CheckUpdate().Result)
                 {
                     Logger.Info($"The latest update found. Latest Version: {PluginUpdater.LatestVersion}");
 

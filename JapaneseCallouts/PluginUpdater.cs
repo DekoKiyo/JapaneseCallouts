@@ -10,7 +10,7 @@ internal static class PluginUpdater
 
     private static readonly HttpClient Client = new();
 
-    internal static bool CheckUpdate()
+    internal static async Task<bool> CheckUpdate()
     {
         if (File.Exists(OLD_PATH))
         {
@@ -20,7 +20,8 @@ internal static class PluginUpdater
 
         try
         {
-            var data = Client.GetStringAsync(DATA_JSON).Result;
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+            var data = await Client.GetStringAsync(DATA_JSON);
             var dic = JsonConvert.DeserializeObject<Dictionary<string, string>>(data);
             LatestVersion = dic["latest"];
         }
