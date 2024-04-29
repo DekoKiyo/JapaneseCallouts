@@ -12,6 +12,8 @@ $PluginDllFile = $PluginDllFolder + "\JapaneseCallouts.dll"
 $PluginIniFile = ".\JapaneseCallouts\JapaneseCallouts.ini"
 $XmlFolder = ".\Xml\"
 $ProjectFile = ".\JapaneseCallouts\JapaneseCallouts.csproj"
+$NAudioCoreDllFile = $PluginDllFolder + "\NAudio.Core.dll"
+$CalloutInterfaceAPIDllFile = $PluginDllFolder + "\CalloutInterfaceAPI.dll"
 
 Write-Host "PowerShell $($PSVersionTable.PSEdition) Version $($PSVersionTable.PSVersion)" -ForegroundColor Cyan
 Set-StrictMode -Version 2.0; $ErrorActionPreference = "Stop"; $ConfirmPreference = "None"; trap { Write-Error $_ -ErrorAction Continue; exit 1 }
@@ -74,6 +76,8 @@ If (!(Test-Path $PluginsLSPDFRFolder))
 Write-Host "[Copy] In progress..." -ForegroundColor DarkBlue
 Copy-Item $PluginDllFile $PluginsLSPDFRFolder
 Copy-Item $PluginIniFile $PluginsLSPDFRFolder
+Copy-Item $NAudioCoreDllFile $GrandTheftAutoV
+Copy-Item $CalloutInterfaceAPIDllFile $GrandTheftAutoV
 Copy-Item $XmlFolder "$($PluginsLSPDFRFolder)\JapaneseCallouts\Xml" -Recurse -Force
 Write-Host "[Copy] Done!" -ForegroundColor Green
 
