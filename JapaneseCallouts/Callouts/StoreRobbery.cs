@@ -252,7 +252,7 @@ internal class StoreRobbery : CalloutBase
         }
 
         if (Main.Player.IsDead) End();
-        if (PedHelpers.IsAllPedDeadOrArrested([.. robbers])) End();
+        if (EntityHelpers.IsAllPedDeadOrArrested([.. robbers])) End();
     }
 
     private void ProcessTimerBars()
