@@ -95,7 +95,7 @@ If (!(Test-Path $PluginsLSPDFRFolder))
 Write-Host "[Copy] In progress..." -ForegroundColor DarkBlue
 Copy-Item $PluginDllFile $PluginsLSPDFRFolder
 Copy-Item $PluginIniFile $PluginsLSPDFRFolder
-Copy-Item $XmlFolder "$($PluginsLSPDFRFolder)\JapaneseCallouts\" -Recurse -Force
+Copy-Item $XmlFolder "$($PluginsLSPDFRFolder)\JapaneseCallouts\Xml" -Recurse -Force
 Write-Host "[Copy] Done!" -ForegroundColor Green
 
 # GTA5へのファイルコピーここまで
