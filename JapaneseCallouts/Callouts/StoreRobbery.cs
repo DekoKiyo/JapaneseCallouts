@@ -183,17 +183,15 @@ internal class StoreRobbery : CalloutBase
         HudHelpers.DisplayNotification($"{Localization.GetString("StoreRobberyDesc")} {Localization.GetString("RespondCode3")}", Localization.GetString("Dispatch"), Localization.GetString("StoreRobbery"));
         foreach (var (pos, weapon, ammo) in robbersData[index].robbersPos)
         {
-            var robber = new Ped(RobbersModel, pos, 0f)
-            {
-                IsPersistent = true,
-                BlockPermanentEvents = true,
-                Health = 250,
-                MaxHealth = 250,
-                Armor = 100,
-                RelationshipGroup = RobbersRG,
-            };
+            var robber = new Ped(RobbersModel, pos, 0f);
             if (robber is not null && robber.IsValid() && robber.Exists())
             {
+                robber.IsPersistent = true;
+                robber.BlockPermanentEvents = true;
+                robber.Health = 250;
+                robber.MaxHealth = 250;
+                robber.Armor = 100;
+                robber.RelationshipGroup = RobbersRG;
                 robber.Inventory.GiveNewWeapon(weapon, ammo, true);
             }
             robbers.Add(robber);
