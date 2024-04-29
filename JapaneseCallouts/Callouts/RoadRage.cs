@@ -7,7 +7,7 @@ internal class RoadRage : CalloutBase
     private Ped suspect, victim;
     private Blip area, victimB;
     private LHandle pursuit;
-    private bool found = false, arrested = false, arrived = false, talkedToVictim = false;
+    private bool found = false, arrested = false, arrived = false;
     private int blipTimer = 750, count = 0;
 
     private static readonly (string, string)[] FinalVictimTalk =
@@ -207,18 +207,15 @@ internal class RoadRage : CalloutBase
 
             if (arrived)
             {
-                if (!talkedToVictim)
+                if (!Main.Player.IsInAnyVehicle(false))
                 {
-                    if (!Main.Player.IsInAnyVehicle(false))
+                    if (Vector3.Distance(Main.Player.Position, victim.Position) < 4f)
                     {
-                        if (Vector3.Distance(Main.Player.Position, victim.Position) < 4f)
+                        KeyHelpers.DisplayKeyHelp("PressToTalkWith", [Localization.GetString("Victim")], Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey);
+                        if (KeyHelpers.IsKeysDown(Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey))
                         {
-                            KeyHelpers.DisplayKeyHelp("PressToTalkWith", [Localization.GetString("Victim")], Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey);
-                            if (KeyHelpers.IsKeysDown(Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey))
-                            {
-                                Conversations.Talk(FinalVictimTalk);
-                                End();
-                            }
+                            Conversations.Talk(FinalVictimTalk);
+                            End();
                         }
                     }
                 }
