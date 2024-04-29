@@ -1,15 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <RoadRageConfig>
   <VictimVehicles>
-    <Vehicle></Vehicle>
+    <Vehicle>PANTO</Vehicle>
+    <Vehicle>ISSI2</Vehicle>
+    <Vehicle>FELON</Vehicle>
+    <Vehicle>JACKAL</Vehicle>
+    <Vehicle>ORACLE</Vehicle>
+    <Vehicle>RADI</Vehicle>
+    <Vehicle>TAILGATER</Vehicle>
   </VictimVehicles>
   <SuspectVehicles>
-    <Vehicle></Vehicle>
+    <Vehicle>MULE</Vehicle>
+    <Vehicle>MULE2</Vehicle>
+    <Vehicle>ZION</Vehicle>
+    <Vehicle>EVERON</Vehicle>
+    <Vehicle>BALLER</Vehicle>
+    <Vehicle>ROCOTO</Vehicle>
+    <Vehicle>TAILGATER</Vehicle>
+    <Vehicle>NINEF</Vehicle>
+    <Vehicle>ZENTORNO</Vehicle>
   </SuspectVehicles>
   <VictimPeds>
-    <Ped></Ped>
+    <Ped>A_M_M_BUSINESS_01</Ped>
+    <Ped>A_M_O_KTOWN_01</Ped>
+    <Ped>A_M_Y_BEVHILLS_01</Ped>
+    <Ped>A_M_Y_BUSINESS_03</Ped>
+    <Ped>A_M_Y_EPSILON_01</Ped>
+    <Ped>A_M_Y_VINDOUCHE_01</Ped>
+    <Ped>A_F_M_TOURIST_01</Ped>
+    <Ped>A_F_O_KTOWN_01</Ped>
+    <Ped>A_F_Y_BUSINESS_01</Ped>
+    <Ped>A_F_Y_HIPSTER_02</Ped>
+    <Ped>A_F_Y_TENNIS_01</Ped>
   </VictimPeds>
   <SuspectPeds>
-    <Ped></Ped>
+    <Ped>A_M_M_SALTON_02</Ped>
+    <Ped>A_M_M_SKATER_01</Ped>
+    <Ped>A_M_O_KTOWN_01</Ped>
+    <Ped>A_M_Y_BEACHVESP_01</Ped>
+    <Ped>A_M_Y_GAY_01</Ped>
+    <Ped>A_M_Y_STWHI_01</Ped>
+    <Ped>A_F_Y_CLUBCUST_01</Ped>
+    <Ped>A_F_Y_HIKER_01</Ped>
+    <Ped>A_F_Y_GENCASPAT_01</Ped>
+    <Ped chance="10">PLAYER_ZERO</Ped>
+    <Ped chance="10">PLAYER_ONE</Ped>
+    <Ped chance="10">PLAYER_TWO</Ped>
   </SuspectPeds>
 </RoadRageConfig>
