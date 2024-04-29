@@ -603,6 +603,8 @@ internal class BankHeist : CalloutBase
                 GameFiber.Yield();
                 SpawnNegotiationRobbers();
                 GameFiber.Yield();
+                SpawnSneakyRobbers();
+                GameFiber.Yield();
                 SpawnEMS(weather);
                 GameFiber.Yield();
                 SpawnHostages();
