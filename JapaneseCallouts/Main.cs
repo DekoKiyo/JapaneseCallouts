@@ -158,6 +158,7 @@ internal class Main : Plugin
             Settings.Initialize();
             XmlManager.Initialize();
             Localization.Initialize();
+            EnemyBlip.Initialize();
             Game.AddConsoleCommands();
             CalloutManager.RegisterAllCallouts();
             HudHelpers.DisplayNotification(Localization.GetString("PluginLoaded", PLUGIN_NAME, DEVELOPER_NAME), PLUGIN_NAME, PLUGIN_VERSION_DATA);
@@ -188,6 +189,19 @@ internal class Main : Plugin
                         {
                             HudHelpers.DisplayNotification(Localization.GetString("UpdateManual"), PLUGIN_NAME, "");
                         }
+                    }
+                }
+            });
+
+            GameFiber.StartNew(() =>
+            {
+                while (true)
+                {
+                    GameFiber.Yield();
+                    if (KeyHelpers.IsKeysDown(Keys.O))
+                    {
+                        var ped = new Ped(Player.Position, 0f);
+                        var eb = new EnemyBlip(ped);
                     }
                 }
             });

@@ -2,7 +2,6 @@ namespace JapaneseCallouts.Helpers;
 
 internal static class EntityHelpers
 {
-
     internal static Ped ClonePed(this Ped oldPed)
     {
         var oldPos = oldPed.Position;
@@ -100,6 +99,69 @@ internal static class EntityHelpers
             NativeFunction.Natives.SET_PED_PROP_INDEX(ped, (int)EProps.Glasses, data.GlassesModel - 1, data.GlassesTexture - 1, false);
             NativeFunction.Natives.SET_PED_PROP_INDEX(ped, (int)EProps.Ear, data.EarModel - 1, data.EarTexture - 1, false);
             NativeFunction.Natives.SET_PED_PROP_INDEX(ped, (int)EProps.Watch, data.WatchModel - 1, data.WatchTexture - 1, false);
+        }
+    }
+
+    // Source: https://gtaforums.com/topic/851726-c-how-to-check-if-a-ped-is-visible/
+
+    /// <summary>
+    /// Determine if given ped is in line of sight to the player
+    /// </summary>
+    /// <param name="target">Ped to check for</param>
+    /// <param name="source">Origin ped</param>
+    /// /// <param name="minAngle">the value of the dot product at which a ped is considered not in LoS</param>
+    /// <param name="withOcclusion">true if occlusion check should be included, false otherwise</param>
+    /// <param name="includeDead">true if dead peds should be included, false otherwise</param>
+    /// <returns>true if at least one ped was in los, false otherwise</returns>
+    internal static bool IsPedInLoS(this Entity target, Entity source, float minAngle, bool withOcclusion = true, bool includeDead = false)
+    {
+        if (target is not null && target.IsValid() && target.Exists())
+        {
+            if (target.IsDead && !includeDead)
+            {
+                return false;
+            }
+            if (withOcclusion) // with obstacle detection
+            {
+                if (NativeFunction.Natives.HAS_ENTITY_CLEAR_LOS_TO_ENTITY<bool>(target, source, 17)) // No Obstacles?
+                {
+                    var dot = GetDotVectorResult(target, source);
+                    if (dot > minAngle) // Is in acceptable range for dot product?
+                    {
+                        return true;
+                    }
+                }
+            }
+            else // without obstacle detection
+            {
+                var dot = GetDotVectorResult(target, source);
+                if (dot > minAngle) // Is in acceptable range for dot product?
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// Determine the dot vector product between source and target ped
+    /// </summary>
+    /// <param name="target"></param>
+    /// <param name="source"></param>
+    /// <returns>float in range -1.0 to 1.0, negative value if source is behind target, positive value if source is in front of target, 0 if source is orthogonal to target, 1 if directly in front of target, -1 if directly behind target</returns>
+    private static float GetDotVectorResult(Entity target, Entity source)
+    {
+        if (target is not null && target.IsValid() && target.Exists() &&
+            source is not null && source.IsValid() && source.Exists())
+        {
+            var dir = target.Position - source.Position;
+            dir.Normalize();
+            return Vector3.Dot(dir, source.ForwardVector);
+        }
+        else
+        {
+            return -1.0f;
         }
     }
 }

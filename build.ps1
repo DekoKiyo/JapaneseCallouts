@@ -76,8 +76,12 @@ If (!(Test-Path $PluginsLSPDFRFolder))
 Write-Host "[Copy] In progress..." -ForegroundColor DarkBlue
 Copy-Item $PluginDllFile $PluginsLSPDFRFolder
 Copy-Item $PluginIniFile $PluginsLSPDFRFolder
-Copy-Item $NAudioCoreDllFile $GrandTheftAutoV
-Copy-Item $CalloutInterfaceAPIDllFile $GrandTheftAutoV
+try
+{
+    Copy-Item $NAudioCoreDllFile $GrandTheftAutoV
+    Copy-Item $CalloutInterfaceAPIDllFile $GrandTheftAutoV
+}
+catch { }
 Copy-Item $XmlFolder "$($PluginsLSPDFRFolder)\JapaneseCallouts\Xml" -Recurse -Force
 Write-Host "[Copy] Done!" -ForegroundColor Green
 

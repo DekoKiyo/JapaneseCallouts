@@ -684,6 +684,11 @@ internal class BankHeist : CalloutBase
 
                             CheckForRobbersOutside();
 
+                            foreach (var robber in AllRobbers)
+                            {
+                                var blip = new EnemyBlip(robber);
+                            }
+
                             FightingPrepared = true;
                         }
                     }
