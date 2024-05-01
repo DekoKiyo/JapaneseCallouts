@@ -107,7 +107,7 @@ internal static class Conversations
         {
             var border = new ResRectangle(new(Game.Resolution.Width / 5 - 5, Game.Resolution.Height / 7 - 5), new(700, 180), Color.FromArgb(90, Color.Black));
             var rect = new ResRectangle(new(Game.Resolution.Width / 5, Game.Resolution.Height / 7), new(700, 180), Color.Black);
-            var text = new ResText(Localization.GetString("SelectAnswerText"), new(border.Position.X + 250, border.Position.Y + 15), 0.4f, Color.White, Common.EFont.ChaletLondon, ResText.Alignment.Left);
+            var text = new ResText(Localization.GetString("SelectAnswerText"), new(border.Position.X + 20, border.Position.Y + 15), 0.4f, Color.White, Common.EFont.ChaletLondon, ResText.Alignment.Left);
             var answers = new List<ResText>();
 
             int YIncreaser = 45;
