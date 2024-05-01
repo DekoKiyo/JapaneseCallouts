@@ -21,6 +21,8 @@ internal class BankHeist : CalloutBase
     }
 
     internal const string ALARM_SOUND_FILE_NAME = "BankHeistAlarm.wav";
+    private const BlipSprite RIOT_BLIP = BlipSprite.PolicePatrol;
+    private const BlipSprite COMMANDER_BLIP = BlipSprite.Friend;
 
     internal SoundPlayer BankAlarm;
     private const ulong _DOOR_CONTROL = 0x9b12f9a24fabedb0;
@@ -339,6 +341,7 @@ internal class BankHeist : CalloutBase
     private readonly List<Ped> SafeHostages = [];
     private readonly List<Ped> AllHostages = [];
     private readonly List<Ped> SpawnedHostages = [];
+    private readonly List<Blip> RiotBlips = [];
     private int AliveHostagesCount = 0;
     private int SafeHostagesCount = 0;
     private int TotalHostagesCount = 0;
@@ -478,6 +481,7 @@ internal class BankHeist : CalloutBase
                 foreach (var e in AllBarriers) if (e is not null && e.IsValid() && e.Exists()) e.Delete();
                 foreach (var e in AllBarrierPeds) if (e is not null && e.IsValid() && e.Exists()) e.Delete();
                 foreach (var e in AllInvisibleWalls) if (e is not null && e.IsValid() && e.Exists()) e.Delete();
+                foreach (var b in RiotBlips) if (b is not null && b.IsValid() && b.Exists()) b.Delete();
             }
             else
             {
@@ -501,6 +505,7 @@ internal class BankHeist : CalloutBase
                 foreach (var e in AllBarriers) if (e is not null && e.IsValid() && e.Exists()) e.Delete();
                 foreach (var e in AllBarrierPeds) if (e is not null && e.IsValid() && e.Exists()) e.Delete();
                 foreach (var e in AllInvisibleWalls) if (e is not null && e.IsValid() && e.Exists()) e.Delete();
+                foreach (var b in RiotBlips) if (b is not null && b.IsValid() && b.Exists()) b.Delete();
             }
         };
     }
@@ -650,7 +655,7 @@ internal class BankHeist : CalloutBase
                                     if (Vector3.Distance(Main.Player.Position, Commander.Position) < 4f)
                                     {
                                         HudHelpers.DisplayNotification(Localization.GetString("BankHeistWarning"));
-                                        KeyHelpers.DisplayKeyHelp("PressToTalkWith", [Localization.GetString("Commander")], Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey);
+                                        KeyHelpers.DisplayKeyHelp("PressToTalkWith", [Localization.GetString("Commander"), $"~{COMMANDER_BLIP.GetIconToken()}~"], Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey);
                                         if (KeyHelpers.IsKeysDown(Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey))
                                         {
                                             TalkedToCommander = true;
@@ -659,7 +664,7 @@ internal class BankHeist : CalloutBase
                                     }
                                     else
                                     {
-                                        HudHelpers.DisplayHelp(Localization.GetString("TalkToCommander"));
+                                        HudHelpers.DisplayHelp(Localization.GetString("TalkToCommander", $"~{COMMANDER_BLIP.GetIconToken()}~"));
                                     }
                                 }
                             }
@@ -703,7 +708,7 @@ internal class BankHeist : CalloutBase
                                 {
                                     if (Vector3.Distance(Main.Player.Position, Commander.Position) < 3f)
                                     {
-                                        KeyHelpers.DisplayKeyHelp("PressToTalkWith", [Localization.GetString("Commander")], Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey);
+                                        KeyHelpers.DisplayKeyHelp("PressToTalkWith", [Localization.GetString("Commander"), $"~{COMMANDER_BLIP.GetIconToken()}~"], Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey);
                                         if (KeyHelpers.IsKeysDown(Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey))
                                         {
                                             Conversations.Talk([(Localization.GetString("Commander"), Localization.GetString("StillFighting"))]);
@@ -829,7 +834,7 @@ internal class BankHeist : CalloutBase
                                 {
                                     if (!TalkedToCommander2nd)
                                     {
-                                        HudHelpers.DisplayHelp(Localization.GetString("TalkTo", Localization.GetString("Commander")));
+                                        HudHelpers.DisplayHelp(Localization.GetString("TalkTo", Localization.GetString("Commander"), $"~{COMMANDER_BLIP.GetIconToken()}~"));
                                     }
                                 }
                             }
@@ -854,7 +859,7 @@ internal class BankHeist : CalloutBase
                         {
                             if (Vector3.Distance(Main.Player.Position, Commander.Position) < 4f)
                             {
-                                KeyHelpers.DisplayKeyHelp("PressToTalkWith", [Localization.GetString("Commander")], Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey);
+                                KeyHelpers.DisplayKeyHelp("PressToTalkWith", [Localization.GetString("Commander"), $"~{COMMANDER_BLIP.GetIconToken()}~"], Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey);
                                 if (KeyHelpers.IsKeysDown(Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey))
                                 {
                                     TalkedToCommander = true;
@@ -868,7 +873,7 @@ internal class BankHeist : CalloutBase
                             }
                             else
                             {
-                                HudHelpers.DisplayHelp(Localization.GetString("TalkTo", Localization.GetString("Commander")));
+                                HudHelpers.DisplayHelp(Localization.GetString("TalkTo", Localization.GetString("Commander"), $"~{COMMANDER_BLIP.GetIconToken()}~"));
                             }
                         }
                     }
@@ -1568,6 +1573,16 @@ internal class BankHeist : CalloutBase
                 AllPoliceVehicles.Add(vehicle);
                 AllRiot.Add(vehicle);
                 CalloutEntities.Add(vehicle);
+
+                var blip = new Blip(vehicle)
+                {
+                    Sprite = RIOT_BLIP,
+                    Color = HudColor.Michael.GetColor(),
+                };
+                if (blip is not null && blip.IsValid() && blip.Exists())
+                {
+                    RiotBlips.Add(blip);
+                }
             }
         }
         foreach (var p in XmlManager.BankHeistConfig.AmbulancePositions)
@@ -1836,7 +1851,7 @@ internal class BankHeist : CalloutBase
             CommanderBlip = Commander.AttachBlip();
             if (CommanderBlip is not null && CommanderBlip.IsValid() && CommanderBlip.Exists())
             {
-                CommanderBlip.Sprite = BlipSprite.Friend;
+                CommanderBlip.Sprite = COMMANDER_BLIP;
                 CommanderBlip.Color = Color.Green;
             }
             CalloutEntities.Add(Commander);
@@ -2690,7 +2705,7 @@ internal class BankHeist : CalloutBase
                                 {
                                     if (CoolDown is 0)
                                     {
-                                        KeyHelpers.DisplayKeyHelp("EnterRiot", Settings.EnterRiotVanKey, Settings.EnterRiotVanModifierKey, sound: false);
+                                        KeyHelpers.DisplayKeyHelp("EnterRiot", [$"~{RIOT_BLIP.GetIconToken()}~"], Settings.EnterRiotVanKey, Settings.EnterRiotVanModifierKey, sound: false);
                                     }
                                 }
                             }
