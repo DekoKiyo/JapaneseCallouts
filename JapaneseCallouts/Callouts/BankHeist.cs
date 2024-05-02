@@ -913,6 +913,7 @@ internal class BankHeist : CalloutBase
         {
             var bigMessage = new BigMessageThread(true);
             bigMessage.MessageInstance.ShowColoredShard(Localization.GetString("Congratulations"), Localization.GetString("NoDiedHostage"), HudColor.Yellow, HudColor.MenuGrey);
+            Common.PlaySound("Mission_Pass_Notify", "DLC_HEISTS_GENERAL_FRONTEND_SOUNDS");
         }
     }
 
