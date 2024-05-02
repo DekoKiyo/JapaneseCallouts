@@ -7,7 +7,6 @@ internal static class Localization
     private static string CurrentLanguage = "en-US";
     private static readonly LanguageCode[] AvailableLanguages =
     [
-        new() { KeyCode = "Custom", Description = "Custom Translations" },
         new() { KeyCode = "en-US", Description = "English" },
         new() { KeyCode = "ja-JP", Description = "Japanese" }
     ];
@@ -24,20 +23,23 @@ internal static class Localization
         get => CurrentLanguage;
         set
         {
-            var index = 0;
-            foreach (var avl in AvailableLanguages)
-            {
-                if (avl.KeyCode == value)
-                {
-                    CurrentLanguage = value;
-                    break;
-                }
-                index++;
-            }
-
-            if (index == AvailableLanguages.Length)
+            if (AvailableLanguages.Length is 0)
             {
                 Logger.Warn("The language was not found in the list of available languages. The language will be set to English.");
+                CurrentLanguage = "en-US";
+            }
+            else
+            {
+                foreach (var avl in AvailableLanguages)
+                {
+                    if (avl.KeyCode == value)
+                    {
+                        CurrentLanguage = value;
+                        return;
+                    }
+                }
+
+                Logger.Warn("The given language key is not supported now. The language will be set to English.");
                 CurrentLanguage = "en-US";
             }
         }
@@ -83,7 +85,7 @@ internal static class Localization
     }
 
     [ConsoleCommand("Change Japanese Callouts' language.")]
-    internal static void ChangeJPCLanguage([ConsoleCommandParameter("Enter the language key that you want to change or \"Custom\"")] string lang)
+    internal static void ChangeJPCLanguage([ConsoleCommandParameter("Enter the language key that you want to change")] string lang)
     {
         CurrentLanguage = lang;
         Logger.Info($"Loading {CurrentLanguage}", "Localization");
