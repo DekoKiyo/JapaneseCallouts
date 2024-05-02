@@ -79,7 +79,7 @@ internal static class FreemodeHelpers
         var excludedFemaleHairItems = new int[] { };
 
         var drawableCount = NativeFunction.Natives.GET_NUMBER_OF_PED_DRAWABLE_VARIATIONS<int>(ped, 2);
-        var randomHair = Main.MersenneTwister.Next(drawableCount - 1);
+        int randomHair = Main.MersenneTwister.Next(drawableCount - 1);
         var randomBrow = Main.MersenneTwister.Next(22);
 
         if (ped.Model == new Model(MP_M_FREEMODE_01))
