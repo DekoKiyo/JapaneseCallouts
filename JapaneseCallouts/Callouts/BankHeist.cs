@@ -303,8 +303,7 @@ internal class BankHeist : CalloutBase
     [
         (Localization.GetString("Commander"), Localization.GetString("Final1")),
         (Localization.GetString("Commander"), Localization.GetString("Final2")),
-        (Localization.GetString("Commander"), Localization.GetString("Final3")),
-        (Settings.OfficerName, Localization.GetString("Final4")),
+        (Settings.OfficerName, Localization.GetString("Final3")),
     ];
     #endregion
     private readonly Model BarrierModel = "PROP_BARRIER_WORK05";
