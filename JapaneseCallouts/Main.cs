@@ -147,15 +147,18 @@ internal class Main : Plugin
             Logger.Info(@"          /_/");
 
             Logger.Info($"Initializing {PLUGIN_NAME}, {PLUGIN_VERSION_DATA}");
-            var missing = FileCheck();
+            var missing = FileCheck(out bool error);
             if (missing.Length is not 0)
             {
                 Logger.Warn($"Some files are missing to load {PLUGIN_NAME}.");
                 Logger.Warn("================== Missing Files List ==================");
                 foreach (var file in missing) Logger.Warn(file);
                 Logger.Warn("================== Missing Files List ==================");
-                Logger.Warn("Plugin won't be loaded.");
-                throw new FileNotFoundException($"Some files that are necessary to load {PLUGIN_NAME} were not found.");
+                if (error)
+                {
+                    Logger.Warn("Plugin won't be loaded.");
+                    throw new FileNotFoundException($"Some files that are necessary to load {PLUGIN_NAME} were not found.");
+                }
             }
             Remote.Initialize();
             Settings.Initialize();
@@ -198,15 +201,25 @@ internal class Main : Plugin
         }
     }
 
-    private static string[] FileCheck()
+    private static string[] FileCheck(out bool error)
     {
+        error = false;
         var missing = new List<string>();
-        if (!File.Exists(NAUDIO_CORE_DLL)) missing.Add(NAUDIO_CORE_DLL);
-        if (!File.Exists(CALLOUT_INTERFACE_API_DLL)) missing.Add(CALLOUT_INTERFACE_API_DLL);
+        if (!File.Exists(NAUDIO_CORE_DLL))
+        {
+            missing.Add(NAUDIO_CORE_DLL);
+            error = true;
+        }
+        if (!File.Exists(CALLOUT_INTERFACE_API_DLL))
+        {
+            missing.Add(CALLOUT_INTERFACE_API_DLL);
+            error = true;
+        }
         if (!File.Exists($"{LSPDFR_DIRECTORY}/{SETTINGS_INI_FILE}")) missing.Add($"{LSPDFR_DIRECTORY}/{SETTINGS_INI_FILE}");
         if (!File.Exists($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.BANK_HEIST_XML}")) missing.Add($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.BANK_HEIST_XML}");
         if (!File.Exists($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.DRUNK_GUYS_XML}")) missing.Add($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.DRUNK_GUYS_XML}");
         if (!File.Exists($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.ROAD_RAGE_XML}")) missing.Add($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.ROAD_RAGE_XML}");
+        if (!File.Exists($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.STORE_ROBBERY_XML}")) missing.Add($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.STORE_ROBBERY_XML}");
         if (!File.Exists($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.CALLOUTS_SOUND_XML}")) missing.Add($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.CALLOUTS_SOUND_XML}");
         if (!File.Exists($"{PLUGIN_DIRECTORY}/{PLUGIN_AUDIO_DIRECTORY}/{BankHeist.ALARM_SOUND_FILE_NAME}")) missing.Add($"{PLUGIN_DIRECTORY}/{PLUGIN_AUDIO_DIRECTORY}/{BankHeist.ALARM_SOUND_FILE_NAME}");
         if (!File.Exists($"{PLUGIN_DIRECTORY}/{PLUGIN_AUDIO_DIRECTORY}/{Conversations.PHONE_CALLING_SOUND}")) missing.Add($"{PLUGIN_DIRECTORY}/{PLUGIN_AUDIO_DIRECTORY}/{Conversations.PHONE_CALLING_SOUND}");
