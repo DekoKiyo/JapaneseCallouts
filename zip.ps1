@@ -101,7 +101,7 @@ try
     Copy-Item $CalloutInterfaceAPIDllFile $GrandTheftAutoV
 }
 catch { }
-Copy-Item $XmlFolder "$($PluginsLSPDFRFolder)\JapaneseCallouts\Xml" -Recurse -Force
+Copy-Item $XmlFolder "$($PluginsLSPDFRFolder)\JapaneseCallouts" -Recurse -Force
 Write-Host "[Copy] Done!" -ForegroundColor Green
 
 # GTA5へのファイルコピーここまで
