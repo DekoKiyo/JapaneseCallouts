@@ -13,7 +13,7 @@ internal static class Localization
         Logger.Info("Locale files has loaded.", "Localization");
     }
 
-    private static void Load(ELanguages lang)
+    private static void Load(ELanguages lang, bool isChange = false)
     {
         var langCode = LanguageHelpers.GetLangCode(lang);
         var assembly = Assembly.GetExecutingAssembly();
@@ -31,7 +31,7 @@ internal static class Localization
 #if DEBUG
                 Logger.Info($"Loading Translation - Key: \"{locale.Key}\" Value: \"{locale.Value}\"", "Localization");
 #endif
-                if (Translation.ContainsKey(locale.Key))
+                if (!isChange && Translation.ContainsKey(locale.Key))
                 {
                     Logger.Warn($"The translation key is already exists! Key: {locale.Key}", "Localization");
                 }
@@ -59,7 +59,7 @@ internal static class Localization
         if (Enum.GetNames(typeof(ELanguages)).Contains($"{lang}"))
         {
             Logger.Info($"Loading {lang}", "Localization");
-            Load(lang);
+            Load(lang, true);
             Logger.Info("Locale files has loaded.", "Localization");
         }
         else
