@@ -5,11 +5,13 @@ internal static class XmlManager
     internal const string BANK_HEIST_XML = @"BankHeistConfig.xml";
     internal const string DRUNK_GUYS_XML = @"DrunkGuysConfig.xml";
     internal const string ROAD_RAGE_XML = @"RoadRageConfig.xml";
+    internal const string STORE_ROBBERY_XML = @"StoreRobberyConfig.xml";
     internal const string CALLOUTS_SOUND_XML = @"CalloutsSoundConfig.xml";
 
     internal static BankHeistConfig BankHeistConfig { get; private set; }
     internal static DrunkGuysConfig DrunkGuysConfig { get; private set; }
     internal static RoadRageConfig RoadRageConfig { get; private set; }
+    internal static StoreRobberyConfig StoreRobberyConfig { get; private set; }
     internal static CalloutsSoundConfig CalloutsSoundConfig { get; private set; }
 
     internal static void Initialize()
@@ -17,11 +19,13 @@ internal static class XmlManager
         var bhSerializer = new XmlSerializer(typeof(BankHeistConfig));
         var gdSerializer = new XmlSerializer(typeof(DrunkGuysConfig));
         var rrSerializer = new XmlSerializer(typeof(RoadRageConfig));
+        var srSerializer = new XmlSerializer(typeof(StoreRobberyConfig));
         var csSerializer = new XmlSerializer(typeof(CalloutsSoundConfig));
 
         BankHeistConfig = LoadXml<BankHeistConfig>(BANK_HEIST_XML, bhSerializer);
         DrunkGuysConfig = LoadXml<DrunkGuysConfig>(DRUNK_GUYS_XML, gdSerializer);
         RoadRageConfig = LoadXml<RoadRageConfig>(ROAD_RAGE_XML, rrSerializer);
+        StoreRobberyConfig = LoadXml<StoreRobberyConfig>(STORE_ROBBERY_XML, srSerializer);
         CalloutsSoundConfig = LoadXml<CalloutsSoundConfig>(CALLOUTS_SOUND_XML, csSerializer);
     }
 
