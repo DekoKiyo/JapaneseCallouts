@@ -18,9 +18,14 @@ internal class StoreRobbery : CalloutBase
 
     internal override void Setup()
     {
-        index = Main.MersenneTwister.Next(XmlManager.StoreRobberyConfig.Stores.Count);
-        var pos = new Vector3(XmlManager.StoreRobberyConfig.Stores[index].Store_X, XmlManager.StoreRobberyConfig.Stores[index].Store_Y, XmlManager.StoreRobberyConfig.Stores[index].Store_Z);
-        CalloutPosition = pos;
+        var list = new List<Vector3>();
+        foreach (var store in XmlManager.StoreRobberyConfig.Stores)
+        {
+            list.Add(new(store.Store_X, store.Store_Y, store.Store_Z));
+        }
+        // index = Main.MersenneTwister.Next(XmlManager.StoreRobberyConfig.Stores.Count);
+        // var pos = new Vector3(XmlManager.StoreRobberyConfig.Stores[index].Store_X, XmlManager.StoreRobberyConfig.Stores[index].Store_Y, XmlManager.StoreRobberyConfig.Stores[index].Store_Z);
+        CalloutPosition = list.GetNearestPos();
         CalloutMessage = Localization.GetString("StoreRobbery");
         ShowCalloutAreaBlipBeforeAccepting(CalloutPosition, 50f);
         Functions.PlayScannerAudioUsingPosition(XmlManager.CalloutsSoundConfig.StoreRobbery, CalloutPosition);
