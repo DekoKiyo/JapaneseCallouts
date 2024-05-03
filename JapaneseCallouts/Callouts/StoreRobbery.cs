@@ -25,7 +25,8 @@ internal class StoreRobbery : CalloutBase
         }
         // index = Main.MersenneTwister.Next(XmlManager.StoreRobberyConfig.Stores.Count);
         // var pos = new Vector3(XmlManager.StoreRobberyConfig.Stores[index].Store_X, XmlManager.StoreRobberyConfig.Stores[index].Store_Y, XmlManager.StoreRobberyConfig.Stores[index].Store_Z);
-        CalloutPosition = list.GetNearestPos();
+        index = list.GetNearestPosIndex();
+        CalloutPosition = list[index];
         CalloutMessage = Localization.GetString("StoreRobbery");
         ShowCalloutAreaBlipBeforeAccepting(CalloutPosition, 50f);
         Functions.PlayScannerAudioUsingPosition(XmlManager.CalloutsSoundConfig.StoreRobbery, CalloutPosition);
