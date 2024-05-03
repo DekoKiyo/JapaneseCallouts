@@ -157,6 +157,7 @@ internal class Main : Plugin
                 Logger.Warn("Plugin won't be loaded.");
                 throw new FileNotFoundException($"Some files that are necessary to load {PLUGIN_NAME} were not found.");
             }
+            Remote.Initialize();
             Settings.Initialize();
             XmlManager.Initialize();
             Localization.Initialize();
