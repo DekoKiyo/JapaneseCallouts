@@ -4,12 +4,7 @@ internal static class Localization
 {
     private static readonly Dictionary<string, string> Translation = [];
     private const string NO_TRANSLATION = "[NO TRANSLATION]";
-    private static string CurrentLanguage = "en-US";
-    private static readonly LanguageCode[] AvailableLanguages =
-    [
-        new() { KeyCode = "en-US", Description = "English" },
-        new() { KeyCode = "ja-JP", Description = "Japanese" }
-    ];
+    internal static ELanguages CurrentLanguage = ELanguages.English;
 
     internal static void Initialize()
     {
@@ -18,37 +13,11 @@ internal static class Localization
         Logger.Info("Locale files has loaded.", "Localization");
     }
 
-    internal static string Language
+    private static void Load(ELanguages lang)
     {
-        get => CurrentLanguage;
-        set
-        {
-            if (AvailableLanguages.Length is 0)
-            {
-                Logger.Warn("The language was not found in the list of available languages. The language will be set to English.");
-                CurrentLanguage = "en-US";
-            }
-            else
-            {
-                foreach (var avl in AvailableLanguages)
-                {
-                    if (avl.KeyCode == value)
-                    {
-                        CurrentLanguage = value;
-                        return;
-                    }
-                }
-
-                Logger.Warn("The given language key is not supported now. The language will be set to English.");
-                CurrentLanguage = "en-US";
-            }
-        }
-    }
-
-    private static void Load(string lang)
-    {
+        var langCode = LanguageHelpers.GetLangCode(lang);
         var assembly = Assembly.GetExecutingAssembly();
-        var stream = assembly.GetManifestResourceStream($"JapaneseCallouts.Localization.{lang}.json");
+        var stream = assembly.GetManifestResourceStream($"JapaneseCallouts.Localization.{langCode}.json");
         var byteArray = new byte[stream.Length];
         _ = stream.Read(byteArray, 0, (int)stream.Length);
         var json = Encoding.UTF8.GetString(byteArray);
@@ -85,17 +54,17 @@ internal static class Localization
     }
 
     [ConsoleCommand("Change Japanese Callouts' language.")]
-    internal static void ChangeJPCLanguage([ConsoleCommandParameter("Enter the language key that you want to change")] string lang)
+    internal static void ChangeJPCLanguage([ConsoleCommandParameter(AutoCompleterType = typeof(ConsoleCommandParameterAutoCompleterEnum), Description = "Enter the language code that you want to use.")] ELanguages lang)
     {
-        CurrentLanguage = lang;
-        Logger.Info($"Loading {CurrentLanguage}", "Localization");
-        Load(CurrentLanguage);
-        Logger.Info("Locale files has loaded.", "Localization");
-    }
-
-    internal struct LanguageCode
-    {
-        internal string KeyCode;
-        internal string Description;
+        if (Enum.GetNames(typeof(ELanguages)).Contains($"{lang}"))
+        {
+            Logger.Info($"Loading {lang}", "Localization");
+            Load(lang);
+            Logger.Info("Locale files has loaded.", "Localization");
+        }
+        else
+        {
+            throw new ArgumentException("lang");
+        }
     }
 }

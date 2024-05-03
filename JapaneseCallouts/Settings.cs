@@ -4,6 +4,7 @@ internal static class Settings
 {
     private static FileIniDataParser Parser { get; } = new();
     private static IniData Ini { get; } = Parser.ReadFile($"{Main.LSPDFR_DIRECTORY}/{Main.SETTINGS_INI_FILE}");
+    private const string LANGUAGE_SETTING_NAME = "Language";
 
     internal static string OfficerName { get; private set; } = "Officer";
     internal static bool EnableAutoUpdate { get; private set; } = false;
@@ -28,7 +29,7 @@ internal static class Settings
     internal static void ReloadJPCSettings()
     {
         OfficerName = Ini["General"][nameof(OfficerName)] ??= "Officer";
-        Localization.Language = Ini["General"][nameof(Localization.Language)] ??= "en-US";
+        Localization.CurrentLanguage = (ELanguages)int.Parse(Ini["General"][LANGUAGE_SETTING_NAME]);
         EnableAutoUpdate = bool.Parse(Ini["General"][nameof(EnableAutoUpdate)] ??= "false");
         SpeakWithThePersonKey = (Ini["Keys"][nameof(SpeakWithThePersonKey)] ??= "Y").ConvertToKey();
         SpeakWithThePersonModifierKey = (Ini["Keys"][nameof(SpeakWithThePersonModifierKey)] ??= "None").ConvertToKey();
@@ -49,7 +50,7 @@ internal static class Settings
         Logger.Info("=================== Japanese Callouts Settings ===================");
         Logger.Info("General Settings");
         Logger.Info($"{nameof(OfficerName)}: {OfficerName}", "Settings");
-        Logger.Info($"{nameof(Localization.Language)}: {Localization.Language}", "Settings");
+        Logger.Info($"{LANGUAGE_SETTING_NAME}: {Localization.CurrentLanguage}", "Settings");
         Logger.Info($"{nameof(EnableAutoUpdate)}: {EnableAutoUpdate}", "Settings");
         Logger.Info("Keys Settings");
         Logger.Info($"{nameof(SpeakWithThePersonKey)}: {SpeakWithThePersonKey}", "Settings");

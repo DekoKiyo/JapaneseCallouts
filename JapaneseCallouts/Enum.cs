@@ -28,3 +28,9 @@ internal enum EWeather
     Rainy,
     Snowy,
 }
+
+internal enum ELanguages
+{
+    English,
+    Japanese,
+}

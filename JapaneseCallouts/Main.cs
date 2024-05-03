@@ -115,6 +115,8 @@ internal class Main : Plugin
     internal static readonly string PLUGIN_INFO = $"~b~{PLUGIN_NAME}~s~ {PLUGIN_VERSION_DATA}";
     internal static readonly string PLUGIN_VERSION_DATA = $"Version.{VERSION_PREFIX}{PLUGIN_VERSION}";
 
+    internal static string RemoteLatestVersion = PLUGIN_VERSION;
+
     internal static MersenneTwister MersenneTwister = new((int)DateTime.Now.Ticks);
 
     internal static Ped Player
@@ -170,9 +172,9 @@ internal class Main : Plugin
             GameFiber.StartNew(() =>
             {
                 GameFiber.Yield();
-                if (PluginUpdater.CheckUpdate().Result)
+                if (PluginUpdater.CheckUpdate())
                 {
-                    Logger.Info($"The latest update found. Latest Version: {PluginUpdater.LatestVersion}");
+                    Logger.Info($"The latest update found. Latest Version: {RemoteLatestVersion}");
 
                     if (Settings.EnableAutoUpdate)
                     {
