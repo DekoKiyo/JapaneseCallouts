@@ -25,6 +25,7 @@ internal class BankHeist : CalloutBase
     private const BlipSprite COMMANDER_BLIP = BlipSprite.Friend;
 
     internal SoundPlayer BankAlarm;
+    private uint SpeedZoneId;
     private const ulong _DOOR_CONTROL = 0x9b12f9a24fabedb0;
     private const BlipSprite SPRITE = BlipSprite.CriminalCarsteal;
 
@@ -33,8 +34,8 @@ internal class BankHeist : CalloutBase
     private readonly Vector3[] PacificBankInsideChecks = [new(235.9f, 220.6f, 106.2f), new(238.3f, 214.8f, 106.2f), new(261.0f, 208.1f, 106.2f), new(235.2f, 217.1f, 106.2f)];
     private readonly Vector3[] BankDoorPositions =
     [
-        new Vector3(231.5f, 215.2f, 106.2f),
-        new Vector3(259.1f, 202.7f, 106.2f)
+        new(231.5f, 215.2f, 106.2f),
+        new(259.1f, 202.7f, 106.2f),
     ];
 
     // Timer Bars
@@ -399,17 +400,24 @@ internal class BankHeist : CalloutBase
             NativeFunction.Natives.RESET_AI_MELEE_WEAPON_DAMAGE_MODIFIER();
             if (SideDoorBlip is not null && SideDoorBlip.IsValid() && SideDoorBlip.Exists()) SideDoorBlip.Delete();
             ToggleMobilePhone(Main.Player, false);
+
+            if (BankBlip is not null && BankBlip.IsValid() && BankBlip.Exists()) BankBlip.Delete();
+            if (Commander is not null && Commander.IsValid() && Commander.Exists()) Commander.Dismiss();
+            if (Wife is not null && Wife.IsValid() && Wife.Exists()) Wife.Dismiss();
+            if (WifeDriver is not null && WifeDriver.IsValid() && WifeDriver.Exists()) WifeDriver.Dismiss();
+            if (WifeCar is not null && WifeCar.IsValid() && WifeCar.Exists()) WifeCar.Dismiss();
+            if (CommanderBlip is not null && CommanderBlip.IsValid() && CommanderBlip.Exists()) CommanderBlip.Delete();
+            if (MobilePhone is not null && MobilePhone.IsValid() && MobilePhone.Exists()) MobilePhone.Delete();
+            foreach (var e in AllBarriers) if (e is not null && e.IsValid() && e.Exists()) e.Delete();
+            foreach (var e in AllBarrierPeds) if (e is not null && e.IsValid() && e.Exists()) e.Delete();
+            foreach (var e in AllInvisibleWalls) if (e is not null && e.IsValid() && e.Exists()) e.Delete();
+            foreach (var b in RiotBlips) if (b is not null && b.IsValid() && b.Exists()) b.Delete();
+            World.RemoveSpeedZone(SpeedZoneId);
+
             if (IsCalloutFinished)
             {
                 HudHelpers.DisplayNotification(Localization.GetString("CalloutCode4"), Localization.GetString("Dispatch"), Localization.GetString("BankHeist"));
 
-                if (BankBlip is not null && BankBlip.IsValid() && BankBlip.Exists()) BankBlip.Delete();
-                if (Commander is not null && Commander.IsValid() && Commander.Exists()) Commander.Dismiss();
-                if (Wife is not null && Wife.IsValid() && Wife.Exists()) Wife.Dismiss();
-                if (WifeDriver is not null && WifeDriver.IsValid() && WifeDriver.Exists()) WifeDriver.Dismiss();
-                if (WifeCar is not null && WifeCar.IsValid() && WifeCar.Exists()) WifeCar.Dismiss();
-                if (CommanderBlip is not null && CommanderBlip.IsValid() && CommanderBlip.Exists()) CommanderBlip.Delete();
-                if (MobilePhone is not null && MobilePhone.IsValid() && MobilePhone.Exists()) MobilePhone.Delete();
                 foreach (var e in AllPoliceVehicles)
                 {
                     if (e is not null && e.IsValid() && e.Exists())
@@ -477,20 +485,9 @@ internal class BankHeist : CalloutBase
                         else e.Dismiss();
                     }
                 }
-                foreach (var e in AllBarriers) if (e is not null && e.IsValid() && e.Exists()) e.Delete();
-                foreach (var e in AllBarrierPeds) if (e is not null && e.IsValid() && e.Exists()) e.Delete();
-                foreach (var e in AllInvisibleWalls) if (e is not null && e.IsValid() && e.Exists()) e.Delete();
-                foreach (var b in RiotBlips) if (b is not null && b.IsValid() && b.Exists()) b.Delete();
             }
             else
             {
-                if (BankBlip is not null && BankBlip.IsValid() && BankBlip.Exists()) BankBlip.Delete();
-                if (Commander is not null && Commander.IsValid() && Commander.Exists()) Commander.Delete();
-                if (Wife is not null && Wife.IsValid() && Wife.Exists()) Wife.Delete();
-                if (WifeDriver is not null && WifeDriver.IsValid() && WifeDriver.Exists()) WifeDriver.Delete();
-                if (WifeCar is not null && WifeCar.IsValid() && WifeCar.Exists()) WifeCar.Delete();
-                if (CommanderBlip is not null && CommanderBlip.IsValid() && CommanderBlip.Exists()) CommanderBlip.Delete();
-                if (MobilePhone is not null && MobilePhone.IsValid() && MobilePhone.Exists()) MobilePhone.Delete();
                 foreach (var e in AllPoliceVehicles) if (e is not null && e.IsValid() && e.Exists()) e.Delete();
                 foreach (var e in AllAmbulance) if (e is not null && e.IsValid() && e.Exists()) e.Delete();
                 foreach (var e in AllFiretruck) if (e is not null && e.IsValid() && e.Exists()) e.Delete();
@@ -501,10 +498,6 @@ internal class BankHeist : CalloutBase
                 foreach (var e in AllRobbers) if (e is not null && e.IsValid() && e.Exists()) e.Delete();
                 foreach (var e in AllSneakRobbers) if (e is not null && e.IsValid() && e.Exists()) e.Delete();
                 foreach (var e in AllVaultRobbers) if (e is not null && e.IsValid() && e.Exists()) e.Delete();
-                foreach (var e in AllBarriers) if (e is not null && e.IsValid() && e.Exists()) e.Delete();
-                foreach (var e in AllBarrierPeds) if (e is not null && e.IsValid() && e.Exists()) e.Delete();
-                foreach (var e in AllInvisibleWalls) if (e is not null && e.IsValid() && e.Exists()) e.Delete();
-                foreach (var b in RiotBlips) if (b is not null && b.IsValid() && b.Exists()) b.Delete();
             }
         };
     }
@@ -593,8 +586,7 @@ internal class BankHeist : CalloutBase
 
                 var weather = CalloutHelpers.GetWeatherType(IPTFunctions.GetWeatherType());
 
-                GameFiber.Yield();
-                CreateSpeedZone();
+                SpeedZoneId = World.AddSpeedZone(CalloutPosition, 200f, 25f);
                 GameFiber.Yield();
                 ClearUnrelatedEntities();
                 GameFiber.Yield();
@@ -1349,6 +1341,7 @@ internal class BankHeist : CalloutBase
                         break;
                     case 1:
                         var isSucceed = Main.MersenneTwister.Next(2) is 1;
+                        // var isSucceed = true;
                         if (isSucceed)
                         {
                             Conversations.Talk(Request22Conversation2);
@@ -2282,54 +2275,51 @@ internal class BankHeist : CalloutBase
                     GameFiber.Yield();
                     foreach (var robber in AllSneakRobbers)
                     {
-                        if (robber is not null && robber.IsValid() && robber.Exists())
+                        if (robber is not null && robber.IsValid() && robber.Exists() && robber.IsAlive)
                         {
-                            if (robber.IsAlive)
+                            if (!FightingSneakRobbers.Contains(robber))
                             {
-                                if (!FightingSneakRobbers.Contains(robber))
+                                var rsP = XmlManager.BankHeistConfig.RobbersSneakPosition;
+                                var index = AllSneakRobbers.IndexOf(robber);
+                                var pos = new Vector3(rsP[index].X, rsP[index].Y, rsP[index].Z);
+                                if (Vector3.Distance(robber.Position, pos) > 0.7f)
                                 {
-                                    var rsP = XmlManager.BankHeistConfig.RobbersSneakPosition;
-                                    var index = AllSneakRobbers.IndexOf(robber);
-                                    var pos = new Vector3(rsP[index].X, rsP[index].Y, rsP[index].Z);
-                                    if (Vector3.Distance(robber.Position, pos) > 0.7f)
+                                    robber.Tasks.FollowNavigationMeshToPosition(pos, rsP[index].Heading, 2f).WaitForCompletion(300);
+                                }
+                                else
+                                {
+                                    if (rsP[index].IsRight)
                                     {
-                                        robber.Tasks.FollowNavigationMeshToPosition(pos, rsP[index].Heading, 2f).WaitForCompletion(300);
+                                        if (!NativeFunction.Natives.IS_ENTITY_PLAYING_ANIM<bool>(robber, SWAT_ANIMATION_DICTIONARY, SWAT_ANIMATION_RIGHT, 3))
+                                        {
+                                            robber.Tasks.PlayAnimation(SWAT_ANIMATION_DICTIONARY, SWAT_ANIMATION_RIGHT, 2f, AnimationFlags.StayInEndFrame).WaitForCompletion(20);
+                                        }
                                     }
                                     else
                                     {
-                                        if (rsP[index].IsRight)
+                                        if (!NativeFunction.Natives.IS_ENTITY_PLAYING_ANIM<bool>(robber, SWAT_ANIMATION_DICTIONARY, SWAT_ANIMATION_LEFT, 3))
                                         {
-                                            if (!NativeFunction.Natives.IS_ENTITY_PLAYING_ANIM<bool>(robber, SWAT_ANIMATION_DICTIONARY, SWAT_ANIMATION_RIGHT, 3))
-                                            {
-                                                robber.Tasks.PlayAnimation(SWAT_ANIMATION_DICTIONARY, SWAT_ANIMATION_RIGHT, 2f, AnimationFlags.StayInEndFrame).WaitForCompletion(20);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            if (!NativeFunction.Natives.IS_ENTITY_PLAYING_ANIM<bool>(robber, SWAT_ANIMATION_DICTIONARY, SWAT_ANIMATION_LEFT, 3))
-                                            {
-                                                robber.Tasks.PlayAnimation(SWAT_ANIMATION_DICTIONARY, SWAT_ANIMATION_LEFT, 2f, AnimationFlags.StayInEndFrame).WaitForCompletion(20);
-                                            }
+                                            robber.Tasks.PlayAnimation(SWAT_ANIMATION_DICTIONARY, SWAT_ANIMATION_LEFT, 2f, AnimationFlags.StayInEndFrame).WaitForCompletion(20);
                                         }
                                     }
-                                    var nearestPeds = robber.GetNearbyPeds(3);
-                                    if (nearestPeds.Length > 0)
+                                }
+                                var nearestPeds = robber.GetNearbyPeds(3);
+                                if (nearestPeds.Length > 0)
+                                {
+                                    foreach (var nearestPed in nearestPeds)
                                     {
-                                        foreach (var nearestPed in nearestPeds)
+                                        if (nearestPed is not null && nearestPed.IsValid() && nearestPed.Exists())
                                         {
-                                            if (nearestPed is not null && nearestPed.IsValid() && nearestPed.Exists())
+                                            if (nearestPed.IsAlive)
                                             {
-                                                if (nearestPed.IsAlive)
+                                                if (nearestPed.RelationshipGroup == Main.Player.RelationshipGroup || nearestPed.RelationshipGroup == RelationshipGroup.Cop)
                                                 {
-                                                    if (nearestPed.RelationshipGroup == Main.Player.RelationshipGroup || nearestPed.RelationshipGroup == RelationshipGroup.Cop)
+                                                    if (Vector3.Distance(nearestPed.Position, robber.Position) < 3.9f)
                                                     {
-                                                        if (Vector3.Distance(nearestPed.Position, robber.Position) < 3.9f)
+                                                        if (Math.Abs(nearestPed.Position.Z - robber.Position.Z) < 0.9f)
                                                         {
-                                                            if (Math.Abs(nearestPed.Position.Z - robber.Position.Z) < 0.9f)
-                                                            {
-                                                                SneakyRobberFight(robber, nearestPed);
-                                                                break;
-                                                            }
+                                                            SneakyRobberFight(robber, nearestPed);
+                                                            break;
                                                         }
                                                     }
                                                 }
@@ -2748,71 +2738,44 @@ internal class BankHeist : CalloutBase
         Main.Player.IsPositionFrozen = true;
         var vData = CalloutHelpers.Select([.. XmlManager.BankHeistConfig.PoliceCruisers]);
         var data = XmlManager.BankHeistConfig.WifePosition;
-        WifeCar = new(vData.Model, new(data.X, data.Y, data.Z), Wife.Heading)
+        WifeCar = new(vData.Model, new(data.X, data.Y, data.Z), data.Heading)
         {
             IsPersistent = true,
             IsSirenOn = true
         };
-        WifeDriver = WifeCar.CreateRandomDriver();
-        WifeDriver.IsPersistent = true;
-        WifeDriver.BlockPermanentEvents = true;
-        var wData = CalloutHelpers.Select([.. XmlManager.BankHeistConfig.WifeModels]);
-        Wife = new Ped(wData.Model, Vector3.Zero, 0f)
+        if (WifeCar is not null && WifeCar.IsValid() && WifeCar.Exists())
         {
-            IsPersistent = true,
-            BlockPermanentEvents = true,
-        };
-        Wife.WarpIntoVehicle(WifeCar, 1);
-        CalloutEntities.Add(Wife);
-        CalloutEntities.Add(WifeDriver);
-        CalloutEntities.Add(WifeCar);
-
-        var destination = new Vector3(XmlManager.BankHeistConfig.WifeVehicleDestination.X, XmlManager.BankHeistConfig.WifeVehicleDestination.Y, XmlManager.BankHeistConfig.WifeVehicleDestination.Z);
-        WifeDriver.Tasks.DriveToPosition(destination, 20f, VehicleDrivingFlags.DriveAroundVehicles | VehicleDrivingFlags.DriveAroundObjects | VehicleDrivingFlags.DriveAroundPeds);
-        while (true)
-        {
-            GameFiber.Yield();
-            if (Vector3.Distance(WifeCar.Position, destination) < 6f) break;
-        }
-        Wife.Tasks.LeaveVehicle(LeaveVehicleFlags.None);
-        Wife.Tasks.FollowNavigationMeshToPosition(Main.Player.GetOffsetPosition(Vector3.RelativeRight * 1.5f), Main.Player.Heading, 1.9f).WaitForCompletion(60000);
-        Main.Player.IsPositionFrozen = false;
-    }
-
-    private void CreateSpeedZone()
-    {
-        GameFiber.StartNew(() =>
-        {
-            while (IsCalloutRunning)
+            WifeDriver = WifeCar.CreateRandomDriver();
+            if (WifeDriver is not null && WifeDriver.IsValid() && WifeDriver.Exists())
             {
-                GameFiber.Yield();
-
-                foreach (var vehicle in World.GetEntities(CalloutPosition, 75f, GetEntitiesFlags.ConsiderGroundVehicles | GetEntitiesFlags.ExcludePoliceCars | GetEntitiesFlags.ExcludeFiretrucks | GetEntitiesFlags.ExcludeAmbulances).Cast<Vehicle>())
+                WifeDriver.IsPersistent = true;
+                WifeDriver.BlockPermanentEvents = true;
+                var wData = CalloutHelpers.Select([.. XmlManager.BankHeistConfig.WifeModels]);
+                Wife = new Ped(wData.Model, Vector3.Zero, 0f)
                 {
-                    GameFiber.Yield();
-                    if (CalloutEntities.Contains(vehicle)) continue;
-                    if (vehicle is not null && vehicle.IsValid() && vehicle.Exists())
+                    IsPersistent = true,
+                    BlockPermanentEvents = true,
+                };
+                if (Wife is not null && Wife.IsValid() && Wife.Exists())
+                {
+                    Wife.WarpIntoVehicle(WifeCar, 1);
+                    CalloutEntities.Add(Wife);
+                    CalloutEntities.Add(WifeDriver);
+                    CalloutEntities.Add(WifeCar);
+
+                    var destination = new Vector3(XmlManager.BankHeistConfig.WifeVehicleDestination.X, XmlManager.BankHeistConfig.WifeVehicleDestination.Y, XmlManager.BankHeistConfig.WifeVehicleDestination.Z);
+                    WifeDriver.Tasks.DriveToPosition(destination, 20f, VehicleDrivingFlags.DriveAroundVehicles | VehicleDrivingFlags.DriveAroundObjects | VehicleDrivingFlags.DriveAroundPeds);
+                    while (true)
                     {
-                        if (vehicle != Main.Player.CurrentVehicle)
-                        {
-                            if (!vehicle.CreatedByTheCallingPlugin)
-                            {
-                                if (!CalloutEntities.Contains(vehicle))
-                                {
-                                    if (vehicle.Velocity.Length() > 0f)
-                                    {
-                                        var velocity = vehicle.Velocity;
-                                        velocity.Normalize();
-                                        velocity *= 0f;
-                                        vehicle.Velocity = velocity;
-                                    }
-                                }
-                            }
-                        }
+                        GameFiber.Yield();
+                        if (Vector3.Distance(WifeCar.Position, destination) < 6f) break;
                     }
+                    Wife.Tasks.LeaveVehicle(LeaveVehicleFlags.None);
+                    Wife.Tasks.FollowNavigationMeshToPosition(Main.Player.GetOffsetPosition(Vector3.RelativeRight * 1.5f), Main.Player.Heading, 1.9f).WaitForCompletion(60000);
+                    Main.Player.IsPositionFrozen = false;
                 }
             }
-        });
+        }
     }
 
     private void ClearUnrelatedEntities()
@@ -2822,16 +2785,13 @@ internal class BankHeist : CalloutBase
             GameFiber.Yield();
             if (ped is not null && ped.IsValid() && ped.Exists())
             {
-                if (ped != Main.Player)
+                if (ped != Main.Player && !ped.CreatedByTheCallingPlugin)
                 {
-                    if (!ped.CreatedByTheCallingPlugin)
+                    if (!CalloutEntities.Contains(ped))
                     {
-                        if (!CalloutEntities.Contains(ped))
+                        if (Vector3.Distance(ped.Position, CalloutPosition) < 50f)
                         {
-                            if (Vector3.Distance(ped.Position, CalloutPosition) < 50f)
-                            {
-                                ped.Delete();
-                            }
+                            ped.Delete();
                         }
                     }
                 }
@@ -2842,16 +2802,13 @@ internal class BankHeist : CalloutBase
             GameFiber.Yield();
             if (vehicle is not null && vehicle.IsValid() && vehicle.Exists())
             {
-                if (vehicle != Main.Player.CurrentVehicle)
+                if (vehicle != Main.Player.CurrentVehicle && !vehicle.CreatedByTheCallingPlugin)
                 {
-                    if (!vehicle.CreatedByTheCallingPlugin)
+                    if (!CalloutEntities.Contains(vehicle))
                     {
-                        if (!CalloutEntities.Contains(vehicle))
+                        if (Vector3.Distance(vehicle.Position, CalloutPosition) < 50f)
                         {
-                            if (Vector3.Distance(vehicle.Position, CalloutPosition) < 50f)
-                            {
-                                vehicle.Delete();
-                            }
+                            vehicle.Delete();
                         }
                     }
                 }
