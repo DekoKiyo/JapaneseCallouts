@@ -12,6 +12,7 @@
     <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
     <Deterministic>false</Deterministic>
+    <NoWarn>MSB3491</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
