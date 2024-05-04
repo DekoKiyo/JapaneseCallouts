@@ -146,7 +146,7 @@ internal class Main : Plugin
             Logger.Info(@"/ /_/ / /_/ / /_/ / /_/ / / / /  __(__  )  __/  / /___/ /_/ / / / /_/ / /_/ / /_(__  )");
             Logger.Info(@"\____/\__,_/ .___/\__,_/_/ /_/\___/____/\___/   \____/\__,_/_/_/\____/\__,_/\__/____/");
             Logger.Info(@"          /_/");
-
+            Logger.Info(string.Empty);
             Logger.Info($"Initializing {PLUGIN_NAME}, {PLUGIN_VERSION_DATA}");
             var missing = FileCheck(out bool error);
             if (missing.Length is not 0)

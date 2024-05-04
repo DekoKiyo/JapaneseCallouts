@@ -48,11 +48,11 @@ internal static class Settings
     private static void Log()
     {
         Logger.Info("=================== Japanese Callouts Settings ===================");
-        Logger.Info("General Settings");
+        Logger.Info("General Settings", "Settings");
         Logger.Info($"{nameof(OfficerName)}: {OfficerName}", "Settings");
         Logger.Info($"{LANGUAGE_SETTING_NAME}: {Localization.CurrentLanguage}", "Settings");
         Logger.Info($"{nameof(EnableAutoUpdate)}: {EnableAutoUpdate}", "Settings");
-        Logger.Info("Keys Settings");
+        Logger.Info("Keys Settings", "Settings");
         Logger.Info($"{nameof(SpeakWithThePersonKey)}: {SpeakWithThePersonKey}", "Settings");
         Logger.Info($"{nameof(SpeakWithThePersonModifierKey)}: {SpeakWithThePersonModifierKey}", "Settings");
         Logger.Info($"{nameof(ToggleBankHeistAlarmSoundKey)}: {ToggleBankHeistAlarmSoundKey}", "Settings");
