@@ -127,6 +127,7 @@ internal class Main : Plugin
     public override void Initialize()
     {
         Functions.OnOnDutyStateChanged += OnDutyStateChanged;
+        Localization.Initialize();
         Logger.Info($"{PLUGIN_NAME} {PLUGIN_VERSION_DATA} was loaded.");
     }
 
@@ -163,7 +164,6 @@ internal class Main : Plugin
             Remote.Initialize();
             Settings.Initialize();
             XmlManager.Initialize();
-            Localization.Initialize();
             EnemyBlip.Initialize();
             Game.AddConsoleCommands();
             CalloutManager.RegisterAllCallouts();
