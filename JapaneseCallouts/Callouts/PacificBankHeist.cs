@@ -514,7 +514,7 @@ internal class PacificBankHeist : CalloutBase
         {
             CalloutEntities.Add(Main.Player.CurrentVehicle);
         }
-        HudHelpers.DisplayNotification(Localization.GetString("BankHeistDesc"));
+        HudHelpers.DisplayNotification(Localization.GetString("PacificBankHeistDesc"));
 
         DiedHostagesTB = new(Localization.GetString("DiedHostages"), $"{TotalHostagesCount - AliveHostagesCount}")
         {
