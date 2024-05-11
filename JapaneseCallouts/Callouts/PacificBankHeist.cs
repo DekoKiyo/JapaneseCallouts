@@ -153,7 +153,7 @@ internal class PacificBankHeist : CalloutBase
     ];
     private readonly (string, string)[] Negotiation111Conversation =
     [
-        (Settings.OfficerName, Localization.GetString("Negotiation1111", XmlManager.BankHeistConfig.WifeName)),
+        (Settings.OfficerName, Localization.GetString("Negotiation1111", XmlManager.PacificBankHeistConfig.WifeName)),
         (Localization.GetString("Robber"), Localization.GetString("Negotiation1112")),
     ];
     private readonly (string, string)[] Negotiation112Conversation =
@@ -215,27 +215,27 @@ internal class PacificBankHeist : CalloutBase
     ];
     private readonly (string, string)[] Request22Conversation1 =
     [
-        (Settings.OfficerName, Localization.GetString("Request221", XmlManager.BankHeistConfig.WifeName)),
+        (Settings.OfficerName, Localization.GetString("Request221", XmlManager.PacificBankHeistConfig.WifeName)),
         (Localization.GetString("Robber"), Localization.GetString("Negotiation1112")),
     ];
     private readonly (string, string)[] Request22Conversation2 =
     [
-        (Settings.OfficerName, Localization.GetString("Request221", XmlManager.BankHeistConfig.WifeName)),
+        (Settings.OfficerName, Localization.GetString("Request221", XmlManager.PacificBankHeistConfig.WifeName)),
         (Localization.GetString("Robber"), Localization.GetString("Request222")),
         (Settings.OfficerName, Localization.GetString("Request223")),
     ];
     private readonly (string, string)[] Request22Conversation3 =
     [
-        (XmlManager.BankHeistConfig.WifeName, Localization.GetString("Request224")),
-        (XmlManager.BankHeistConfig.WifeName, Localization.GetString("Request225")),
-        (Localization.GetString("Robber"), Localization.GetString("Request226", XmlManager.BankHeistConfig.WifeName)),
+        (XmlManager.PacificBankHeistConfig.WifeName, Localization.GetString("Request224")),
+        (XmlManager.PacificBankHeistConfig.WifeName, Localization.GetString("Request225")),
+        (Localization.GetString("Robber"), Localization.GetString("Request226", XmlManager.PacificBankHeistConfig.WifeName)),
         (Localization.GetString("Robber"), Localization.GetString("Request227")),
-        (Localization.GetString("Robber"), Localization.GetString("Request228", XmlManager.BankHeistConfig.WifeName)),
+        (Localization.GetString("Robber"), Localization.GetString("Request228", XmlManager.PacificBankHeistConfig.WifeName)),
     ];
     private readonly (string, string)[] Request22Conversation4 =
     [
-        (Settings.OfficerName, Localization.GetString("Request229", XmlManager.BankHeistConfig.WifeName)),
-        (XmlManager.BankHeistConfig.WifeName, Localization.GetString("Request220")),
+        (Settings.OfficerName, Localization.GetString("Request229", XmlManager.PacificBankHeistConfig.WifeName)),
+        (XmlManager.PacificBankHeistConfig.WifeName, Localization.GetString("Request220")),
     ];
     private readonly (string, string)[] Negotiation3Conversation =
     [
@@ -381,7 +381,7 @@ internal class PacificBankHeist : CalloutBase
         CalloutPosition = BankLocation;
         CalloutMessage = Localization.GetString("BankHeist");
         ShowCalloutAreaBlipBeforeAccepting(CalloutPosition, 30f);
-        Functions.PlayScannerAudioUsingPosition(XmlManager.CalloutsSoundConfig.BankHeist, CalloutPosition);
+        Functions.PlayScannerAudioUsingPosition(XmlManager.CalloutsSoundConfig.PacificBankHeist, CalloutPosition);
         CalloutInterfaceAPIFunctions.SendMessage(this, Localization.GetString("BankHeist"));
 
         OnCalloutsEnded += () =>
@@ -1088,7 +1088,7 @@ internal class PacificBankHeist : CalloutBase
             {
                 if (AllStandingOfficers[i].IsAlive)
                 {
-                    var data = XmlManager.BankHeistConfig.StandingOfficerPositions[i];
+                    var data = XmlManager.PacificBankHeistConfig.StandingOfficerPositions[i];
                     var pos = new Vector3(data.X, data.Y, data.Z);
                     if (Vector3.Distance(AllStandingOfficers[i].Position, new Vector3(data.X, data.Y, data.Z)) > 0.5f)
                     {
@@ -1104,7 +1104,7 @@ internal class PacificBankHeist : CalloutBase
             {
                 if (AllAimingOfficers[i].IsAlive)
                 {
-                    var data = XmlManager.BankHeistConfig.AimingOfficerPositions[i];
+                    var data = XmlManager.PacificBankHeistConfig.AimingOfficerPositions[i];
                     var pos = new Vector3(data.X, data.Y, data.Z);
                     if (Vector3.Distance(AllAimingOfficers[i].Position, pos) > 0.5f)
                     {
@@ -1399,7 +1399,7 @@ internal class PacificBankHeist : CalloutBase
                 for (int i = 0; i < AllRobbers.Count; i++)
                 {
                     GameFiber.Yield();
-                    var data = XmlManager.BankHeistConfig.RobbersSurrenderingPositions[i];
+                    var data = XmlManager.PacificBankHeistConfig.RobbersSurrenderingPositions[i];
                     var pos = new Vector3(data.X, data.Y, data.Z);
                     AllRobbers[i].Tasks.PlayAnimation("random@getawaydriver", "idle_2_hands_up", 1f, AnimationFlags.UpperBodyOnly | AnimationFlags.StayInEndFrame | AnimationFlags.SecondaryTask);
                     AllRobbers[i].Tasks.FollowNavigationMeshToPosition(pos, data.Heading, 1.45f);
@@ -1414,7 +1414,7 @@ internal class PacificBankHeist : CalloutBase
                     {
                         for (int i = 0; i < AllRobbers.Count; i++)
                         {
-                            var data = XmlManager.BankHeistConfig.RobbersSurrenderingPositions[i];
+                            var data = XmlManager.PacificBankHeistConfig.RobbersSurrenderingPositions[i];
                             var pos = new Vector3(data.X, data.Y, data.Z);
                             AllRobbers[i].Position = pos;
                             AllRobbers[i].Heading = data.Heading;
@@ -1424,7 +1424,7 @@ internal class PacificBankHeist : CalloutBase
                     for (int i = 0; i < AllRobbers.Count; i++)
                     {
                         GameFiber.Yield();
-                        var data = XmlManager.BankHeistConfig.RobbersSurrenderingPositions[i];
+                        var data = XmlManager.PacificBankHeistConfig.RobbersSurrenderingPositions[i];
                         var pos = new Vector3(data.X, data.Y, data.Z);
                         if (Vector3.Distance(AllRobbers[i].Position, pos) < 0.8f)
                         {
@@ -1519,9 +1519,9 @@ internal class PacificBankHeist : CalloutBase
 
     private void SpawnVehicles()
     {
-        foreach (var p in XmlManager.BankHeistConfig.PoliceCruiserPositions)
+        foreach (var p in XmlManager.PacificBankHeistConfig.PoliceCruiserPositions)
         {
-            var data = CalloutHelpers.Select([.. XmlManager.BankHeistConfig.PoliceCruisers]);
+            var data = CalloutHelpers.Select([.. XmlManager.PacificBankHeistConfig.PoliceCruisers]);
             var vehicle = new Vehicle(data.Model, new(p.X, p.Y, p.Z), p.Heading)
             {
                 IsPersistent = true,
@@ -1535,9 +1535,9 @@ internal class PacificBankHeist : CalloutBase
                 CalloutEntities.Add(vehicle);
             }
         }
-        foreach (var p in XmlManager.BankHeistConfig.PoliceTransportPositions)
+        foreach (var p in XmlManager.PacificBankHeistConfig.PoliceTransportPositions)
         {
-            var data = CalloutHelpers.Select([.. XmlManager.BankHeistConfig.PoliceTransporters]);
+            var data = CalloutHelpers.Select([.. XmlManager.PacificBankHeistConfig.PoliceTransporters]);
             var vehicle = new Vehicle(data.Model, new(p.X, p.Y, p.Z), p.Heading)
             {
                 IsPersistent = true,
@@ -1551,9 +1551,9 @@ internal class PacificBankHeist : CalloutBase
                 CalloutEntities.Add(vehicle);
             }
         }
-        foreach (var p in XmlManager.BankHeistConfig.RiotPositions)
+        foreach (var p in XmlManager.PacificBankHeistConfig.RiotPositions)
         {
-            var data = CalloutHelpers.Select([.. XmlManager.BankHeistConfig.PoliceRiots]);
+            var data = CalloutHelpers.Select([.. XmlManager.PacificBankHeistConfig.PoliceRiots]);
             var vehicle = new Vehicle(data.Model, new(p.X, p.Y, p.Z), p.Heading)
             {
                 IsPersistent = true,
@@ -1578,9 +1578,9 @@ internal class PacificBankHeist : CalloutBase
                 }
             }
         }
-        foreach (var p in XmlManager.BankHeistConfig.AmbulancePositions)
+        foreach (var p in XmlManager.PacificBankHeistConfig.AmbulancePositions)
         {
-            var data = CalloutHelpers.Select([.. XmlManager.BankHeistConfig.Ambulances]);
+            var data = CalloutHelpers.Select([.. XmlManager.PacificBankHeistConfig.Ambulances]);
             var vehicle = new Vehicle(data.Model, new(p.X, p.Y, p.Z), p.Heading)
             {
                 IsPersistent = true,
@@ -1594,9 +1594,9 @@ internal class PacificBankHeist : CalloutBase
                 CalloutEntities.Add(vehicle);
             }
         }
-        foreach (var p in XmlManager.BankHeistConfig.FiretruckPositions)
+        foreach (var p in XmlManager.PacificBankHeistConfig.FiretruckPositions)
         {
-            var data = CalloutHelpers.Select([.. XmlManager.BankHeistConfig.Firetrucks]);
+            var data = CalloutHelpers.Select([.. XmlManager.PacificBankHeistConfig.Firetrucks]);
             var vehicle = new Vehicle(data.Model, new(p.X, p.Y, p.Z), p.Heading)
             {
                 IsPersistent = true,
@@ -1614,7 +1614,7 @@ internal class PacificBankHeist : CalloutBase
 
     private void PlaceBarrier()
     {
-        foreach (var p in XmlManager.BankHeistConfig.BarrierPositions)
+        foreach (var p in XmlManager.PacificBankHeistConfig.BarrierPositions)
         {
             var barrier = new RObject(BarrierModel, new(p.X, p.Y, p.Z), p.Heading)
             {
@@ -1641,9 +1641,9 @@ internal class PacificBankHeist : CalloutBase
 
     private void SpawnOfficers(EWeather weather)
     {
-        foreach (var p in XmlManager.BankHeistConfig.LeftSittingSWATPositions)
+        foreach (var p in XmlManager.PacificBankHeistConfig.LeftSittingSWATPositions)
         {
-            var data = CalloutHelpers.SelectPed(weather, [.. XmlManager.BankHeistConfig.PoliceSWATModels]);
+            var data = CalloutHelpers.SelectPed(weather, [.. XmlManager.PacificBankHeistConfig.PoliceSWATModels]);
             var swat = new Ped(data.Model, new(p.X, p.Y, p.Z), p.Heading)
             {
                 IsPersistent = true,
@@ -1661,7 +1661,7 @@ internal class PacificBankHeist : CalloutBase
                 Functions.SetPedAsCop(swat);
                 Functions.SetCopAsBusy(swat, true);
 
-                var weapon = CalloutHelpers.Select([.. XmlManager.BankHeistConfig.SWATWeapons]);
+                var weapon = CalloutHelpers.Select([.. XmlManager.PacificBankHeistConfig.SWATWeapons]);
                 var hash = NativeFunction.Natives.GET_HASH_KEY<Model>(weapon.Model);
                 NativeFunction.Natives.REQUEST_MODEL(hash);
                 NativeFunction.Natives.GIVE_WEAPON_TO_PED(swat, hash, 5000, false, true);
@@ -1677,9 +1677,9 @@ internal class PacificBankHeist : CalloutBase
                 CalloutEntities.Add(swat);
             }
         }
-        foreach (var p in XmlManager.BankHeistConfig.RightLookingSWATPositions)
+        foreach (var p in XmlManager.PacificBankHeistConfig.RightLookingSWATPositions)
         {
-            var data = CalloutHelpers.SelectPed(weather, [.. XmlManager.BankHeistConfig.PoliceSWATModels]);
+            var data = CalloutHelpers.SelectPed(weather, [.. XmlManager.PacificBankHeistConfig.PoliceSWATModels]);
             var swat = new Ped(data.Model, new(p.X, p.Y, p.Z), p.Heading)
             {
                 IsPersistent = true,
@@ -1697,7 +1697,7 @@ internal class PacificBankHeist : CalloutBase
                 Functions.SetPedAsCop(swat);
                 Functions.SetCopAsBusy(swat, true);
 
-                var weapon = CalloutHelpers.Select([.. XmlManager.BankHeistConfig.SWATWeapons]);
+                var weapon = CalloutHelpers.Select([.. XmlManager.PacificBankHeistConfig.SWATWeapons]);
                 var hash = NativeFunction.Natives.GET_HASH_KEY<Model>(weapon.Model);
                 NativeFunction.Natives.REQUEST_MODEL(hash);
                 NativeFunction.Natives.GIVE_WEAPON_TO_PED(swat, hash, 5000, false, true);
@@ -1713,9 +1713,9 @@ internal class PacificBankHeist : CalloutBase
                 CalloutEntities.Add(swat);
             }
         }
-        foreach (var p in XmlManager.BankHeistConfig.RightSittingSWATPositions)
+        foreach (var p in XmlManager.PacificBankHeistConfig.RightSittingSWATPositions)
         {
-            var data = CalloutHelpers.SelectPed(weather, [.. XmlManager.BankHeistConfig.PoliceSWATModels]);
+            var data = CalloutHelpers.SelectPed(weather, [.. XmlManager.PacificBankHeistConfig.PoliceSWATModels]);
             var swat = new Ped(data.Model, new(p.X, p.Y, p.Z), p.Heading)
             {
                 IsPersistent = true,
@@ -1733,7 +1733,7 @@ internal class PacificBankHeist : CalloutBase
                 Functions.SetPedAsCop(swat);
                 Functions.SetCopAsBusy(swat, true);
 
-                var weapon = CalloutHelpers.Select([.. XmlManager.BankHeistConfig.SWATWeapons]);
+                var weapon = CalloutHelpers.Select([.. XmlManager.PacificBankHeistConfig.SWATWeapons]);
                 var hash = NativeFunction.Natives.GET_HASH_KEY<Model>(weapon.Model);
                 NativeFunction.Natives.REQUEST_MODEL(hash);
                 NativeFunction.Natives.GIVE_WEAPON_TO_PED(swat, hash, 5000, false, true);
@@ -1749,9 +1749,9 @@ internal class PacificBankHeist : CalloutBase
                 CalloutEntities.Add(swat);
             }
         }
-        foreach (var p in XmlManager.BankHeistConfig.AimingOfficerPositions)
+        foreach (var p in XmlManager.PacificBankHeistConfig.AimingOfficerPositions)
         {
-            var data = CalloutHelpers.SelectPed(weather, [.. XmlManager.BankHeistConfig.PoliceOfficerModels]);
+            var data = CalloutHelpers.SelectPed(weather, [.. XmlManager.PacificBankHeistConfig.PoliceOfficerModels]);
             var officer = new Ped(data.Model, new(p.X, p.Y, p.Z), p.Heading)
             {
                 IsPersistent = true,
@@ -1769,7 +1769,7 @@ internal class PacificBankHeist : CalloutBase
                 Functions.SetPedAsCop(officer);
                 Functions.SetCopAsBusy(officer, true);
 
-                var weapon = CalloutHelpers.Select([.. XmlManager.BankHeistConfig.SWATWeapons]);
+                var weapon = CalloutHelpers.Select([.. XmlManager.PacificBankHeistConfig.SWATWeapons]);
                 var hash = NativeFunction.Natives.GET_HASH_KEY<Model>(weapon.Model);
                 NativeFunction.Natives.REQUEST_MODEL(hash);
                 NativeFunction.Natives.GIVE_WEAPON_TO_PED(officer, hash, 5000, false, true);
@@ -1788,9 +1788,9 @@ internal class PacificBankHeist : CalloutBase
                 CalloutEntities.Add(officer);
             }
         }
-        foreach (var p in XmlManager.BankHeistConfig.StandingOfficerPositions)
+        foreach (var p in XmlManager.PacificBankHeistConfig.StandingOfficerPositions)
         {
-            var data = CalloutHelpers.SelectPed(weather, [.. XmlManager.BankHeistConfig.PoliceOfficerModels]);
+            var data = CalloutHelpers.SelectPed(weather, [.. XmlManager.PacificBankHeistConfig.PoliceOfficerModels]);
             var officer = new Ped(data.Model, new(p.X, p.Y, p.Z), p.Heading)
             {
                 IsPersistent = true,
@@ -1808,7 +1808,7 @@ internal class PacificBankHeist : CalloutBase
                 Functions.SetPedAsCop(officer);
                 Functions.SetCopAsBusy(officer, true);
 
-                var weapon = CalloutHelpers.Select([.. XmlManager.BankHeistConfig.SWATWeapons]);
+                var weapon = CalloutHelpers.Select([.. XmlManager.PacificBankHeistConfig.SWATWeapons]);
                 var hash = NativeFunction.Natives.GET_HASH_KEY<Model>(weapon.Model);
                 NativeFunction.Natives.REQUEST_MODEL(hash);
                 NativeFunction.Natives.GIVE_WEAPON_TO_PED(officer, hash, 5000, false, true);
@@ -1824,8 +1824,8 @@ internal class PacificBankHeist : CalloutBase
                 CalloutEntities.Add(officer);
             }
         }
-        var cP = XmlManager.BankHeistConfig.CommanderPosition;
-        var cData = CalloutHelpers.SelectPed(weather, [.. XmlManager.BankHeistConfig.CommanderModels]);
+        var cP = XmlManager.PacificBankHeistConfig.CommanderPosition;
+        var cData = CalloutHelpers.SelectPed(weather, [.. XmlManager.PacificBankHeistConfig.CommanderModels]);
         Commander = new Ped(cData.Model, new(cP.X, cP.Y, cP.Z), cP.Heading)
         {
             BlockPermanentEvents = true,
@@ -1853,9 +1853,9 @@ internal class PacificBankHeist : CalloutBase
 
     private void SpawnEMS(EWeather weather)
     {
-        foreach (var p in XmlManager.BankHeistConfig.ParamedicPositions)
+        foreach (var p in XmlManager.PacificBankHeistConfig.ParamedicPositions)
         {
-            var data = CalloutHelpers.SelectPed(weather, [.. XmlManager.BankHeistConfig.ParamedicModels]);
+            var data = CalloutHelpers.SelectPed(weather, [.. XmlManager.PacificBankHeistConfig.ParamedicModels]);
             var paramedic = new Ped(data.Model, new(p.X, p.Y, p.Z), p.Heading)
             {
                 IsPersistent = true,
@@ -1871,9 +1871,9 @@ internal class PacificBankHeist : CalloutBase
                 CalloutEntities.Add(paramedic);
             }
         }
-        foreach (var p in XmlManager.BankHeistConfig.FirefighterPositions)
+        foreach (var p in XmlManager.PacificBankHeistConfig.FirefighterPositions)
         {
-            var data = CalloutHelpers.SelectPed(weather, [.. XmlManager.BankHeistConfig.FirefighterModels]);
+            var data = CalloutHelpers.SelectPed(weather, [.. XmlManager.PacificBankHeistConfig.FirefighterModels]);
             var firefighter = new Ped(data.Model, new(p.X, p.Y, p.Z), p.Heading)
             {
                 IsPersistent = true,
@@ -1893,11 +1893,11 @@ internal class PacificBankHeist : CalloutBase
 
     private void SpawnHostages()
     {
-        var hostageCount = XmlManager.BankHeistConfig.HostageCount > XmlManager.BankHeistConfig.HostagePositions.Count ? XmlManager.BankHeistConfig.HostagePositions.Count : XmlManager.BankHeistConfig.HostageCount;
-        var positions = XmlManager.BankHeistConfig.HostagePositions.Shuffle();
+        var hostageCount = XmlManager.PacificBankHeistConfig.HostageCount > XmlManager.PacificBankHeistConfig.HostagePositions.Count ? XmlManager.PacificBankHeistConfig.HostagePositions.Count : XmlManager.PacificBankHeistConfig.HostageCount;
+        var positions = XmlManager.PacificBankHeistConfig.HostagePositions.Shuffle();
         for (int i = 0; i < hostageCount; i++)
         {
-            var data = CalloutHelpers.Select([.. XmlManager.BankHeistConfig.HostageModels]);
+            var data = CalloutHelpers.Select([.. XmlManager.PacificBankHeistConfig.HostageModels]);
             var pos = new Vector3(positions[i].X, positions[i].Y, positions[i].Z);
             var hostage = new Ped(data.Model, pos, Main.MersenneTwister.Next(0, 360))
             {
@@ -1926,10 +1926,10 @@ internal class PacificBankHeist : CalloutBase
 
     private void SpawnAssaultRobbers()
     {
-        var nrP = XmlManager.BankHeistConfig.NormalRobbersPositions;
+        var nrP = XmlManager.PacificBankHeistConfig.NormalRobbersPositions;
         for (int i = 0; i < nrP.Count; i++)
         {
-            var data = CalloutHelpers.Select([.. XmlManager.BankHeistConfig.RobberModels]);
+            var data = CalloutHelpers.Select([.. XmlManager.PacificBankHeistConfig.RobberModels]);
             var ped = new Ped(data.Model, new(nrP[i].X, nrP[i].Y, nrP[i].Z), nrP[i].Heading)
             {
                 IsPersistent = true,
@@ -1945,7 +1945,7 @@ internal class PacificBankHeist : CalloutBase
                 ped.SetOutfit(data);
                 Functions.SetPedCantBeArrestedByPlayer(ped, true);
 
-                var weapon = CalloutHelpers.Select([.. XmlManager.BankHeistConfig.RobbersWeapons]);
+                var weapon = CalloutHelpers.Select([.. XmlManager.PacificBankHeistConfig.RobbersWeapons]);
                 var hash = NativeFunction.Natives.GET_HASH_KEY<Model>(weapon.Model);
                 NativeFunction.Natives.REQUEST_MODEL(hash);
                 NativeFunction.Natives.GIVE_WEAPON_TO_PED(ped, hash, 5000, false, true);
@@ -1956,7 +1956,7 @@ internal class PacificBankHeist : CalloutBase
                     NativeFunction.Natives.GIVE_WEAPON_COMPONENT_TO_PED(ped, hash, compHash);
                 }
 
-                var trWeapon = CalloutHelpers.Select([.. XmlManager.BankHeistConfig.RobbersThrowableWeapons]);
+                var trWeapon = CalloutHelpers.Select([.. XmlManager.PacificBankHeistConfig.RobbersThrowableWeapons]);
                 var trHash = NativeFunction.Natives.GET_HASH_KEY<Model>(trWeapon.Model);
                 NativeFunction.Natives.REQUEST_MODEL(trHash);
                 NativeFunction.Natives.GIVE_WEAPON_TO_PED(ped, trHash, 5000, false, false);
@@ -1976,10 +1976,10 @@ internal class PacificBankHeist : CalloutBase
 
     private void SpawnVaultRobbers()
     {
-        for (int i = 0; i < XmlManager.BankHeistConfig.RobbersInVaultPositions.Count; i++)
+        for (int i = 0; i < XmlManager.PacificBankHeistConfig.RobbersInVaultPositions.Count; i++)
         {
-            var rvP = XmlManager.BankHeistConfig.RobbersInVaultPositions[i];
-            var data = CalloutHelpers.Select([.. XmlManager.BankHeistConfig.RobberModels]);
+            var rvP = XmlManager.PacificBankHeistConfig.RobbersInVaultPositions[i];
+            var data = CalloutHelpers.Select([.. XmlManager.PacificBankHeistConfig.RobberModels]);
             var ped = new Ped(data.Model, new(rvP.X, rvP.Y, rvP.Z), rvP.Heading)
             {
                 IsPersistent = true,
@@ -1995,7 +1995,7 @@ internal class PacificBankHeist : CalloutBase
                 ped.SetOutfit(data);
                 Functions.SetPedCantBeArrestedByPlayer(ped, true);
 
-                var weapon = CalloutHelpers.Select([.. XmlManager.BankHeistConfig.RobbersWeapons]);
+                var weapon = CalloutHelpers.Select([.. XmlManager.PacificBankHeistConfig.RobbersWeapons]);
                 var hash = NativeFunction.Natives.GET_HASH_KEY<Model>(weapon.Model);
                 NativeFunction.Natives.REQUEST_MODEL(hash);
                 NativeFunction.Natives.GIVE_WEAPON_TO_PED(ped, hash, 5000, false, true);
@@ -2006,7 +2006,7 @@ internal class PacificBankHeist : CalloutBase
                     NativeFunction.Natives.GIVE_WEAPON_COMPONENT_TO_PED(ped, hash, compHash);
                 }
 
-                var trWeapon = CalloutHelpers.Select([.. XmlManager.BankHeistConfig.RobbersThrowableWeapons]);
+                var trWeapon = CalloutHelpers.Select([.. XmlManager.PacificBankHeistConfig.RobbersThrowableWeapons]);
                 var trHash = NativeFunction.Natives.GET_HASH_KEY<Model>(trWeapon.Model);
                 NativeFunction.Natives.REQUEST_MODEL(trHash);
                 NativeFunction.Natives.GIVE_WEAPON_TO_PED(ped, trHash, 5000, false, false);
@@ -2027,10 +2027,10 @@ internal class PacificBankHeist : CalloutBase
 
     private void SpawnNegotiationRobbers()
     {
-        for (int i = 0; i < XmlManager.BankHeistConfig.RobbersNegotiationPositions.Count; i++)
+        for (int i = 0; i < XmlManager.PacificBankHeistConfig.RobbersNegotiationPositions.Count; i++)
         {
-            var rnP = XmlManager.BankHeistConfig.RobbersNegotiationPositions[i];
-            var data = CalloutHelpers.Select([.. XmlManager.BankHeistConfig.RobberModels]);
+            var rnP = XmlManager.PacificBankHeistConfig.RobbersNegotiationPositions[i];
+            var data = CalloutHelpers.Select([.. XmlManager.PacificBankHeistConfig.RobberModels]);
             var ped = new Ped(data.Model, new(rnP.X, rnP.Y, rnP.Z), rnP.Heading)
             {
                 IsPersistent = true,
@@ -2046,7 +2046,7 @@ internal class PacificBankHeist : CalloutBase
                 ped.SetOutfit(data);
                 Functions.SetPedCantBeArrestedByPlayer(ped, true);
 
-                var weapon = CalloutHelpers.Select([.. XmlManager.BankHeistConfig.RobbersWeapons]);
+                var weapon = CalloutHelpers.Select([.. XmlManager.PacificBankHeistConfig.RobbersWeapons]);
                 var hash = NativeFunction.Natives.GET_HASH_KEY<Model>(weapon.Model);
                 NativeFunction.Natives.REQUEST_MODEL(hash);
                 NativeFunction.Natives.GIVE_WEAPON_TO_PED(ped, hash, 5000, false, true);
@@ -2066,12 +2066,12 @@ internal class PacificBankHeist : CalloutBase
 
     private void SpawnSneakyRobbers()
     {
-        for (int i = 0; i < XmlManager.BankHeistConfig.RobbersSneakPosition.Count; i++)
+        for (int i = 0; i < XmlManager.PacificBankHeistConfig.RobbersSneakPosition.Count; i++)
         {
-            var rsP = XmlManager.BankHeistConfig.RobbersSneakPosition[i];
+            var rsP = XmlManager.PacificBankHeistConfig.RobbersSneakPosition[i];
             if (Main.MersenneTwister.Next(5) is >= 2)
             {
-                var data = CalloutHelpers.Select([.. XmlManager.BankHeistConfig.RobberModels]);
+                var data = CalloutHelpers.Select([.. XmlManager.PacificBankHeistConfig.RobberModels]);
                 var ped = new Ped(data.Model, new(rsP.X, rsP.Y, rsP.Z), rsP.Heading)
                 {
                     IsPersistent = true,
@@ -2087,7 +2087,7 @@ internal class PacificBankHeist : CalloutBase
                     ped.SetOutfit(data);
                     Functions.SetPedCantBeArrestedByPlayer(ped, true);
 
-                    var weapon = CalloutHelpers.Select([.. XmlManager.BankHeistConfig.RobbersWeapons]);
+                    var weapon = CalloutHelpers.Select([.. XmlManager.PacificBankHeistConfig.RobbersWeapons]);
                     var hash = NativeFunction.Natives.GET_HASH_KEY<Model>(weapon.Model);
                     NativeFunction.Natives.REQUEST_MODEL(hash);
                     NativeFunction.Natives.GIVE_WEAPON_TO_PED(ped, hash, 5000, false, true);
@@ -2279,7 +2279,7 @@ internal class PacificBankHeist : CalloutBase
                         {
                             if (!FightingSneakRobbers.Contains(robber))
                             {
-                                var rsP = XmlManager.BankHeistConfig.RobbersSneakPosition;
+                                var rsP = XmlManager.PacificBankHeistConfig.RobbersSneakPosition;
                                 var index = AllSneakRobbers.IndexOf(robber);
                                 var pos = new Vector3(rsP[index].X, rsP[index].Y, rsP[index].Z);
                                 if (Vector3.Distance(robber.Position, pos) > 0.7f)
@@ -2478,7 +2478,7 @@ internal class PacificBankHeist : CalloutBase
                                                 Main.Player.Tasks.ClearImmediately();
                                                 if (hostage.IsAlive)
                                                 {
-                                                    var data = XmlManager.BankHeistConfig.HostageSafePosition;
+                                                    var data = XmlManager.PacificBankHeistConfig.HostageSafePosition;
                                                     var pos = new Vector3(data.X, data.Y, data.Z);
                                                     hostage.Tasks.FollowNavigationMeshToPosition(pos, data.Heading, 1.55f);
                                                     RescuedHostages.Add(hostage);
@@ -2534,7 +2534,7 @@ internal class PacificBankHeist : CalloutBase
                             {
                                 SpawnedHostages.Remove(rescued);
                             }
-                            var data = XmlManager.BankHeistConfig.HostageSafePosition;
+                            var data = XmlManager.PacificBankHeistConfig.HostageSafePosition;
                             var pos = new Vector3(data.X, data.Y, data.Z);
                             if (Vector3.Distance(rescued.Position, pos) < 3f)
                             {
@@ -2676,7 +2676,7 @@ internal class PacificBankHeist : CalloutBase
                                         Main.Player.Armor = 100;
                                         Main.Player.Health = Main.Player.MaxHealth;
 
-                                        var weapon = CalloutHelpers.Select([.. XmlManager.BankHeistConfig.WeaponInRiot]);
+                                        var weapon = CalloutHelpers.Select([.. XmlManager.PacificBankHeistConfig.WeaponInRiot]);
                                         var hash = NativeFunction.Natives.GET_HASH_KEY<Model>(weapon.Model);
                                         NativeFunction.Natives.REQUEST_MODEL(hash);
                                         NativeFunction.Natives.GIVE_WEAPON_TO_PED(Main.Player, hash, 180, false, true);
@@ -2736,8 +2736,8 @@ internal class PacificBankHeist : CalloutBase
     private void GetWife()
     {
         Main.Player.IsPositionFrozen = true;
-        var vData = CalloutHelpers.Select([.. XmlManager.BankHeistConfig.PoliceCruisers]);
-        var data = XmlManager.BankHeistConfig.WifePosition;
+        var vData = CalloutHelpers.Select([.. XmlManager.PacificBankHeistConfig.PoliceCruisers]);
+        var data = XmlManager.PacificBankHeistConfig.WifePosition;
         WifeCar = new(vData.Model, new(data.X, data.Y, data.Z), data.Heading)
         {
             IsPersistent = true,
@@ -2750,7 +2750,7 @@ internal class PacificBankHeist : CalloutBase
             {
                 WifeDriver.IsPersistent = true;
                 WifeDriver.BlockPermanentEvents = true;
-                var wData = CalloutHelpers.Select([.. XmlManager.BankHeistConfig.WifeModels]);
+                var wData = CalloutHelpers.Select([.. XmlManager.PacificBankHeistConfig.WifeModels]);
                 Wife = new Ped(wData.Model, Vector3.Zero, 0f)
                 {
                     IsPersistent = true,
@@ -2763,7 +2763,7 @@ internal class PacificBankHeist : CalloutBase
                     CalloutEntities.Add(WifeDriver);
                     CalloutEntities.Add(WifeCar);
 
-                    var destination = new Vector3(XmlManager.BankHeistConfig.WifeVehicleDestination.X, XmlManager.BankHeistConfig.WifeVehicleDestination.Y, XmlManager.BankHeistConfig.WifeVehicleDestination.Z);
+                    var destination = new Vector3(XmlManager.PacificBankHeistConfig.WifeVehicleDestination.X, XmlManager.PacificBankHeistConfig.WifeVehicleDestination.Y, XmlManager.PacificBankHeistConfig.WifeVehicleDestination.Z);
                     WifeDriver.Tasks.DriveToPosition(destination, 20f, VehicleDrivingFlags.DriveAroundVehicles | VehicleDrivingFlags.DriveAroundObjects | VehicleDrivingFlags.DriveAroundPeds);
                     while (true)
                     {

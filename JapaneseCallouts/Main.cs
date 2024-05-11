@@ -216,7 +216,7 @@ internal class Main : Plugin
             error = true;
         }
         if (!File.Exists($"{LSPDFR_DIRECTORY}/{SETTINGS_INI_FILE}")) missing.Add($"{LSPDFR_DIRECTORY}/{SETTINGS_INI_FILE}");
-        if (!File.Exists($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.BANK_HEIST_XML}")) missing.Add($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.BANK_HEIST_XML}");
+        if (!File.Exists($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.PACIFIC_BANK_HEIST_XML}")) missing.Add($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.PACIFIC_BANK_HEIST_XML}");
         if (!File.Exists($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.DRUNK_GUYS_XML}")) missing.Add($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.DRUNK_GUYS_XML}");
         if (!File.Exists($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.ROAD_RAGE_XML}")) missing.Add($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.ROAD_RAGE_XML}");
         if (!File.Exists($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.STORE_ROBBERY_XML}")) missing.Add($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.STORE_ROBBERY_XML}");

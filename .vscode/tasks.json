@@ -30,16 +30,6 @@
         "kind": "build",
         "isDefault": true
       }
-    },
-    {
-      "label": "Docs Test",
-      "type": "shell",
-      "command": "npm run docs:dev",
-      "problemMatcher": [],
-      "group": {
-        "kind": "build",
-        "isDefault": true
-      }
     }
   ]
 }
