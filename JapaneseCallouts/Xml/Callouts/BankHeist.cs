@@ -3,8 +3,6 @@ namespace JapaneseCallouts.Xml.Callouts;
 [XmlRoot("BankHeistConfig")]
 public class BankHeistConfig
 {
-    [XmlArray("Banks"), XmlArrayItem("Bank")]
-    public List<BankData> BankData { get; set; }
     [XmlArray("Robbers"), XmlArrayItem("Ped")]
     public List<PedConfig> Robbers { get; set; }
     [XmlArray, XmlArrayItem("Weapon")]

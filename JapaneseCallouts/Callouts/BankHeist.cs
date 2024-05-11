@@ -7,20 +7,27 @@ internal class BankHeist : CalloutBase
     private Blip BankBlip;
     private bool Arrived = false;
     private readonly List<Ped> Robbers = [];
-    private int Index = 0;
+
+    private static readonly Dictionary<Vector3, List<(Vector3 pos, float heading)>> BankData = new()
+    {
+        {
+            new(149.0f, -1042.7f,29.3f),
+            new()
+            {
+                (new(152.56f, -1041.58f, 30f), 8.51f),
+                (new(144.43f, -1038.80f, 30f), 270.83f),
+                (new(143.04f, -1043.66f, 30f), 335.35f),
+                (new(146.29f, -1045.20f, 30f), 60.17f),
+            }
+        }
+    };
 
     internal override void Setup()
     {
-        var posList = new List<Vector3>();
-        foreach (var pos in XmlManager.BankHeistConfig.BankData)
-        {
-            posList.Add(new(pos.X, pos.Y, pos.Z));
-        }
-        Index = posList.GetNearestPosIndex();
         CalloutMessage = Localization.GetString("BankHeist");
-        CalloutPosition = posList[Index];
+        CalloutPosition = Vector3Helpers.GetNearestPos([.. BankData.Keys]);
         ShowCalloutAreaBlipBeforeAccepting(CalloutPosition, 100f);
-        Functions.PlayScannerAudioUsingPosition("", CalloutPosition);
+        Functions.PlayScannerAudioUsingPosition(XmlManager.CalloutsSoundConfig.BankHeist, CalloutPosition);
 
         OnCalloutsEnded += () =>
         {
@@ -38,7 +45,6 @@ internal class BankHeist : CalloutBase
             if (!Main.Player.IsDead)
             {
                 HudHelpers.DisplayNotification(Localization.GetString("CalloutCode4"), Localization.GetString("Dispatch"), Localization.GetString("BankHeist"));
-                Functions.PlayScannerAudio("ATTENTION_ALL_UNITS DL_CODE4 DL_NO_FURTHER_UNITS_REQUIRED");
             }
         };
     }
@@ -48,10 +54,10 @@ internal class BankHeist : CalloutBase
         HudHelpers.DisplayNotification(Localization.GetString("BankHeistDesc"));
         CalloutInterfaceAPIFunctions.SendMessage(this, $"{Localization.GetString("BankHeist")} {Localization.GetString("RespondCode3")}");
 
-        foreach (var pos in XmlManager.BankHeistConfig.BankData[Index].RobbersPos)
+        foreach (var (pos, heading) in BankData[CalloutPosition])
         {
             var pedData = CalloutHelpers.Select([.. XmlManager.BankHeistConfig.Robbers]);
-            var robber = new Ped(pedData.Model, new(pos.X, pos.Y, pos.Z), pos.Heading)
+            var robber = new Ped(pedData.Model, pos, heading)
             {
                 IsPersistent = true,
                 BlockPermanentEvents = true,
