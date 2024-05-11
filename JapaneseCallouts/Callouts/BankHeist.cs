@@ -8,17 +8,21 @@ internal class BankHeist : CalloutBase
     private bool Arrived = false;
     private readonly List<Ped> Robbers = [];
 
-    private static readonly Dictionary<Vector3, List<(Vector3 pos, float heading)>> BankData = new()
+    private static readonly Dictionary<Vector3, (List<(Vector3 pos, float heading)> positions, List<(Vector3 pos, string hash)> doors)> BankData = new()
     {
         {
             new(149.0f, -1042.7f,29.3f),
-            new()
-            {
-                (new(152.56f, -1041.58f, 30f), 8.51f),
-                (new(144.43f, -1038.80f, 30f), 270.83f),
-                (new(143.04f, -1043.66f, 30f), 335.35f),
-                (new(146.29f, -1045.20f, 30f), 60.17f),
-            }
+            (
+                [
+                    (new(152.56f, -1041.58f, 30f), 8.51f),
+                    (new(144.43f, -1038.80f, 30f), 270.83f),
+                    (new(143.04f, -1043.66f, 30f), 335.35f),
+                    (new(146.29f, -1045.20f, 30f), 60.17f),
+                ],
+                [
+
+                ]
+            )
         }
     };
 
@@ -54,7 +58,7 @@ internal class BankHeist : CalloutBase
         HudHelpers.DisplayNotification(Localization.GetString("BankHeistDesc"));
         CalloutInterfaceAPIFunctions.SendMessage(this, $"{Localization.GetString("BankHeist")} {Localization.GetString("RespondCode3")}");
 
-        foreach (var (pos, heading) in BankData[CalloutPosition])
+        foreach (var (pos, heading) in BankData[CalloutPosition].positions)
         {
             var pedData = CalloutHelpers.Select([.. XmlManager.BankHeistConfig.Robbers]);
             var robber = new Ped(pedData.Model, pos, heading)
@@ -84,6 +88,11 @@ internal class BankHeist : CalloutBase
                 NativeFunction.Natives.SET_PED_SUFFERS_CRITICAL_HITS(robber, false);
                 Robbers.Add(robber);
             }
+        }
+
+        foreach (var (pos, hash) in BankData[CalloutPosition].doors)
+        {
+            NativeFunction.CallByHash<uint>(Main._DOOR_CONTROL, hash, pos.X, pos.Y, pos.Z, false, 0f, 0f, 0f);
         }
 
         Game.SetRelationshipBetweenRelationshipGroups(RelationshipGroup.Cop, RobberRG, Relationship.Hate);

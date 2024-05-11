@@ -118,6 +118,7 @@ internal class Main : Plugin
     internal static string RemoteLatestVersion = PLUGIN_VERSION;
 
     internal static MersenneTwister MersenneTwister = new((int)DateTime.Now.Ticks);
+    internal const ulong _DOOR_CONTROL = 0x9b12f9a24fabedb0;
 
     internal static Ped Player
     {

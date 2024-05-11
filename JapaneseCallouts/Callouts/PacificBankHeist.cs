@@ -26,7 +26,6 @@ internal class PacificBankHeist : CalloutBase
 
     internal SoundPlayer BankAlarm;
     private uint SpeedZoneId;
-    private const ulong _DOOR_CONTROL = 0x9b12f9a24fabedb0;
     private const BlipSprite SPRITE = BlipSprite.CriminalCarsteal;
 
     private Vector3 BankLocation = new(250.9f, 219.0f, 106.2f);
@@ -629,9 +628,9 @@ internal class PacificBankHeist : CalloutBase
                         NativeFunction.Natives.SET_PLAYER_WEAPON_DEFENSE_MODIFIER(Game.LocalPlayer, 0.45f);
                         NativeFunction.Natives.SET_PLAYER_WEAPON_DAMAGE_MODIFIER(Game.LocalPlayer, 0.92f);
                         NativeFunction.Natives.SET_AI_MELEE_WEAPON_DAMAGE_MODIFIER(1f);
-                        NativeFunction.CallByHash<uint>(_DOOR_CONTROL, 4072696575, 256.3116f, 220.6579f, 106.4296f, false, 0f, 0f, 0f);
-                        NativeFunction.CallByHash<uint>(_DOOR_CONTROL, 746855201, 262.1981f, 222.5188f, 106.4296f, false, 0f, 0f, 0f);
-                        NativeFunction.CallByHash<uint>(_DOOR_CONTROL, 110411286, 258.2022f, 204.1005f, 106.4049f, false, 0f, 0f, 0f);
+                        NativeFunction.CallByHash<uint>(Main._DOOR_CONTROL, 4072696575, 256.3116f, 220.6579f, 106.4296f, false, 0f, 0f, 0f);
+                        NativeFunction.CallByHash<uint>(Main._DOOR_CONTROL, 746855201, 262.1981f, 222.5188f, 106.4296f, false, 0f, 0f, 0f);
+                        NativeFunction.CallByHash<uint>(Main._DOOR_CONTROL, 110411286, 258.2022f, 204.1005f, 106.4049f, false, 0f, 0f, 0f);
                     }
 
                     // When player has just arrived
@@ -771,9 +770,9 @@ internal class PacificBankHeist : CalloutBase
                         NativeFunction.Natives.SET_PLAYER_WEAPON_DAMAGE_MODIFIER(Game.LocalPlayer, 0.93f);
                         NativeFunction.Natives.SET_AI_MELEE_WEAPON_DAMAGE_MODIFIER(1f);
                     }
-                    NativeFunction.CallByHash<uint>(_DOOR_CONTROL, 4072696575, 256.3116f, 220.6579f, 106.4296f, false, 0f, 0f, 0f);
-                    NativeFunction.CallByHash<uint>(_DOOR_CONTROL, 746855201, 262.1981f, 222.5188f, 106.4296f, false, 0f, 0f, 0f);
-                    NativeFunction.CallByHash<uint>(_DOOR_CONTROL, 110411286, 258.2022f, 204.1005f, 106.4049f, false, 0f, 0f, 0f);
+                    NativeFunction.CallByHash<uint>(Main._DOOR_CONTROL, 4072696575, 256.3116f, 220.6579f, 106.4296f, false, 0f, 0f, 0f);
+                    NativeFunction.CallByHash<uint>(Main._DOOR_CONTROL, 746855201, 262.1981f, 222.5188f, 106.4296f, false, 0f, 0f, 0f);
+                    NativeFunction.CallByHash<uint>(Main._DOOR_CONTROL, 110411286, 258.2022f, 204.1005f, 106.4049f, false, 0f, 0f, 0f);
                     // If all hostages rescued
                     if (SafeHostagesCount == AliveHostagesCount)
                     {
@@ -841,9 +840,9 @@ internal class PacificBankHeist : CalloutBase
                 while (IsCalloutRunning)
                 {
                     GameFiber.Yield();
-                    NativeFunction.CallByHash<uint>(_DOOR_CONTROL, 4072696575, 256.3116f, 220.6579f, 106.4296f, false, 0f, 0f, 0f);
-                    NativeFunction.CallByHash<uint>(_DOOR_CONTROL, 746855201, 262.1981f, 222.5188f, 106.4296f, false, 0f, 0f, 0f);
-                    NativeFunction.CallByHash<uint>(_DOOR_CONTROL, 110411286, 258.2022f, 204.1005f, 106.4049f, false, 0f, 0f, 0f);
+                    NativeFunction.CallByHash<uint>(Main._DOOR_CONTROL, 4072696575, 256.3116f, 220.6579f, 106.4296f, false, 0f, 0f, 0f);
+                    NativeFunction.CallByHash<uint>(Main._DOOR_CONTROL, 746855201, 262.1981f, 222.5188f, 106.4296f, false, 0f, 0f, 0f);
+                    NativeFunction.CallByHash<uint>(Main._DOOR_CONTROL, 110411286, 258.2022f, 204.1005f, 106.4049f, false, 0f, 0f, 0f);
                     if (!EvaluatedWithWells)
                     {
                         if (!Main.Player.IsInAnyVehicle(false))
