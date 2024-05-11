@@ -63,6 +63,7 @@ global using Sprite = RAGENativeUI.Elements.Sprite;
 global using JapaneseCallouts;
 global using JapaneseCallouts.API;
 global using JapaneseCallouts.Callouts;
+global using JapaneseCallouts.Debug;
 global using JapaneseCallouts.Helpers;
 global using JapaneseCallouts.Modules;
 global using JapaneseCallouts.Xml;
@@ -170,6 +171,7 @@ internal class Main : Plugin
             CalloutManager.RegisterAllCallouts();
             HudHelpers.DisplayNotification(Localization.GetString("PluginLoaded", PLUGIN_NAME, DEVELOPER_NAME), PLUGIN_NAME, PLUGIN_VERSION_DATA);
 #if DEBUG
+            DebugManager.Initialize();
             HudHelpers.DisplayNotification(Localization.GetString("PluginIsDebug", PLUGIN_NAME, $"{VERSION_PREFIX}{PLUGIN_VERSION}"), PLUGIN_NAME, "");
 #endif
             Logger.Info($"{PLUGIN_NAME} {PLUGIN_VERSION_DATA} was successfully initialized.");
