@@ -68,10 +68,9 @@ internal class StoreRobbery : CalloutBase
             };
             if (robber is not null && robber.IsValid() && robber.Exists())
             {
-                var weaponData = CalloutHelpers.Select([.. XmlManager.StoreRobberyConfig.Weapons]);
-                robber.Inventory.GiveNewWeapon(weaponData.Model, 5000, true);
+                robber.GiveWeapon([.. XmlManager.StoreRobberyConfig.Weapons]);
+                robbers.Add(robber);
             }
-            robbers.Add(robber);
         }
         Game.SetRelationshipBetweenRelationshipGroups(RelationshipGroup.Cop, RobbersRG, Relationship.Hate);
         Game.SetRelationshipBetweenRelationshipGroups(RobbersRG, RelationshipGroup.Cop, Relationship.Hate);

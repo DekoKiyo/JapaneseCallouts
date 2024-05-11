@@ -102,6 +102,20 @@ internal static class EntityHelpers
         }
     }
 
+    internal static void GiveWeapon(this Ped ped, WeaponConfig[] weapons)
+    {
+        var weapon = CalloutHelpers.Select(weapons);
+        var hash = NativeFunction.Natives.GET_HASH_KEY<Model>(weapon.Model);
+        NativeFunction.Natives.REQUEST_MODEL(hash);
+        NativeFunction.Natives.GIVE_WEAPON_TO_PED(ped, hash, 5000, false, true);
+        foreach (var comp in weapon.Components)
+        {
+            var compHash = NativeFunction.Natives.GET_HASH_KEY<Model>(comp);
+            NativeFunction.Natives.REQUEST_MODEL(compHash);
+            NativeFunction.Natives.GIVE_WEAPON_COMPONENT_TO_PED(ped, hash, compHash);
+        }
+    }
+
     // Source: https://gtaforums.com/topic/851726-c-how-to-check-if-a-ped-is-visible/
 
     /// <summary>

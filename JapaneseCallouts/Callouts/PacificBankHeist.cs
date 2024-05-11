@@ -1659,18 +1659,7 @@ internal class PacificBankHeist : CalloutBase
                 swat.SetOutfit(data);
                 Functions.SetPedAsCop(swat);
                 Functions.SetCopAsBusy(swat, true);
-
-                var weapon = CalloutHelpers.Select([.. XmlManager.PacificBankHeistConfig.SWATWeapons]);
-                var hash = NativeFunction.Natives.GET_HASH_KEY<Model>(weapon.Model);
-                NativeFunction.Natives.REQUEST_MODEL(hash);
-                NativeFunction.Natives.GIVE_WEAPON_TO_PED(swat, hash, 5000, false, true);
-                foreach (var comp in weapon.Components)
-                {
-                    var compHash = NativeFunction.Natives.GET_HASH_KEY<Model>(comp);
-                    NativeFunction.Natives.REQUEST_MODEL(compHash);
-                    NativeFunction.Natives.GIVE_WEAPON_COMPONENT_TO_PED(swat, hash, compHash);
-                }
-
+                swat.GiveWeapon([.. XmlManager.PacificBankHeistConfig.SWATWeapons]);
                 swat.Tasks.PlayAnimation(SWAT_ANIMATION_DICTIONARY, SWAT_ANIMATION_LEFT, 1f, AnimationFlags.StayInEndFrame);
                 AllSWATUnits.Add(swat);
                 CalloutEntities.Add(swat);
@@ -1695,18 +1684,7 @@ internal class PacificBankHeist : CalloutBase
                 swat.SetOutfit(data);
                 Functions.SetPedAsCop(swat);
                 Functions.SetCopAsBusy(swat, true);
-
-                var weapon = CalloutHelpers.Select([.. XmlManager.PacificBankHeistConfig.SWATWeapons]);
-                var hash = NativeFunction.Natives.GET_HASH_KEY<Model>(weapon.Model);
-                NativeFunction.Natives.REQUEST_MODEL(hash);
-                NativeFunction.Natives.GIVE_WEAPON_TO_PED(swat, hash, 5000, false, true);
-                foreach (var comp in weapon.Components)
-                {
-                    var compHash = NativeFunction.Natives.GET_HASH_KEY<Model>(comp);
-                    NativeFunction.Natives.REQUEST_MODEL(compHash);
-                    NativeFunction.Natives.GIVE_WEAPON_COMPONENT_TO_PED(swat, hash, compHash);
-                }
-
+                swat.GiveWeapon([.. XmlManager.PacificBankHeistConfig.SWATWeapons]);
                 swat.Tasks.PlayAnimation(SWAT_ANIMATION_DICTIONARY, SWAT_ANIMATION_RIGHT_LOOKING, 1f, AnimationFlags.StayInEndFrame);
                 AllSWATUnits.Add(swat);
                 CalloutEntities.Add(swat);
@@ -1731,18 +1709,7 @@ internal class PacificBankHeist : CalloutBase
                 swat.SetOutfit(data);
                 Functions.SetPedAsCop(swat);
                 Functions.SetCopAsBusy(swat, true);
-
-                var weapon = CalloutHelpers.Select([.. XmlManager.PacificBankHeistConfig.SWATWeapons]);
-                var hash = NativeFunction.Natives.GET_HASH_KEY<Model>(weapon.Model);
-                NativeFunction.Natives.REQUEST_MODEL(hash);
-                NativeFunction.Natives.GIVE_WEAPON_TO_PED(swat, hash, 5000, false, true);
-                foreach (var comp in weapon.Components)
-                {
-                    var compHash = NativeFunction.Natives.GET_HASH_KEY<Model>(comp);
-                    NativeFunction.Natives.REQUEST_MODEL(compHash);
-                    NativeFunction.Natives.GIVE_WEAPON_COMPONENT_TO_PED(swat, hash, compHash);
-                }
-
+                swat.GiveWeapon([.. XmlManager.PacificBankHeistConfig.SWATWeapons]);
                 swat.Tasks.PlayAnimation(SWAT_ANIMATION_DICTIONARY, SWAT_ANIMATION_RIGHT, 1f, AnimationFlags.StayInEndFrame);
                 AllSWATUnits.Add(swat);
                 CalloutEntities.Add(swat);
@@ -1767,18 +1734,7 @@ internal class PacificBankHeist : CalloutBase
                 officer.SetOutfit(data);
                 Functions.SetPedAsCop(officer);
                 Functions.SetCopAsBusy(officer, true);
-
-                var weapon = CalloutHelpers.Select([.. XmlManager.PacificBankHeistConfig.SWATWeapons]);
-                var hash = NativeFunction.Natives.GET_HASH_KEY<Model>(weapon.Model);
-                NativeFunction.Natives.REQUEST_MODEL(hash);
-                NativeFunction.Natives.GIVE_WEAPON_TO_PED(officer, hash, 5000, false, true);
-                foreach (var comp in weapon.Components)
-                {
-                    var compHash = NativeFunction.Natives.GET_HASH_KEY<Model>(comp);
-                    NativeFunction.Natives.REQUEST_MODEL(compHash);
-                    NativeFunction.Natives.GIVE_WEAPON_COMPONENT_TO_PED(officer, hash, compHash);
-                }
-
+                officer.GiveWeapon([.. XmlManager.PacificBankHeistConfig.OfficerWeapons]);
                 var aimPoint = Vector3.Distance(officer.Position, BankDoorPositions[0]) < Vector3.Distance(officer.Position, BankDoorPositions[1]) ? BankDoorPositions[0] : BankDoorPositions[1];
                 NativeFunction.Natives.TASK_AIM_GUN_AT_COORD(officer, aimPoint.X, aimPoint.Y, aimPoint.Z, -1, false, false);
 
@@ -1806,18 +1762,7 @@ internal class PacificBankHeist : CalloutBase
                 officer.SetOutfit(data);
                 Functions.SetPedAsCop(officer);
                 Functions.SetCopAsBusy(officer, true);
-
-                var weapon = CalloutHelpers.Select([.. XmlManager.PacificBankHeistConfig.SWATWeapons]);
-                var hash = NativeFunction.Natives.GET_HASH_KEY<Model>(weapon.Model);
-                NativeFunction.Natives.REQUEST_MODEL(hash);
-                NativeFunction.Natives.GIVE_WEAPON_TO_PED(officer, hash, 5000, false, true);
-                foreach (var comp in weapon.Components)
-                {
-                    var compHash = NativeFunction.Natives.GET_HASH_KEY<Model>(comp);
-                    NativeFunction.Natives.REQUEST_MODEL(compHash);
-                    NativeFunction.Natives.GIVE_WEAPON_COMPONENT_TO_PED(officer, hash, compHash);
-                }
-
+                officer.GiveWeapon([.. XmlManager.PacificBankHeistConfig.OfficerWeapons]);
                 AllOfficers.Add(officer);
                 AllStandingOfficers.Add(officer);
                 CalloutEntities.Add(officer);
@@ -1943,29 +1888,8 @@ internal class PacificBankHeist : CalloutBase
             {
                 ped.SetOutfit(data);
                 Functions.SetPedCantBeArrestedByPlayer(ped, true);
-
-                var weapon = CalloutHelpers.Select([.. XmlManager.PacificBankHeistConfig.RobbersWeapons]);
-                var hash = NativeFunction.Natives.GET_HASH_KEY<Model>(weapon.Model);
-                NativeFunction.Natives.REQUEST_MODEL(hash);
-                NativeFunction.Natives.GIVE_WEAPON_TO_PED(ped, hash, 5000, false, true);
-                foreach (var comp in weapon.Components)
-                {
-                    var compHash = NativeFunction.Natives.GET_HASH_KEY<Model>(comp);
-                    NativeFunction.Natives.REQUEST_MODEL(compHash);
-                    NativeFunction.Natives.GIVE_WEAPON_COMPONENT_TO_PED(ped, hash, compHash);
-                }
-
-                var trWeapon = CalloutHelpers.Select([.. XmlManager.PacificBankHeistConfig.RobbersThrowableWeapons]);
-                var trHash = NativeFunction.Natives.GET_HASH_KEY<Model>(trWeapon.Model);
-                NativeFunction.Natives.REQUEST_MODEL(trHash);
-                NativeFunction.Natives.GIVE_WEAPON_TO_PED(ped, trHash, 5000, false, false);
-                foreach (var comp in trWeapon.Components)
-                {
-                    var twCompHash = NativeFunction.Natives.GET_HASH_KEY<Model>(comp);
-                    NativeFunction.Natives.REQUEST_MODEL(twCompHash);
-                    NativeFunction.Natives.GIVE_WEAPON_COMPONENT_TO_PED(ped, trHash, twCompHash);
-                }
-
+                ped.GiveWeapon([.. XmlManager.PacificBankHeistConfig.RobbersThrowableWeapons]);
+                ped.GiveWeapon([.. XmlManager.PacificBankHeistConfig.RobbersWeapons]);
                 NativeFunction.Natives.SetPedCombatAbility(ped, 3);
                 AllRobbers.Add(ped);
                 CalloutEntities.Add(ped);
@@ -1993,29 +1917,8 @@ internal class PacificBankHeist : CalloutBase
             {
                 ped.SetOutfit(data);
                 Functions.SetPedCantBeArrestedByPlayer(ped, true);
-
-                var weapon = CalloutHelpers.Select([.. XmlManager.PacificBankHeistConfig.RobbersWeapons]);
-                var hash = NativeFunction.Natives.GET_HASH_KEY<Model>(weapon.Model);
-                NativeFunction.Natives.REQUEST_MODEL(hash);
-                NativeFunction.Natives.GIVE_WEAPON_TO_PED(ped, hash, 5000, false, true);
-                foreach (var comp in weapon.Components)
-                {
-                    var compHash = NativeFunction.Natives.GET_HASH_KEY<Model>(comp);
-                    NativeFunction.Natives.REQUEST_MODEL(compHash);
-                    NativeFunction.Natives.GIVE_WEAPON_COMPONENT_TO_PED(ped, hash, compHash);
-                }
-
-                var trWeapon = CalloutHelpers.Select([.. XmlManager.PacificBankHeistConfig.RobbersThrowableWeapons]);
-                var trHash = NativeFunction.Natives.GET_HASH_KEY<Model>(trWeapon.Model);
-                NativeFunction.Natives.REQUEST_MODEL(trHash);
-                NativeFunction.Natives.GIVE_WEAPON_TO_PED(ped, trHash, 5000, false, false);
-                foreach (var comp in trWeapon.Components)
-                {
-                    var twCompHash = NativeFunction.Natives.GET_HASH_KEY<Model>(comp);
-                    NativeFunction.Natives.REQUEST_MODEL(twCompHash);
-                    NativeFunction.Natives.GIVE_WEAPON_COMPONENT_TO_PED(ped, trHash, twCompHash);
-                }
-
+                ped.GiveWeapon([.. XmlManager.PacificBankHeistConfig.RobbersThrowableWeapons]);
+                ped.GiveWeapon([.. XmlManager.PacificBankHeistConfig.RobbersWeapons]);
                 NativeFunction.Natives.SetPedCombatAbility(ped, 3);
                 AllVaultRobbers.Add(ped);
                 CalloutEntities.Add(ped);
@@ -2044,18 +1947,7 @@ internal class PacificBankHeist : CalloutBase
             {
                 ped.SetOutfit(data);
                 Functions.SetPedCantBeArrestedByPlayer(ped, true);
-
-                var weapon = CalloutHelpers.Select([.. XmlManager.PacificBankHeistConfig.RobbersWeapons]);
-                var hash = NativeFunction.Natives.GET_HASH_KEY<Model>(weapon.Model);
-                NativeFunction.Natives.REQUEST_MODEL(hash);
-                NativeFunction.Natives.GIVE_WEAPON_TO_PED(ped, hash, 5000, false, true);
-                foreach (var comp in weapon.Components)
-                {
-                    var compHash = NativeFunction.Natives.GET_HASH_KEY<Model>(comp);
-                    NativeFunction.Natives.REQUEST_MODEL(compHash);
-                    NativeFunction.Natives.GIVE_WEAPON_COMPONENT_TO_PED(ped, hash, compHash);
-                }
-
+                ped.GiveWeapon([.. XmlManager.PacificBankHeistConfig.RobbersWeapons]);
                 NativeFunction.Natives.SetPedCombatAbility(ped, 3);
                 AllRobbers.Add(ped);
                 CalloutEntities.Add(ped);
@@ -2085,18 +1977,7 @@ internal class PacificBankHeist : CalloutBase
                 {
                     ped.SetOutfit(data);
                     Functions.SetPedCantBeArrestedByPlayer(ped, true);
-
-                    var weapon = CalloutHelpers.Select([.. XmlManager.PacificBankHeistConfig.RobbersWeapons]);
-                    var hash = NativeFunction.Natives.GET_HASH_KEY<Model>(weapon.Model);
-                    NativeFunction.Natives.REQUEST_MODEL(hash);
-                    NativeFunction.Natives.GIVE_WEAPON_TO_PED(ped, hash, 5000, false, true);
-                    foreach (var comp in weapon.Components)
-                    {
-                        var compHash = NativeFunction.Natives.GET_HASH_KEY<Model>(comp);
-                        NativeFunction.Natives.REQUEST_MODEL(compHash);
-                        NativeFunction.Natives.GIVE_WEAPON_COMPONENT_TO_PED(ped, hash, compHash);
-                    }
-
+                    ped.GiveWeapon([.. XmlManager.PacificBankHeistConfig.RobbersWeapons]);
                     NativeFunction.Natives.SetPedCombatAbility(ped, 3);
                     ped.Tasks.PlayAnimation(SWAT_ANIMATION_DICTIONARY, rsP.IsRight ? SWAT_ANIMATION_RIGHT : SWAT_ANIMATION_LEFT, 1f, AnimationFlags.StayInEndFrame);
                     AllSneakRobbers.Add(ped);
@@ -2131,7 +2012,6 @@ internal class PacificBankHeist : CalloutBase
                         foreach (var robber in AllVaultRobbers)
                         {
                             robber.Tasks.FightAgainstClosestHatedTarget(23f);
-
                         }
                         GameFiber.Wait(3000);
                         foreach (Ped robber in AllVaultRobbers)
@@ -2307,19 +2187,16 @@ internal class PacificBankHeist : CalloutBase
                                 {
                                     foreach (var nearestPed in nearestPeds)
                                     {
-                                        if (nearestPed is not null && nearestPed.IsValid() && nearestPed.Exists())
+                                        if (nearestPed is not null && nearestPed.IsValid() && nearestPed.Exists() && nearestPed.IsAlive)
                                         {
-                                            if (nearestPed.IsAlive)
+                                            if (nearestPed.RelationshipGroup == Main.Player.RelationshipGroup || nearestPed.RelationshipGroup == RelationshipGroup.Cop)
                                             {
-                                                if (nearestPed.RelationshipGroup == Main.Player.RelationshipGroup || nearestPed.RelationshipGroup == RelationshipGroup.Cop)
+                                                if (Vector3.Distance(nearestPed.Position, robber.Position) < 3.9f)
                                                 {
-                                                    if (Vector3.Distance(nearestPed.Position, robber.Position) < 3.9f)
+                                                    if (Math.Abs(nearestPed.Position.Z - robber.Position.Z) < 0.9f)
                                                     {
-                                                        if (Math.Abs(nearestPed.Position.Z - robber.Position.Z) < 0.9f)
-                                                        {
-                                                            SneakyRobberFight(robber, nearestPed);
-                                                            break;
-                                                        }
+                                                        SneakyRobberFight(robber, nearestPed);
+                                                        break;
                                                     }
                                                 }
                                             }
@@ -2360,7 +2237,7 @@ internal class PacificBankHeist : CalloutBase
                         {
                             uint entityHandle;
                             NativeFunction.Natives.x2975C866E6713290(Game.LocalPlayer, new IntPtr(&entityHandle)); // Stores the entity the player is aiming at in the uint provided in the second parameter.
-                            entityPlayerAimingAtSneakyRobber = World.GetEntityByHandle<Rage.Entity>(entityHandle);
+                            entityPlayerAimingAtSneakyRobber = World.GetEntityByHandle<Entity>(entityHandle);
                         }
                     }
                     catch // (Exception e)
@@ -2674,18 +2551,7 @@ internal class PacificBankHeist : CalloutBase
                                         Main.Player.Tasks.EnterVehicle(riot, 1).WaitForCompletion();
                                         Main.Player.Armor = 100;
                                         Main.Player.Health = Main.Player.MaxHealth;
-
-                                        var weapon = CalloutHelpers.Select([.. XmlManager.PacificBankHeistConfig.WeaponInRiot]);
-                                        var hash = NativeFunction.Natives.GET_HASH_KEY<Model>(weapon.Model);
-                                        NativeFunction.Natives.REQUEST_MODEL(hash);
-                                        NativeFunction.Natives.GIVE_WEAPON_TO_PED(Main.Player, hash, 180, false, true);
-                                        foreach (var comp in weapon.Components)
-                                        {
-                                            var compHash = NativeFunction.Natives.GET_HASH_KEY<Model>(comp);
-                                            NativeFunction.Natives.REQUEST_MODEL(compHash);
-                                            NativeFunction.Natives.GIVE_WEAPON_COMPONENT_TO_PED(Main.Player, hash, compHash);
-                                        }
-
+                                        Main.Player.GiveWeapon([.. XmlManager.PacificBankHeistConfig.WeaponInRiot]);
                                         NativeFunction.Natives.PLAY_SOUND_FRONTEND(-1, "PURCHASE", "HUD_LIQUOR_STORE_SOUNDSET", 1);
                                         Main.Player.Tasks.LeaveVehicle(LeaveVehicleFlags.None).WaitForCompletion();
                                     }

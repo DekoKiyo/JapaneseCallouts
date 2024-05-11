@@ -90,16 +90,7 @@ internal class BankHeist : CalloutBase
             if (robber is not null && robber.IsValid() && robber.Exists())
             {
                 robber.SetOutfit(pedData);
-                var weapon = CalloutHelpers.Select([.. XmlManager.BankHeistConfig.Weapons]);
-                var hash = NativeFunction.Natives.GET_HASH_KEY<Model>(weapon.Model);
-                NativeFunction.Natives.REQUEST_MODEL(hash);
-                NativeFunction.Natives.GIVE_WEAPON_TO_PED(robber, hash, 5000, false, true);
-                foreach (var comp in weapon.Components)
-                {
-                    var compHash = NativeFunction.Natives.GET_HASH_KEY<Model>(comp);
-                    NativeFunction.Natives.REQUEST_MODEL(compHash);
-                    NativeFunction.Natives.GIVE_WEAPON_COMPONENT_TO_PED(robber, hash, compHash);
-                }
+                robber.GiveWeapon([.. XmlManager.BankHeistConfig.Weapons]);
 
                 NativeFunction.Natives.SET_PED_SUFFERS_CRITICAL_HITS(robber, false);
                 Robbers.Add(robber);
