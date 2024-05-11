@@ -168,7 +168,7 @@ internal class Main : Plugin
             XmlManager.Initialize();
             EnemyBlip.Initialize();
             Game.AddConsoleCommands();
-            CalloutManager.RegisterAllCallouts();
+            CalloutBase.RegisterAllCallouts();
             HudHelpers.DisplayNotification(Localization.GetString("PluginLoaded", PLUGIN_NAME, DEVELOPER_NAME), PLUGIN_NAME, PLUGIN_VERSION_DATA);
 #if DEBUG
             DebugManager.Initialize();

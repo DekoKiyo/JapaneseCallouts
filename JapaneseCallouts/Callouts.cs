@@ -1,4 +1,4 @@
-namespace JapaneseCallouts.Callouts;
+namespace JapaneseCallouts;
 
 internal abstract class CalloutBase : Callout
 {
@@ -52,5 +52,17 @@ internal abstract class CalloutBase : Callout
         IsCalloutRunning = false;
         OnCalloutsEnded?.Invoke();
         if (!NoLastRadio) Functions.PlayScannerAudio("ATTENTION_ALL_UNITS JP_WE_ARE_CODE JP_FOUR JP_NO_FURTHER_UNITS_REQUIRED");
+    }
+
+    internal static void RegisterAllCallouts()
+    {
+        Functions.RegisterCallout(typeof(BankHeist));
+        Functions.RegisterCallout(typeof(PacificBankHeist));
+        Functions.RegisterCallout(typeof(DrunkGuys));
+        Functions.RegisterCallout(typeof(HotPursuit));
+        Functions.RegisterCallout(typeof(StolenVehicle));
+        Functions.RegisterCallout(typeof(StoreRobbery));
+        Functions.RegisterCallout(typeof(RoadRage));
+        // Functions.RegisterCallout(typeof(YakuzaActivity));
     }
 }
