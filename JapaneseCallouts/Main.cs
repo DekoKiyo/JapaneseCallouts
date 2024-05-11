@@ -223,6 +223,8 @@ internal class Main : Plugin
         if (!File.Exists($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.DRUNK_GUYS_XML}")) missing.Add($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.DRUNK_GUYS_XML}");
         if (!File.Exists($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.ROAD_RAGE_XML}")) missing.Add($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.ROAD_RAGE_XML}");
         if (!File.Exists($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.STORE_ROBBERY_XML}")) missing.Add($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.STORE_ROBBERY_XML}");
+        if (!File.Exists($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.BANK_HEIST_XML}")) missing.Add($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.BANK_HEIST_XML}");
+        if (!File.Exists($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.HOT_PURSUIT_XML}")) missing.Add($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.HOT_PURSUIT_XML}");
         if (!File.Exists($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.CALLOUTS_SOUND_XML}")) missing.Add($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.CALLOUTS_SOUND_XML}");
         if (!File.Exists($"{PLUGIN_DIRECTORY}/{PLUGIN_AUDIO_DIRECTORY}/{PacificBankHeist.ALARM_SOUND_FILE_NAME}")) missing.Add($"{PLUGIN_DIRECTORY}/{PLUGIN_AUDIO_DIRECTORY}/{PacificBankHeist.ALARM_SOUND_FILE_NAME}");
         if (!File.Exists($"{PLUGIN_DIRECTORY}/{PLUGIN_AUDIO_DIRECTORY}/{Conversations.PHONE_CALLING_SOUND}")) missing.Add($"{PLUGIN_DIRECTORY}/{PLUGIN_AUDIO_DIRECTORY}/{Conversations.PHONE_CALLING_SOUND}");
