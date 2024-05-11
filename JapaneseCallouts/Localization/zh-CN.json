@@ -130,12 +130,14 @@
   "Callouts": {
     "BankHeist": "Bank Heist",
     "DrunkGuys": "Drunk Guys",
+    "HotPursuit": "Hot Pursuit",
     "RoadRage": "Road Rage",
     "StolenVehicle": "Stolen Vehicle",
     "StoreRobbery": "Store Robbery",
     "BankHeistDesc": "The robber The bank reported a robber is stealing money now.",
     "PacificBankHeistDesc": "The robber has taken hostages and barricaded themselves inside the bank.",
     "DrunkGuysDesc": "A citizen reports that some drunk persons are sleeping in public spaces.",
+    "HotPursuitDesc": "The dangerous vehicle is escaping from a officer!",
     "RoadRageDesc": "A citizen reports being harassed by another vehicle while driving.",
     "StolenVehicleDesc": "The suspect stolen the vehicle. Search and pursuit it!",
     "StoreRobberyDesc": "The robbers are robbing the store."
