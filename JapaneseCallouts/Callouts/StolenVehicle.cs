@@ -77,7 +77,7 @@ internal class StolenVehicle : CalloutBase
             {
                 Color = Color.Yellow,
                 Alpha = 0.5f,
-                IsRouteEnabled = true
+                IsRouteEnabled = true,
             };
         }
     }

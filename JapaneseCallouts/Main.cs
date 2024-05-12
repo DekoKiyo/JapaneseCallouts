@@ -100,6 +100,23 @@ internal class Main : Plugin
     // Change here if you want to change the version.
     internal const string VERSION = "0.1.0";
 
+    private static readonly (string path, bool isError)[] REQUIRE_FILES_PATH =
+    [
+        (CALLOUT_INTERFACE_API_DLL, true),
+        (NAUDIO_CORE_DLL, true),
+        ($"{LSPDFR_DIRECTORY}/{SETTINGS_INI_FILE}", false),
+        ($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.PACIFIC_BANK_HEIST_XML}", false),
+        ($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.DRUNK_GUYS_XML}", false),
+        ($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.ROAD_RAGE_XML}", false),
+        ($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.STORE_ROBBERY_XML}", false),
+        ($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.BANK_HEIST_XML}", false),
+        ($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.HOT_PURSUIT_XML}", false),
+        ($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.CALLOUTS_SOUND_XML}", false),
+        ($"{PLUGIN_DIRECTORY}/{PLUGIN_AUDIO_DIRECTORY}/{PacificBankHeist.ALARM_SOUND_FILE_NAME}", false),
+        ($"{PLUGIN_DIRECTORY}/{PLUGIN_AUDIO_DIRECTORY}/{Conversations.PHONE_CALLING_SOUND}", false),
+        ($"{PLUGIN_DIRECTORY}/{PLUGIN_AUDIO_DIRECTORY}/{Conversations.PHONE_BUSY_SOUND}", false),
+    ];
+
     internal const string PLUGIN_NAME = "Japanese Callouts";
     internal const string PLUGIN_NAME_NO_SPACE = "JapaneseCallouts";
     internal const string DEVELOPER_NAME = "DekoKiyo";
@@ -218,17 +235,11 @@ internal class Main : Plugin
             missing.Add(CALLOUT_INTERFACE_API_DLL);
             error = true;
         }
-        if (!File.Exists($"{LSPDFR_DIRECTORY}/{SETTINGS_INI_FILE}")) missing.Add($"{LSPDFR_DIRECTORY}/{SETTINGS_INI_FILE}");
-        if (!File.Exists($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.PACIFIC_BANK_HEIST_XML}")) missing.Add($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.PACIFIC_BANK_HEIST_XML}");
-        if (!File.Exists($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.DRUNK_GUYS_XML}")) missing.Add($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.DRUNK_GUYS_XML}");
-        if (!File.Exists($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.ROAD_RAGE_XML}")) missing.Add($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.ROAD_RAGE_XML}");
-        if (!File.Exists($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.STORE_ROBBERY_XML}")) missing.Add($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.STORE_ROBBERY_XML}");
-        if (!File.Exists($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.BANK_HEIST_XML}")) missing.Add($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.BANK_HEIST_XML}");
-        if (!File.Exists($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.HOT_PURSUIT_XML}")) missing.Add($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.HOT_PURSUIT_XML}");
-        if (!File.Exists($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.CALLOUTS_SOUND_XML}")) missing.Add($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.CALLOUTS_SOUND_XML}");
-        if (!File.Exists($"{PLUGIN_DIRECTORY}/{PLUGIN_AUDIO_DIRECTORY}/{PacificBankHeist.ALARM_SOUND_FILE_NAME}")) missing.Add($"{PLUGIN_DIRECTORY}/{PLUGIN_AUDIO_DIRECTORY}/{PacificBankHeist.ALARM_SOUND_FILE_NAME}");
-        if (!File.Exists($"{PLUGIN_DIRECTORY}/{PLUGIN_AUDIO_DIRECTORY}/{Conversations.PHONE_CALLING_SOUND}")) missing.Add($"{PLUGIN_DIRECTORY}/{PLUGIN_AUDIO_DIRECTORY}/{Conversations.PHONE_CALLING_SOUND}");
-        if (!File.Exists($"{PLUGIN_DIRECTORY}/{PLUGIN_AUDIO_DIRECTORY}/{Conversations.PHONE_BUSY_SOUND}")) missing.Add($"{PLUGIN_DIRECTORY}/{PLUGIN_AUDIO_DIRECTORY}/{Conversations.PHONE_BUSY_SOUND}");
+
+        foreach (var (path, isError) in REQUIRE_FILES_PATH)
+        {
+
+        }
 
         return [.. missing];
     }

@@ -50,13 +50,12 @@ internal class WantedCriminalFound : CalloutBase
             Functions.GetPersonaForPed(criminal).Wanted = true;
             if (Main.MersenneTwister.Next(0, 4) is 0) criminal.Inventory.GiveNewWeapon(weapons[Main.MersenneTwister.Next(weapons.Length)], 5000, false);
             criminal.Tasks.Wander();
-            blip = criminal.AttachBlip();
-            if (blip is not null && blip.IsValid() && blip.Exists())
+            blip = new(criminal.Position.Around(Main.MersenneTwister.Next(100)), Main.MersenneTwister.Next(75, 120))
             {
-                blip.Color = Color.Yellow;
-                blip.Alpha = 0.5f;
-                blip.EnableRoute(Color.Yellow);
-            }
+                Color = Color.Yellow,
+                Alpha = 0.5f,
+                IsRouteEnabled = true,
+            };
         }
     }
 
