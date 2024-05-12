@@ -1,4 +1,80 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <WantedCriminalFoundConfig>
-  
+  <Weapons>
+    <Weapon>
+      <Model>WEAPON_PISTOL</Model>
+    </Weapon>
+    <Weapon>
+      <Model>WEAPON_KNIFE</Model>
+    </Weapon>
+    <Weapon>
+      <Model>WEAPON_SMG</Model>
+    </Weapon>
+    <Weapon>
+      <Model>WEAPON_STUNGUN</Model>
+    </Weapon>
+    <Weapon>
+      <Model>WEAPON_REVOLVER</Model>
+    </Weapon>
+  </Weapons>
+  <Criminals>
+    <Ped>a_f_m_tramp_01</Ped>
+    <Ped>a_f_m_soucentmc_01</Ped>
+    <Ped>a_f_m_soucent_01</Ped>
+    <Ped>a_f_o_soucent_02</Ped>
+    <Ped>a_f_o_ktown_01</Ped>
+    <Ped>a_f_y_clubcust_02</Ped>
+    <Ped>a_f_y_business_01</Ped>
+    <Ped>a_f_y_eastsa_02</Ped>
+    <Ped>a_f_y_hipster_01</Ped>
+    <Ped>a_f_y_hipster_02</Ped>
+    <Ped>a_f_y_soucent_01</Ped>
+    <Ped>a_f_y_runner_01</Ped>
+    <Ped>a_f_y_tourist_02</Ped>
+    <Ped>a_f_y_vinewood_02</Ped>
+    <Ped>a_f_y_gencaspat_01</Ped>
+    <Ped>a_m_m_afriamer_01</Ped>
+    <Ped>a_m_m_beach_02</Ped>
+    <Ped>a_m_m_bevhills_02</Ped>
+    <Ped>a_m_m_business_01</Ped>
+    <Ped>a_m_m_fatlatin_01</Ped>
+    <Ped>a_m_m_eastsa_02</Ped>
+    <Ped>a_m_m_golfer_01</Ped>
+    <Ped>a_m_m_genfat_01</Ped>
+    <Ped>a_m_m_indian_01</Ped>
+    <Ped>a_m_m_mexlabor_01</Ped>
+    <Ped>a_m_m_mexcntry_01</Ped>
+    <Ped>a_m_m_paparazzi_01</Ped>
+    <Ped>a_m_m_prolhost_01</Ped>
+    <Ped>a_m_m_rurmeth_01</Ped>
+    <Ped>a_m_m_salton_02</Ped>
+    <Ped>a_m_m_soucent_02</Ped>
+    <Ped>a_m_m_socenlat_01</Ped>
+    <Ped>a_m_o_acult_01</Ped>
+    <Ped>a_m_m_tennis_01</Ped>
+    <Ped>a_m_o_ktown_01</Ped>
+    <Ped>a_m_o_soucent_02</Ped>
+    <Ped>a_m_y_beach_02</Ped>
+    <Ped>a_m_y_busicas_01</Ped>
+    <Ped>a_m_y_clubcust_01</Ped>
+    <Ped>a_m_y_downtown_01</Ped>
+    <Ped>a_m_y_epsilon_01</Ped>
+    <Ped>a_m_y_golfer_01</Ped>
+    <Ped>a_m_y_hipster_03</Ped>
+    <Ped>a_m_y_ktown_01</Ped>
+    <Ped>a_m_y_musclbeac_01</Ped>
+    <Ped>a_m_y_methhead_01</Ped>
+    <Ped>a_m_y_skater_01</Ped>
+    <Ped>a_m_y_stlat_01</Ped>
+    <Ped>a_m_y_vindouche_01</Ped>
+    <Ped chance="50">cs_casey</Ped>
+    <Ped chance="50">cs_andreas</Ped>
+    <Ped chance="50">cs_drfriedlander</Ped>
+    <Ped chance="50">cs_devin</Ped>
+    <Ped chance="50">cs_lazlow</Ped>
+    <Ped chance="50">cs_michelle</Ped>
+    <Ped chance="50">cs_molly</Ped>
+    <Ped chance="50">cs_orleans</Ped>
+    <Ped chance="50">cs_wade</Ped>
+  </Criminals>
 </WantedCriminalFoundConfig>

@@ -3,13 +3,14 @@ namespace JapaneseCallouts.Callouts;
 [CalloutInfo("[JPC] Wanted Criminal Found", CalloutProbability.High)]
 internal class WantedCriminalFound : CalloutBase
 {
-    private readonly WeaponHash[] weapons = [WeaponHash.StunGun, WeaponHash.Pistol, WeaponHash.CarbineRifle];
     private Ped criminal;
     private Blip blip;
     private LHandle pursuit;
     private int blipTimer = 750;
     private int count = 0;
     private bool found = false;
+    private readonly bool fight = Main.MersenneTwister.Next(0, 3) is 0;
+    private readonly RelationshipGroup suspectRG = new("SUSPECT");
 
     internal override void Setup()
     {
@@ -40,15 +41,20 @@ internal class WantedCriminalFound : CalloutBase
     {
         HudHelpers.DisplayNotification(Localization.GetString("WantedCriminalFoundDesc"));
 
-        criminal = new(CalloutPosition)
+        var data = CalloutHelpers.Select([.. XmlManager.WantedCriminalFoundConfig.Criminals]);
+        criminal = new(data.Model, CalloutPosition, 0f)
         {
             IsPersistent = true,
             BlockPermanentEvents = true,
         };
         if (criminal is not null && criminal.IsValid() && criminal.Exists())
         {
+            criminal.SetOutfit(data);
             Functions.GetPersonaForPed(criminal).Wanted = true;
-            if (Main.MersenneTwister.Next(0, 3) is 0) criminal.Inventory.GiveNewWeapon(weapons[Main.MersenneTwister.Next(weapons.Length)], 5000, false);
+            if (fight)
+            {
+                criminal.GiveWeapon([.. XmlManager.WantedCriminalFoundConfig.Weapons]);
+            }
             criminal.Tasks.Wander();
             blip = new(criminal.Position.Around(Main.MersenneTwister.Next(100)), Main.MersenneTwister.Next(75, 120))
             {
@@ -56,6 +62,10 @@ internal class WantedCriminalFound : CalloutBase
                 Alpha = 0.5f,
                 IsRouteEnabled = true,
             };
+
+            Game.SetRelationshipBetweenRelationshipGroups(suspectRG, RelationshipGroup.Cop, Relationship.Hate);
+            Game.SetRelationshipBetweenRelationshipGroups(suspectRG, Main.Player.RelationshipGroup, Relationship.Hate);
+            Game.SetRelationshipBetweenRelationshipGroups(RelationshipGroup.Cop, Main.Player.RelationshipGroup, Relationship.Respect);
         }
     }
 
@@ -81,11 +91,16 @@ internal class WantedCriminalFound : CalloutBase
             Functions.PlayScannerAudioUsingPosition("ATTENTION_ALL_UNITS WE_HAVE JP_CRIME_STOLEN_VEHICLE IN_OR_ON_POSITION", criminal.Position);
             if (criminal is not null && criminal.IsValid() && criminal.Exists())
             {
+                criminal.Tasks.Clear();
                 pursuit = Functions.CreatePursuit();
                 if (pursuit is not null)
                 {
                     Functions.AddPedToPursuit(pursuit, criminal);
                     Functions.SetPursuitIsActiveForPlayer(pursuit, true);
+                    if (fight)
+                    {
+                        criminal.Tasks.FightAgainstClosestHatedTarget(100f);
+                    }
                 }
             }
         }

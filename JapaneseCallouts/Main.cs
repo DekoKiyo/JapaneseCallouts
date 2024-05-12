@@ -111,6 +111,7 @@ internal class Main : Plugin
         ($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.STORE_ROBBERY_XML}", false),
         ($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.BANK_HEIST_XML}", false),
         ($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.HOT_PURSUIT_XML}", false),
+        ($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.WANTED_CRIMINAL_FOUND_XML}", false),
         ($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.CALLOUTS_SOUND_XML}", false),
         ($"{PLUGIN_DIRECTORY}/{PLUGIN_AUDIO_DIRECTORY}/{PacificBankHeist.ALARM_SOUND_FILE_NAME}", false),
         ($"{PLUGIN_DIRECTORY}/{PLUGIN_AUDIO_DIRECTORY}/{Conversations.PHONE_CALLING_SOUND}", false),
