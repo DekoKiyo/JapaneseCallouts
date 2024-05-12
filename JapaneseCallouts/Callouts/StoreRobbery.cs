@@ -1,5 +1,3 @@
-// TODO: 最寄りのコンビニで強盗が起きるように調整
-
 namespace JapaneseCallouts.Callouts;
 
 [CalloutInfo("[JPC] Store Robbery", CalloutProbability.VeryHigh)]

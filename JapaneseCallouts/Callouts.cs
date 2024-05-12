@@ -63,6 +63,7 @@ internal abstract class CalloutBase : Callout
         Functions.RegisterCallout(typeof(StolenVehicle));
         Functions.RegisterCallout(typeof(StoreRobbery));
         Functions.RegisterCallout(typeof(RoadRage));
+        Functions.RegisterCallout(typeof(WantedCriminalFound));
         // Functions.RegisterCallout(typeof(YakuzaActivity));
     }
 }

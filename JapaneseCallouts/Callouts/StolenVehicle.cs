@@ -100,7 +100,7 @@ internal class StolenVehicle : CalloutBase
             area.Position = stolen.Position;
             area.IsRouteEnabled = true;
 
-            HudHelpers.DisplayNotification(Localization.GetString("StolenVehicleDataUpdate"));
+            HudHelpers.DisplayNotification(Localization.GetString("GPSUpdate"));
             HudHelpers.DisplayNotification(Localization.GetString("StolenVehicleData", stolen.LicensePlate, stolen.Class.ToString()));
             Functions.PlayScannerAudioUsingPosition("SUSPECT_LAST_SEEN IN_OR_ON_POSITION", stolen.Position);
             count++;
