@@ -109,7 +109,7 @@ internal class StolenVehicle : CalloutBase
         {
             found = true;
             if (area is not null && area.IsValid() && area.Exists()) area.Delete();
-            Functions.PlayScannerAudioUsingPosition("ATTENTION_ALL_UNITS WE_HAVE JP_CRIME_STOLEN_VEHICLE IN_OR_ON_POSITION", stolen.Position);
+            Functions.PlayScannerAudioUsingPosition(XmlManager.CalloutsSoundConfig.StolenVehicle, stolen.Position);
             if (suspect is not null && suspect.IsValid() && suspect.Exists())
             {
                 pursuit = Functions.CreatePursuit();

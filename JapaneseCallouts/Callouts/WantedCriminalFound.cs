@@ -17,7 +17,7 @@ internal class WantedCriminalFound : CalloutBase
         CalloutMessage = Localization.GetString("WantedCriminalFound");
         CalloutPosition = World.GetNextPositionOnStreet(Main.Player.Position.Around(500f, 1200f));
         ShowCalloutAreaBlipBeforeAccepting(CalloutPosition, 50f);
-        Functions.PlayScannerAudioUsingPosition("ATTENTION_ALL_UNITS WE_HAVE DL_CRIME_SUSPECT_RESISTING_ARREST_01 IN_OR_ON_POSITION", CalloutPosition);
+        Functions.PlayScannerAudioUsingPosition(XmlManager.CalloutsSoundConfig.WantedCriminalFound, CalloutPosition);
 
         OnCalloutsEnded += () =>
         {
@@ -88,7 +88,7 @@ internal class WantedCriminalFound : CalloutBase
         {
             found = true;
             if (blip is not null && blip.IsValid() && blip.Exists()) blip.Delete();
-            Functions.PlayScannerAudioUsingPosition("ATTENTION_ALL_UNITS WE_HAVE JP_CRIME_STOLEN_VEHICLE IN_OR_ON_POSITION", criminal.Position);
+            Functions.PlayScannerAudioUsingPosition(XmlManager.CalloutsSoundConfig.WantedCriminalFound, criminal.Position);
             if (criminal is not null && criminal.IsValid() && criminal.Exists())
             {
                 criminal.Tasks.Clear();

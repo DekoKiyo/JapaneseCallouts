@@ -17,4 +17,6 @@ public class CalloutsSoundConfig
     public string StolenVehicle { get; set; }
     [XmlElement]
     public string StoreRobbery { get; set; }
+    [XmlElement]
+    public string WantedCriminalFound { get; set; }
 }
