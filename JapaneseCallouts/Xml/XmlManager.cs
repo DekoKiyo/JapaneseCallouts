@@ -9,6 +9,7 @@ internal static class XmlManager
     internal const string BANK_HEIST_XML = @"BankHeistConfig.xml";
     internal const string HOT_PURSUIT_XML = @"HotPursuitConfig.xml";
     internal const string WANTED_CRIMINAL_FOUND_XML = @"WantedCriminalFoundConfig.xml";
+    internal const string STREET_FIGHT_XML = @"StreetFightConfig.xml";
     internal const string CALLOUTS_SOUND_XML = @"CalloutsSoundConfig.xml";
 
     internal static PacificBankHeistConfig PacificBankHeistConfig { get; private set; }
@@ -18,6 +19,7 @@ internal static class XmlManager
     internal static BankHeistConfig BankHeistConfig { get; private set; }
     internal static HotPursuitConfig HotPursuitConfig { get; private set; }
     internal static WantedCriminalFoundConfig WantedCriminalFoundConfig { get; private set; }
+    internal static StreetFightConfig StreetFightConfig { get; private set; }
     internal static CalloutsSoundConfig CalloutsSoundConfig { get; private set; }
 
     internal static void Initialize()
@@ -29,6 +31,7 @@ internal static class XmlManager
         var bhSerializer = new XmlSerializer(typeof(BankHeistConfig));
         var hpSerializer = new XmlSerializer(typeof(HotPursuitConfig));
         var wcfSerializer = new XmlSerializer(typeof(WantedCriminalFoundConfig));
+        var sfSerializer = new XmlSerializer(typeof(StreetFightConfig));
         var csSerializer = new XmlSerializer(typeof(CalloutsSoundConfig));
 
         PacificBankHeistConfig = LoadXml<PacificBankHeistConfig>(PACIFIC_BANK_HEIST_XML, pbhSerializer);
@@ -38,6 +41,7 @@ internal static class XmlManager
         BankHeistConfig = LoadXml<BankHeistConfig>(BANK_HEIST_XML, bhSerializer);
         HotPursuitConfig = LoadXml<HotPursuitConfig>(HOT_PURSUIT_XML, hpSerializer);
         WantedCriminalFoundConfig = LoadXml<WantedCriminalFoundConfig>(WANTED_CRIMINAL_FOUND_XML, wcfSerializer);
+        StreetFightConfig = LoadXml<StreetFightConfig>(STREET_FIGHT_XML, sfSerializer);
         CalloutsSoundConfig = LoadXml<CalloutsSoundConfig>(CALLOUTS_SOUND_XML, csSerializer);
     }
 
