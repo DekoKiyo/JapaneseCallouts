@@ -48,7 +48,7 @@ internal class WantedCriminalFound : CalloutBase
         if (criminal is not null && criminal.IsValid() && criminal.Exists())
         {
             Functions.GetPersonaForPed(criminal).Wanted = true;
-            if (Main.MersenneTwister.Next(0, 4) is 0) criminal.Inventory.GiveNewWeapon(weapons[Main.MersenneTwister.Next(weapons.Length)], 5000, false);
+            if (Main.MersenneTwister.Next(0, 3) is 0) criminal.Inventory.GiveNewWeapon(weapons[Main.MersenneTwister.Next(weapons.Length)], 5000, false);
             criminal.Tasks.Wander();
             blip = new(criminal.Position.Around(Main.MersenneTwister.Next(100)), Main.MersenneTwister.Next(75, 120))
             {
