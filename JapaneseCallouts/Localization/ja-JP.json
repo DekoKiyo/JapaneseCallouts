@@ -134,13 +134,15 @@
     "RoadRage": "煽り運転",
     "StolenVehicle": "盗難車両",
     "StoreRobbery": "コンビニ強盗",
+    "WantedCriminalFound": "Wanted Criminal Found",
     "BankHeistDesc": "The robber The bank reported a robber is stealing money now.",
     "PacificBankHeistDesc": "The robber has taken hostages and barricaded themselves inside the bank.",
     "DrunkGuysDesc": "複数人が公共の場で酔いつぶれていると、市民から通報がありました。",
     "HotPursuitDesc": "The dangerous vehicle is escaping from a officer!",
     "RoadRageDesc": "運転中に他の車から危険な運転を繰り返されていると、市民から通報がありました。",
     "StolenVehicleDesc": "車両盗難が発生しました。容疑者は逃走中です。捜索して確保してください!",
-    "StoreRobberyDesc": "コンビニに強盗が押し入ったと通報がありました。"
+    "StoreRobberyDesc": "コンビニに強盗が押し入ったと通報がありました。",
+    "WantedCriminalFoundDesc": "The person who looks like the criminal was found. Check them!"
   },
   "CalloutsText": {
     "AlarmSwitchKey": "{0}を押していつでも~r~アラーム~s~を切り替えることができます。",
@@ -168,7 +170,8 @@
     "Robber": "強盗",
     "SelectAnswerText": "表示されたキーを押して回答を選択してください。",
     "StolenVehicleData": "盗まれた車両の情報~n~~b~ナンバー~s~: {0}~n~~b~車種~s~: {1}",
-    "StolenVehicleDataUpdate": "~b~対象車両のGPS情報が更新されました。~s~",
+    "GPSUpdate": "~b~The target location on GPS has been updated.~s~",
+    "WantedCriminalData": "The criminal is ~b~{0}~s~ and is wandering.",
     "SurrenderHelp": "~b~他の警官~s~が~b~逮捕~s~を行い、~b~移送~s~します。~n~~b~その場~s~で強盗犯が~b~暴れないように警戒~s~してください。",
     "SWATFollowing": "{0}を押して特殊部隊を追従させます。",
     "SWATIsFollowing": "~b~特殊部隊~s~の追従を有効にしました。",
@@ -180,6 +183,8 @@
     "Victim": "被害者"
   },
   "General": {
+    "Male": "Male",
+    "Female": "Female",
     "CalloutCode4": "~g~Code4~s~です。~r~パトロールに戻ってください~s~。",
     "Dispatch": "警察本部",
     "PluginLoaded": "~b~{0}~s~が、~n~~g~正常にロードされました!~s~~n~開発者: ~b~{1}~s~",
