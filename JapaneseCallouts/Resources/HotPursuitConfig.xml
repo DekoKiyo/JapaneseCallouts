@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<HotPursuitConfig>
+  <Vehicles>
+    <Vehicle>R300</Vehicle>
+    <Vehicle>NINEF</Vehicle>
+    <Vehicle>NINEF2</Vehicle>
+    <Vehicle>KURUMA</Vehicle>
+    <Vehicle>SCHWARZER</Vehicle>
+    <Vehicle>SEVEN70</Vehicle>
+    <Vehicle>FUTO</Vehicle>
+    <Vehicle>ZENTORNO</Vehicle>
+    <Vehicle>XLS</Vehicle>
+    <Vehicle>SURGE</Vehicle>
+    <Vehicle>TAILGATER2</Vehicle>
+  </Vehicles>
+</HotPursuitConfig>
