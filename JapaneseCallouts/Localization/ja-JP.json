@@ -134,6 +134,7 @@
     "RoadRage": "煽り運転",
     "StolenVehicle": "盗難車両",
     "StoreRobbery": "コンビニ強盗",
+    "StreetFight": "Street Fight",
     "WantedCriminalFound": "Wanted Criminal Found",
     "BankHeistDesc": "The robber The bank reported a robber is stealing money now.",
     "PacificBankHeistDesc": "The robber has taken hostages and barricaded themselves inside the bank.",
@@ -142,6 +143,7 @@
     "RoadRageDesc": "運転中に他の車から危険な運転を繰り返されていると、市民から通報がありました。",
     "StolenVehicleDesc": "車両盗難が発生しました。容疑者は逃走中です。捜索して確保してください!",
     "StoreRobberyDesc": "コンビニに強盗が押し入ったと通報がありました。",
+    "StreetFightDesc": "There are two persons who are fighting on the road. Stop them and ask what happened.",
     "WantedCriminalFoundDesc": "The person who looks like the criminal was found. Check them!"
   },
   "CalloutsText": {
