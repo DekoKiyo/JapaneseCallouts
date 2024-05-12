@@ -134,6 +134,7 @@
     "RoadRage": "Road Rage",
     "StolenVehicle": "Stolen Vehicle",
     "StoreRobbery": "Store Robbery",
+    "StreetFight": "Street Fight",
     "WantedCriminalFound": "Wanted Criminal Found",
     "BankHeistDesc": "The robber The bank reported a robber is stealing money now.",
     "PacificBankHeistDesc": "The robber has taken hostages and barricaded themselves inside the bank.",
@@ -142,6 +143,7 @@
     "RoadRageDesc": "A citizen reports being harassed by another vehicle while driving.",
     "StolenVehicleDesc": "The suspect stolen the vehicle. Search and pursuit it!",
     "StoreRobberyDesc": "The robbers are robbing the store.",
+    "StreetFightDesc": "There are two persons who are fighting on the road. Stop them and ask what happened.",
     "WantedCriminalFoundDesc": "The person who looks like the criminal was found. Check them!"
   },
   "CalloutsText": {
