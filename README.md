@@ -6,7 +6,7 @@
 <p align="center">
     <a href="https://github.com/DekoKiyo/JapaneseCallouts/releases/latest"><img alt="GitHub Release" src="https://img.shields.io/github/v/release/DekoKiyo/JapaneseCallouts?style=flat&logo=GitHub&label=Latest%20Release"></a>
     <a href="https://github.com/DekoKiyo/JapaneseCallouts/releases/latest"><img alt="GitHub Downloads (all assets, all releases)" src="https://img.shields.io/github/downloads/DekoKiyo/JapaneseCallouts/total?style=flat&logo=GitHub&label=Downloads"></a>
-    <a href="https://github.com/DekoKiyo/JapaneseCallouts/blob/main/LICENSE"><img alt="GitHub License" src="https://img.shields.io/github/license/DekoKiyo/JapaneseCallouts?style=flat&logo=GitHub&label=GPL%20License"></a>
+    <a href="https://github.com/DekoKiyo/JapaneseCallouts?tab=GPL-3.0-1-ov-file#readme"><img alt="GitHub License" src="https://img.shields.io/github/license/DekoKiyo/JapaneseCallouts?style=flat&logo=GitHub&label=GPL%20License"></a>
     <a href="https://discord.gg/uTVnVjqQWA"><img alt="Discord" src="https://img.shields.io/discord/1067619328670830682?style=flat&logo=Discord&label=Discord%20Server"></a>
     <a href="https://twitter.com/DekoKiyomori"><img alt="X (formerly Twitter) Follow" src="https://img.shields.io/twitter/follow/DekoKiyomori?style=social&logo=X"></a>
 </p>
