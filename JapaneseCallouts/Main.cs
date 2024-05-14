@@ -126,6 +126,7 @@ internal class Main : Plugin
     internal const string LSPDFR_DIRECTORY = @"plugins/LSPDFR";
     internal const string PLUGIN_DIRECTORY = @$"{LSPDFR_DIRECTORY}/{PLUGIN_NAME_NO_SPACE}";
     internal const string PLUGIN_AUDIO_DIRECTORY = @"Audio";
+    internal const string PLUGIN_LOCALIZATION_DIRECTORY = @"Localization";
     internal const string SETTINGS_INI_FILE = @$"{PLUGIN_NAME_NO_SPACE}.ini";
     internal const string NAUDIO_CORE_DLL = @"NAudio.Core.dll";
     internal const string CALLOUT_INTERFACE_API_DLL = @"CalloutInterfaceAPI.dll";

@@ -9,13 +9,13 @@ Discord Server
 https://discord.gg/aBer7YvDPA
 
 Official Wiki
-https://jpc-wiki.vercel.app
+https://github.com/DekoKiyo/JapaneseCallouts/Wiki
 
 GitHub repository
 https://github.com/DekoKiyo/JapaneseCallouts
 
 ====================== Credits ======================
-DekoKiyo: Main Developer / Project Leader / Japanese & English Translator
+DekoKiyo: Developer / Japanese & English Translator
 Charlie686: Advice about the new locale system. Especially callout notifications' translation. Thanks!
 Albo1125: The original idea and source code for Bank Heist callout and its dialog system came from his Assorted Callouts.
 YobB1n: The original source code for generating random freemode peds face system came from his Yobbin Callouts.

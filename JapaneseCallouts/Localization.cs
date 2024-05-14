@@ -16,14 +16,7 @@ internal static class Localization
     private static void Load(ELanguages lang, bool isChange = false)
     {
         var langCode = LanguageHelpers.GetLangCode(lang);
-        var assembly = Assembly.GetExecutingAssembly();
-        var stream = assembly.GetManifestResourceStream($"JapaneseCallouts.Localization.{langCode}.json");
-        var byteArray = new byte[stream.Length];
-        _ = stream.Read(byteArray, 0, (int)stream.Length);
-        var json = Encoding.UTF8.GetString(byteArray);
-
-        var data = JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, string>>>(json);
-
+        var data = LoadJson(langCode);
         foreach (var obj in data)
         {
             foreach (var locale in obj.Value)
@@ -65,6 +58,35 @@ internal static class Localization
         else
         {
             throw new ArgumentException("lang");
+        }
+    }
+
+    private static Dictionary<string, Dictionary<string, string>> LoadJson(string langCode)
+    {
+        try
+        {
+            var assembly = Assembly.GetExecutingAssembly();
+            var path = @$"{Main.PLUGIN_DIRECTORY}/{Main.PLUGIN_LOCALIZATION_DIRECTORY}/{langCode}.json";
+            if (File.Exists(path))
+            {
+                using var sr = new StreamReader(path);
+                return JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, string>>>(sr.ReadToEnd());
+            }
+            else
+            {
+                Logger.Warn($"The locale file, \"{langCode}.json\" was not found. Check whether the filename is correct or the file exists in the correct directory.", $"{langCode}.json");
+                var stream = assembly.GetManifestResourceStream($"JapaneseCallouts.Localization.{langCode}.json");
+                var byteArray = new byte[stream.Length];
+                _ = stream.Read(byteArray, 0, (int)stream.Length);
+                var json = Encoding.UTF8.GetString(byteArray);
+
+                return JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, string>>>(json);
+            }
+        }
+        catch (Exception e)
+        {
+            Logger.Error(e.ToString());
+            throw new Exception($"The locale file, \"{langCode}.json\" was not loaded.");
         }
     }
 }

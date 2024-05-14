@@ -2,20 +2,20 @@ Japanese Callouts をダウンロードしていただきありがとうござ�
 これはベータバージョンであり、いくつかバグを含む可能性があります。
 もし、バグを見つけたらDiscordサーバーで報告してください。
 
-メモ: Wikiのページに行って、更に情報を入手できます。
+備考: Wikiのページで、更に情報を入手できます。
 
 ====================== リンク ======================
 Discordサーバー
 https://discord.gg/aBer7YvDPA
 
 公式Wiki
-https://jpc-wiki.vercel.app
+https://github.com/DekoKiyo/JapaneseCallouts/Wiki
 
 GitHubリポジトリ
 https://github.com/DekoKiyo/JapaneseCallouts
 
 ====================== クレジット ======================
-DekoKiyo: 開発者 / プロジェクトリーダー / 日本語と英語の翻訳者
+DekoKiyo: 開発者 / 日本語と英語の翻訳者
 Charlie686: 新しい翻訳システムについての助言。特にコールアウトの通知の翻訳において。感謝します!
 Albo1125: 銀行強盗コールアウトのオリジナルのアイデア及びソースコードは彼のAssorted Calloutsから来ています。
 YobB1n: ランダムなFreemode Pedの顔を生成するシステムのソースコードは彼のYobbin Calloutsから来ています。

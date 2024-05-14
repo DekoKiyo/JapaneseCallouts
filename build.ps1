@@ -11,6 +11,7 @@ $PluginDllFolder = ".\JapaneseCallouts\bin\Debug\net48"
 $PluginDllFile = $PluginDllFolder + "\JapaneseCallouts.dll"
 $PluginIniFile = ".\JapaneseCallouts\JapaneseCallouts.ini"
 $XmlFolder = ".\Xml\"
+$LocalizationFolder = ".\JapaneseCallouts\Localization\"
 $ProjectFile = ".\JapaneseCallouts\JapaneseCallouts.csproj"
 $NAudioCoreDllFile = $PluginDllFolder + "\NAudio.Core.dll"
 $CalloutInterfaceAPIDllFile = $PluginDllFolder + "\CalloutInterfaceAPI.dll"
@@ -83,6 +84,7 @@ try
 }
 catch { }
 Copy-Item $XmlFolder "$($PluginsLSPDFRFolder)\JapaneseCallouts" -Recurse -Force
+Copy-Item $LocalizationFolder "$($PluginsLSPDFRFolder)\JapaneseCallouts" -Recurse -Force
 Write-Host "[Copy] Done!" -ForegroundColor Green
 
 Write-Host "Plugin Version is $($PluginVersion)" -ForegroundColor Magenta

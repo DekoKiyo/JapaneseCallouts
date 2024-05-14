@@ -11,6 +11,7 @@ $CalloutInterfaceAPIDllFile = $PluginDllFolder + "\CalloutInterfaceAPI.dll"
 $PluginDllFile = $PluginDllFolder + "\JapaneseCallouts.dll"
 $PluginIniFile = ".\JapaneseCallouts\JapaneseCallouts.ini"
 $XmlFolder = ".\Xml\"
+$LocalizationFolder = ".\JapaneseCallouts\Localization\"
 $ReadmeFolder = ".\Readme\"
 $ProjectFile = ".\JapaneseCallouts\JapaneseCallouts.csproj"
 $PluginAudioFolder = ".\JapaneseCallouts\Audio"
@@ -48,7 +49,8 @@ else {
     $DotNetDirectory = "$TempDirectory\dotnet-win"
     if (!(Test-Path variable:DotNetVersion)) {
         ExecSafe { & powershell $DotNetInstallFile -InstallDir $DotNetDirectory -Channel $DotNetChannel -NoPath }
-    } else {
+    }
+    else {
         ExecSafe { & powershell $DotNetInstallFile -InstallDir $DotNetDirectory -Version $DotNetVersion -NoPath }
     }
     $env:DOTNET_EXE = "$DotNetDirectory\dotnet.exe"
@@ -57,8 +59,7 @@ else {
 Write-Host "Microsoft (R) .NET Core SDK Version $(& $env:DOTNET_EXE --version)"
 
 # 古いリリースフォルダを削除
-If (Test-Path $ReleaseFolder)
-{
+If (Test-Path $ReleaseFolder) {
     Write-Host "The old release was found. It will be deleted." -ForegroundColor Red
     Remove-Item $ReleaseFolder -Recurse -Force -Confirm:$false
 }
@@ -80,13 +81,11 @@ $PluginsFolder = $GrandTheftAutoV + "\plugins"
 $PluginsLSPDFRFolder = $GrandTheftAutoV + "\plugins\LSPDFR"
 
 # パスの不足に備えて存在しない場合は作成
-If (!(Test-Path $PluginsFolder))
-{
+If (!(Test-Path $PluginsFolder)) {
     Write-Host "[Info] The plugins folder ($($PluginsFolder)) was not found. The folder will be automatically generated." -ForegroundColor DarkRed
     New-Item $PluginsFolder -ItemType Directory
 }
-If (!(Test-Path $PluginsLSPDFRFolder))
-{
+If (!(Test-Path $PluginsLSPDFRFolder)) {
     Write-Host "[Info] The LSPDFR folder ($($PluginsLSPDFRFolder)) was not found. The folder will be automatically generated." -ForegroundColor DarkRed
     New-Item $PluginsLSPDFRFolder -ItemType Directory
 }
@@ -95,13 +94,13 @@ If (!(Test-Path $PluginsLSPDFRFolder))
 Write-Host "[Copy] In progress..." -ForegroundColor DarkBlue
 Copy-Item $PluginDllFile $PluginsLSPDFRFolder
 Copy-Item $PluginIniFile $PluginsLSPDFRFolder
-try
-{
+try {
     Copy-Item $NAudioCoreDllFile $GrandTheftAutoV
     Copy-Item $CalloutInterfaceAPIDllFile $GrandTheftAutoV
 }
 catch { }
 Copy-Item $XmlFolder "$($PluginsLSPDFRFolder)\JapaneseCallouts" -Recurse -Force
+Copy-Item $LocalizationFolder "$($PluginsLSPDFRFolder)\JapaneseCallouts" -Recurse -Force
 Write-Host "[Copy] Done!" -ForegroundColor Green
 
 # GTA5へのファイルコピーここまで
@@ -118,6 +117,7 @@ Copy-Item $CalloutInterfaceAPIDllFile .\Release\Zip\GrandTheftAutoV\
 Copy-Item $PluginDllFile .\Release\Zip\GrandTheftAutoV\plugins\LSPDFR
 Copy-Item $PluginIniFile .\Release\Zip\GrandTheftAutoV\plugins\LSPDFR
 Copy-Item $XmlFolder .\Release\Zip\GrandTheftAutoV\plugins\LSPDFR\JapaneseCallouts\ -Recurse
+Copy-Item $LocalizationFolder .\Release\Zip\GrandTheftAutoV\plugins\LSPDFR\JapaneseCallouts\ -Recurse
 Copy-Item $ReadmeFolder .\Release\Zip\ -Recurse
 Copy-Item $PluginAudioFolder .\Release\Zip\GrandTheftAutoV\plugins\LSPDFR\JapaneseCallouts\ -Recurse
 
