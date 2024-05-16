@@ -130,14 +130,21 @@
   "Callouts": {
     "BankHeist": "Bank Heist",
     "DrunkGuys": "Drunk Guys",
+    "HotPursuit": "Hot Pursuit",
     "RoadRage": "Road Rage",
     "StolenVehicle": "Stolen Vehicle",
     "StoreRobbery": "Store Robbery",
-    "BankHeistDesc": "The robber has taken hostages and barricaded themselves inside the bank.",
+    "StreetFight": "Street Fight",
+    "WantedCriminalFound": "Wanted Criminal Found",
+    "BankHeistDesc": "The bank reported a robber is stealing money now.",
+    "PacificBankHeistDesc": "The robber has taken hostages and barricaded themselves inside the bank.",
     "DrunkGuysDesc": "A citizen reports that some drunk persons are sleeping in public spaces.",
+    "HotPursuitDesc": "The dangerous vehicle is escaping from a officer!",
     "RoadRageDesc": "A citizen reports being harassed by another vehicle while driving.",
     "StolenVehicleDesc": "The suspect stolen the vehicle. Search and pursuit it!",
-    "StoreRobberyDesc": "The robbers are robbing the store."
+    "StoreRobberyDesc": "The robbers are robbing the store.",
+    "StreetFightDesc": "There are two persons who are fighting on the road. Stop them and ask what happened.",
+    "WantedCriminalFoundDesc": "The person who looks like the criminal was found. Check them!"
   },
   "CalloutsText": {
     "AlarmSwitchKey": "Press {0} at any time to toggle the ~r~alarm~s~.",
@@ -165,7 +172,8 @@
     "Robber": "Robber",
     "SelectAnswerText": "Press the key displayed to select the answer.",
     "StolenVehicleData": "Stolen Vehicle Data~n~~b~License Plate~s~: {0}~n~~b~Type~s~: {1}",
-    "StolenVehicleDataUpdate": "~b~The target location on GPS has been updated.~s~",
+    "GPSUpdate": "~b~The target location on GPS has been updated.~s~",
+    "WantedCriminalData": "The criminal is ~b~{0}~s~ and is wandering.",
     "SurrenderHelp": "~b~Other officers~s~ will perform the ~b~arrests~s~ and then ~b~deal with the robbers~s~.~n~~b~Hold your position~s~ and keep the robbers under control by ~b~aiming in their direction~s~.",
     "SWATFollowing": "Press {0} to make the SWAT teams follow you.",
     "SWATIsFollowing": "~b~SWAT Units~s~ are now following you.",
@@ -177,6 +185,8 @@
     "Victim": "Victim"
   },
   "General": {
+    "Male": "Male",
+    "Female": "Female",
     "CalloutCode4": "You are ~g~code4~s~. ~r~Return to Patrol~s~.",
     "Dispatch": "Dispatch",
     "PluginLoaded": "~b~{0}~s~ was ~g~successfully loaded!~s~~n~Developed by ~b~{1}~s~.",
