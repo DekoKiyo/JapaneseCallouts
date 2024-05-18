@@ -17,6 +17,12 @@
 > ### You can check the [Official Wiki](https://github.com/DekoKiyo/JapaneseCallouts/wiki) to check more information.
 
 ## Releases
+### Japanese Callouts
 | GTA5 Version |   RPH Version    |   LSPDFR Version   | Plugin Version |     Link      |
 | :----------: | :--------------: | :----------------: | :------------: | :-----------: |
-|   1.0.3095   | 1.98.0 or higher | 0.4.9 (Build 8757) |   Beta.0.1.0   | Not Available |
+|  1.0.3179.0  | 1.98.0 or higher | 0.4.9 (Build 8757) |    1.0.0.0     | Not Available |
+
+### EUP Converter for JPC
+| Version |     Link      |
+| :-----: | :-----------: |
+|   1.0   | Not Available |
