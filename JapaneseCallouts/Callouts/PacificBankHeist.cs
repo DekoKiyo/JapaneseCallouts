@@ -1620,12 +1620,12 @@ internal class PacificBankHeist : CalloutBase
                 IsPositionFrozen = true,
                 IsPersistent = true
             };
-            var invisibleWall = new RObject(InvisibleWallModel, barrier.Position, p.Heading)
-            {
-                IsVisible = false,
-                IsPersistent = true
-            };
-            var barrierPed = new Ped(invisibleWall.Position)
+            // var invisibleWall = new RObject(InvisibleWallModel, barrier.Position, p.Heading)
+            // {
+            //     IsVisible = false,
+            //     IsPersistent = true
+            // };
+            var barrierPed = new Ped(barrier.Position)
             {
                 IsVisible = false,
                 IsPositionFrozen = true,
@@ -1633,7 +1633,7 @@ internal class PacificBankHeist : CalloutBase
                 IsPersistent = true
             };
             AllBarriers.Add(barrier);
-            AllInvisibleWalls.Add(invisibleWall);
+            // AllInvisibleWalls.Add(invisibleWall);
             AllBarrierPeds.Add(barrierPed);
         }
     }
@@ -2097,45 +2097,22 @@ internal class PacificBankHeist : CalloutBase
             {
                 GameFiber.Yield();
 
-                foreach (var ped in World.GetEntities(CalloutPosition, 120f, GetEntitiesFlags.ConsiderAllPeds | GetEntitiesFlags.ExcludePlayerPed | GetEntitiesFlags.ExcludePoliceOfficers).Cast<Ped>())
+                foreach (var ped in World.GetEntities(CalloutPosition, 150f, GetEntitiesFlags.ConsiderAllPeds | GetEntitiesFlags.ExcludePlayerPed | GetEntitiesFlags.ExcludePoliceOfficers).Cast<Ped>())
                 {
                     GameFiber.Yield();
                     if (CalloutEntities.Contains(ped)) continue;
                     if (ped is not null && ped.IsValid() && ped.Exists())
                     {
-                        if (ped != Main.Player)
+                        if (ped != Main.Player && !ped.CreatedByTheCallingPlugin)
                         {
-                            if (!ped.CreatedByTheCallingPlugin)
+                            if (ped.IsInAnyVehicle(false))
                             {
-                                if (Vector3.Distance(ped.Position, CalloutPosition) < 74f)
+                                if (ped.CurrentVehicle.Exists())
                                 {
-                                    if (ped.IsInAnyVehicle(false))
-                                    {
-                                        if (ped.CurrentVehicle is not null)
-                                        {
-                                            ped.Tasks.PerformDrivingManeuver(VehicleManeuver.Wait);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        NativeFunction.CallByName<uint>("TASK_SMART_FLEE_COORD", ped, CalloutPosition.X, CalloutPosition.Y, CalloutPosition.Z, 75f, 6000, true, true);
-                                    }
-                                }
-                                if (Vector3.Distance(ped.Position, CalloutPosition) < 65f)
-                                {
-                                    if (ped.IsInAnyVehicle(false))
-                                    {
-                                        if (ped.CurrentVehicle.Exists())
-                                        {
-                                            ped.CurrentVehicle.Delete();
-                                        }
-                                    }
-                                    if (ped.Exists())
-                                    {
-                                        ped.Delete();
-                                    }
+                                    ped.CurrentVehicle.Delete();
                                 }
                             }
+                            ped.Delete();
                         }
                     }
                 }
