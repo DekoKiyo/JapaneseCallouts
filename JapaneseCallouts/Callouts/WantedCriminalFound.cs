@@ -107,6 +107,7 @@ internal class WantedCriminalFound : CalloutBase
         if (count > 15) End();
         if (Main.Player.IsDead) End();
         if (criminal is not null && criminal.IsValid() && criminal.Exists() && EntityHelpers.IsAllPedDeadOrArrested([criminal])) End();
+        if (KeyHelpers.IsKeysDown(Settings.EndCalloutsKey, Settings.EndCalloutsModifierKey)) End();
     }
 
     internal override void OnDisplayed() { }

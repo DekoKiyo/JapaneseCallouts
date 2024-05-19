@@ -126,6 +126,7 @@ internal class StreetFight : CalloutBase
 
         if (Main.Player.IsDead) End();
         if (EntityHelpers.IsAllPedDeadOrArrested([suspect1, suspect2])) End();
+        if (KeyHelpers.IsKeysDown(Settings.EndCalloutsKey, Settings.EndCalloutsModifierKey)) End();
     }
 
     internal override void NotAccepted()

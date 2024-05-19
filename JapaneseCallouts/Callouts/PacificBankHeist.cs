@@ -536,6 +536,7 @@ internal class PacificBankHeist : CalloutBase
         {
             Game.FrameRender -= TimerBarsProcess;
         }
+        if (KeyHelpers.IsKeysDown(Settings.EndCalloutsKey, Settings.EndCalloutsModifierKey)) End();
     }
 
     private void CalloutHandler()

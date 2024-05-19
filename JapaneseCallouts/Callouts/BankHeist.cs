@@ -197,6 +197,7 @@ internal class BankHeist : CalloutBase
 
         if (Main.Player.IsDead) End();
         if (EntityHelpers.IsAllPedDeadOrArrested([.. Robbers])) End();
+        if (KeyHelpers.IsKeysDown(Settings.EndCalloutsKey, Settings.EndCalloutsModifierKey)) End();
     }
 
     internal override void NotAccepted() { }

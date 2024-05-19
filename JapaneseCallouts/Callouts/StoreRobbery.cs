@@ -125,6 +125,7 @@ internal class StoreRobbery : CalloutBase
 
         if (Main.Player.IsDead) End();
         if (EntityHelpers.IsAllPedDeadOrArrested([.. robbers])) End();
+        if (KeyHelpers.IsKeysDown(Settings.EndCalloutsKey, Settings.EndCalloutsModifierKey)) End();
     }
 
     private void ProcessTimerBars()

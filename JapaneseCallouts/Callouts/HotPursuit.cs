@@ -88,6 +88,7 @@ internal class HotPursuit : CalloutBase
         GameFiber.Yield();
         if (Main.Player.IsDead) End();
         if (suspect is not null && suspect.IsValid() && suspect.Exists() && EntityHelpers.IsAllPedDeadOrArrested([suspect])) End();
+        if (KeyHelpers.IsKeysDown(Settings.EndCalloutsKey, Settings.EndCalloutsModifierKey)) End();
     }
 
     internal override void NotAccepted() { }

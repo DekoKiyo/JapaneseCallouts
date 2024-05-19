@@ -111,5 +111,6 @@ internal class DrunkGuys : CalloutBase
                 End();
             }
         }
+        if (KeyHelpers.IsKeysDown(Settings.EndCalloutsKey, Settings.EndCalloutsModifierKey)) End();
     }
 }

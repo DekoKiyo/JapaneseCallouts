@@ -224,5 +224,6 @@ internal class RoadRage : CalloutBase
         }
         if (count > 10) End();
         if (Main.Player.IsDead) End();
+        if (KeyHelpers.IsKeysDown(Settings.EndCalloutsKey, Settings.EndCalloutsModifierKey)) End();
     }
 }
