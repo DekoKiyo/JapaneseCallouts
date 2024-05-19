@@ -37,4 +37,10 @@ internal class Preset
     internal string[] Accessories { get; set; } = ["0", "0"];
     internal string[] Armor { get; set; } = ["0", "0"];
     internal string[] Parachute { get; set; } = ["0", "0"];
+
+    internal bool isSunny = true;
+    internal bool isRainy = false;
+    internal bool isSnowy = false;
+    internal int pedHealth = 200;
+    internal int pedArmor = 200;
 }

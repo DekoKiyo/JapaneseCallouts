@@ -64,8 +64,15 @@ public partial class Main : Form
         if (listBox.SelectedItem is not null)
         {
             var gender = AllPresets[listBox.SelectedItem as string].gender;
-            var sb = new StringBuilder("<Ped chance=\"100\" is_sunny=\"true\" is_rainy=\"false\" is_snowy=\"false\" health=\"200\" armor=\"200\" ");
             var preset = AllPresets[listBox.SelectedItem as string].preset;
+            var sb = new StringBuilder($"<Ped chance=\"100\" is_sunny=\"{preset.isSunny}\" is_rainy=\"{preset.isRainy}\" is_snowy=\"{preset.isSnowy}\" health=\"{preset.pedHealth}\" armor=\"{preset.pedArmor}\" ");
+
+            sunnyCheckBox.Checked = preset.isSunny;
+            rainyCheckBox.Checked = preset.isRainy;
+            snowyCheckBox.Checked = preset.isSnowy;
+            healthNum.Value = preset.pedHealth;
+            armorNum.Value = preset.pedArmor;
+
             if (preset.Hat[0] is not "0")
             {
                 sb.Append($"comp_hat_model=\"{preset.Hat[0]}\" comp_hat_texture=\"{preset.Hat[1]}\" ");
@@ -132,7 +139,7 @@ public partial class Main : Form
             }
             textBox.Text = sb.ToString();
 
-            label2.Text = @$"Information:
+            infoLabel.Text = @$"Information:
 Gender: {gender}
 Prop Hat: {preset.Hat[0]}:{preset.Hat[1]}
 Prop Glasses: {preset.Glasses[0]}:{preset.Glasses[1]}
@@ -152,12 +159,62 @@ Comp Parachute: {preset.Parachute[0]}:{preset.Parachute[1]}";
         else
         {
             textBox.Text = "";
-            label2.Text = "";
+            infoLabel.Text = "";
         }
     }
 
     private void button_Click(object sender, EventArgs e)
     {
         Clipboard.SetText(textBox.Text);
+    }
+
+    private void sunnyCheckBox_CheckedChanged(object sender, EventArgs e)
+    {
+        if (listBox.SelectedItem is not null)
+        {
+            var preset = AllPresets[listBox.SelectedItem as string].preset;
+            preset.isSunny = sunnyCheckBox.Checked;
+            listBox_SelectedIndexChanged(sender, e);
+        }
+    }
+
+    private void rainyCheckBox_CheckedChanged(object sender, EventArgs e)
+    {
+        if (listBox.SelectedItem is not null)
+        {
+            var preset = AllPresets[listBox.SelectedItem as string].preset;
+            preset.isRainy = rainyCheckBox.Checked;
+            listBox_SelectedIndexChanged(sender, e);
+        }
+    }
+
+    private void snowyCheckBox_CheckedChanged(object sender, EventArgs e)
+    {
+        if (listBox.SelectedItem is not null)
+        {
+            var preset = AllPresets[listBox.SelectedItem as string].preset;
+            preset.isSnowy = snowyCheckBox.Checked;
+            listBox_SelectedIndexChanged(sender, e);
+        }
+    }
+
+    private void healthNum_ValueChanged(object sender, EventArgs e)
+    {
+        if (listBox.SelectedItem is not null)
+        {
+            var preset = AllPresets[listBox.SelectedItem as string].preset;
+            preset.pedHealth = (int)healthNum.Value;
+            listBox_SelectedIndexChanged(sender, e);
+        }
+    }
+
+    private void armorNum_ValueChanged(object sender, EventArgs e)
+    {
+        if (listBox.SelectedItem is not null)
+        {
+            var preset = AllPresets[listBox.SelectedItem as string].preset;
+            preset.pedArmor = (int)armorNum.Value;
+            listBox_SelectedIndexChanged(sender, e);
+        }
     }
 }

@@ -99,7 +99,6 @@ try {
     Copy-Item $CalloutInterfaceAPIDllFile $GrandTheftAutoV
 }
 catch { }
-Copy-Item $XmlFolder "$($PluginsLSPDFRFolder)\JapaneseCallouts" -Recurse -Force
 Copy-Item $LocalizationFolder "$($PluginsLSPDFRFolder)\JapaneseCallouts" -Recurse -Force
 Write-Host "[Copy] Done!" -ForegroundColor Green
 

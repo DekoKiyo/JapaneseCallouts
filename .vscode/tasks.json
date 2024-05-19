@@ -30,6 +30,16 @@
         "kind": "build",
         "isDefault": true
       }
+    },
+    {
+      "label": "Update XML",
+      "type": "shell",
+      "command": "powershell -ExecutionPolicy Bypass .\\xml.ps1",
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
     }
   ]
 }
