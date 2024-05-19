@@ -3,7 +3,7 @@ namespace JapaneseCallouts;
 internal static class Settings
 {
     private static FileIniDataParser Parser { get; } = new();
-    private static IniData Ini { get; } = Parser.ReadFile($"{Main.LSPDFR_DIRECTORY}/{Main.SETTINGS_INI_FILE}");
+    private static IniData Ini { get; } = Parser.ReadFile($"{Main.LSPDFR_DIRECTORY}/{Main.SETTINGS_INI_FILE}", Encoding.UTF8);
     private const string LANGUAGE_SETTING_NAME = "Language";
 
     internal static string OfficerName { get; private set; } = "Officer";

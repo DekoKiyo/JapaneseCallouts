@@ -34,7 +34,7 @@ public partial class Main : Form
         parser.Parser.Configuration.CommentString = "//";
         parser.Parser.Configuration.AllowDuplicateKeys = true;
         parser.Parser.Configuration.OverrideDuplicateKeys = true;
-        var ini = parser.ReadFile(path);
+        var ini = parser.ReadFile(path, Encoding.UTF8);
 
         foreach (var item in ini.Sections)
         {

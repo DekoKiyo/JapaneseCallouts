@@ -53,14 +53,14 @@ internal static class XmlManager
             var path = @$"{Main.PLUGIN_DIRECTORY}/Xml/{filename}";
             if (File.Exists(path))
             {
-                using var stream = new FileStream(path, FileMode.Open);
-                return (T)serializer.Deserialize(stream);
+                using var sr = new StreamReader(path, Encoding.UTF8);
+                return (T)serializer.Deserialize(sr);
             }
             else
             {
                 Logger.Warn($"The xml file named '{filename}' was not found. Check whether the filename is correct or the file exists in the correct directory.", filename);
                 var stream = assembly.GetManifestResourceStream($"JapaneseCallouts.Resources.{filename}");
-                using var sr = new StreamReader(stream);
+                using var sr = new StreamReader(stream, Encoding.UTF8);
                 return (T)serializer.Deserialize(sr);
             }
         }
