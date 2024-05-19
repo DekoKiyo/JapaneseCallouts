@@ -65,7 +65,7 @@ public partial class Main : Form
         {
             var gender = AllPresets[listBox.SelectedItem as string].gender;
             var preset = AllPresets[listBox.SelectedItem as string].preset;
-            var sb = new StringBuilder($"<Ped chance=\"100\" is_sunny=\"{preset.isSunny}\" is_rainy=\"{preset.isRainy}\" is_snowy=\"{preset.isSnowy}\" health=\"{preset.pedHealth}\" armor=\"{preset.pedArmor}\" ");
+            var sb = new StringBuilder($"<Ped chance=\"100\" is_sunny=\"{preset.isSunny.ToString().ToLower()}\" is_rainy=\"{preset.isRainy.ToString().ToLower()}\" is_snowy=\"{preset.isSnowy.ToString().ToLower()}\" health=\"{preset.pedHealth}\" armor=\"{preset.pedArmor}\" ");
 
             sunnyCheckBox.Checked = preset.isSunny;
             rainyCheckBox.Checked = preset.isRainy;
