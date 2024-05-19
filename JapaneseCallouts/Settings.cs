@@ -4,11 +4,12 @@ internal static class Settings
 {
     private static FileIniDataParser Parser { get; } = new();
     private static IniData Ini { get; } = Parser.ReadFile($"{Main.LSPDFR_DIRECTORY}/{Main.SETTINGS_INI_FILE}", Encoding.UTF8);
-    private const string LANGUAGE_SETTING_NAME = "Language";
 
     internal static string OfficerName { get; private set; } = "Officer";
     internal static bool EnableAutoUpdate { get; private set; } = false;
 
+    internal static Keys EndCalloutsKey { get; private set; } = Keys.End;
+    internal static Keys EndCalloutsModifierKey { get; private set; } = Keys.None;
     internal static Keys SpeakWithThePersonKey { get; private set; } = Keys.Y;
     internal static Keys SpeakWithThePersonModifierKey { get; private set; } = Keys.None;
     internal static Keys ToggleBankHeistAlarmSoundKey { get; private set; } = Keys.F5;
@@ -22,15 +23,18 @@ internal static class Settings
 
     internal static void Initialize()
     {
-        ReloadJPCSettings();
+        JPCReloadSettings();
     }
 
     [ConsoleCommand("Reload Japanese Callouts' settings.")]
-    internal static void ReloadJPCSettings()
+    internal static void JPCReloadSettings()
     {
         OfficerName = Ini["General"][nameof(OfficerName)] ??= "Officer";
-        Localization.CurrentLanguage = (ELanguages)int.Parse(Ini["General"][LANGUAGE_SETTING_NAME]);
+        Localization.Language = (ELanguages)int.Parse(Ini["General"][nameof(Localization.Language)]);
         EnableAutoUpdate = bool.Parse(Ini["General"][nameof(EnableAutoUpdate)] ??= "false");
+
+        EndCalloutsKey = (Ini["Keys"][nameof(EndCalloutsKey)] ??= "End").ConvertToKey();
+        EndCalloutsModifierKey = (Ini["Keys"][nameof(EndCalloutsModifierKey)] ??= "None").ConvertToKey();
         SpeakWithThePersonKey = (Ini["Keys"][nameof(SpeakWithThePersonKey)] ??= "Y").ConvertToKey();
         SpeakWithThePersonModifierKey = (Ini["Keys"][nameof(SpeakWithThePersonModifierKey)] ??= "None").ConvertToKey();
         ToggleBankHeistAlarmSoundKey = (Ini["Keys"][nameof(ToggleBankHeistAlarmSoundKey)] ??= "F5").ConvertToKey();
@@ -50,9 +54,11 @@ internal static class Settings
         Logger.Info("=================== Japanese Callouts Settings ===================");
         Logger.Info("General Settings", "Settings");
         Logger.Info($"{nameof(OfficerName)}: {OfficerName}", "Settings");
-        Logger.Info($"{LANGUAGE_SETTING_NAME}: {Localization.CurrentLanguage}", "Settings");
+        Logger.Info($"{nameof(Localization.Language)}: {Localization.Language}", "Settings");
         Logger.Info($"{nameof(EnableAutoUpdate)}: {EnableAutoUpdate}", "Settings");
         Logger.Info("Keys Settings", "Settings");
+        Logger.Info($"{nameof(EndCalloutsKey)}: {EndCalloutsKey}", "Settings");
+        Logger.Info($"{nameof(EndCalloutsModifierKey)}: {EndCalloutsModifierKey}", "Settings");
         Logger.Info($"{nameof(SpeakWithThePersonKey)}: {SpeakWithThePersonKey}", "Settings");
         Logger.Info($"{nameof(SpeakWithThePersonModifierKey)}: {SpeakWithThePersonModifierKey}", "Settings");
         Logger.Info($"{nameof(ToggleBankHeistAlarmSoundKey)}: {ToggleBankHeistAlarmSoundKey}", "Settings");

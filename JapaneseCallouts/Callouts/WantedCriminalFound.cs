@@ -107,7 +107,6 @@ internal class WantedCriminalFound : CalloutBase
         if (count > 15) End();
         if (Main.Player.IsDead) End();
         if (criminal is not null && criminal.IsValid() && criminal.Exists() && EntityHelpers.IsAllPedDeadOrArrested([criminal])) End();
-        if (found && pursuit is not null && !Functions.IsPursuitStillRunning(pursuit)) End();
     }
 
     internal override void OnDisplayed() { }

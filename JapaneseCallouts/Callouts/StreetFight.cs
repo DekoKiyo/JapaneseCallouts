@@ -126,7 +126,6 @@ internal class StreetFight : CalloutBase
 
         if (Main.Player.IsDead) End();
         if (EntityHelpers.IsAllPedDeadOrArrested([suspect1, suspect2])) End();
-        if (isPursuitBegan && pursuit is not null && !Functions.IsPursuitStillRunning(pursuit)) End();
     }
 
     internal override void NotAccepted()

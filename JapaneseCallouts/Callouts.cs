@@ -35,6 +35,7 @@ internal abstract class CalloutBase : Callout
 
     public override void Process()
     {
+        if (KeyHelpers.IsKeysDown(Settings.EndCalloutsKey, Settings.EndCalloutsModifierKey)) End();
         Update();
         base.Process();
     }

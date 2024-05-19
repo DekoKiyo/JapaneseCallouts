@@ -4,12 +4,12 @@ internal static class Localization
 {
     private static readonly Dictionary<string, string> Translation = [];
     private const string NO_TRANSLATION = "[NO TRANSLATION]";
-    internal static ELanguages CurrentLanguage = ELanguages.English;
+    internal static ELanguages Language { get; set; } = ELanguages.English;
 
     internal static void Initialize()
     {
-        Logger.Info($"Loading {CurrentLanguage}", "Localization");
-        Load(CurrentLanguage);
+        Logger.Info($"Loading {Language}", "Localization");
+        Load(Language);
         Logger.Info("Locale files has loaded.", "Localization");
     }
 
@@ -31,7 +31,7 @@ internal static class Localization
                 Translation[locale.Key] = locale.Value;
             }
         }
-        CurrentLanguage = lang;
+        Language = lang;
     }
 
     internal static string GetString(string key)
@@ -42,12 +42,12 @@ internal static class Localization
 
     private static string NoTranslation(string key)
     {
-        Logger.Warn($"There is no translation. Key: \"{key}\" Language: \"{CurrentLanguage}\"", "Localization");
+        Logger.Warn($"There is no translation. Key: \"{key}\" Language: \"{Language}\"", "Localization");
         return NO_TRANSLATION;
     }
 
     [ConsoleCommand("Change Japanese Callouts' language.")]
-    internal static void ChangeJPCLanguage([ConsoleCommandParameter(AutoCompleterType = typeof(ConsoleCommandParameterAutoCompleterEnum), Description = "Enter the language code that you want to use.")] ELanguages lang)
+    internal static void JPCChangeLanguage([ConsoleCommandParameter(AutoCompleterType = typeof(ConsoleCommandParameterAutoCompleterEnum), Description = "Enter the language code that you want to use.")] ELanguages lang)
     {
         if (Enum.GetNames(typeof(ELanguages)).Contains($"{lang}"))
         {
