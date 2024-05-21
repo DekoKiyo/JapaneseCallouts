@@ -53,22 +53,22 @@ internal static class Settings
     {
         Logger.Info("=================== Japanese Callouts Settings ===================");
         Logger.Info("General Settings", "Settings");
-        Logger.Info($"{nameof(OfficerName)}: {OfficerName}", "Settings");
-        Logger.Info($"{nameof(Localization.Language)}: {Localization.Language}", "Settings");
-        Logger.Info($"{nameof(EnableAutoUpdate)}: {EnableAutoUpdate}", "Settings");
+        Logger.Info($"{nameof(OfficerName)}: {OfficerName.ToString()}", "Settings");
+        Logger.Info($"{nameof(Localization.Language)}: {Localization.Language.ToString()}", "Settings");
+        Logger.Info($"{nameof(EnableAutoUpdate)}: {EnableAutoUpdate.ToString()}", "Settings");
         Logger.Info("Keys Settings", "Settings");
-        Logger.Info($"{nameof(EndCalloutsKey)}: {EndCalloutsKey}", "Settings");
-        Logger.Info($"{nameof(EndCalloutsModifierKey)}: {EndCalloutsModifierKey}", "Settings");
-        Logger.Info($"{nameof(SpeakWithThePersonKey)}: {SpeakWithThePersonKey}", "Settings");
-        Logger.Info($"{nameof(SpeakWithThePersonModifierKey)}: {SpeakWithThePersonModifierKey}", "Settings");
-        Logger.Info($"{nameof(ToggleBankHeistAlarmSoundKey)}: {ToggleBankHeistAlarmSoundKey}", "Settings");
-        Logger.Info($"{nameof(ToggleBankHeistAlarmSoundModifierKey)}: {ToggleBankHeistAlarmSoundModifierKey}", "Settings");
-        Logger.Info($"{nameof(SWATFollowKey)}: {SWATFollowKey}", "Settings");
-        Logger.Info($"{nameof(SWATFollowModifierKey)}: {SWATFollowModifierKey}", "Settings");
-        Logger.Info($"{nameof(HostageRescueKey)}: {HostageRescueKey}", "Settings");
-        Logger.Info($"{nameof(HostageRescueModifierKey)}: {HostageRescueModifierKey}", "Settings");
-        Logger.Info($"{nameof(EnterRiotVanKey)}: {EnterRiotVanKey}", "Settings");
-        Logger.Info($"{nameof(EnterRiotVanModifierKey)}: {EnterRiotVanModifierKey}", "Settings");
+        Logger.Info($"{nameof(EndCalloutsKey)}: {EndCalloutsKey.ToString()}", "Settings");
+        Logger.Info($"{nameof(EndCalloutsModifierKey)}: {EndCalloutsModifierKey.ToString()}", "Settings");
+        Logger.Info($"{nameof(SpeakWithThePersonKey)}: {SpeakWithThePersonKey.ToString()}", "Settings");
+        Logger.Info($"{nameof(SpeakWithThePersonModifierKey)}: {SpeakWithThePersonModifierKey.ToString()}", "Settings");
+        Logger.Info($"{nameof(ToggleBankHeistAlarmSoundKey)}: {ToggleBankHeistAlarmSoundKey.ToString()}", "Settings");
+        Logger.Info($"{nameof(ToggleBankHeistAlarmSoundModifierKey)}: {ToggleBankHeistAlarmSoundModifierKey.ToString()}", "Settings");
+        Logger.Info($"{nameof(SWATFollowKey)}: {SWATFollowKey.ToString()}", "Settings");
+        Logger.Info($"{nameof(SWATFollowModifierKey)}: {SWATFollowModifierKey.ToString()}", "Settings");
+        Logger.Info($"{nameof(HostageRescueKey)}: {HostageRescueKey.ToString()}", "Settings");
+        Logger.Info($"{nameof(HostageRescueModifierKey)}: {HostageRescueModifierKey.ToString()}", "Settings");
+        Logger.Info($"{nameof(EnterRiotVanKey)}: {EnterRiotVanKey.ToString()}", "Settings");
+        Logger.Info($"{nameof(EnterRiotVanModifierKey)}: {EnterRiotVanModifierKey.ToString()}", "Settings");
         Logger.Info("=================== Japanese Callouts Settings ===================");
     }
 }

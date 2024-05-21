@@ -900,7 +900,7 @@ internal class PacificBankHeist : CalloutBase
                 }
             }
         }
-        HudHelpers.DisplayNotification(Localization.GetString("BankHeistReportText", $"{SafeHostagesCount}", $"{TotalHostagesCount - AliveHostagesCount}", $"{DiedRobbersCount}"), Localization.GetString("BankHeistReportTitle"), TotalHostagesCount - AliveHostagesCount is < 3 ? Localization.GetString("BankHeistReportSubtitle") : "", "mphud", "mp_player_ready");
+        HudHelpers.DisplayNotification(Localization.GetString("BankHeistReportText", $"{SafeHostagesCount.ToString()}", $"{(TotalHostagesCount - AliveHostagesCount).ToString()}", $"{DiedRobbersCount.ToString()}"), Localization.GetString("BankHeistReportTitle"), TotalHostagesCount - AliveHostagesCount is < 3 ? Localization.GetString("BankHeistReportSubtitle") : "", "mphud", "mp_player_ready");
         if (TotalHostagesCount == AliveHostagesCount)
         {
             var bigMessage = new BigMessageThread(true);
@@ -2487,8 +2487,8 @@ internal class PacificBankHeist : CalloutBase
         {
             if (TBPool is not null)
             {
-                RescuedHostagesTB.Text = $"{SafeHostagesCount}/{TotalHostagesCount}";
-                DiedHostagesTB.Text = $"{TotalHostagesCount - AliveHostagesCount}";
+                RescuedHostagesTB.Text = $"{SafeHostagesCount.ToString()}/{TotalHostagesCount.ToString()}";
+                DiedHostagesTB.Text = $"{(TotalHostagesCount - AliveHostagesCount).ToString()}";
                 DiedHostagesTB.Highlight = TotalHostagesCount - AliveHostagesCount is > 0 ? HudColor.Red.GetColor() : HudColor.Green.GetColor();
                 TBPool.Draw();
             }

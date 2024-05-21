@@ -6,9 +6,9 @@ internal class BankHeist : CalloutBase
     private readonly RelationshipGroup RobberRG = new("ROBBER");
     private Blip BankBlip;
     private bool Arrived = false;
-    private readonly List<Ped> Robbers = [];
+    private List<Ped> Robbers;
 
-    private static readonly Dictionary<Vector3, (List<(Vector3 pos, float heading)> positions, List<(Vector3 pos, uint hash)> doors)> BankData = new()
+    private static readonly Dictionary<Vector3, ((Vector3 pos, float heading)[] positions, (Vector3 pos, uint hash)[] doors)> BankData = new()
     {
         {
             new(149.0f, -1042.7f, 29.3f),
@@ -108,6 +108,8 @@ internal class BankHeist : CalloutBase
         CalloutPosition = Vector3Helpers.GetNearestPos([.. BankData.Keys]);
         ShowCalloutAreaBlipBeforeAccepting(CalloutPosition, 100f);
         Functions.PlayScannerAudioUsingPosition(XmlManager.CalloutsSoundConfig.BankHeist, CalloutPosition);
+
+        Robbers = new(BankData[CalloutPosition].positions.Count());
 
         OnCalloutsEnded += () =>
         {

@@ -5,7 +5,7 @@ internal class DrunkGuys : CalloutBase
 {
     private Ped citizen;
     private Blip citizenB;
-    private readonly List<Ped> peds = [];
+    private List<Ped> peds;
     private bool arrived = false;
     private const string CLIP_SET = "MOVE_M@DRUNK@VERYDRUNK";
     private const string ANIM_DICTIONARY = "missarmenian2";
@@ -31,6 +31,7 @@ internal class DrunkGuys : CalloutBase
         }
         var index = Vector3Helpers.GetNearestPosIndex(positions);
         calloutData = XmlManager.DrunkGuysConfig.DrunkGuysPositions[index];
+        peds = new(calloutData.DrunkPos.Count);
         CalloutPosition = positions[index];
         CalloutMessage = Localization.GetString("DrunkGuys");
         NoLastRadio = true;

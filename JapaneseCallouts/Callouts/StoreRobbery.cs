@@ -4,7 +4,7 @@ namespace JapaneseCallouts.Callouts;
 internal class StoreRobbery : CalloutBase
 {
     private int index = 0, seconds = 80;
-    private readonly List<Ped> robbers = [];
+    private List<Ped> robbers;
     private readonly Model RobbersModel = "MP_G_M_PROS_01";
     private readonly RelationshipGroup RobbersRG = "ROBBERS";
     private bool arrived = false;
@@ -24,6 +24,7 @@ internal class StoreRobbery : CalloutBase
         // index = Main.MersenneTwister.Next(XmlManager.StoreRobberyConfig.Stores.Count);
         // var pos = new Vector3(XmlManager.StoreRobberyConfig.Stores[index].Store_X, XmlManager.StoreRobberyConfig.Stores[index].Store_Y, XmlManager.StoreRobberyConfig.Stores[index].Store_Z);
         index = list.GetNearestPosIndex();
+        robbers = new(XmlManager.StoreRobberyConfig.Stores[index].RobbersPositions.Count());
         CalloutPosition = list[index];
         CalloutMessage = Localization.GetString("StoreRobbery");
         ShowCalloutAreaBlipBeforeAccepting(CalloutPosition, 50f);

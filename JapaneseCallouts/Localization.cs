@@ -8,7 +8,7 @@ internal static class Localization
 
     internal static void Initialize()
     {
-        Logger.Info($"Loading {Language}", "Localization");
+        Logger.Info($"Loading {Language.ToString()}", "Localization");
         Load(Language);
         Logger.Info("Locale files has loaded.", "Localization");
     }
@@ -42,7 +42,7 @@ internal static class Localization
 
     private static string NoTranslation(string key)
     {
-        Logger.Warn($"There is no translation. Key: \"{key}\" Language: \"{Language}\"", "Localization");
+        Logger.Warn($"There is no translation. Key: \"{key}\" Language: \"{Language.ToString()}\"", "Localization");
         return NO_TRANSLATION;
     }
 

@@ -46,7 +46,7 @@ dotnet_style_prefer_conditional_expression_over_return = true:suggestion
 # 複合代入の使用
 dotnet_style_prefer_compound_assignment = true:suggestion
 # 補間を簡略化
-dotnet_style_prefer_simplified_interpolation = true:suggestion
+dotnet_style_prefer_simplified_interpolation = false:warning
 # 条件式を簡略化
 dotnet_style_prefer_simplified_boolean_expressions = true:suggestion
 # new式を簡略化
