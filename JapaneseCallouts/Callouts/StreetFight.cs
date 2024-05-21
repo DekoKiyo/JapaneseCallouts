@@ -18,6 +18,9 @@ internal class StreetFight : CalloutBase
         ShowCalloutAreaBlipBeforeAccepting(CalloutPosition, 30f);
         Functions.PlayScannerAudioUsingPosition(XmlManager.CalloutsSoundConfig.StreetFight, CalloutPosition);
 
+        Game.SetRelationshipBetweenRelationshipGroups(suspect1RG, suspect2RG, Relationship.Hate);
+        Game.SetRelationshipBetweenRelationshipGroups(suspect2RG, suspect1RG, Relationship.Hate);
+
         var data1 = CalloutHelpers.Select([.. XmlManager.StreetFightConfig.Suspects]);
         suspect1 = new(data1.Model, new(CalloutPosition.X, CalloutPosition.Y, (float)World.GetGroundZ(CalloutPosition, true, true)), 0f)
         {
@@ -46,9 +49,6 @@ internal class StreetFight : CalloutBase
             suspect2.Tasks.FightAgainstClosestHatedTarget(500f);
         }
 
-        Game.SetRelationshipBetweenRelationshipGroups(suspect1RG, suspect2RG, Relationship.Hate);
-        Game.SetRelationshipBetweenRelationshipGroups(suspect2RG, suspect1RG, Relationship.Hate);
-
         OnCalloutsEnded += () =>
         {
             if (area is not null && area.IsValid() && area.Exists()) area.Delete();
@@ -70,7 +70,7 @@ internal class StreetFight : CalloutBase
 
     internal override void Accepted()
     {
-        HudHelpers.DisplayNotification(Localization.GetString("StreetFightDesc"));
+        HudHelpers.DisplayNotification(Localization.GetString("StreetFightDesc"), Localization.GetString("Dispatch"), Localization.GetString("StreetFight"));
         area = new(CalloutPosition.Around(10f, 20f), 40f)
         {
             Color = Color.Yellow,

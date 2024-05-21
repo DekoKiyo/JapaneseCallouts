@@ -39,7 +39,7 @@ internal class WantedCriminalFound : CalloutBase
 
     internal override void Accepted()
     {
-        HudHelpers.DisplayNotification(Localization.GetString("WantedCriminalFoundDesc"));
+        HudHelpers.DisplayNotification(Localization.GetString("WantedCriminalFoundDesc"), Localization.GetString("Dispatch"), Localization.GetString("WantedCriminalFound"));
 
         var data = CalloutHelpers.Select([.. XmlManager.WantedCriminalFoundConfig.Criminals]);
         criminal = new(data.Model, CalloutPosition, 0f)
@@ -79,8 +79,8 @@ internal class WantedCriminalFound : CalloutBase
             blip.Position = criminal.Position;
             blip.IsRouteEnabled = true;
 
-            HudHelpers.DisplayNotification(Localization.GetString("GPSUpdate"));
-            HudHelpers.DisplayNotification(Localization.GetString("WantedCriminalData", criminal.IsMale ? Localization.GetString("Male") : Localization.GetString("Female")));
+            HudHelpers.DisplayNotification(Localization.GetString("GPSUpdate"), Localization.GetString("Dispatch"), Localization.GetString("WantedCriminalFound"));
+            HudHelpers.DisplayNotification(Localization.GetString("WantedCriminalData", criminal.IsMale ? Localization.GetString("Male") : Localization.GetString("Female")), Localization.GetString("Dispatch"), Localization.GetString("WantedCriminalFound"));
             Functions.PlayScannerAudioUsingPosition("SUSPECT_LAST_SEEN IN_OR_ON_POSITION", criminal.Position);
             count++;
         }

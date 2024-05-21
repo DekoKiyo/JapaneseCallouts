@@ -44,10 +44,11 @@ internal class DrunkGuys : CalloutBase
                 if (citizen is not null && citizen.IsValid() && citizen.Exists()) citizen.Delete();
                 foreach (var ped in peds) if (ped is not null && ped.IsValid() && ped.Exists()) ped.Delete();
                 if (citizenB is not null && citizenB.IsValid() && citizenB.Exists()) citizenB.Delete();
+                HudHelpers.DisplayNotification(Localization.GetString("CalloutCode4"), Localization.GetString("Dispatch"), Localization.GetString("DrunkGuys"));
             }
             else
             {
-                HudHelpers.DisplayNotification(Localization.GetString("CalloutCode4"), Localization.GetString("Dispatch"), Localization.GetString("DrunkGuys"));
+                if (citizenB is not null && citizenB.IsValid() && citizenB.Exists()) citizenB.Delete();
             }
         };
     }
@@ -56,6 +57,7 @@ internal class DrunkGuys : CalloutBase
 
     internal override void Accepted()
     {
+        HudHelpers.DisplayNotification(Localization.GetString("DrunkGuysDesc"), Localization.GetString("Dispatch"), Localization.GetString("DrunkGuys"));
         citizen = new(CalloutPosition, calloutData.Heading)
         {
             IsPersistent = true,
@@ -95,13 +97,13 @@ internal class DrunkGuys : CalloutBase
             {
                 citizenB.IsRouteEnabled = false;
             }
-            HudHelpers.DisplayHelp(Localization.GetString("TalkTo", Localization.GetString("Citizen")));
+            HudHelpers.DisplayHelp(Localization.GetString("TalkTo", Localization.GetString("Citizen"), string.Empty));
             arrived = true;
         }
 
         if (arrived && Main.Player.DistanceTo(citizen.Position) < 4f && !Main.Player.IsInAnyVehicle(false))
         {
-            KeyHelpers.DisplayKeyHelp("PressToTalkWith", [Localization.GetString("Victim")], Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey);
+            KeyHelpers.DisplayKeyHelp("PressToTalkWith", [Localization.GetString("Victim"), string.Empty], Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey);
             if (KeyHelpers.IsKeysDown(Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey))
             {
                 Conversations.Talk(TalkToCitizen);

@@ -69,8 +69,8 @@ internal class StolenVehicle : CalloutBase
 
     internal override void Accepted()
     {
-        HudHelpers.DisplayNotification(Localization.GetString("StolenVehicleDesc"));
-        HudHelpers.DisplayNotification(Localization.GetString("StolenVehicleData", stolen.LicensePlate, stolen.Class.ToString()));
+        HudHelpers.DisplayNotification(Localization.GetString("StolenVehicleDesc"), Localization.GetString("Dispatch"), Localization.GetString("StolenVehicle"));
+        HudHelpers.DisplayNotification(Localization.GetString("StolenVehicleData", stolen.LicensePlate, stolen.Class.ToString()), Localization.GetString("Dispatch"), Localization.GetString("StolenVehicle"));
         if (stolen && stolen.IsValid() && stolen.Exists())
         {
             area = new(stolen.Position.Around(Main.MersenneTwister.Next(100)), Main.MersenneTwister.Next(75, 120))

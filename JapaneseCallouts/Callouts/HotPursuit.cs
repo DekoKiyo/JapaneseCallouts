@@ -32,7 +32,7 @@ internal class HotPursuit : CalloutBase
 
     internal override void Accepted()
     {
-        HudHelpers.DisplayNotification(Localization.GetString("HotPursuitDesc"));
+        HudHelpers.DisplayNotification(Localization.GetString("HotPursuitDesc"), Localization.GetString("Dispatch"), Localization.GetString("HotPursuit"));
 
         var vData = CalloutHelpers.Select([.. XmlManager.HotPursuitConfig.Vehicles]);
         vehicle = new(vData.Model, CalloutPosition);

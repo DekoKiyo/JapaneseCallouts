@@ -1,24 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <DrunkGuysConfig>
   <CalloutPositions>
-    <CalloutPosition>
-      <CitizenPosition x="118.3" y="-1313.6" z="29.1" heading="-142.6" />
+    <CalloutPosition x="118.3" y="-1313.6" z="29.1" heading="-142.6">
       <DrunkPositions>
         <Position x="120.9" y="-1310.5" z="29.2" heading="-2.6" />
         <Position x="125.5" y="-1309.6" z="29.1" heading="93.9" />
         <Position x="128.6" y="-1308.5" z="29.1" heading="93.8" />
       </DrunkPositions>
     </CalloutPosition>
-    <CalloutPosition>
-      <CitizenPosition x="-559.8" y="273.6" z="83.0" heading="176.7" />
+    <CalloutPosition x="-559.8" y="273.6" z="83.0" heading="176.7">
       <DrunkPositions>
         <Position x="-562.3" y="273.6" z="83.0" heading="-17.4" />
         <Position x="-565.5" y="272.5" z="83.0" heading="16.2" />
         <Position x="-569.3" y="274.2" z="82.9" heading="36.8" />
       </DrunkPositions>
     </CalloutPosition>
-    <CalloutPosition>
-      <CitizenPosition x="223.0" y="340.1" z="105.6" heading="-16.4" />
+    <CalloutPosition x="223.0" y="340.1" z="105.6" heading="-16.4">
       <DrunkPositions>
         <Position x="208.1" y="349.3" z="105.7" heading="115.5" />
         <Position x="217.3" y="346.1" z="105.5" heading="97.3" />
@@ -26,8 +23,7 @@
         <Position x="227.5" y="345.3" z="106.7" heading="-98.4" />
       </DrunkPositions>
     </CalloutPosition>
-    <CalloutPosition>
-      <CitizenPosition x="-301.9" y="6254.2" z="31.5" heading="-141.1" />
+    <CalloutPosition x="-301.9" y="6254.2" z="31.5" heading="-141.1">
       <DrunkPositions>
         <Position x="-291.5" y="6257.1" z="31.4" heading="-155.6" />
         <Position x="-295.8" y="6256.6" z="31.4" heading="8.6" />

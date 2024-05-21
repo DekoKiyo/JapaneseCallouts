@@ -185,7 +185,7 @@ internal class RoadRage : CalloutBase
         if (!arrested && suspect is not null && suspect.IsValid() && suspect.Exists() && (suspect.IsDead || Functions.IsPedArrested(suspect)))
         {
             arrested = true;
-            HudHelpers.DisplayHelp(Localization.GetString("TalkToGetInfo", Localization.GetString("Victim")));
+            HudHelpers.DisplayHelp(Localization.GetString("TalkToGetInfo", Localization.GetString("Victim"), string.Empty));
             if (victimB is not null && victimB.IsValid() && victimB.Exists())
             {
                 victimB.IsRouteEnabled = true;
