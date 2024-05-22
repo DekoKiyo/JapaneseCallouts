@@ -29,7 +29,7 @@ internal class StoreRobbery : CalloutBase
         CalloutMessage = Localization.GetString("StoreRobbery");
         ShowCalloutAreaBlipBeforeAccepting(CalloutPosition, 50f);
         Functions.PlayScannerAudioUsingPosition(XmlManager.CalloutsSoundConfig.StoreRobbery, CalloutPosition);
-        CalloutInterfaceAPIFunctions.SendMessage(this, $"{Localization.GetString("StoreRobbery")} {Localization.GetString("RespondCode3")}");
+        CalloutInterfaceAPIFunctions.SendMessage(this, $"{Localization.GetString("StoreRobberyDesc")} {Localization.GetString("RespondCode3")}");
 
         OnCalloutsEnded += () =>
         {

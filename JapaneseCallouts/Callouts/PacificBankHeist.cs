@@ -378,10 +378,10 @@ internal class PacificBankHeist : CalloutBase
     internal override void Setup()
     {
         CalloutPosition = BankLocation;
-        CalloutMessage = Localization.GetString("BankHeist");
+        CalloutMessage = Localization.GetString("PacificBankHeist");
         ShowCalloutAreaBlipBeforeAccepting(CalloutPosition, 30f);
         Functions.PlayScannerAudioUsingPosition(XmlManager.CalloutsSoundConfig.PacificBankHeist, CalloutPosition);
-        CalloutInterfaceAPIFunctions.SendMessage(this, Localization.GetString("BankHeist"));
+        CalloutInterfaceAPIFunctions.SendMessage(this, Localization.GetString("PacificBankHeistDesc"));
 
         OnCalloutsEnded += () =>
         {
@@ -415,7 +415,7 @@ internal class PacificBankHeist : CalloutBase
 
             if (IsCalloutFinished)
             {
-                HudHelpers.DisplayNotification(Localization.GetString("CalloutCode4"), Localization.GetString("Dispatch"), Localization.GetString("BankHeist"));
+                HudHelpers.DisplayNotification(Localization.GetString("CalloutCode4"), Localization.GetString("Dispatch"), Localization.GetString("PacificBankHeist"));
 
                 foreach (var e in AllPoliceVehicles)
                 {

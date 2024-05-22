@@ -134,7 +134,7 @@ internal class BankHeist : CalloutBase
     internal override void Accepted()
     {
         HudHelpers.DisplayNotification(Localization.GetString("BankHeistDesc"));
-        CalloutInterfaceAPIFunctions.SendMessage(this, $"{Localization.GetString("BankHeist")} {Localization.GetString("RespondCode3")}");
+        CalloutInterfaceAPIFunctions.SendMessage(this, $"{Localization.GetString("BankHeistDesc")} {Localization.GetString("RespondCode3")}");
 
         foreach (var (pos, heading) in BankData[CalloutPosition].positions)
         {
