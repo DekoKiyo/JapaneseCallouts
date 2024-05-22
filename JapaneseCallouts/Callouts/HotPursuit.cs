@@ -39,7 +39,7 @@ internal class HotPursuit : CalloutBase
         if (vehicle is not null && vehicle.IsValid() && vehicle.Exists())
         {
             vehicle.IsPersistent = true;
-            vehicle.IsStolen = Main.MersenneTwister.Next(10) is 0;
+            vehicle.IsStolen = Main.MersenneTwister.Next(8) is 0;
             vehicle.ApplyTexture(vData);
             suspect = vehicle.CreateRandomDriver();
             pursuit = Functions.CreatePursuit();
@@ -52,7 +52,7 @@ internal class HotPursuit : CalloutBase
                 if (pa is not null)
                 {
                     pa.MinDrivingSpeed = 30f;
-                    pa.MaxDrivingSpeed = 120f;
+                    pa.MaxDrivingSpeed = 80f;
                     pa.HandlingAbility = 1.25f;
                     pa.HandlingAbilityTurns = 1.5f;
                     pa.SurrenderChanceCarBadlyDamaged = 10f;

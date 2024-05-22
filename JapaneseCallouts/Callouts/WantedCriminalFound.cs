@@ -41,7 +41,8 @@ internal class WantedCriminalFound : CalloutBase
     {
         HudHelpers.DisplayNotification(Localization.GetString("WantedCriminalFoundDesc"), Localization.GetString("Dispatch"), Localization.GetString("WantedCriminalFound"));
 
-        var data = CalloutHelpers.Select([.. XmlManager.WantedCriminalFoundConfig.Criminals]);
+        var weather = CalloutHelpers.GetWeatherType(IPTFunctions.GetWeatherType());
+        var data = CalloutHelpers.SelectPed(weather, [.. XmlManager.WantedCriminalFoundConfig.Criminals]);
         criminal = new(data.Model, CalloutPosition, 0f)
         {
             IsPersistent = true,
@@ -62,11 +63,11 @@ internal class WantedCriminalFound : CalloutBase
                 Alpha = 0.5f,
                 IsRouteEnabled = true,
             };
-
-            Game.SetRelationshipBetweenRelationshipGroups(suspectRG, RelationshipGroup.Cop, Relationship.Hate);
-            Game.SetRelationshipBetweenRelationshipGroups(suspectRG, Main.Player.RelationshipGroup, Relationship.Hate);
-            Game.SetRelationshipBetweenRelationshipGroups(RelationshipGroup.Cop, Main.Player.RelationshipGroup, Relationship.Respect);
         }
+
+        Game.SetRelationshipBetweenRelationshipGroups(suspectRG, RelationshipGroup.Cop, Relationship.Hate);
+        Game.SetRelationshipBetweenRelationshipGroups(suspectRG, Main.Player.RelationshipGroup, Relationship.Hate);
+        Game.SetRelationshipBetweenRelationshipGroups(RelationshipGroup.Cop, Main.Player.RelationshipGroup, Relationship.Respect);
     }
 
     internal override void Update()

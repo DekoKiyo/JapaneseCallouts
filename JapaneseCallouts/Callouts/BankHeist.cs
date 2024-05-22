@@ -136,9 +136,11 @@ internal class BankHeist : CalloutBase
         HudHelpers.DisplayNotification(Localization.GetString("BankHeistDesc"));
         CalloutInterfaceAPIFunctions.SendMessage(this, $"{Localization.GetString("BankHeistDesc")} {Localization.GetString("RespondCode3")}");
 
+        var weather = CalloutHelpers.GetWeatherType(IPTFunctions.GetWeatherType());
+
         foreach (var (pos, heading) in BankData[CalloutPosition].positions)
         {
-            var pedData = CalloutHelpers.Select([.. XmlManager.BankHeistConfig.Robbers]);
+            var pedData = CalloutHelpers.SelectPed(weather, [.. XmlManager.BankHeistConfig.Robbers]);
             var robber = new Ped(pedData.Model, pos, heading)
             {
                 IsPersistent = true,
@@ -169,13 +171,12 @@ internal class BankHeist : CalloutBase
         Game.SetRelationshipBetweenRelationshipGroups(RobberRG, Main.Player.RelationshipGroup, Relationship.Hate);
         Game.SetRelationshipBetweenRelationshipGroups(RelationshipGroup.Cop, Main.Player.RelationshipGroup, Relationship.Respect);
 
-        BankBlip = new(CalloutPosition, 90f);
-        if (BankBlip is not null && BankBlip.IsValid() && BankBlip.Exists())
+        BankBlip = new(CalloutPosition, 90f)
         {
-            BankBlip.Alpha = 0.5f;
-            BankBlip.Color = Color.Red;
-            BankBlip.EnableRoute(Color.Red);
-        }
+            Alpha = 0.5f,
+            Color = Color.Red,
+            IsRouteEnabled = true,
+        };
     }
 
     internal override void Update()
@@ -185,7 +186,7 @@ internal class BankHeist : CalloutBase
         {
             if (BankBlip is not null && BankBlip.IsValid() && BankBlip.Exists())
             {
-                BankBlip.DisableRoute();
+                BankBlip.IsRouteEnabled = false;
                 BankBlip.Delete();
             }
 

@@ -21,7 +21,8 @@ internal class StreetFight : CalloutBase
         Game.SetRelationshipBetweenRelationshipGroups(suspect1RG, suspect2RG, Relationship.Hate);
         Game.SetRelationshipBetweenRelationshipGroups(suspect2RG, suspect1RG, Relationship.Hate);
 
-        var data1 = CalloutHelpers.Select([.. XmlManager.StreetFightConfig.Suspects]);
+        var weather = CalloutHelpers.GetWeatherType(IPTFunctions.GetWeatherType());
+        var data1 = CalloutHelpers.SelectPed(weather, [.. XmlManager.StreetFightConfig.Suspects]);
         suspect1 = new(data1.Model, new(CalloutPosition.X, CalloutPosition.Y, (float)World.GetGroundZ(CalloutPosition, true, true)), 0f)
         {
             IsPersistent = true,
@@ -35,7 +36,7 @@ internal class StreetFight : CalloutBase
             suspect1.Tasks.FightAgainstClosestHatedTarget(500f);
         }
 
-        var data2 = CalloutHelpers.Select([.. XmlManager.StreetFightConfig.Suspects]);
+        var data2 = CalloutHelpers.SelectPed(weather, [.. XmlManager.StreetFightConfig.Suspects]);
         suspect2 = new(data2.Model, new(CalloutPosition.X, CalloutPosition.Y, (float)World.GetGroundZ(CalloutPosition, true, true)), 0f)
         {
             IsPersistent = true,
