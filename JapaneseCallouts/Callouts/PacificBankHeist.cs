@@ -317,6 +317,7 @@ internal class PacificBankHeist : CalloutBase
     private readonly List<Vehicle> AllPoliceVehicles = [];
     private readonly List<Vehicle> AllRiot = [];
     private readonly List<Vehicle> AllAmbulance = [];
+    private readonly List<Ped> AllOfficers = [];
     private readonly List<Ped> AllStandingOfficers = [];
     private readonly List<Ped> AllAimingOfficers = [];
     private readonly List<Ped> OfficersArresting = [];
@@ -567,8 +568,6 @@ internal class PacificBankHeist : CalloutBase
                     HudHelpers.DisplayNotification(Localization.GetString("BankHeistRoger"));
                 });
                 LoadModels();
-                GameFiber.WaitUntil(() => Vector3.Distance(Main.Player.Position, CalloutPosition) > 350f);
-                KeyHelpers.DisplayKeyHelp("AlarmSwitchKey", Settings.ToggleBankHeistAlarmSoundKey, Settings.ToggleBankHeistAlarmSoundModifierKey);
                 if (Main.Player.IsInAnyVehicle(false))
                 {
                     CalloutEntities.Add(Main.Player.CurrentVehicle);
@@ -581,6 +580,7 @@ internal class PacificBankHeist : CalloutBase
                         }
                     }
                 }
+                GameFiber.WaitUntil(() => Vector3.Distance(Main.Player.Position, CalloutPosition) <= 200f);
 
                 var weather = CalloutHelpers.GetWeatherType(IPTFunctions.GetWeatherType());
 
@@ -920,20 +920,17 @@ internal class PacificBankHeist : CalloutBase
     {
         GameFiber.StartNew(() =>
         {
-            foreach (var cop in AllStandingOfficers)
+            foreach (var cop in AllOfficers)
             {
-                GameFiber.Yield();
-                cop.Tasks.FightAgainstClosestHatedTarget(200f);
+                cop.Tasks.FightAgainstClosestHatedTarget(500f, -1);
             }
-            foreach (var cop in AllAimingOfficers)
+            foreach (var cop in AllSWATUnits)
             {
-                GameFiber.Yield();
-                cop.Tasks.FightAgainstClosestHatedTarget(200f);
+                cop.Tasks.FightAgainstClosestHatedTarget(500f, -1);
             }
             foreach (var robber in AllRobbers)
             {
-                GameFiber.Yield();
-                robber.Tasks.FightAgainstClosestHatedTarget(200f);
+                robber.Tasks.FightAgainstClosestHatedTarget(500f, -1);
             }
         });
     }
@@ -1419,11 +1416,11 @@ internal class PacificBankHeist : CalloutBase
                             break;
                         }
                     }
-                    for (int i = 0; i < AllSWATUnits.Count; i++)
+                    foreach (var swat in AllSWATUnits)
                     {
-                        GameFiber.Wait(100);
+                        GameFiber.Yield();
                         var robber = AllRobbers[Main.MersenneTwister.Next(AllRobbers.Count)];
-                        NativeFunction.Natives.TASK_AIM_GUN_AT_COORD(AllSWATUnits[i], robber.Position.X, robber.Position.Y, robber.Position.Z, -1, false, false);
+                        NativeFunction.Natives.TASK_AIM_GUN_AT_COORD(swat, robber.Position.X, robber.Position.Y, robber.Position.Z, -1, false, false);
                     }
                 }
                 GameFiber.Wait(1000);
@@ -1433,48 +1430,38 @@ internal class PacificBankHeist : CalloutBase
 
                     AllRobbers[i].Tasks.PlayAnimation("random@arrests", "kneeling_arrest_idle", 1f, AnimationFlags.Loop);
                     NativeFunction.Natives.SET_PED_DROPS_WEAPON(AllRobbers[i]);
-                    if ((AllAimingOfficers.Count + AllStandingOfficers.Count) >= i + 1)
+                    if (AllOfficers.Count > i)
                     {
-                        if (AllAimingOfficers.Count > i)
-                        {
-                            OfficersArresting.Add(AllStandingOfficers[i - AllAimingOfficers.Count]);
-                            AllStandingOfficers[i - AllAimingOfficers.Count].Tasks.FollowNavigationMeshToPosition(AllRobbers[i].GetOffsetPosition(Vector3.RelativeBack * 0.7f), AllRobbers[i].Heading, 1.55f);
-                            NativeFunction.Natives.SET_PED_CAN_RAGDOLL(AllStandingOfficers[i - AllAimingOfficers.Count], false);
-                        }
-                        else
-                        {
-                            OfficersArresting.Add(AllAimingOfficers[i]);
-                            AllAimingOfficers[i].Tasks.FollowNavigationMeshToPosition(AllRobbers[i].GetOffsetPosition(Vector3.RelativeBack * 0.7f), AllRobbers[i].Heading, 1.55f);
-                            NativeFunction.Natives.SET_PED_CAN_RAGDOLL(AllAimingOfficers[i], false);
-                        }
+                        OfficersArresting.Add(AllOfficers[i]);
+                        AllOfficers[i].Tasks.FollowNavigationMeshToPosition(AllRobbers[i].GetOffsetPosition(Vector3.RelativeBack * 0.7f), AllRobbers[i].Heading, 1.55f);
+                        NativeFunction.Natives.SET_PED_CAN_RAGDOLL(AllOfficers[i], false);
                     }
                 }
                 GameFiber.Wait(1000);
-
                 bool AllArrestingOfficersAtLocation = false;
                 count = 0;
                 while (!AllArrestingOfficersAtLocation)
                 {
                     GameFiber.Yield();
                     count++;
-
+                    if (count >= 10000)
+                    {
+                        for (int i = 0; i < OfficersArresting.Count; i++)
+                        {
+                            OfficersArresting[i].Position = AllRobbers[AllOfficers.IndexOf(OfficersArresting[i])].GetOffsetPosition(Vector3.RelativeBack * 0.7f);
+                            OfficersArresting[i].Heading = AllRobbers[AllOfficers.IndexOf(OfficersArresting[i])].Heading;
+                        }
+                        break;
+                    }
                     for (int i = 0; i < OfficersArresting.Count; i++)
                     {
-                        var index = AllAimingOfficers.Count > i ? AllStandingOfficers.IndexOf(OfficersArresting[i]) : AllAimingOfficers.IndexOf(OfficersArresting[i]);
-                        if (count >= 10000)
-                        {
-                            OfficersArresting[i].Position = AllRobbers[index].GetOffsetPosition(Vector3.RelativeBack * 0.7f);
-                            OfficersArresting[i].Heading = AllRobbers[index].Heading;
-                            break;
-                        }
-
-                        if (Vector3.Distance(OfficersArresting[i].Position, AllRobbers[index].GetOffsetPosition(Vector3.RelativeBack * 0.7f)) < 0.8f)
+                        if (Vector3.Distance(OfficersArresting[i].Position, AllRobbers[AllOfficers.IndexOf(OfficersArresting[i])].GetOffsetPosition(Vector3.RelativeBack * 0.7f)) < 0.8f)
                         {
                             AllArrestingOfficersAtLocation = true;
                         }
                         else
                         {
-                            OfficersArresting[i].Tasks.FollowNavigationMeshToPosition(AllRobbers[index].GetOffsetPosition(Vector3.RelativeBack * 0.7f), AllRobbers[index].Heading, 1.55f).WaitForCompletion(500);
+                            OfficersArresting[i].Tasks.FollowNavigationMeshToPosition(AllRobbers[AllOfficers.IndexOf(OfficersArresting[i])].GetOffsetPosition(Vector3.RelativeBack * 0.7f), AllRobbers[AllOfficers.IndexOf(OfficersArresting[i])].Heading, 1.55f).WaitForCompletion(500);
                             AllArrestingOfficersAtLocation = false;
                             break;
                         }
@@ -1647,10 +1634,11 @@ internal class PacificBankHeist : CalloutBase
             };
             if (swat is not null && swat.IsValid() && swat.Exists())
             {
+                NativeFunction.Natives.SET_PED_KEEP_TASK(swat, true);
                 swat.SetOutfit(data);
                 Functions.SetPedAsCop(swat);
                 Functions.SetCopAsBusy(swat, true);
-                swat.GiveWeapon([.. XmlManager.PacificBankHeistConfig.SWATWeapons]);
+                swat.GiveWeapon([.. XmlManager.PacificBankHeistConfig.SWATWeapons], true);
                 swat.Tasks.PlayAnimation(SWAT_ANIMATION_DICTIONARY, SWAT_ANIMATION_LEFT, 1f, AnimationFlags.StayInEndFrame);
                 AllSWATUnits.Add(swat);
                 CalloutEntities.Add(swat);
@@ -1672,10 +1660,11 @@ internal class PacificBankHeist : CalloutBase
             };
             if (swat is not null && swat.IsValid() && swat.Exists())
             {
+                NativeFunction.Natives.SET_PED_KEEP_TASK(swat, true);
                 swat.SetOutfit(data);
                 Functions.SetPedAsCop(swat);
                 Functions.SetCopAsBusy(swat, true);
-                swat.GiveWeapon([.. XmlManager.PacificBankHeistConfig.SWATWeapons]);
+                swat.GiveWeapon([.. XmlManager.PacificBankHeistConfig.SWATWeapons], true);
                 swat.Tasks.PlayAnimation(SWAT_ANIMATION_DICTIONARY, SWAT_ANIMATION_RIGHT_LOOKING, 1f, AnimationFlags.StayInEndFrame);
                 AllSWATUnits.Add(swat);
                 CalloutEntities.Add(swat);
@@ -1697,10 +1686,11 @@ internal class PacificBankHeist : CalloutBase
             };
             if (swat is not null && swat.IsValid() && swat.Exists())
             {
+                NativeFunction.Natives.SET_PED_KEEP_TASK(swat, true);
                 swat.SetOutfit(data);
                 Functions.SetPedAsCop(swat);
                 Functions.SetCopAsBusy(swat, true);
-                swat.GiveWeapon([.. XmlManager.PacificBankHeistConfig.SWATWeapons]);
+                swat.GiveWeapon([.. XmlManager.PacificBankHeistConfig.SWATWeapons], true);
                 swat.Tasks.PlayAnimation(SWAT_ANIMATION_DICTIONARY, SWAT_ANIMATION_RIGHT, 1f, AnimationFlags.StayInEndFrame);
                 AllSWATUnits.Add(swat);
                 CalloutEntities.Add(swat);
@@ -1722,13 +1712,15 @@ internal class PacificBankHeist : CalloutBase
             };
             if (officer is not null && officer.IsValid() && officer.Exists())
             {
+                NativeFunction.Natives.SET_PED_KEEP_TASK(officer, true);
                 officer.SetOutfit(data);
                 Functions.SetPedAsCop(officer);
                 Functions.SetCopAsBusy(officer, true);
-                officer.GiveWeapon([.. XmlManager.PacificBankHeistConfig.OfficerWeapons]);
+                officer.GiveWeapon([.. XmlManager.PacificBankHeistConfig.OfficerWeapons], true);
                 var aimPoint = Vector3.Distance(officer.Position, BankDoorPositions[0]) < Vector3.Distance(officer.Position, BankDoorPositions[1]) ? BankDoorPositions[0] : BankDoorPositions[1];
                 NativeFunction.Natives.TASK_AIM_GUN_AT_COORD(officer, aimPoint.X, aimPoint.Y, aimPoint.Z, -1, false, false);
 
+                AllOfficers.Add(officer);
                 AllAimingOfficers.Add(officer);
                 CalloutEntities.Add(officer);
             }
@@ -1749,11 +1741,13 @@ internal class PacificBankHeist : CalloutBase
             };
             if (officer is not null && officer.IsValid() && officer.Exists())
             {
+                NativeFunction.Natives.SET_PED_KEEP_TASK(officer, true);
                 officer.SetOutfit(data);
                 Functions.SetPedAsCop(officer);
                 Functions.SetCopAsBusy(officer, true);
-                officer.GiveWeapon([.. XmlManager.PacificBankHeistConfig.OfficerWeapons]);
+                officer.GiveWeapon([.. XmlManager.PacificBankHeistConfig.OfficerWeapons], true);
 
+                AllOfficers.Add(officer);
                 AllStandingOfficers.Add(officer);
                 CalloutEntities.Add(officer);
             }
@@ -1876,8 +1870,8 @@ internal class PacificBankHeist : CalloutBase
             {
                 ped.SetOutfit(data);
                 Functions.SetPedCantBeArrestedByPlayer(ped, true);
-                ped.GiveWeapon([.. XmlManager.PacificBankHeistConfig.RobbersThrowableWeapons]);
-                ped.GiveWeapon([.. XmlManager.PacificBankHeistConfig.RobbersWeapons]);
+                ped.GiveWeapon([.. XmlManager.PacificBankHeistConfig.RobbersThrowableWeapons], false);
+                ped.GiveWeapon([.. XmlManager.PacificBankHeistConfig.RobbersWeapons], false);
                 NativeFunction.Natives.SetPedCombatAbility(ped, 3);
                 AllRobbers.Add(ped);
                 CalloutEntities.Add(ped);
@@ -1905,8 +1899,8 @@ internal class PacificBankHeist : CalloutBase
             {
                 ped.SetOutfit(data);
                 Functions.SetPedCantBeArrestedByPlayer(ped, true);
-                ped.GiveWeapon([.. XmlManager.PacificBankHeistConfig.RobbersThrowableWeapons]);
-                ped.GiveWeapon([.. XmlManager.PacificBankHeistConfig.RobbersWeapons]);
+                ped.GiveWeapon([.. XmlManager.PacificBankHeistConfig.RobbersThrowableWeapons], false);
+                ped.GiveWeapon([.. XmlManager.PacificBankHeistConfig.RobbersWeapons], false);
                 NativeFunction.Natives.SetPedCombatAbility(ped, 3);
                 AllVaultRobbers.Add(ped);
                 CalloutEntities.Add(ped);
@@ -1935,7 +1929,7 @@ internal class PacificBankHeist : CalloutBase
             {
                 ped.SetOutfit(data);
                 Functions.SetPedCantBeArrestedByPlayer(ped, true);
-                ped.GiveWeapon([.. XmlManager.PacificBankHeistConfig.RobbersWeapons]);
+                ped.GiveWeapon([.. XmlManager.PacificBankHeistConfig.RobbersWeapons], false);
                 NativeFunction.Natives.SetPedCombatAbility(ped, 3);
                 AllRobbers.Add(ped);
                 CalloutEntities.Add(ped);
@@ -1965,7 +1959,7 @@ internal class PacificBankHeist : CalloutBase
                 {
                     ped.SetOutfit(data);
                     Functions.SetPedCantBeArrestedByPlayer(ped, true);
-                    ped.GiveWeapon([.. XmlManager.PacificBankHeistConfig.RobbersWeapons]);
+                    ped.GiveWeapon([.. XmlManager.PacificBankHeistConfig.RobbersWeapons], false);
                     NativeFunction.Natives.SetPedCombatAbility(ped, 3);
                     ped.Tasks.PlayAnimation(SWAT_ANIMATION_DICTIONARY, rsP.IsRight ? SWAT_ANIMATION_RIGHT : SWAT_ANIMATION_LEFT, 1f, AnimationFlags.StayInEndFrame);
                     AllSneakRobbers.Add(ped);
@@ -2059,6 +2053,7 @@ internal class PacificBankHeist : CalloutBase
                         switch (CurrentAlarmState)
                         {
                             case AlarmState.Alarm:
+                                KeyHelpers.DisplayKeyHelp("AlarmSwitchKey", Settings.ToggleBankHeistAlarmSoundKey, Settings.ToggleBankHeistAlarmSoundModifierKey);
                                 BankAlarm.PlayLooping();
                                 break;
                             default:
@@ -2516,7 +2511,7 @@ internal class PacificBankHeist : CalloutBase
                                         Main.Player.Tasks.EnterVehicle(riot, 1).WaitForCompletion();
                                         Main.Player.Armor = 100;
                                         Main.Player.Health = Main.Player.MaxHealth;
-                                        Main.Player.GiveWeapon([.. XmlManager.PacificBankHeistConfig.WeaponInRiot]);
+                                        Main.Player.GiveWeapon([.. XmlManager.PacificBankHeistConfig.WeaponInRiot], false);
                                         NativeFunction.Natives.PLAY_SOUND_FRONTEND(-1, "PURCHASE", "HUD_LIQUOR_STORE_SOUNDSET", 1);
                                         Main.Player.Tasks.LeaveVehicle(LeaveVehicleFlags.None).WaitForCompletion();
                                     }

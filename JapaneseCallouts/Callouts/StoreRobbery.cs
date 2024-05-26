@@ -67,7 +67,7 @@ internal class StoreRobbery : CalloutBase
             };
             if (robber is not null && robber.IsValid() && robber.Exists())
             {
-                robber.GiveWeapon([.. XmlManager.StoreRobberyConfig.Weapons]);
+                robber.GiveWeapon([.. XmlManager.StoreRobberyConfig.Weapons], true);
                 robbers.Add(robber);
             }
         }

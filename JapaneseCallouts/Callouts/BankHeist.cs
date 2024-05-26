@@ -149,15 +149,16 @@ internal class BankHeist : CalloutBase
                 IsPersistent = true,
                 BlockPermanentEvents = true,
                 RelationshipGroup = RobberRG,
-                KeepTasks = true,
                 MaxHealth = pedData.Health,
                 Health = pedData.Health,
                 Armor = pedData.Armor,
             };
             if (robber is not null && robber.IsValid() && robber.Exists())
             {
+                NativeFunction.Natives.SET_PED_KEEP_TASK(robber, true);
+
                 robber.SetOutfit(pedData);
-                robber.GiveWeapon([.. XmlManager.BankHeistConfig.Weapons]);
+                robber.GiveWeapon([.. XmlManager.BankHeistConfig.Weapons], true);
 
                 NativeFunction.Natives.SET_PED_SUFFERS_CRITICAL_HITS(robber, false);
                 Robbers.Add(robber);

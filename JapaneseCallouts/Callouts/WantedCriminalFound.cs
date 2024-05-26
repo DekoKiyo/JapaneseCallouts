@@ -54,7 +54,7 @@ internal class WantedCriminalFound : CalloutBase
             Functions.GetPersonaForPed(criminal).Wanted = true;
             if (fight)
             {
-                criminal.GiveWeapon([.. XmlManager.WantedCriminalFoundConfig.Weapons]);
+                criminal.GiveWeapon([.. XmlManager.WantedCriminalFoundConfig.Weapons], true);
             }
             criminal.Tasks.Wander();
             blip = new(criminal.Position.Around(Main.MersenneTwister.Next(100)), Main.MersenneTwister.Next(75, 120))

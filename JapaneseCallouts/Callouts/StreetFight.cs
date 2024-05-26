@@ -27,11 +27,11 @@ internal class StreetFight : CalloutBase
         {
             IsPersistent = true,
             BlockPermanentEvents = true,
-            KeepTasks = true,
             RelationshipGroup = suspect1RG,
         };
         if (suspect1 is not null && suspect1.IsValid() && suspect1.Exists())
         {
+            NativeFunction.Natives.SET_PED_KEEP_TASK(suspect1, true);
             suspect1.SetOutfit(data1);
             suspect1.Tasks.FightAgainstClosestHatedTarget(500f);
         }
@@ -41,11 +41,11 @@ internal class StreetFight : CalloutBase
         {
             IsPersistent = true,
             BlockPermanentEvents = true,
-            KeepTasks = true,
             RelationshipGroup = suspect2RG,
         };
         if (suspect2 is not null && suspect2.IsValid() && suspect2.Exists())
         {
+            NativeFunction.Natives.SET_PED_KEEP_TASK(suspect2, true);
             suspect2.SetOutfit(data2);
             suspect2.Tasks.FightAgainstClosestHatedTarget(500f);
         }
