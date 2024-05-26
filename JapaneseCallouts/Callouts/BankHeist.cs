@@ -161,9 +161,6 @@ internal class BankHeist : CalloutBase
 
                 NativeFunction.Natives.SET_PED_SUFFERS_CRITICAL_HITS(robber, false);
                 Robbers.Add(robber);
-
-                var eb = new EnemyBlip(robber);
-                EnemyBlips.Add(eb);
             }
         }
 
@@ -199,7 +196,12 @@ internal class BankHeist : CalloutBase
             GameFiber.Wait(3000);
             foreach (var r in Robbers)
             {
-                r.Tasks.FightAgainstClosestHatedTarget(500f);
+                if (r is not null && r.IsValid() && r.Exists())
+                {
+                    r.Tasks.FightAgainstClosestHatedTarget(500f);
+                    var eb = new EnemyBlip(r);
+                    EnemyBlips.Add(eb);
+                }
             }
             Arrived = true;
         }

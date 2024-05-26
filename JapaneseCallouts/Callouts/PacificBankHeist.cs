@@ -320,7 +320,6 @@ internal class PacificBankHeist : CalloutBase
     private readonly List<Ped> AllStandingOfficers = [];
     private readonly List<Ped> AllAimingOfficers = [];
     private readonly List<Ped> OfficersArresting = [];
-    private readonly List<Ped> OfficersTargetsToShoot = [];
     private readonly List<Ped> AllSWATUnits = [];
     private readonly List<Ped> AllRobbers = [];
     private readonly List<Ped> AllSneakRobbers = [];
@@ -673,10 +672,9 @@ internal class PacificBankHeist : CalloutBase
                                 SpawnVaultRobbers(weather);
                             }
 
-                            CopFightingAI();
-                            RobbersFightingAI();
-
-                            CheckForRobbersOutside();
+                            // CopFightingAI();
+                            // RobbersFightingAI();
+                            Fighting();
 
                             foreach (var robber in AllRobbers)
                             {
@@ -749,7 +747,7 @@ internal class PacificBankHeist : CalloutBase
                 }
 
                 // When surrendered
-                if (SurrenderComplete) CopFightingAI();
+                if (SurrenderComplete) CopsReturnToLocation();
 
                 while (IsCalloutRunning)
                 {
@@ -918,163 +916,152 @@ internal class PacificBankHeist : CalloutBase
         }
     }
 
-    private void CheckForRobbersOutside()
+    private void Fighting()
     {
         GameFiber.StartNew(() =>
         {
-            while (IsCalloutRunning)
+            foreach (var cop in AllStandingOfficers)
             {
                 GameFiber.Yield();
-                if (IsFighting)
-                {
-                    foreach (var loc in BankDoorPositions)
-                    {
-                        foreach (var ped in World.GetEntities(loc, 1.6f, GetEntitiesFlags.ConsiderAllPeds).Cast<Ped>())
-                        {
-                            if (ped is not null && ped.IsValid() && ped.Exists() && ped.IsAlive)
-                            {
-                                if (AllRobbers.Contains(ped))
-                                {
-                                    if (Vector3.Distance(ped.Position, loc) < 1.5f)
-                                    {
-                                        if (!OfficersTargetsToShoot.Contains(ped))
-                                        {
-                                            OfficersTargetsToShoot.Add(ped);
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+                cop.Tasks.FightAgainstClosestHatedTarget(200f);
             }
-        });
-    }
-
-    private GameFiber CopFightingAIGameFiber;
-    private void CopFightingAI()
-    {
-        CopFightingAIGameFiber = GameFiber.StartNew(() =>
-        {
-            while (IsCalloutRunning)
+            foreach (var cop in AllAimingOfficers)
             {
-                try
-                {
-                    GameFiber.Yield();
-                    if (IsFighting)
-                    {
-                        if (OfficersTargetsToShoot.Count > 0)
-                        {
-                            if (OfficersTargetsToShoot[0] is not null && OfficersTargetsToShoot[0].IsValid() && OfficersTargetsToShoot[0].Exists())
-                            {
-                                if (OfficersTargetsToShoot[0].IsAlive)
-                                {
-                                    foreach (var cop in OfficersTargetsToShoot)
-                                    {
-                                        cop.Tasks.FightAgainst(OfficersTargetsToShoot[0]);
-                                    }
-                                }
-                                else
-                                {
-                                    OfficersTargetsToShoot.RemoveAt(0);
-                                }
-                            }
-                            else
-                            {
-                                OfficersTargetsToShoot.RemoveAt(0);
-                            }
-                        }
-                        else
-                        {
-                            CopsReturnToLocation();
-                        }
-                    }
-                    if (IsFighting || IsSWATFollowing)
-                    {
-                        foreach (var cop in AllSWATUnits)
-                        {
-                            GameFiber.Yield();
-                            if (cop is not null && cop.IsValid() && cop.Exists())
-                            {
-                                if (!IsSWATFollowing)
-                                {
-                                    NativeFunction.Natives.REGISTER_HATED_TARGETS_AROUND_PED(cop, 60f);
-                                    cop.Tasks.FightAgainstClosestHatedTarget(60f);
-                                }
-                                else
-                                {
-                                    if (Main.Player is not null && Main.Player.IsValid() && Main.Player.IsAlive)
-                                    {
-                                        cop.Tasks.FollowNavigationMeshToPosition(Main.Player.Position, Main.Player.Heading, 1.6f, Math.Abs(Main.Player.Position.Z - cop.Position.Z) > 1f ? 1f : 4f);
-                                    }
-                                }
-                            }
-                        }
-                        GameFiber.Sleep(4000);
-                    }
-                }
-                catch (Exception e)
-                {
-                    Logger.Error(e.ToString());
-                }
+                GameFiber.Yield();
+                cop.Tasks.FightAgainstClosestHatedTarget(200f);
             }
-        });
-    }
-
-    private Entity entityPlayerAimingAt;
-    private void RobbersFightingAI()
-    {
-        GameFiber.StartNew(() =>
-        {
-            while (IsCalloutRunning)
+            foreach (var robber in AllRobbers)
             {
-                try
-                {
-                    GameFiber.Yield();
-                    if (IsFighting)
-                    {
-                        foreach (var robber in AllRobbers)
-                        {
-                            GameFiber.Yield();
-                            if (robber is not null && robber.IsValid() && robber.Exists())
-                            {
-                                var distance = Vector3.Distance(robber.Position, PacificBankInsideChecks[0]) < Vector3.Distance(robber.Position, PacificBankInsideChecks[1]) ? Vector3.Distance(robber.Position, PacificBankInsideChecks[0]) : Vector3.Distance(robber.Position, PacificBankInsideChecks[1]);
-                                if (distance < 16.5f) distance = 16.5f;
-                                else if (distance > 21f) distance = 21f;
-                                NativeFunction.Natives.REGISTER_HATED_TARGETS_AROUND_PED(robber, distance);
-                                robber.Tasks?.FightAgainstClosestHatedTarget(distance);
-                                // Rage.Native.NativeFunction.CallByName<uint>("TASK_GUARD_CURRENT_POSITION", robber, 10.0f, 10.0f, true);
-                                try
-                                {
-                                    unsafe
-                                    {
-                                        uint entityHandle;
-                                        NativeFunction.Natives.x2975C866E6713290(Game.LocalPlayer, new IntPtr(&entityHandle)); // Stores the entity the player is aiming at in the uint provided in the second parameter.
-                                        entityPlayerAimingAt = World.GetEntityByHandle<Entity>(entityHandle);
-                                    }
-                                }
-                                catch // (Exception e)
-                                {
-                                    // Logger.Error(e.ToString());
-                                }
-
-                                if (AllRobbers.Contains(entityPlayerAimingAt))
-                                {
-                                    var pedAimingAt = (Ped)entityPlayerAimingAt;
-                                    pedAimingAt.Tasks.FightAgainst(Main.Player);
-                                }
-                            }
-                        }
-                        GameFiber.Sleep(3000);
-                    }
-                }
-                catch (Exception e)
-                {
-                    Logger.Error(e.ToString());
-                }
+                GameFiber.Yield();
+                robber.Tasks.FightAgainstClosestHatedTarget(200f);
             }
         });
     }
+
+    // private GameFiber CopFightingAIGameFiber;
+    // private void CopFightingAI()
+    // {
+    //     CopFightingAIGameFiber = GameFiber.StartNew(() =>
+    //     {
+    //         while (IsCalloutRunning)
+    //         {
+    //             try
+    //             {
+    //                 GameFiber.Yield();
+    //                 if (IsFighting)
+    //                 {
+    //                     if (OfficersTargetsToShoot.Count > 0)
+    //                     {
+    //                         if (OfficersTargetsToShoot[0] is not null && OfficersTargetsToShoot[0].IsValid() && OfficersTargetsToShoot[0].Exists())
+    //                         {
+    //                             if (OfficersTargetsToShoot[0].IsAlive)
+    //                             {
+    //                                 foreach (var cop in OfficersTargetsToShoot)
+    //                                 {
+    //                                     cop.Tasks.FightAgainst(OfficersTargetsToShoot[0]);
+    //                                 }
+    //                             }
+    //                             else
+    //                             {
+    //                                 OfficersTargetsToShoot.RemoveAt(0);
+    //                             }
+    //                         }
+    //                         else
+    //                         {
+    //                             OfficersTargetsToShoot.RemoveAt(0);
+    //                         }
+    //                     }
+    //                     else
+    //                     {
+    //                         CopsReturnToLocation();
+    //                     }
+    //                 }
+    //                 if (IsFighting || IsSWATFollowing)
+    //                 {
+    //                     foreach (var cop in AllSWATUnits)
+    //                     {
+    //                         GameFiber.Yield();
+    //                         if (cop is not null && cop.IsValid() && cop.Exists())
+    //                         {
+    //                             if (!IsSWATFollowing)
+    //                             {
+    //                                 NativeFunction.Natives.REGISTER_HATED_TARGETS_AROUND_PED(cop, 60f);
+    //                                 cop.Tasks.FightAgainstClosestHatedTarget(60f);
+    //                             }
+    //                             else
+    //                             {
+    //                                 if (Main.Player is not null && Main.Player.IsValid() && Main.Player.IsAlive)
+    //                                 {
+    //                                     cop.Tasks.FollowNavigationMeshToPosition(Main.Player.Position, Main.Player.Heading, 1.6f, Math.Abs(Main.Player.Position.Z - cop.Position.Z) > 1f ? 1f : 4f);
+    //                                 }
+    //                             }
+    //                         }
+    //                     }
+    //                     GameFiber.Sleep(4000);
+    //                 }
+    //             }
+    //             catch (Exception e)
+    //             {
+    //                 Logger.Error(e.ToString());
+    //             }
+    //         }
+    //     });
+    // }
+
+    // private Entity entityPlayerAimingAt;
+    // private void RobbersFightingAI()
+    // {
+    //     GameFiber.StartNew(() =>
+    //     {
+    //         while (IsCalloutRunning)
+    //         {
+    //             try
+    //             {
+    //                 GameFiber.Yield();
+    //                 if (IsFighting)
+    //                 {
+    //                     foreach (var robber in AllRobbers)
+    //                     {
+    //                         GameFiber.Yield();
+    //                         if (robber is not null && robber.IsValid() && robber.Exists())
+    //                         {
+    //                             var distance = Vector3.Distance(robber.Position, PacificBankInsideChecks[0]) < Vector3.Distance(robber.Position, PacificBankInsideChecks[1]) ? Vector3.Distance(robber.Position, PacificBankInsideChecks[0]) : Vector3.Distance(robber.Position, PacificBankInsideChecks[1]);
+    //                             if (distance < 16.5f) distance = 16.5f;
+    //                             else if (distance > 21f) distance = 21f;
+    //                             NativeFunction.Natives.REGISTER_HATED_TARGETS_AROUND_PED(robber, distance);
+    //                             robber.Tasks?.FightAgainstClosestHatedTarget(distance);
+    //                             // Rage.Native.NativeFunction.CallByName<uint>("TASK_GUARD_CURRENT_POSITION", robber, 10.0f, 10.0f, true);
+    //                             try
+    //                             {
+    //                                 unsafe
+    //                                 {
+    //                                     uint entityHandle;
+    //                                     NativeFunction.Natives.x2975C866E6713290(Game.LocalPlayer, new IntPtr(&entityHandle)); // Stores the entity the player is aiming at in the uint provided in the second parameter.
+    //                                     entityPlayerAimingAt = World.GetEntityByHandle<Entity>(entityHandle);
+    //                                 }
+    //                             }
+    //                             catch // (Exception e)
+    //                             {
+    //                                 // Logger.Error(e.ToString());
+    //                             }
+
+    //                             if (AllRobbers.Contains(entityPlayerAimingAt))
+    //                             {
+    //                                 var pedAimingAt = (Ped)entityPlayerAimingAt;
+    //                                 pedAimingAt.Tasks.FightAgainst(Main.Player);
+    //                             }
+    //                         }
+    //                     }
+    //                     GameFiber.Sleep(3000);
+    //                 }
+    //             }
+    //             catch (Exception e)
+    //             {
+    //                 Logger.Error(e.ToString());
+    //             }
+    //         }
+    //     });
+    // }
 
     private void CopsReturnToLocation()
     {
