@@ -568,11 +568,8 @@ internal class PacificBankHeist : CalloutBase
                     HudHelpers.DisplayNotification(Localization.GetString("BankHeistRoger"));
                 });
                 LoadModels();
-                while (Vector3.Distance(Main.Player.Position, CalloutPosition) > 350f)
-                {
-                    GameFiber.Yield();
-                    GameFiber.Wait(1000);
-                }
+                GameFiber.WaitUntil(() => Vector3.Distance(Main.Player.Position, CalloutPosition) > 350f);
+                KeyHelpers.DisplayKeyHelp("AlarmSwitchKey", Settings.ToggleBankHeistAlarmSoundKey, Settings.ToggleBankHeistAlarmSoundModifierKey);
                 if (Main.Player.IsInAnyVehicle(false))
                 {
                     CalloutEntities.Add(Main.Player.CurrentVehicle);
