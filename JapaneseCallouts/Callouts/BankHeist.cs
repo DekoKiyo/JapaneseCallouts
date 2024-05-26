@@ -7,6 +7,7 @@ internal class BankHeist : CalloutBase
     private Blip BankBlip;
     private bool Arrived = false;
     private List<Ped> Robbers;
+    private List<EnemyBlip> EnemyBlips;
 
     private static readonly Dictionary<Vector3, ((Vector3 pos, float heading)[] positions, (Vector3 pos, uint hash)[] doors)> BankData = new()
     {
@@ -110,9 +111,11 @@ internal class BankHeist : CalloutBase
         Functions.PlayScannerAudioUsingPosition(XmlManager.CalloutsSoundConfig.BankHeist, CalloutPosition);
 
         Robbers = new(BankData[CalloutPosition].positions.Count());
+        EnemyBlips = new(Robbers.Count());
 
         OnCalloutsEnded += () =>
         {
+            foreach (var b in EnemyBlips) b?.Dismiss();
             foreach (var r in Robbers)
             {
                 if (Main.Player.IsDead)
@@ -158,6 +161,9 @@ internal class BankHeist : CalloutBase
 
                 NativeFunction.Natives.SET_PED_SUFFERS_CRITICAL_HITS(robber, false);
                 Robbers.Add(robber);
+
+                var eb = new EnemyBlip(robber);
+                EnemyBlips.Add(eb);
             }
         }
 
