@@ -1,7 +1,7 @@
 {
   "BankHeistConversation": {
     "Alarm1": "アラームは切ったほうが良いかな?",
-    "Alarm2": "技術チーム... 私だ... そうだよ...",
+    "Alarm2": "Tech team... Kill the alarm...",
     "Alarm3": "これでよし。またアラームをオンにしたければ、技術チームに連絡しなさい。",
     "Alarm4": "本当に良いのかい? オフにしたければ技術チームに連絡しなさい。",
     "Alarm5": "事件解決に向けて頑張ってくれたまえ。幸運を祈る。",
@@ -20,7 +20,7 @@
     "Intro1": "状況は非常に悪そうですね。",
     "Intro2": "~r~複数人の強盗が銀行に居る~s~が、何人なのか見当もついていない状況だ。",
     "Intro3": "何人の人質が中に居るか分かりますか?",
-    "Intro4": "ああ、~y~8人の人質~s~が銀行内に居ると聞いている...",
+    "Intro4": "Yeah, they have ~y~{0} hostages~s~ in the bank...",
     "Intro5": "我々には2つの事件を解決する方法がある。",
     "Intro6": "First one is ~y~negotiate with them~s~. They may stop this wrong activity.",
     "Intro7": "2つ目は~y~突入~s~だ。特殊部隊の準備はできている。",
