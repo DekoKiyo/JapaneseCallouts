@@ -26,9 +26,10 @@ internal class PacificBankHeist : CalloutBase
     private const BlipSprite RIOT_BLIP = BlipSprite.PolicePatrol;
     private const BlipSprite COMMANDER_BLIP = BlipSprite.Friend;
 
-    internal SoundPlayer BankAlarm;
+    private SoundPlayer BankAlarm;
     private uint SpeedZoneId;
     private const BlipSprite SPRITE = BlipSprite.CriminalCarsteal;
+    private static int HostageCount = XmlManager.PacificBankHeistConfig.HostageCount > XmlManager.PacificBankHeistConfig.HostagePositions.Count ? XmlManager.PacificBankHeistConfig.HostagePositions.Count : XmlManager.PacificBankHeistConfig.HostageCount;
 
     private Vector3 BankLocation = new(250.9f, 219.0f, 106.2f);
     private Vector3 OutsideBankVault = new(257.2f, 225.2f, 101.8f);
@@ -42,17 +43,7 @@ internal class PacificBankHeist : CalloutBase
 
     #region Conversations
     // Conversation
-    private readonly (string, string)[] IntroConversation =
-    [
-        (Settings.OfficerName, Localization.GetString("Intro1")),
-        (Localization.GetString("Commander"), Localization.GetString("Intro2")),
-        (Settings.OfficerName, Localization.GetString("Intro3")),
-        (Localization.GetString("Commander"), Localization.GetString("Intro4")),
-        (Localization.GetString("Commander"), Localization.GetString("Intro5")),
-        (Localization.GetString("Commander"), Localization.GetString("Intro6")),
-        (Localization.GetString("Commander"), Localization.GetString("Intro7")),
-        (Localization.GetString("Commander"), Localization.GetString("Intro8")),
-    ];
+    private (string, string)[] IntroConversation;
     private readonly Dictionary<string, Keys> IntroSelection = new()
     {
         [Localization.GetString("IntroSelection1")] = Keys.D1,
@@ -375,6 +366,18 @@ internal class PacificBankHeist : CalloutBase
         ShowCalloutAreaBlipBeforeAccepting(CalloutPosition, 30f);
         Functions.PlayScannerAudioUsingPosition(XmlManager.CalloutsSoundConfig.PacificBankHeist, CalloutPosition);
         CalloutInterfaceAPIFunctions.SendMessage(this, Localization.GetString("PacificBankHeistDesc"));
+
+        IntroConversation =
+        [
+            (Settings.OfficerName, Localization.GetString("Intro1")),
+            (Localization.GetString("Commander"), Localization.GetString("Intro2")),
+            (Settings.OfficerName, Localization.GetString("Intro3")),
+            (Localization.GetString("Commander"), Localization.GetString("Intro4", HostageCount.ToString())),
+            (Localization.GetString("Commander"), Localization.GetString("Intro5")),
+            (Localization.GetString("Commander"), Localization.GetString("Intro6")),
+            (Localization.GetString("Commander"), Localization.GetString("Intro7")),
+            (Localization.GetString("Commander"), Localization.GetString("Intro8")),
+        ];
 
         OnCalloutsEnded += () =>
         {
@@ -1819,9 +1822,8 @@ internal class PacificBankHeist : CalloutBase
 
     private void SpawnHostages(EWeather weather)
     {
-        var hostageCount = XmlManager.PacificBankHeistConfig.HostageCount > XmlManager.PacificBankHeistConfig.HostagePositions.Count ? XmlManager.PacificBankHeistConfig.HostagePositions.Count : XmlManager.PacificBankHeistConfig.HostageCount;
         var positions = XmlManager.PacificBankHeistConfig.HostagePositions.Shuffle();
-        for (int i = 0; i < hostageCount; i++)
+        for (int i = 0; i < HostageCount; i++)
         {
             var data = CalloutHelpers.SelectPed(weather, [.. XmlManager.PacificBankHeistConfig.HostageModels]);
             var pos = new Vector3(positions[i].X, positions[i].Y, positions[i].Z);
