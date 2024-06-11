@@ -24,10 +24,10 @@
 [![Discord](./Image/Discord.png)](https://discord.gg/uTVnVjqQWA)
 
 > [!IMPORTANT]
-> ### You can check the [Official Wiki](https://github.com/DekoKiyo/JapaneseCallouts/wiki) to check more information.
+> ### You can check the [Official Wiki](https://github.com/DekoKiyo/JapaneseCallouts/wiki) to get more information.
 
 # Japanese Callouts
-The **Japanese Callouts** is a plugin for [LSPDFR](https://www.lcpdfr.com/lspdfr) one of the best police mods of Grand Theft Auto V that adds some Japanese style callouts. This project's source code is under the [GPL v3](https://github.com/DekoKiyo/JapaneseCallouts?tab=GPL-3.0-1-ov-file#readme). You can use or reference its code freedom but you have to write the credits because this project uses many libraries or open-source project code too. _Don't forget to respect them._
+The **Japanese Callouts** is a plugin for [LSPDFR](https://www.lcpdfr.com/lspdfr), one of the best police mods of Grand Theft Auto V, that adds some Japanese style callouts. This project's source code is under the [GPL v3](https://github.com/DekoKiyo/JapaneseCallouts?tab=GPL-3.0-1-ov-file#readme). You can use or reference its code freedom but you have to write the credits because this project uses many libraries or open-source project code too. _Don't forget to respect them._
 
 ## Donate me!
 Please donate me to develop more better plugins.<br/>

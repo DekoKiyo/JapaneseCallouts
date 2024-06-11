@@ -21,30 +21,31 @@ internal class StreetFight : CalloutBase
         Game.SetRelationshipBetweenRelationshipGroups(suspect1RG, suspect2RG, Relationship.Hate);
         Game.SetRelationshipBetweenRelationshipGroups(suspect2RG, suspect1RG, Relationship.Hate);
 
-        var data1 = CalloutHelpers.Select([.. XmlManager.StreetFightConfig.Suspects]);
+        var weather = CalloutHelpers.GetWeatherType(IPTFunctions.GetWeatherType());
+        var data1 = CalloutHelpers.SelectPed(weather, [.. XmlManager.StreetFightConfig.Suspects]);
         suspect1 = new(data1.Model, new(CalloutPosition.X, CalloutPosition.Y, (float)World.GetGroundZ(CalloutPosition, true, true)), 0f)
         {
             IsPersistent = true,
             BlockPermanentEvents = true,
-            KeepTasks = true,
             RelationshipGroup = suspect1RG,
         };
         if (suspect1 is not null && suspect1.IsValid() && suspect1.Exists())
         {
+            NativeFunction.Natives.SET_PED_KEEP_TASK(suspect1, true);
             suspect1.SetOutfit(data1);
             suspect1.Tasks.FightAgainstClosestHatedTarget(500f);
         }
 
-        var data2 = CalloutHelpers.Select([.. XmlManager.StreetFightConfig.Suspects]);
+        var data2 = CalloutHelpers.SelectPed(weather, [.. XmlManager.StreetFightConfig.Suspects]);
         suspect2 = new(data2.Model, new(CalloutPosition.X, CalloutPosition.Y, (float)World.GetGroundZ(CalloutPosition, true, true)), 0f)
         {
             IsPersistent = true,
             BlockPermanentEvents = true,
-            KeepTasks = true,
             RelationshipGroup = suspect2RG,
         };
         if (suspect2 is not null && suspect2.IsValid() && suspect2.Exists())
         {
+            NativeFunction.Natives.SET_PED_KEEP_TASK(suspect2, true);
             suspect2.SetOutfit(data2);
             suspect2.Tasks.FightAgainstClosestHatedTarget(500f);
         }

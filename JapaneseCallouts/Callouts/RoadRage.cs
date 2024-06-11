@@ -23,6 +23,7 @@ internal class RoadRage : CalloutBase
     {
         CalloutPosition = World.GetNextPositionOnStreet(Main.Player.Position.Around(Main.MersenneTwister.Next(450, 800)));
 
+        var weather = CalloutHelpers.GetWeatherType(IPTFunctions.GetWeatherType());
         {
             var data = CalloutHelpers.Select([.. XmlManager.RoadRageConfig.SuspectVehicles]);
             suspectV = new(data.Model, CalloutPosition)
@@ -46,7 +47,7 @@ internal class RoadRage : CalloutBase
             }
         }
         {
-            var vData = CalloutHelpers.Select([.. XmlManager.RoadRageConfig.SuspectPeds]);
+            var vData = CalloutHelpers.SelectPed(weather, [.. XmlManager.RoadRageConfig.SuspectPeds]);
             victim = new(x => x.IsPed)
             {
                 IsPersistent = true,
@@ -55,7 +56,7 @@ internal class RoadRage : CalloutBase
                 Health = vData.Health,
                 Armor = vData.Armor,
             };
-            var sData = CalloutHelpers.Select([.. XmlManager.RoadRageConfig.SuspectPeds]);
+            var sData = CalloutHelpers.SelectPed(weather, [.. XmlManager.RoadRageConfig.SuspectPeds]);
             suspect = new(sData.Model, Vector3.Zero, 0f)
             {
                 IsPersistent = true,
@@ -85,7 +86,7 @@ internal class RoadRage : CalloutBase
         ShowCalloutAreaBlipBeforeAccepting(CalloutPosition, 50f);
         Functions.PlayScannerAudioUsingPosition(XmlManager.CalloutsSoundConfig.RoadRage, CalloutPosition);
 
-        CalloutInterfaceAPIFunctions.SendMessage(this, $"{Localization.GetString("RoadRage")} {Localization.GetString("RespondCode2")}");
+        CalloutInterfaceAPIFunctions.SendMessage(this, $"{Localization.GetString("RoadRageDesc")} {Localization.GetString("RespondCode2")}");
         CalloutInterfaceAPIFunctions.SendVehicle(suspectV);
         CalloutInterfaceAPIFunctions.SendVehicle(victimV);
 

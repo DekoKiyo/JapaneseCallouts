@@ -7,6 +7,7 @@ internal class BankHeist : CalloutBase
     private Blip BankBlip;
     private bool Arrived = false;
     private List<Ped> Robbers;
+    private List<EnemyBlip> EnemyBlips;
 
     private static readonly Dictionary<Vector3, ((Vector3 pos, float heading)[] positions, (Vector3 pos, uint hash)[] doors)> BankData = new()
     {
@@ -110,9 +111,11 @@ internal class BankHeist : CalloutBase
         Functions.PlayScannerAudioUsingPosition(XmlManager.CalloutsSoundConfig.BankHeist, CalloutPosition);
 
         Robbers = new(BankData[CalloutPosition].positions.Count());
+        EnemyBlips = new(Robbers.Count());
 
         OnCalloutsEnded += () =>
         {
+            foreach (var b in EnemyBlips) b?.Dismiss();
             foreach (var r in Robbers)
             {
                 if (Main.Player.IsDead)
@@ -134,25 +137,28 @@ internal class BankHeist : CalloutBase
     internal override void Accepted()
     {
         HudHelpers.DisplayNotification(Localization.GetString("BankHeistDesc"));
-        CalloutInterfaceAPIFunctions.SendMessage(this, $"{Localization.GetString("BankHeist")} {Localization.GetString("RespondCode3")}");
+        CalloutInterfaceAPIFunctions.SendMessage(this, $"{Localization.GetString("BankHeistDesc")} {Localization.GetString("RespondCode3")}");
+
+        var weather = CalloutHelpers.GetWeatherType(IPTFunctions.GetWeatherType());
 
         foreach (var (pos, heading) in BankData[CalloutPosition].positions)
         {
-            var pedData = CalloutHelpers.Select([.. XmlManager.BankHeistConfig.Robbers]);
+            var pedData = CalloutHelpers.SelectPed(weather, [.. XmlManager.BankHeistConfig.Robbers]);
             var robber = new Ped(pedData.Model, pos, heading)
             {
                 IsPersistent = true,
                 BlockPermanentEvents = true,
                 RelationshipGroup = RobberRG,
-                KeepTasks = true,
                 MaxHealth = pedData.Health,
                 Health = pedData.Health,
                 Armor = pedData.Armor,
             };
             if (robber is not null && robber.IsValid() && robber.Exists())
             {
+                NativeFunction.Natives.SET_PED_KEEP_TASK(robber, true);
+
                 robber.SetOutfit(pedData);
-                robber.GiveWeapon([.. XmlManager.BankHeistConfig.Weapons]);
+                robber.GiveWeapon([.. XmlManager.BankHeistConfig.Weapons], true);
 
                 NativeFunction.Natives.SET_PED_SUFFERS_CRITICAL_HITS(robber, false);
                 Robbers.Add(robber);
@@ -169,13 +175,12 @@ internal class BankHeist : CalloutBase
         Game.SetRelationshipBetweenRelationshipGroups(RobberRG, Main.Player.RelationshipGroup, Relationship.Hate);
         Game.SetRelationshipBetweenRelationshipGroups(RelationshipGroup.Cop, Main.Player.RelationshipGroup, Relationship.Respect);
 
-        BankBlip = new(CalloutPosition, 90f);
-        if (BankBlip is not null && BankBlip.IsValid() && BankBlip.Exists())
+        BankBlip = new(CalloutPosition, 90f)
         {
-            BankBlip.Alpha = 0.5f;
-            BankBlip.Color = Color.Red;
-            BankBlip.EnableRoute(Color.Red);
-        }
+            Alpha = 0.5f,
+            Color = Color.Red,
+            IsRouteEnabled = true,
+        };
     }
 
     internal override void Update()
@@ -185,14 +190,19 @@ internal class BankHeist : CalloutBase
         {
             if (BankBlip is not null && BankBlip.IsValid() && BankBlip.Exists())
             {
-                BankBlip.DisableRoute();
+                BankBlip.IsRouteEnabled = false;
                 BankBlip.Delete();
             }
 
             GameFiber.Wait(3000);
             foreach (var r in Robbers)
             {
-                r.Tasks.FightAgainstClosestHatedTarget(500f);
+                if (r is not null && r.IsValid() && r.Exists())
+                {
+                    r.Tasks.FightAgainstClosestHatedTarget(500f);
+                    var eb = new EnemyBlip(r);
+                    EnemyBlips.Add(eb);
+                }
             }
             Arrived = true;
         }

@@ -63,10 +63,11 @@ internal class DrunkGuys : CalloutBase
         {
             IsPersistent = true,
             BlockPermanentEvents = true,
-            KeepTasks = true,
         };
         if (citizen is not null && citizen.IsValid() && citizen.Exists())
         {
+            NativeFunction.Natives.SET_PED_KEEP_TASK(citizen, true);
+
             citizenB = citizen.AttachBlip();
             citizenB.Color = Color.Green;
             citizenB.IsRouteEnabled = true;
@@ -77,11 +78,11 @@ internal class DrunkGuys : CalloutBase
             {
                 IsPersistent = true,
                 BlockPermanentEvents = true,
-                KeepTasks = true,
                 MovementAnimationSet = CLIP_SET
             };
             if (cus is not null && cus.IsValid() && cus.Exists())
             {
+                NativeFunction.Natives.SET_PED_KEEP_TASK(cus, true);
                 cus.Tasks.PlayAnimation(ANIM_DICTIONARY, Main.MersenneTwister.Next(2) is 0 ? ANIM_TYPE1 : ANIM_TYPE2, 1f, AnimationFlags.Loop);
                 peds.Add(cus);
             }
