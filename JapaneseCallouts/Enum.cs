@@ -31,6 +31,6 @@ internal enum EWeather
 
 internal enum ELanguages
 {
-    English,
-    Japanese,
+    English = 0,
+    Japanese = 1,
 }

@@ -47,7 +47,7 @@ internal static class Localization
     }
 
     [ConsoleCommand("Change Japanese Callouts' language.")]
-    internal static void JPCChangeLanguage([ConsoleCommandParameter(AutoCompleterType = typeof(ConsoleCommandParameterAutoCompleterEnum), Description = "Enter the language code that you want to use.")] ELanguages lang)
+    internal static void JPCChangeLanguage([ConsoleCommandParameter("Enter the language code that you want to use.", AutoCompleterType = typeof(ConsoleCommandParameterAutoCompleterEnum))] ELanguages lang)
     {
         if (Enum.GetNames(typeof(ELanguages)).Contains($"{lang}"))
         {
@@ -83,10 +83,14 @@ internal static class Localization
                 return JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, string>>>(json);
             }
         }
-        catch (Exception e)
+        catch (FileNotFoundException e)
         {
             Logger.Error(e.ToString());
-            throw new Exception($"The locale file, \"{langCode}.json\" was not loaded.");
+            throw new FileNotFoundException($"The locale file, \"{langCode}.json\" was not loaded.", $"{langCode}.json", e);
+        }
+        catch (Exception e)
+        {
+            throw new FileLoadException("The error was occurred while load the json file.", $"{langCode}.json", e);
         }
     }
 }

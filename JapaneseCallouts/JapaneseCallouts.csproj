@@ -40,9 +40,9 @@
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="NAudio" Version="2.2.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="RagePluginHook" Version="1.98.0" />
+    <PackageReference Include="RagePluginHook" Version="1.109.1" />
     <Reference Include="../SDK/*.dll" />
-    <EmbeddedResource Include="Localization/*.json" />
+    <EmbeddedResource Include="Localization/*.json" Exclude="Localization/Custom.json" />
     <EmbeddedResource Include="Resources/*.xml" />
   </ItemGroup>
 

@@ -64,10 +64,14 @@ internal static class XmlManager
                 return (T)serializer.Deserialize(sr);
             }
         }
-        catch (Exception e)
+        catch (FileNotFoundException e)
         {
             Logger.Error(e.ToString());
-            throw new Exception($"The xml file ({filename}) was not loaded.");
+            throw new FileNotFoundException($"The locale file, \"{filename}\" was not loaded.", $"{filename}", e);
+        }
+        catch (Exception e)
+        {
+            throw new FileLoadException("The error was occurred while load the json file.", $"{filename}", e);
         }
     }
 }
