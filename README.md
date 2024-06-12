@@ -37,10 +37,10 @@ You can donate on my [Ko-fi](https://ko-fi.com/dekokiyo) or [Amazon Wishlist](ht
 
 ## Releases
 ### Japanese Callouts
-| GTA5 Version |    RPH Version    |   LSPDFR Version   | Plugin Version |                                        Link                                         |
-| :----------: | :---------------: | :----------------: | :------------: | :---------------------------------------------------------------------------------: |
-|  1.0.3179.0  | 1.109.1 or higher | 0.4.9 (Build 8757) |    0.1.0.1     |                                    Not Available                                    |
-|  1.0.3179.0  | 1.98.0 or higher  | 0.4.9 (Build 8757) |    0.1.0.0     | [GitHub Release](https://github.com/DekoKiyo/JapaneseCallouts/releases/tag/0.1.0.0) |
+| GTA5 Version |    RPH Version    |   LSPDFR Version   | Plugin Version |                                                                                      Link                                                                                       |
+| :----------: | :---------------: | :----------------: | :------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+|  1.0.3179.0  | 1.109.1 or higher | 0.4.9 (Build 8757) |     0.1.1      | [GitHub Release](https://github.com/DekoKiyo/JapaneseCallouts/releases/tag/0.1.1) [lcpdfr.com](https://www.lcpdfr.com/downloads/gta5mods/scripts/47879-japanese-callouts-beta/) |
+|  1.0.3179.0  | 1.98.0 or higher  | 0.4.9 (Build 8757) |     0.1.0      |                                               [GitHub Release](https://github.com/DekoKiyo/JapaneseCallouts/releases/tag/0.1.0.0)                                               |
 
 ### EUP Converter for JPC
 | Version |     Link      |
