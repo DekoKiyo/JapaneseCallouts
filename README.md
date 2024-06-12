@@ -43,9 +43,9 @@ You can donate on my [Ko-fi](https://ko-fi.com/dekokiyo) or [Amazon Wishlist](ht
 |  1.0.3179.0  | 1.98.0 or higher  | 0.4.9 (Build 8757) |     0.1.0      |                                               [GitHub Release](https://github.com/DekoKiyo/JapaneseCallouts/releases/tag/0.1.0.0)                                               |
 
 ### EUP Converter for JPC
-| Version |     Link      |
-| :-----: | :-----------: |
-|   1.0   | Not Available |
+| Version |                                               Link                                                |
+| :-----: | :-----------------------------------------------------------------------------------------------: |
+|   1.0   | [Download](https://github.com/DekoKiyo/JapaneseCallouts/releases/download/0.1.1/EUPConverter.zip) |
 
 ## Translation Status
 Check more information about [Localization](https://github.com/DekoKiyo/JapaneseCallouts/wiki/Localization)
