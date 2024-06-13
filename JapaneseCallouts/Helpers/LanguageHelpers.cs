@@ -6,9 +6,10 @@ internal static class LanguageHelpers
     {
         return lang switch
         {
-            ELanguages.English => "en-US",
             ELanguages.Japanese => "ja-JP",
-            _ => "Custom"
+            ELanguages.Russian => "ru-RU",
+            ELanguages.Italian => "it-IT",
+            _ => "en-US"
         };
     }
 }

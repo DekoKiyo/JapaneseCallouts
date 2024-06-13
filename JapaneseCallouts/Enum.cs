@@ -33,4 +33,6 @@ internal enum ELanguages
 {
     English = 0,
     Japanese = 1,
+    Russian = 2,
+    Italian = 3,
 }
