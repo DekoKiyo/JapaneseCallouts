@@ -96,6 +96,8 @@ global using IPTFunctions = IPT.Common.API.Functions;
 global using Gwen;
 global using Gwen.Control;
 global using GButton = Gwen.Control.Button;
+global using GComboBox = Gwen.Control.ComboBox;
+global using GLabel = Gwen.Control.Label;
 #endregion
 
 namespace JapaneseCallouts;
@@ -132,9 +134,11 @@ internal class Main : Plugin
     internal const string PLUGIN_DIRECTORY = @$"{LSPDFR_DIRECTORY}/{PLUGIN_NAME_NO_SPACE}";
     internal const string PLUGIN_AUDIO_DIRECTORY = @"Audio";
     internal const string PLUGIN_LOCALIZATION_DIRECTORY = @"Localization";
+    internal const string PLUGIN_BACKGROUND_DIRECTORY = @"Background";
     internal const string SETTINGS_INI_FILE = @$"{PLUGIN_NAME_NO_SPACE}.ini";
     internal const string NAUDIO_CORE_DLL = @"NAudio.Core.dll";
     internal const string CALLOUT_INTERFACE_API_DLL = @"CalloutInterfaceAPI.dll";
+    internal const string COMPUTER_BACKGROUND = "";
 
     internal static readonly string PLUGIN_VERSION = Assembly.GetExecutingAssembly().GetName().Version.ToString();
     internal static readonly string PLUGIN_INFO = $"~b~{PLUGIN_NAME}~s~ {PLUGIN_VERSION_DATA}";
@@ -160,6 +164,23 @@ internal class Main : Plugin
         set
         {
             mPauseGameWhenOpen = value;
+        }
+    }
+
+    // private static RectangleF taskbar = new();
+    private static Rage.Texture _bg;
+    private static bool mDrawBackground = false;
+    private static bool DrawBackground
+    {
+        get
+        {
+            return mDrawBackground;
+        }
+        set
+        {
+            if (value) Game.RawFrameRender += OnRawFrameRender;
+            else Game.RawFrameRender -= OnRawFrameRender;
+            mDrawBackground = value;
         }
     }
 
@@ -408,6 +429,70 @@ internal class Main : Plugin
         Logger.Info("Pause");
         if (!gameOnlyChange) PauseGameWhenOpen = pause;
         Game.IsPaused = pause;
+    }
+
+    private static void ShowBackground(bool visible)
+    {
+        if (visible) EnableBackground();
+        else DisableBackground();
+    }
+
+    /// <summary>
+    /// Loads a given background from the backgrounds folder.
+    /// </summary>
+    /// <param name="bg_name"></param>
+    /// <returns>The background file. Returns null if background failed to load.</returns>
+    private static Rage.Texture LoadBackground(string bg_name)
+    {
+        return Game.CreateTextureFromFile($"{PLUGIN_DIRECTORY}/{PLUGIN_BACKGROUND_DIRECTORY}/{bg_name}");
+    }
+
+    /// <summary>
+    /// Enables the police computer's background.
+    /// </summary>
+    internal static void EnableBackground()
+    {
+        if (_bg == null)
+        {
+            _bg = LoadBackground(COMPUTER_BACKGROUND);
+        }
+        else
+        {
+            DrawBackground = true;
+        }
+    }
+
+    /// <summary>
+    /// Disables the police computer's background.
+    /// </summary>
+    internal static void DisableBackground()
+    {
+        DrawBackground = false;
+    }
+
+    private static void OnRawFrameRender(object sender, GraphicsEventArgs e)
+    {
+        if (!DrawBackground) return;
+        try
+        {
+            // var time = CurrentTime;
+            var gameResolution = Game.Resolution;
+            e.Graphics.DrawTexture(_bg, 0f, 0f, gameResolution.Width, gameResolution.Height);
+            // var length = Rage.Graphics.MeasureText(time, "Arial", 18).Width;
+            // var taskbarHeight = gameResolution.Height / 25;
+            // var textWidth = taskbar.Width / 150;
+            // var textHeight = taskbar.Height / 4;
+            // taskbar.Size = new SizeF(gameResolution.Width, taskbarHeight);
+            // taskbar.Location = new PointF(1, 1 + gameResolution.Height - taskbarHeight);
+
+            // e.Graphics.DrawText(update_text, "Arial", 18, new(taskbar.X + textWidth, taskbar.Y + textHeight), Color.White);
+            // e.Graphics.DrawText(time, "Arial", 18, new(taskbar.Width - length - textWidth, taskbar.Y + textHeight), Color.White);
+        }
+        catch (Exception ex)
+        {
+            Logger.Error("Exception in OnRawFrameRender");
+            throw ex;
+        }
     }
 }
 
