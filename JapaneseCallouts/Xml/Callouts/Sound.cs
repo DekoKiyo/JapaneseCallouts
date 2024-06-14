@@ -10,6 +10,8 @@ public class CalloutsSoundConfig
     [XmlElement]
     public string DrunkGuys { get; set; }
     [XmlElement]
+    public string HackedPoliceComputer { get; set; }
+    [XmlElement]
     public string HotPursuit { get; set; }
     [XmlElement]
     public string RoadRage { get; set; }

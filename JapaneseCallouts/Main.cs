@@ -92,6 +92,11 @@ global using IPT.Common;
 global using IPT.Common.API;
 global using IPTFunctions = IPT.Common.API.Functions;
 #endregion
+#region Gwen
+global using Gwen;
+global using Gwen.Control;
+global using GButton = Gwen.Control.Button;
+#endregion
 
 namespace JapaneseCallouts;
 
@@ -138,7 +143,25 @@ internal class Main : Plugin
     internal static string RemoteLatestVersion = PLUGIN_VERSION;
 
     internal static MersenneTwister MersenneTwister = new((int)DateTime.Now.Ticks);
+    internal static NavigationController Navigation = new();
     internal const ulong _DOOR_CONTROL = 0x9b12f9a24fabedb0;
+    internal static bool IsPlayerOnDuty = false;
+
+    private static GameFiber RunComputerPlusFiber;
+    private static GameFiber DetectOpenCloseRequestedFiber;
+
+    private static bool CloseRequested = false;
+    private static bool OpenRequested = false;
+
+    private static bool mPauseGameWhenOpen = true;
+    internal static bool PauseGameWhenOpen
+    {
+        get { return mPauseGameWhenOpen; }
+        set
+        {
+            mPauseGameWhenOpen = value;
+        }
+    }
 
     internal static Ped Player
     {
@@ -149,11 +172,19 @@ internal class Main : Plugin
     {
         Functions.OnOnDutyStateChanged += OnDutyStateChanged;
         Localization.Initialize();
+        Navigation.OnFormAdded += NavOnFormAdded;
+        Navigation.OnFormRemoved += NavOnFormRemoved;
+        DetectOpenCloseRequestedFiber = new(ComputerPlusMain);
+        RunComputerPlusFiber = new(RunPoliceComputer);
         Logger.Info($"{PLUGIN_NAME} {PLUGIN_VERSION_DATA} was loaded.");
     }
 
     public override void Finally()
     {
+        Navigation.OnFormAdded -= NavOnFormAdded;
+        Navigation.OnFormRemoved -= NavOnFormRemoved;
+        if (RunComputerPlusFiber.IsRunning()) RunComputerPlusFiber.Abort();
+        if (DetectOpenCloseRequestedFiber.IsRunning()) DetectOpenCloseRequestedFiber.Abort();
         Logger.Info($"{PLUGIN_NAME} {PLUGIN_VERSION_DATA} was unloaded.");
     }
 
@@ -188,6 +219,8 @@ internal class Main : Plugin
             EnemyBlip.Initialize();
             Game.AddConsoleCommands();
             CalloutBase.RegisterAllCallouts();
+            RunComputerPlusFiber.Resume();
+            DetectOpenCloseRequestedFiber.Resume();
             HudHelpers.DisplayNotification(Localization.GetString("PluginLoaded", PLUGIN_NAME, DEVELOPER_NAME), PLUGIN_NAME, PLUGIN_VERSION_DATA);
 #if DEBUG
             DebugManager.Initialize();
@@ -221,6 +254,7 @@ internal class Main : Plugin
                 }
             });
         }
+        IsPlayerOnDuty = OnDuty;
     }
 
     private static string[] FileCheck(out bool error)
@@ -244,6 +278,136 @@ internal class Main : Plugin
         }
 
         return [.. missing];
+    }
+
+    private static void NavOnFormAdded(object sender, NavigationController.NavigationEntry entry)
+    {
+        try
+        {
+            GameFiber.StartNew(() =>
+            {
+                try
+                {
+                    entry.form.Show();
+                    do
+                    {
+                        GameFiber.Yield();
+                    }
+                    while (!CloseRequested && entry.form.IsOpen());
+
+                    Navigation.RemoveEntry(entry, false);
+                }
+                catch (Exception e)
+                {
+                    if (e.GetType() != typeof(ThreadAbortException)) Logger.Error(e.ToString());
+                }
+                // NavOnFormRemoved(sender, entry);
+            });
+        }
+        catch (Exception e)
+        {
+            Logger.Error(e.ToString());
+        }
+    }
+
+    private static void NavOnFormRemoved(object sender, NavigationController.NavigationEntry entry)
+    {
+        try
+        {
+            if (entry.form.Window == null || !entry.form.IsOpen()) return;
+            entry.form.Window.Close();
+            // GameFiber.StartNew(() =>
+            // {
+            // entry.form.Window.Close();
+            // // I know close() supposed to dispose the form. but just in case to make sure the memory is freed
+            // entry.form.Window.Dispose();
+            // });
+        }
+        catch (Exception e)
+        {
+            if (e.GetType() != typeof(ThreadAbortException)) Logger.Error(e.ToString());
+        }
+    }
+
+    private static void ComputerPlusMain()
+    {
+        do
+        {
+            if (!CloseRequested && OpenRequested)
+            {
+                CheckForCloseTrigger();
+            }
+            else
+            {
+                CheckForOpenTrigger();
+            }
+
+            // Function.Log(String.Format("{0} {1} {2}", Game.TimeScale, Game.GameTime, World.DateTime.ToString("hh:mm:ss.f")));
+            // World.TimeOfDay = DateTime.Now.TimeOfDay;
+            GameFiber.Yield();
+        }
+        while (IsPlayerOnDuty);
+        GameFiber.Hibernate();
+    }
+
+    private static void ShowPoliceComputer()
+    {
+        CloseRequested = false;
+        OpenRequested = true;
+        if (RunComputerPlusFiber.IsHibernating) RunComputerPlusFiber.Wake();
+        else if (!RunComputerPlusFiber.IsAlive) RunComputerPlusFiber.Start();
+    }
+
+    private static void ClosePoliceComputer()
+    {
+        CloseRequested = true;
+        OpenRequested = false;
+    }
+
+    private static void RunPoliceComputer()
+    {
+        do
+        {
+            // ShowBackground(ShowBackgroundWhenOpen);
+            GameFiber.Yield();
+            PauseGame(PauseGameWhenOpen);
+
+            GameFiber.WaitUntil(() => Navigation.Head is null);
+            GameFiber.Sleep(100);
+            ClosePoliceComputer();
+            GameFiber.Yield();
+            // ShowBackground(false, true);
+            GameFiber.Yield();
+            PauseGame(false, true);
+            GameFiber.Yield();
+            Navigation.Clear();
+
+            GameFiber.Yield(); // Yield to allow form fibers to close out
+            GameFiber.Hibernate();
+        }
+        while (IsPlayerOnDuty);
+        GameFiber.Hibernate();
+    }
+
+    private static void CheckForOpenTrigger()
+    {
+        ShowPoliceComputer();
+    }
+
+    private static void CheckForCloseTrigger()
+    {
+        if (!CloseRequested && false)
+        {
+            Navigation.Clear();
+            ClosePoliceComputer();
+        }
+    }
+
+    private static void PauseGame(bool pause, bool gameOnlyChange = false)
+    {
+        Logger.Info("Pause");
+        if (!gameOnlyChange) PauseGameWhenOpen = pause;
+        Game.IsPaused = pause;
     }
 }
 

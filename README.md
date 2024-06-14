@@ -64,6 +64,7 @@ Copyrights are [here](https://github.com/DekoKiyo/JapaneseCallouts/wiki/Copyrigh
 **Albo1125**: The original idea and source code for Bank Heist callout and its dialog system came from his [Assorted Callouts](https://github.com/Albo1125/Assorted-Callouts).<br/>
 **YobB1n**: The source code for generating random freemode peds face system came from his [Yobbin Callouts](https://github.com/YobB1n/YobbinCallouts).<br/>
 **kagikn**: One of the developers of [ScriptHookV .NET](https://github.com/scripthookvdotnet/scripthookvdotnet) and wrote the fixed program of help popup, notification, and subtitle's character limits and bugs, when its byte is 2 or higher.<br/>
+**PieRGud**: The source code for making custom windows in the game came from his [Computer Plus](https://github.com/piergud/ComputerPlus)
 
 **Libraries**<br/>
 [Newtonsoft.Json](https://www.newtonsoft.com/json): Used for managing the json files. Developed by **James Newton-King**<br/>
