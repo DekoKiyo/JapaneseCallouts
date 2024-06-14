@@ -42,7 +42,7 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="RagePluginHook" Version="1.109.1" />
     <Reference Include="../SDK/*.dll" />
-    <EmbeddedResource Include="Localization/*.json" Exclude="Localization/Custom.json" />
+    <EmbeddedResource Include="Localization/*.json" />
     <EmbeddedResource Include="Resources/*.xml" />
   </ItemGroup>
 
