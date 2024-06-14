@@ -63,6 +63,7 @@ global using Sprite = RAGENativeUI.Elements.Sprite;
 global using JapaneseCallouts;
 global using JapaneseCallouts.API;
 global using JapaneseCallouts.Callouts;
+global using JapaneseCallouts.Computers;
 global using JapaneseCallouts.Debug;
 global using JapaneseCallouts.Helpers;
 global using JapaneseCallouts.Modules;
