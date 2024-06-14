@@ -12,7 +12,6 @@ global using System.IO.MemoryMappedFiles;
 global using System.Linq;
 global using System.Linq.Expressions;
 global using System.Net;
-global using System.Net.Http;
 global using System.Net.Http.Headers;
 global using System.Media;
 global using System.Reflection;
@@ -98,7 +97,7 @@ namespace JapaneseCallouts;
 internal class Main : Plugin
 {
     // Change here if you want to change the version.
-    internal const string VERSION = "0.1.1";
+    internal const string VERSION = "0.1.2";
 
     private static readonly (string path, bool isError)[] REQUIRE_FILES_PATH =
     [
