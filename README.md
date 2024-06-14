@@ -49,10 +49,12 @@ You can donate on my [Ko-fi](https://ko-fi.com/dekokiyo) or [Amazon Wishlist](ht
 
 ## Translation Status
 Check more information about [Localization](https://github.com/DekoKiyo/JapaneseCallouts/wiki/Localization)
-|                                                   Languages                                                    | Language ID |       Status       |
-| :------------------------------------------------------------------------------------------------------------: | :---------: | :----------------: |
-| [English](https://github.com/DekoKiyo/JapaneseCallouts/blob/crowdin/JapaneseCallouts/Localization/en-US.json)  |      0      | ✅ Fully Translated |
-| [Japanese](https://github.com/DekoKiyo/JapaneseCallouts/blob/crowdin/JapaneseCallouts/Localization/ja-JP.json) |      1      | ✅ Fully Translated |
+|                                                   Languages                                                    | Language ID |       Status       | Credits  |
+| :------------------------------------------------------------------------------------------------------------: | :---------: | :----------------: | :------: |
+| [English](https://github.com/DekoKiyo/JapaneseCallouts/blob/crowdin/JapaneseCallouts/Localization/en-US.json)  |      0      | ✅ Fully Translated | DekoKiyo |
+| [Japanese](https://github.com/DekoKiyo/JapaneseCallouts/blob/crowdin/JapaneseCallouts/Localization/ja-JP.json) |      1      | ✅ Fully Translated | DekoKiyo |
+| [Russian](https://github.com/DekoKiyo/JapaneseCallouts/blob/crowdin/JapaneseCallouts/Localization/ru-RU.json)  |      2      | ✅ Fully Translated |   Alex   |
+| [Italian](https://github.com/DekoKiyo/JapaneseCallouts/blob/crowdin/JapaneseCallouts/Localization/it-IT.json)  |      3      | ✅ Fully Translated | Cristian |
 
 ## Credits & Resources
 Copyrights are [here](https://github.com/DekoKiyo/JapaneseCallouts/wiki/Copyrights)
