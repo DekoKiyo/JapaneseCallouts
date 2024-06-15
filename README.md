@@ -39,7 +39,7 @@ You can donate on my [Ko-fi](https://ko-fi.com/dekokiyo) or [Amazon Wishlist](ht
 ### Japanese Callouts
 | GTA5 Version |    RPH Version    |   LSPDFR Version   | Plugin Version |                                                                                      Link                                                                                       |
 | :----------: | :---------------: | :----------------: | :------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-|  1.0.3179.0  | 1.109.1 or higher | 0.4.9 (Build 8757) |     0.1.3      | [GitHub Release](https://github.com/DekoKiyo/JapaneseCallouts/releases/tag/0.1.3) [lcpdfr.com](https://www.lcpdfr.com/downloads/gta5mods/scripts/47879-japanese-callouts-beta/) |
+|  1.0.3179.0  | 1.109.1 or higher | 0.4.9 (Build 8757) |     0.1.3      | [GitHub Release](https://github.com/DekoKiyo/JapaneseCallouts/releases/tag/0.1.3) [lcpdfr.com](https://www.lcpdfr.com/downloads/gta5mods/scripts/47879-japanese-callouts/) |
 |  1.0.3179.0  | 1.109.1 or higher | 0.4.9 (Build 8757) |     0.1.2      |                                                [GitHub Release](https://github.com/DekoKiyo/JapaneseCallouts/releases/tag/0.1.2)                                                |
 |  1.0.3179.0  | 1.109.1 or higher | 0.4.9 (Build 8757) |     0.1.1      |                                                [GitHub Release](https://github.com/DekoKiyo/JapaneseCallouts/releases/tag/0.1.1)                                                |
 |  1.0.3179.0  | 1.98.0 or higher  | 0.4.9 (Build 8757) |     0.1.0      |                                               [GitHub Release](https://github.com/DekoKiyo/JapaneseCallouts/releases/tag/0.1.0.0)                                               |
@@ -72,4 +72,4 @@ Copyrights are [here](https://github.com/DekoKiyo/JapaneseCallouts/wiki/Copyrigh
 [RAGENativeUI](https://github.com/Alexguirre/RAGENativeUI): Used for making the UI. Developed by **Alexguirre**<br/>
 [INI File Parser](https://github.com/rickyah/ini-parser): Used for parsing the ini files. Developed by **rickyah**<br/>
 [Costura.Fody](https://github.com/Fody/Costura): Used for embedding the resources. Developed by **Fody Team**<br/>
-[IPT.Common](https://github.com/Immersive-Plugins-Team/IPT.Common): Used for check the world weather. Developed by **Immersive Plugins Team**
+[IPT.Common](https://github.com/Immersive-Plugins-Team/IPT.Common): Used for checking the world weather. Developed by **Immersive Plugins Team**
