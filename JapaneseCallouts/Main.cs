@@ -97,7 +97,7 @@ namespace JapaneseCallouts;
 internal class Main : Plugin
 {
     // Change here if you want to change the version.
-    internal const string VERSION = "0.1.2";
+    internal const string VERSION = "0.1.3";
 
     private static readonly (string path, bool isError)[] REQUIRE_FILES_PATH =
     [
@@ -147,7 +147,6 @@ internal class Main : Plugin
     public override void Initialize()
     {
         Functions.OnOnDutyStateChanged += OnDutyStateChanged;
-        Localization.Initialize();
         Logger.Info($"{PLUGIN_NAME} {PLUGIN_VERSION_DATA} was loaded.");
     }
 
@@ -183,6 +182,7 @@ internal class Main : Plugin
             }
             Remote.Initialize();
             Settings.Initialize();
+            Localization.Initialize();
             XmlManager.Initialize();
             EnemyBlip.Initialize();
             Game.AddConsoleCommands();
