@@ -165,11 +165,6 @@ internal class BankHeist : CalloutBase
             }
         }
 
-        foreach (var (pos, hash) in BankData[CalloutPosition].doors)
-        {
-            NativeFunction.CallByHash<uint>(Main._DOOR_CONTROL, hash, pos.X, pos.Y, pos.Z, false, 0f, 0f, 0f);
-        }
-
         Game.SetRelationshipBetweenRelationshipGroups(RelationshipGroup.Cop, RobberRG, Relationship.Hate);
         Game.SetRelationshipBetweenRelationshipGroups(RobberRG, RelationshipGroup.Cop, Relationship.Hate);
         Game.SetRelationshipBetweenRelationshipGroups(RobberRG, Main.Player.RelationshipGroup, Relationship.Hate);
@@ -203,6 +198,11 @@ internal class BankHeist : CalloutBase
                     var eb = new EnemyBlip(r);
                     EnemyBlips.Add(eb);
                 }
+            }
+
+            foreach (var (pos, hash) in BankData[CalloutPosition].doors)
+            {
+                NativeFunction.CallByHash<uint>(Main._DOOR_CONTROL, hash, pos.X, pos.Y, pos.Z, false, 0f, 0f, 0f);
             }
             Arrived = true;
         }
