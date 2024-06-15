@@ -75,3 +75,8 @@ Copyrights are [here](https://github.com/DekoKiyo/JapaneseCallouts/wiki/Copyrigh
 [INI File Parser](https://github.com/rickyah/ini-parser): Used for parsing the ini files. Developed by **rickyah**<br/>
 [Costura.Fody](https://github.com/Fody/Costura): Used for embedding the resources. Developed by **Fody Team**<br/>
 [IPT.Common](https://github.com/Immersive-Plugins-Team/IPT.Common): Used for checking the world weather. Developed by **Immersive Plugins Team**
+
+**Translators**<br/>
+Russian: Alex<br/>
+Italian: Cristian<br/>
+Czech: Wigleg<br/>
