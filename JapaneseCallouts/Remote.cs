@@ -6,10 +6,10 @@ internal static class Remote
 
     internal static void Initialize()
     {
-        ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-
         try
         {
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+
             var client = new WebClient();
             var uri = new Uri(DATA_JSON);
             var data = client.DownloadString(uri).Trim();
