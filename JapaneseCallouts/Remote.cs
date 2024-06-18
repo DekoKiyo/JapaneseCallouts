@@ -8,7 +8,7 @@ internal static class Remote
     {
         try
         {
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls13;
 
             var client = new WebClient();
             var uri = new Uri(DATA_JSON);
