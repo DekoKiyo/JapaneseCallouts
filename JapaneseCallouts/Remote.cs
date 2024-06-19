@@ -11,7 +11,7 @@ internal static class Remote
         try
         {
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls13;
-            var data = await HttpClient.GetStringAsync(DATA_JSON);
+            var data = await GetStringAsync(DATA_JSON);
             var json = JsonConvert.DeserializeObject<Dictionary<string, object>>(data);
             Main.RemoteLatestVersion = (string)json["latest"];
         }
