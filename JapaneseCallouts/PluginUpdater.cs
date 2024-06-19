@@ -27,13 +27,14 @@ internal static class PluginUpdater
             if (File.Exists(DLL_PATH)) File.Move(DLL_PATH, OLD_PATH);
 
             File.WriteAllBytes(DLL_PATH, data);
+
+            HudHelpers.DisplayNotification(Localization.GetString("UpdateAuto"), Main.PLUGIN_NAME, "");
+            Logger.Info($"{Main.PLUGIN_NAME} was updated to {Main.RemoteLatestVersion}.");
         }
         catch (Exception e)
         {
             Logger.Error(e.ToString());
+            Logger.Error("Failed to update the plugin.");
         }
-
-        HudHelpers.DisplayNotification(Localization.GetString("UpdateAuto"), Main.PLUGIN_NAME, "");
-        Logger.Info($"{Main.PLUGIN_NAME} was updated to {Main.RemoteLatestVersion}.");
     }
 }
