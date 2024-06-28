@@ -39,7 +39,8 @@ You can donate on my [Ko-fi](https://ko-fi.com/dekokiyo) or [Amazon Wishlist](ht
 ### Japanese Callouts
 | GTA5 Version |    RPH Version    |   LSPDFR Version   | Plugin Version |                                                                                    Link                                                                                    |
 | :----------: | :---------------: | :----------------: | :------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-|  1.0.3179.0  | 1.109.1 or higher | 0.4.9 (Build 8757) |     0.1.4      | [GitHub Release](https://github.com/DekoKiyo/JapaneseCallouts/releases/tag/0.1.4) [lcpdfr.com](https://www.lcpdfr.com/downloads/gta5mods/scripts/47879-japanese-callouts/) |
+|  1.0.3258.0  | 1.109.1 or higher | 0.4.9 (Build 8943) |     1.0.0      | [GitHub Release](https://github.com/DekoKiyo/JapaneseCallouts/releases/tag/1.0.0) [lcpdfr.com](https://www.lcpdfr.com/downloads/gta5mods/scripts/47879-japanese-callouts/) |
+|  1.0.3179.0  | 1.109.1 or higher | 0.4.9 (Build 8757) |     0.1.4      |                                             [GitHub Release](https://github.com/DekoKiyo/JapaneseCallouts/releases/tag/0.1.4)                                              |
 |  1.0.3179.0  | 1.109.1 or higher | 0.4.9 (Build 8757) |     0.1.3      |                                             [GitHub Release](https://github.com/DekoKiyo/JapaneseCallouts/releases/tag/0.1.3)                                              |
 |  1.0.3179.0  | 1.109.1 or higher | 0.4.9 (Build 8757) |     0.1.2      |                                             [GitHub Release](https://github.com/DekoKiyo/JapaneseCallouts/releases/tag/0.1.2)                                              |
 |  1.0.3179.0  | 1.109.1 or higher | 0.4.9 (Build 8757) |     0.1.1      |                                             [GitHub Release](https://github.com/DekoKiyo/JapaneseCallouts/releases/tag/0.1.1)                                              |
@@ -59,6 +60,7 @@ Check more information about [Localization](https://github.com/DekoKiyo/Japanese
 | [Russian](https://github.com/DekoKiyo/JapaneseCallouts/blob/crowdin/JapaneseCallouts/Localization/ru-RU.json)  |      2      | ✅ Fully Translated |    Alex    |
 | [Italian](https://github.com/DekoKiyo/JapaneseCallouts/blob/crowdin/JapaneseCallouts/Localization/it-IT.json)  |      3      | ✅ Fully Translated |  Cristian  |
 |  [Czech](https://github.com/DekoKiyo/JapaneseCallouts/blob/crowdin/JapaneseCallouts/Localization/cs-CZ.json)   |      4      | ✅ Fully Translated |   Wigleg   |
+|  [German](https://github.com/DekoKiyo/JapaneseCallouts/blob/crowdin/JapaneseCallouts/Localization/de-DE.json)  |      5      | ✅ Fully Translated |   Chris    |
 
 ## Credits & Resources
 Copyrights are [here](https://github.com/DekoKiyo/JapaneseCallouts/wiki/Copyrights)
@@ -80,3 +82,4 @@ Copyrights are [here](https://github.com/DekoKiyo/JapaneseCallouts/wiki/Copyrigh
 Russian: Alex<br/>
 Italian: Cristian<br/>
 Czech: Wigleg<br/>
+German: Chris<br/>

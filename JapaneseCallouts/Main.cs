@@ -98,7 +98,7 @@ namespace JapaneseCallouts;
 internal class Main : Plugin
 {
     // Change here if you want to change the version.
-    internal const string VERSION = "0.1.4";
+    internal const string VERSION = "1.0.0";
 
     private static readonly (string path, bool isError)[] REQUIRE_FILES_PATH =
     [
@@ -121,7 +121,7 @@ internal class Main : Plugin
     internal const string PLUGIN_NAME = "Japanese Callouts";
     internal const string PLUGIN_NAME_NO_SPACE = "JapaneseCallouts";
     internal const string DEVELOPER_NAME = "DekoKiyo";
-    internal const string VERSION_PREFIX = "Beta.";
+    internal const string VERSION_PREFIX = "";
 
     internal const string LSPDFR_DIRECTORY = @"plugins/LSPDFR";
     internal const string PLUGIN_DIRECTORY = @$"{LSPDFR_DIRECTORY}/{PLUGIN_NAME_NO_SPACE}";

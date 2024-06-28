@@ -36,4 +36,5 @@ internal enum ELanguages
     Russian = 2,
     Italian = 3,
     Czech = 4,
+    German = 5,
 }
