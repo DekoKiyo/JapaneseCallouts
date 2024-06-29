@@ -9,6 +9,8 @@ internal static class LanguageHelpers
             ELanguages.Japanese => "ja-JP",
             ELanguages.Russian => "ru-RU",
             ELanguages.Italian => "it-IT",
+            ELanguages.Czech => "cs-CZ",
+            ELanguages.German => "de-DE",
             _ => "en-US"
         };
     }

@@ -98,7 +98,7 @@ namespace JapaneseCallouts;
 internal class Main : Plugin
 {
     // Change here if you want to change the version.
-    internal const string VERSION = "1.0.0";
+    internal const string VERSION = "1.0.1";
 
     private static readonly (string path, bool isError)[] REQUIRE_FILES_PATH =
     [
