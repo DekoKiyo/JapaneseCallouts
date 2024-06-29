@@ -231,7 +231,7 @@ internal class Main : Plugin
         foreach (var (path, isError) in REQUIRE_FILES_PATH)
         {
             missing.Add(path);
-            if (!error)
+            if (!error && isError)
             {
                 error = isError;
             }
