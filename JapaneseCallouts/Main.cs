@@ -227,20 +227,14 @@ internal class Main : Plugin
     {
         error = false;
         var missing = new List<string>();
-        if (!File.Exists(NAUDIO_CORE_DLL))
-        {
-            missing.Add(NAUDIO_CORE_DLL);
-            error = true;
-        }
-        if (!File.Exists(CALLOUT_INTERFACE_API_DLL))
-        {
-            missing.Add(CALLOUT_INTERFACE_API_DLL);
-            error = true;
-        }
 
         foreach (var (path, isError) in REQUIRE_FILES_PATH)
         {
-
+            missing.Add(path);
+            if (!error)
+            {
+                error = isError;
+            }
         }
 
         return [.. missing];
