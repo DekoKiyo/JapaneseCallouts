@@ -29,7 +29,7 @@ internal class PacificBankHeist : CalloutBase
     private SoundPlayer BankAlarm;
     private uint SpeedZoneId;
     private const BlipSprite SPRITE = BlipSprite.CriminalCarsteal;
-    private static int HostageCount = XmlManager.PacificBankHeistConfig.HostageCount > XmlManager.PacificBankHeistConfig.HostagePositions.Count ? XmlManager.PacificBankHeistConfig.HostagePositions.Count : XmlManager.PacificBankHeistConfig.HostageCount;
+    private static readonly int HostageCount = XmlManager.PacificBankHeistConfig.HostageCount > XmlManager.PacificBankHeistConfig.HostagePositions.Count ? XmlManager.PacificBankHeistConfig.HostagePositions.Count : XmlManager.PacificBankHeistConfig.HostageCount;
 
     private Vector3 BankLocation = new(250.9f, 219.0f, 106.2f);
     private Vector3 OutsideBankVault = new(257.2f, 225.2f, 101.8f);
