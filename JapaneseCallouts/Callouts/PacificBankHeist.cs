@@ -29,15 +29,15 @@ internal class PacificBankHeist : CalloutBase
     private SoundPlayer BankAlarm;
     private uint SpeedZoneId;
     private const BlipSprite SPRITE = BlipSprite.CriminalCarsteal;
-    private static readonly int HostageCount = XmlManager.PacificBankHeistConfig.HostageCount > XmlManager.PacificBankHeistConfig.HostagePositions.Count ? XmlManager.PacificBankHeistConfig.HostagePositions.Count : XmlManager.PacificBankHeistConfig.HostageCount;
+    private readonly int HostageCount = XmlManager.PacificBankHeistConfig.HostageCount > XmlManager.PacificBankHeistConfig.HostagePositions.Count ? XmlManager.PacificBankHeistConfig.HostagePositions.Count : XmlManager.PacificBankHeistConfig.HostageCount;
 
-    private Vector3 BankLocation = new(250.9f, 219.0f, 106.2f);
-    private Vector3 OutsideBankVault = new(257.2f, 225.2f, 101.8f);
+    private readonly Vector3 BankLocation = new(250.9f, 219.0f, 106.2f);
+    private readonly Vector3 OutsideBankVault = new(257.2f, 225.2f, 101.8f);
     private readonly Vector3[] PacificBankInsideChecks = [new(235.9f, 220.6f, 106.2f), new(238.3f, 214.8f, 106.2f), new(261.0f, 208.1f, 106.2f), new(235.2f, 217.1f, 106.2f)];
     private readonly Vector3[] BankDoorPositions = [new(231.5f, 215.2f, 106.2f), new(259.1f, 202.7f, 106.2f)];
 
     // Timer Bars
-    internal TimerBarPool TBPool = [];
+    internal readonly TimerBarPool TBPool = [];
     internal TextTimerBar RescuedHostagesTB;
     internal TextTimerBar DiedHostagesTB;
 
@@ -341,7 +341,7 @@ internal class PacificBankHeist : CalloutBase
     private Blip CommanderBlip;
     private RObject MobilePhone;
 
-    private static int DiedRobbersCount = 0;
+    private int DiedRobbersCount = 0;
 
     private AlarmState CurrentAlarmState = AlarmState.None;
     private NegotiationResult Result = NegotiationResult.Fight;
