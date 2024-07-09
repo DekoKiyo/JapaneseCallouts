@@ -666,7 +666,7 @@ internal class PacificBankHeistN : CalloutBase
                         IsVisible = false,
                         IsPositionFrozen = true,
                         BlockPermanentEvents = true,
-                        IsPersistent = true
+                        IsPersistent = true,
                     };
                     if (barrier is not null && barrier.IsValid() && barrier.Exists())
                     {
@@ -694,6 +694,7 @@ internal class PacificBankHeistN : CalloutBase
                         MaxHealth = data.Health,
                         Health = data.Health,
                         Armor = data.Armor,
+                        KeepTasks = true,
                     };
                     if (swat is not null && swat.IsValid() && swat.Exists())
                     {
@@ -722,6 +723,7 @@ internal class PacificBankHeistN : CalloutBase
                         MaxHealth = data.Health,
                         Health = data.Health,
                         Armor = data.Armor,
+                        KeepTasks = true,
                     };
                     if (swat is not null && swat.IsValid() && swat.Exists())
                     {
@@ -750,6 +752,7 @@ internal class PacificBankHeistN : CalloutBase
                         MaxHealth = data.Health,
                         Health = data.Health,
                         Armor = data.Armor,
+                        KeepTasks = true,
                     };
                     if (swat is not null && swat.IsValid() && swat.Exists())
                     {
@@ -778,6 +781,7 @@ internal class PacificBankHeistN : CalloutBase
                         MaxHealth = data.Health,
                         Health = data.Health,
                         Armor = data.Armor,
+                        KeepTasks = true,
                     };
                     if (officer is not null && officer.IsValid() && officer.Exists())
                     {
@@ -808,6 +812,7 @@ internal class PacificBankHeistN : CalloutBase
                         MaxHealth = data.Health,
                         Health = data.Health,
                         Armor = data.Armor,
+                        KeepTasks = true,
                     };
                     if (officer is not null && officer.IsValid() && officer.Exists())
                     {
@@ -834,6 +839,7 @@ internal class PacificBankHeistN : CalloutBase
                     MaxHealth = cData.Health,
                     Health = cData.Health,
                     Armor = cData.Armor,
+                    KeepTasks = true,
                 };
                 if (Commander is not null && Commander.IsValid() && Commander.Exists())
                 {
@@ -866,6 +872,7 @@ internal class PacificBankHeistN : CalloutBase
                         Health = data.Health,
                         Armor = data.Armor,
                         RelationshipGroup = RobbersRG,
+                        KeepTasks = true,
                     };
                     if (ped is not null && ped.IsValid() && ped.Exists())
                     {
@@ -896,7 +903,8 @@ internal class PacificBankHeistN : CalloutBase
                             MaxHealth = data.Health,
                             Health = data.Health,
                             Armor = data.Armor,
-                            RelationshipGroup = SneakRobbersRG
+                            RelationshipGroup = SneakRobbersRG,
+                            KeepTasks = true,
                         };
                         if (ped is not null && ped.IsValid() && ped.Exists())
                         {
@@ -928,6 +936,7 @@ internal class PacificBankHeistN : CalloutBase
                         MaxHealth = data.Health,
                         Health = data.Health,
                         Armor = data.Armor,
+                        KeepTasks = true,
                     };
                     if (paramedic is not null && paramedic.IsValid() && paramedic.Exists())
                     {
@@ -946,6 +955,7 @@ internal class PacificBankHeistN : CalloutBase
                         MaxHealth = data.Health,
                         Health = data.Health,
                         Armor = data.Armor,
+                        KeepTasks = true,
                     };
                     if (firefighter is not null && firefighter.IsValid() && firefighter.Exists())
                     {
@@ -971,6 +981,7 @@ internal class PacificBankHeistN : CalloutBase
                         MaxHealth = data.Health,
                         Health = data.Health,
                         Armor = data.Armor,
+                        KeepTasks = true,
                     };
                     if (hostage is not null && hostage.IsValid() && hostage.Exists())
                     {
@@ -1242,7 +1253,7 @@ internal class PacificBankHeistN : CalloutBase
                 GameFiber.Yield();
                 foreach (var cop in AllOfficers)
                 {
-                    if (cop.Tasks.CurrentTaskStatus is not Rage.TaskStatus.InProgress)
+                    if (cop.Tasks.CurrentTaskStatus is not Rage.TaskStatus.InProgress or Rage.TaskStatus.Interrupted or Rage.TaskStatus.Preparing)
                     {
                         cop.Tasks.Clear();
                         cop.Tasks.FightAgainstClosestHatedTarget(500f, -1);
@@ -1250,7 +1261,7 @@ internal class PacificBankHeistN : CalloutBase
                 }
                 foreach (var cop in AllSWATUnits)
                 {
-                    if (cop.Tasks.CurrentTaskStatus is not Rage.TaskStatus.InProgress)
+                    if (cop.Tasks.CurrentTaskStatus is not Rage.TaskStatus.InProgress or Rage.TaskStatus.Interrupted or Rage.TaskStatus.Preparing)
                     {
                         cop.Tasks.Clear();
                         cop.Tasks.FightAgainstClosestHatedTarget(500f, -1);
@@ -1258,7 +1269,7 @@ internal class PacificBankHeistN : CalloutBase
                 }
                 foreach (var robber in AllRobbers)
                 {
-                    if (robber.Tasks.CurrentTaskStatus is not Rage.TaskStatus.InProgress)
+                    if (robber.Tasks.CurrentTaskStatus is not Rage.TaskStatus.InProgress or Rage.TaskStatus.Interrupted or Rage.TaskStatus.Preparing)
                     {
                         robber.Tasks.Clear();
                         robber.Tasks.FightAgainstClosestHatedTarget(500f, -1);
