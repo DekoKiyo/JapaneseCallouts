@@ -3,6 +3,8 @@
     The source code is licensed under the GPL-3.0.
 
     Edited by @DekoKiyo
+
+    Remade on July, 2024
 */
 
 namespace JapaneseCallouts.Callouts;
@@ -67,7 +69,7 @@ internal class PacificBankHeistN : CalloutBase
         /// 最終処理
         /// 必ず通過する
         /// </summary>
-        Last = 256u, // all
+        Last = 256u,
     }
 
     // Status
@@ -1139,23 +1141,6 @@ internal class PacificBankHeistN : CalloutBase
                         }
                     }
 
-                    if (KeyHelpers.IsKeysDown(Settings.SWATFollowKey, Settings.SWATFollowModifierKey))
-                    {
-                        SwitchSWATFollowing();
-                    }
-
-                    if (IsSWATFollowing)
-                    {
-                        if (Main.Player is not null && Main.Player.IsValid() && Main.Player.IsAlive)
-                        {
-                            if (Main.Player.IsShooting)
-                            {
-                                IsSWATFollowing = false;
-                                HudHelpers.DisplayHelp(Localization.GetString("SWATIsNotFollowing"));
-                            }
-                        }
-                    }
-
                     // If all hostages rescued break
                     if (SafeHostagesCount == AliveHostagesCount) break;
                     // If surrendered
@@ -1163,7 +1148,6 @@ internal class PacificBankHeistN : CalloutBase
                 }
 
                 // The end
-                IsSWATFollowing = false;
                 Status = EPacificBankHeistStatus.Last;
                 IsAlarmEnable = false;
 
