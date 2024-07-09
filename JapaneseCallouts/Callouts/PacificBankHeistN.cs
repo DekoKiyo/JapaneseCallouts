@@ -391,6 +391,7 @@ internal class PacificBankHeistN : CalloutBase
 
     // Lists
     private readonly List<Entity> CalloutEntities = [];
+    private readonly List<Entity> OtherEntities = [];
 
     private readonly List<Vehicle> AllPoliceVehicles = [];
     private readonly List<Vehicle> AllRiot = [];
@@ -435,6 +436,72 @@ internal class PacificBankHeistN : CalloutBase
 
         OnCalloutsEnded += () =>
         {
+            if (BankAlarm is not null)
+            {
+                BankAlarm.Stop();
+                BankAlarm.Dispose();
+            }
+            Main.Player.IsPositionFrozen = false;
+            Game.LocalPlayer.HasControl = true;
+            NativeFunction.Natives.SET_PLAYER_WEAPON_DEFENSE_MODIFIER(Game.LocalPlayer, 1f);
+            NativeFunction.Natives.SET_PLAYER_WEAPON_DAMAGE_MODIFIER(Game.LocalPlayer, 1f);
+            NativeFunction.Natives.RESET_AI_WEAPON_DAMAGE_MODIFIER();
+            NativeFunction.Natives.RESET_AI_MELEE_WEAPON_DAMAGE_MODIFIER();
+            if (SideDoorBlip is not null && SideDoorBlip.IsValid() && SideDoorBlip.Exists()) SideDoorBlip.Delete();
+            ToggleMobilePhone(Main.Player, false);
+
+            if (BankBlip is not null && BankBlip.IsValid() && BankBlip.Exists()) BankBlip.Delete();
+            if (Commander is not null && Commander.IsValid() && Commander.Exists()) Commander.Dismiss();
+            if (Wife is not null && Wife.IsValid() && Wife.Exists()) Wife.Dismiss();
+            if (WifeDriver is not null && WifeDriver.IsValid() && WifeDriver.Exists()) WifeDriver.Dismiss();
+            if (WifeCar is not null && WifeCar.IsValid() && WifeCar.Exists()) WifeCar.Dismiss();
+            if (CommanderBlip is not null && CommanderBlip.IsValid() && CommanderBlip.Exists()) CommanderBlip.Delete();
+            if (MobilePhone is not null && MobilePhone.IsValid() && MobilePhone.Exists()) MobilePhone.Delete();
+            foreach (var e in AllBarriersEntities) if (e is not null && e.IsValid() && e.Exists()) e.Delete();
+            foreach (var b in RiotBlips) if (b is not null && b.IsValid() && b.Exists()) b.Delete();
+            foreach (var b in EnemyBlips) b?.Dismiss();
+            World.RemoveSpeedZone(SpeedZoneId);
+
+            if (IsCalloutFinished)
+            {
+                foreach (var e in AllPoliceVehicles) if (e is not null && e.IsValid() && e.Exists()) e.Delete();
+                foreach (var e in AllRiot) if (e is not null && e.IsValid() && e.Exists()) e.Delete();
+                foreach (var e in AllAmbulance) if (e is not null && e.IsValid() && e.Exists()) e.Delete();
+                foreach (var e in AllOfficers) if (e is not null && e.IsValid() && e.Exists()) e.Delete();
+                foreach (var e in AllStandingOfficers) if (e is not null && e.IsValid() && e.Exists()) e.Delete();
+                foreach (var e in AllAimingOfficers) if (e is not null && e.IsValid() && e.Exists()) e.Delete();
+                foreach (var e in OfficersArresting) if (e is not null && e.IsValid() && e.Exists()) e.Delete();
+                foreach (var e in AllSWATUnits) if (e is not null && e.IsValid() && e.Exists()) e.Delete();
+                foreach (var e in AllRobbers) if (e is not null && e.IsValid() && e.Exists()) e.Delete();
+                foreach (var e in AllSneakRobbers) if (e is not null && e.IsValid() && e.Exists()) e.Delete();
+                foreach (var e in AllVaultRobbers) if (e is not null && e.IsValid() && e.Exists()) e.Delete();
+                foreach (var e in FightingSneakRobbers) if (e is not null && e.IsValid() && e.Exists()) e.Delete();
+                foreach (var e in RescuedHostages) if (e is not null && e.IsValid() && e.Exists()) e.Delete();
+                foreach (var e in SafeHostages) if (e is not null && e.IsValid() && e.Exists()) e.Delete();
+                foreach (var e in AllHostages) if (e is not null && e.IsValid() && e.Exists()) e.Delete();
+                foreach (var e in SpawnedHostages) if (e is not null && e.IsValid() && e.Exists()) e.Delete();
+                foreach (var e in OtherEntities) if (e is not null && e.IsValid() && e.Exists()) e.Delete();
+            }
+            else
+            {
+                foreach (var e in AllPoliceVehicles) if (e is not null && e.IsValid() && e.Exists()) e.Dismiss();
+                foreach (var e in AllRiot) if (e is not null && e.IsValid() && e.Exists()) e.Dismiss();
+                foreach (var e in AllAmbulance) if (e is not null && e.IsValid() && e.Exists()) e.Dismiss();
+                foreach (var e in AllOfficers) if (e is not null && e.IsValid() && e.Exists()) e.Dismiss();
+                foreach (var e in AllStandingOfficers) if (e is not null && e.IsValid() && e.Exists()) e.Dismiss();
+                foreach (var e in AllAimingOfficers) if (e is not null && e.IsValid() && e.Exists()) e.Dismiss();
+                foreach (var e in OfficersArresting) if (e is not null && e.IsValid() && e.Exists()) e.Dismiss();
+                foreach (var e in AllSWATUnits) if (e is not null && e.IsValid() && e.Exists()) e.Dismiss();
+                foreach (var e in AllRobbers) if (e is not null && e.IsValid() && e.Exists()) e.Dismiss();
+                foreach (var e in AllSneakRobbers) if (e is not null && e.IsValid() && e.Exists()) e.Dismiss();
+                foreach (var e in AllVaultRobbers) if (e is not null && e.IsValid() && e.Exists()) e.Dismiss();
+                foreach (var e in FightingSneakRobbers) if (e is not null && e.IsValid() && e.Exists()) e.Dismiss();
+                foreach (var e in RescuedHostages) if (e is not null && e.IsValid() && e.Exists()) e.Dismiss();
+                foreach (var e in SafeHostages) if (e is not null && e.IsValid() && e.Exists()) e.Dismiss();
+                foreach (var e in AllHostages) if (e is not null && e.IsValid() && e.Exists()) e.Dismiss();
+                foreach (var e in SpawnedHostages) if (e is not null && e.IsValid() && e.Exists()) e.Dismiss();
+                foreach (var e in OtherEntities) if (e is not null && e.IsValid() && e.Exists()) e.Dismiss();
+            }
         };
     }
 
@@ -647,6 +714,7 @@ internal class PacificBankHeistN : CalloutBase
                     if (vehicle is not null && vehicle.IsValid() && vehicle.Exists())
                     {
                         vehicle.ApplyTexture(data);
+                        OtherEntities.Add(vehicle);
                         CalloutEntities.Add(vehicle);
                     }
                 }
@@ -941,6 +1009,7 @@ internal class PacificBankHeistN : CalloutBase
                     if (paramedic is not null && paramedic.IsValid() && paramedic.Exists())
                     {
                         paramedic.SetOutfit(data);
+                        OtherEntities.Add(paramedic);
                         CalloutEntities.Add(paramedic);
                     }
                 }
@@ -960,6 +1029,7 @@ internal class PacificBankHeistN : CalloutBase
                     if (firefighter is not null && firefighter.IsValid() && firefighter.Exists())
                     {
                         firefighter.SetOutfit(data);
+                        OtherEntities.Add(firefighter);
                         CalloutEntities.Add(firefighter);
                     }
                 }
@@ -1202,6 +1272,7 @@ internal class PacificBankHeistN : CalloutBase
             {
                 Logger.Error("The exception is occurred in the process of callout.", nameof(PacificBankHeistN));
                 Logger.Error(e.ToString());
+                End();
             }
         }, $"[{nameof(PacificBankHeistN)}] Callout Main Process");
     }
