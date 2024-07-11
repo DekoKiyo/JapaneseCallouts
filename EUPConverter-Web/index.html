@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <title>INI to XML Converter</title>
+</head>
+
+<body>
+  <input type="file" id="fileInput" accept=".ini">
+  <button id="convertBtn">Convert to XML</button>
+  <select id="list-box" name="eup-outfit-list">
+  </select>
+  <div>
+    <label for="is_sunny">Is ped spawned in sunny</label>
+    <input type="checkbox" id="is_sunny">
+    <label for="is_rainy">Is ped spawned in rainy</label>
+    <input type="checkbox" id="is_rainy">
+    <label for="is_snowy">Is ped spawned in snowy</label>
+    <input type="checkbox" id="is_snowy">
+    <label for="health">Input ped health value</label>
+    <input type="number" id="health">
+    <label for="armor">Input ped armor value</label>
+    <input type="number" id="armor">
+  </div>
+  <pre id="output"></pre>
+</body>
+
+<script src="script.js"></script>
+
+</html>
