@@ -230,10 +230,13 @@ internal class Main : Plugin
 
         foreach (var (path, isError) in REQUIRE_FILES_PATH)
         {
-            missing.Add(path);
-            if (!error && isError)
+            if (!File.Exists(path))
             {
-                error = isError;
+                missing.Add(path);
+                if (!error && isError)
+                {
+                    error = isError;
+                }
             }
         }
 
