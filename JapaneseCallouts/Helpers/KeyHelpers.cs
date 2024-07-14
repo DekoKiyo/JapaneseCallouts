@@ -13,11 +13,11 @@ internal static class KeyHelpers
     internal static void DisplayKeyHelp(string transKey, Keys Main, Keys Modifier = Keys.None, int duration = 5000, bool sound = true)
     {
         var key = Modifier is Keys.None ? $"~{Main.GetInstructionalId()}~" : $"~{Main.GetInstructionalId()}~ ~+~ ~{Modifier.GetInstructionalId()}~";
-        HudHelpers.DisplayHelp(Localization.GetString(transKey, key), duration, sound);
+        Hud.DisplayHelp(Localization.GetString(transKey, key), duration, sound);
     }
     internal static void DisplayKeyHelp(string transKey, string[] args, Keys Main, Keys Modifier = Keys.None, int duration = 5000, bool sound = true)
     {
         var key = Modifier is Keys.None ? $"~{Main.GetInstructionalId()}~" : $"~{Main.GetInstructionalId()}~ ~+~ ~{Modifier.GetInstructionalId()}~";
-        HudHelpers.DisplayHelp(Localization.GetString(transKey, [key, .. args]), duration, sound);
+        Hud.DisplayHelp(Localization.GetString(transKey, [key, .. args]), duration, sound);
     }
 }

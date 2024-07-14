@@ -42,7 +42,7 @@ internal static class Conversations
         for (int i = 0; i < lines.Length; i++)
         {
             var text = $"~b~{lines[i].speaker}~s~: {lines[i].text} {(displayCount ? $"({(i + 1).ToString()}/{lines.Length.ToString()})" : "")}";
-            HudHelpers.DisplaySubtitle(text, 10000);
+            Hud.DisplaySubtitle(text, 10000);
             while (i < lines.Length - 1)
             {
                 GameFiber.Yield();

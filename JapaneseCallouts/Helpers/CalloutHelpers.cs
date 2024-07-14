@@ -12,7 +12,7 @@ internal static class CalloutHelpers
             NativeFunction.Natives.THEFEED_SET_SNAP_FEED_ITEM_POSITIONS(true);
             NativeFunction.Natives.THEFEED_SET_SNAP_FEED_ITEM_POSITIONS(false);
         }
-        HudHelpers.DisplayNotification(Localization.GetString("CalloutNotificationText", callName, location), Localization.GetString("Dispatch"), Localization.GetString("CalloutNotificationSubtitle"), "CHAR_CALL911", "CHAR_CALL911");
+        Hud.DisplayNotification(Localization.GetString("CalloutNotificationText", callName, location), Localization.GetString("Dispatch"), Localization.GetString("CalloutNotificationSubtitle"), "CHAR_CALL911", "CHAR_CALL911");
     }
 
     internal static T Select<T>(T[] data) where T : IBackupObject

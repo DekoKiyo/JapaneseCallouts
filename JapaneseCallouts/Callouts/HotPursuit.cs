@@ -25,14 +25,14 @@ internal class HotPursuit : CalloutBase
             {
                 if (suspect is not null && suspect.IsValid() && suspect.Exists()) suspect.Dismiss();
                 if (vehicle is not null && vehicle.IsValid() && vehicle.Exists()) vehicle.Dismiss();
-                HudHelpers.DisplayNotification(Localization.GetString("CalloutCode4"), Localization.GetString("Dispatch"), Localization.GetString("HotPursuit"));
+                Hud.DisplayNotification(Localization.GetString("CalloutCode4"), Localization.GetString("Dispatch"), Localization.GetString("HotPursuit"));
             }
         };
     }
 
     internal override void Accepted()
     {
-        HudHelpers.DisplayNotification(Localization.GetString("HotPursuitDesc"), Localization.GetString("Dispatch"), Localization.GetString("HotPursuit"));
+        Hud.DisplayNotification(Localization.GetString("HotPursuitDesc"), Localization.GetString("Dispatch"), Localization.GetString("HotPursuit"));
 
         var vData = CalloutHelpers.Select([.. XmlManager.HotPursuitConfig.Vehicles]);
         vehicle = new(vData.Model, CalloutPosition);

@@ -32,14 +32,14 @@ internal class WantedCriminalFound : CalloutBase
             if (blip is not null && blip.IsValid() && blip.Exists()) blip.Delete();
             if (!Main.Player.IsDead)
             {
-                HudHelpers.DisplayNotification(Localization.GetString("CalloutCode4"), Localization.GetString("Dispatch"), Localization.GetString("WantedCriminalFound"));
+                Hud.DisplayNotification(Localization.GetString("CalloutCode4"), Localization.GetString("Dispatch"), Localization.GetString("WantedCriminalFound"));
             }
         };
     }
 
     internal override void Accepted()
     {
-        HudHelpers.DisplayNotification(Localization.GetString("WantedCriminalFoundDesc"), Localization.GetString("Dispatch"), Localization.GetString("WantedCriminalFound"));
+        Hud.DisplayNotification(Localization.GetString("WantedCriminalFoundDesc"), Localization.GetString("Dispatch"), Localization.GetString("WantedCriminalFound"));
 
         var weather = CalloutHelpers.GetWeatherType(IPTFunctions.GetWeatherType());
         var data = CalloutHelpers.SelectPed(weather, [.. XmlManager.WantedCriminalFoundConfig.Criminals]);
@@ -80,8 +80,8 @@ internal class WantedCriminalFound : CalloutBase
             blip.Position = criminal.Position;
             blip.IsRouteEnabled = true;
 
-            HudHelpers.DisplayNotification(Localization.GetString("GPSUpdate"), Localization.GetString("Dispatch"), Localization.GetString("WantedCriminalFound"));
-            HudHelpers.DisplayNotification(Localization.GetString("WantedCriminalData", criminal.IsMale ? Localization.GetString("Male") : Localization.GetString("Female")), Localization.GetString("Dispatch"), Localization.GetString("WantedCriminalFound"));
+            Hud.DisplayNotification(Localization.GetString("GPSUpdate"), Localization.GetString("Dispatch"), Localization.GetString("WantedCriminalFound"));
+            Hud.DisplayNotification(Localization.GetString("WantedCriminalData", criminal.IsMale ? Localization.GetString("Male") : Localization.GetString("Female")), Localization.GetString("Dispatch"), Localization.GetString("WantedCriminalFound"));
             Functions.PlayScannerAudioUsingPosition("SUSPECT_LAST_SEEN IN_OR_ON_POSITION", criminal.Position);
             count++;
         }

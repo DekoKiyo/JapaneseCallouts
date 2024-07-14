@@ -444,13 +444,13 @@ internal class PacificBankHeistN : CalloutBase
         BankAlarm = new($"{Main.PLUGIN_DIRECTORY}/{Main.PLUGIN_AUDIO_DIRECTORY}/{ALARM_SOUND_FILE_NAME}");
         BankAlarm.Load();
 
-        HudHelpers.DisplayNotification(Localization.GetString("BankHeistWarning"), Main.PLUGIN_NAME, Localization.GetString("BankHeist"));
+        Hud.DisplayNotification(Localization.GetString("BankHeistWarning"), Main.PLUGIN_NAME, Localization.GetString("BankHeist"));
 
         if (Main.Player.IsInAnyVehicle(false))
         {
             CalloutEntities.Add(Main.Player.CurrentVehicle);
         }
-        HudHelpers.DisplayNotification(Localization.GetString("PacificBankHeistDesc"), Localization.GetString("Dispatch"), Localization.GetString("BankHeist"));
+        Hud.DisplayNotification(Localization.GetString("PacificBankHeistDesc"), Localization.GetString("Dispatch"), Localization.GetString("BankHeist"));
 
         DiedHostagesTB = new(Localization.GetString("DiedHostages"), $"{(TotalHostagesCount - AliveHostagesCount).ToString()}")
         {
@@ -487,10 +487,10 @@ internal class PacificBankHeistN : CalloutBase
                 GameFiber.StartNew(() =>
                 {
                     GameFiber.Wait(4800);
-                    HudHelpers.DisplayNotification(Localization.GetString("BankHeistCopyThat"));
+                    Hud.DisplayNotification(Localization.GetString("BankHeistCopyThat"));
                     Functions.PlayScannerAudio("JP_COPY_THAT_MOVING_RIGHT_NOW REPORT_RESPONSE_COPY JP_PROCEED_WITH_CAUTION");
                     GameFiber.Wait(3400);
-                    HudHelpers.DisplayNotification(Localization.GetString("BankHeistRoger"));
+                    Hud.DisplayNotification(Localization.GetString("BankHeistRoger"));
                 });
 
                 // Loading models
@@ -1061,7 +1061,7 @@ internal class PacificBankHeistN : CalloutBase
                                 {
                                     if (Vector3.Distance(Main.Player.Position, Commander.Position) < 4f)
                                     {
-                                        HudHelpers.DisplayNotification(Localization.GetString("BankHeistWarning"));
+                                        Hud.DisplayNotification(Localization.GetString("BankHeistWarning"));
                                         KeyHelpers.DisplayKeyHelp("PressToTalkWith", [Localization.GetString("Commander"), $"~{COMMANDER_BLIP.GetIconToken()}~"], Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey);
                                         if (KeyHelpers.IsKeysDown(Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey))
                                         {
@@ -1071,7 +1071,7 @@ internal class PacificBankHeistN : CalloutBase
                                     }
                                     else
                                     {
-                                        HudHelpers.DisplayHelp(Localization.GetString("TalkToCommander", $"~{COMMANDER_BLIP.GetIconToken()}~"));
+                                        Hud.DisplayHelp(Localization.GetString("TalkToCommander", $"~{COMMANDER_BLIP.GetIconToken()}~"));
                                     }
                                 }
                             }
@@ -1178,7 +1178,7 @@ internal class PacificBankHeistN : CalloutBase
                             }
                             else
                             {
-                                HudHelpers.DisplayHelp(Localization.GetString("TalkTo", Localization.GetString("Commander"), $"~{COMMANDER_BLIP.GetIconToken()}~"));
+                                Hud.DisplayHelp(Localization.GetString("TalkTo", Localization.GetString("Commander"), $"~{COMMANDER_BLIP.GetIconToken()}~"));
                             }
                         }
                     }
@@ -1189,8 +1189,8 @@ internal class PacificBankHeistN : CalloutBase
             }
             catch (Exception e)
             {
-                Logger.Error("The exception is occurred in the process of callout.", nameof(PacificBankHeistN));
-                Logger.Error(e.ToString());
+                Main.Logger.Error("The exception is occurred in the process of callout.", nameof(PacificBankHeistN));
+                Main.Logger.Error(e.ToString());
             }
         }, $"[{nameof(PacificBankHeistN)}] Callout Main Process");
     }
@@ -1208,7 +1208,7 @@ internal class PacificBankHeistN : CalloutBase
                 DiedRobbersCount++;
             }
         }
-        HudHelpers.DisplayNotification(Localization.GetString("BankHeistReportText", $"{SafeHostagesCount.ToString()}", $"{(TotalHostagesCount - AliveHostagesCount).ToString()}", $"{DiedRobbersCount.ToString()}"), Localization.GetString("BankHeistReportTitle"), TotalHostagesCount - AliveHostagesCount is < 3 ? Localization.GetString("BankHeistReportSubtitle") : "", "mphud", "mp_player_ready");
+        Hud.DisplayNotification(Localization.GetString("BankHeistReportText", $"{SafeHostagesCount.ToString()}", $"{(TotalHostagesCount - AliveHostagesCount).ToString()}", $"{DiedRobbersCount.ToString()}"), Localization.GetString("BankHeistReportTitle"), TotalHostagesCount - AliveHostagesCount is < 3 ? Localization.GetString("BankHeistReportSubtitle") : "", "mphud", "mp_player_ready");
         if (TotalHostagesCount == AliveHostagesCount)
         {
             var bigMessage = new BigMessageThread(true);
@@ -1339,7 +1339,7 @@ internal class PacificBankHeistN : CalloutBase
                 }
                 catch (Exception e)
                 {
-                    Logger.Error(e.ToString());
+                    Main.Logger.Error(e.ToString());
                 }
             }
         });
@@ -1570,7 +1570,7 @@ internal class PacificBankHeistN : CalloutBase
                                 {
                                     if (cooldown > 0)
                                     {
-                                        HudHelpers.DisplayNotification(Localization.GetString("GearRunOut"));
+                                        Hud.DisplayNotification(Localization.GetString("GearRunOut"));
                                     }
                                     else
                                     {
@@ -1596,7 +1596,7 @@ internal class PacificBankHeistN : CalloutBase
                 }
                 catch (Exception e)
                 {
-                    Logger.Error(e.ToString());
+                    Main.Logger.Error(e.ToString());
                 }
             }
         });
@@ -1635,7 +1635,7 @@ internal class PacificBankHeistN : CalloutBase
                 }
                 catch (Exception e)
                 {
-                    Logger.Error(e.ToString());
+                    Main.Logger.Error(e.ToString());
                 }
             }
         });
@@ -1930,9 +1930,9 @@ internal class PacificBankHeistN : CalloutBase
         {
             try
             {
-                HudHelpers.DisplayNotification($"~b~{Localization.GetString("Commander")}~s~: {Localization.GetString("SeemSurrender")}");
+                Hud.DisplayNotification($"~b~{Localization.GetString("Commander")}~s~: {Localization.GetString("SeemSurrender")}");
                 GameFiber.Wait(5000);
-                HudHelpers.DisplayHelp(Localization.GetString("SurrenderHelp"), 80000);
+                Hud.DisplayHelp(Localization.GetString("SurrenderHelp"), 80000);
                 bool AllRobbersAtLocation = false;
                 for (int i = 0; i < AllRobbers.Count; i++)
                 {
@@ -2049,7 +2049,7 @@ internal class PacificBankHeistN : CalloutBase
             }
             catch (Exception e)
             {
-                Logger.Error(e.ToString());
+                Main.Logger.Error(e.ToString());
             }
         });
     }
@@ -2209,7 +2209,7 @@ internal class PacificBankHeistN : CalloutBase
                 }
                 catch (Exception e)
                 {
-                    Logger.Error(e.ToString());
+                    Main.Logger.Error(e.ToString());
                 }
             }
         });
@@ -2355,7 +2355,7 @@ internal class PacificBankHeistN : CalloutBase
             }
             catch (Exception e)
             {
-                Logger.Error(e.ToString());
+                Main.Logger.Error(e.ToString());
             }
             finally
             {

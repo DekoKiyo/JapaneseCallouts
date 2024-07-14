@@ -64,14 +64,14 @@ internal class StreetFight : CalloutBase
             {
                 if (suspect1 is not null && suspect1.IsValid() && suspect1.Exists()) suspect1.Dismiss();
                 if (suspect2 is not null && suspect2.IsValid() && suspect2.Exists()) suspect2.Dismiss();
-                HudHelpers.DisplayNotification(Localization.GetString("CalloutCode4"), Localization.GetString("Dispatch"), Localization.GetString("StreetFight"));
+                Hud.DisplayNotification(Localization.GetString("CalloutCode4"), Localization.GetString("Dispatch"), Localization.GetString("StreetFight"));
             }
         };
     }
 
     internal override void Accepted()
     {
-        HudHelpers.DisplayNotification(Localization.GetString("StreetFightDesc"), Localization.GetString("Dispatch"), Localization.GetString("StreetFight"));
+        Hud.DisplayNotification(Localization.GetString("StreetFightDesc"), Localization.GetString("Dispatch"), Localization.GetString("StreetFight"));
         area = new(CalloutPosition.Around(10f, 20f), 40f)
         {
             Color = Color.Yellow,

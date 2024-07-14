@@ -8,9 +8,9 @@ internal static class Localization
 
     internal static void Initialize()
     {
-        Logger.Info($"Loading {Language.ToString()}", "Localization");
+        Main.Logger.Info($"Loading {Language.ToString()}", "Localization");
         Load(Language);
-        Logger.Info("Locale files has loaded.", "Localization");
+        Main.Logger.Info("Locale files has loaded.", "Localization");
     }
 
     private static void Load(ELanguages lang, bool isChange = false)
@@ -22,11 +22,11 @@ internal static class Localization
             foreach (var locale in obj.Value)
             {
 #if DEBUG
-                Logger.Info($"Loading Translation - Key: \"{locale.Key}\" Value: \"{locale.Value}\"", "Localization");
+                Main.Logger.Info($"Loading Translation - Key: \"{locale.Key}\" Value: \"{locale.Value}\"", "Localization");
 #endif
                 if (!isChange && Translation.ContainsKey(locale.Key))
                 {
-                    Logger.Warn($"The translation key is already exists! Key: {locale.Key}", "Localization");
+                    Main.Logger.Warn($"The translation key is already exists! Key: {locale.Key}", "Localization");
                 }
                 Translation[locale.Key] = locale.Value;
             }
@@ -42,7 +42,7 @@ internal static class Localization
 
     private static string NoTranslation(string key)
     {
-        Logger.Warn($"There is no translation. Key: \"{key}\" Language: \"{Language.ToString()}\"", "Localization");
+        Main.Logger.Warn($"There is no translation. Key: \"{key}\" Language: \"{Language.ToString()}\"", "Localization");
         return NO_TRANSLATION;
     }
 
@@ -51,9 +51,9 @@ internal static class Localization
     {
         if (Enum.GetNames(typeof(ELanguages)).Contains($"{lang}"))
         {
-            Logger.Info($"Loading {lang}", "Localization");
+            Main.Logger.Info($"Loading {lang}", "Localization");
             Load(lang, true);
-            Logger.Info("Locale files has loaded.", "Localization");
+            Main.Logger.Info("Locale files has loaded.", "Localization");
         }
         else
         {
@@ -74,7 +74,7 @@ internal static class Localization
             }
             else
             {
-                Logger.Warn($"The locale file, \"{langCode}.json\" was not found. Check whether the filename is correct or the file exists in the correct directory.", $"{langCode}.json");
+                Main.Logger.Warn($"The locale file, \"{langCode}.json\" was not found. Check whether the filename is correct or the file exists in the correct directory.", $"{langCode}.json");
                 var stream = assembly.GetManifestResourceStream($"JapaneseCallouts.Localization.{langCode}.json");
                 var byteArray = new byte[stream.Length];
                 _ = stream.Read(byteArray, 0, (int)stream.Length);
@@ -85,7 +85,7 @@ internal static class Localization
         }
         catch (FileNotFoundException e)
         {
-            Logger.Error(e.ToString());
+            Main.Logger.Error(e.ToString());
             throw new FileNotFoundException($"The locale file, \"{langCode}.json\" was not loaded.", $"{langCode}.json", e);
         }
         catch (Exception e)

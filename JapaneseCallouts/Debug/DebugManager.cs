@@ -17,7 +17,7 @@ internal static class DebugManager
                 var objects = World.GetAllObjects().Where(x => x.Model == new Model("v_ilev_genbankdoor1") || x.Model == new Model("v_ilev_genbankdoor2"));
                 foreach (var obj in objects)
                 {
-                    Logger.Info($"X: {obj.Position.X} Y: {obj.Position.Y} Z: {obj.Position.Z}", $"{obj.Model.Hash}");
+                    Main.Logger.Info($"X: {obj.Position.X} Y: {obj.Position.Y} Z: {obj.Position.Z}", $"{obj.Model.Hash}");
                 }
             }
         }

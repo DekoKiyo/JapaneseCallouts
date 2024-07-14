@@ -45,7 +45,7 @@ internal class DrunkGuys : CalloutBase
                 if (citizen is not null && citizen.IsValid() && citizen.Exists()) citizen.Delete();
                 foreach (var ped in peds) if (ped is not null && ped.IsValid() && ped.Exists()) ped.Delete();
                 if (citizenB is not null && citizenB.IsValid() && citizenB.Exists()) citizenB.Delete();
-                HudHelpers.DisplayNotification(Localization.GetString("CalloutCode4"), Localization.GetString("Dispatch"), Localization.GetString("DrunkGuys"));
+                Hud.DisplayNotification(Localization.GetString("CalloutCode4"), Localization.GetString("Dispatch"), Localization.GetString("DrunkGuys"));
             }
             else
             {
@@ -58,7 +58,7 @@ internal class DrunkGuys : CalloutBase
 
     internal override void Accepted()
     {
-        HudHelpers.DisplayNotification(Localization.GetString("DrunkGuysDesc"), Localization.GetString("Dispatch"), Localization.GetString("DrunkGuys"));
+        Hud.DisplayNotification(Localization.GetString("DrunkGuysDesc"), Localization.GetString("Dispatch"), Localization.GetString("DrunkGuys"));
         citizen = new(CalloutPosition, calloutData.Heading)
         {
             IsPersistent = true,
@@ -99,7 +99,7 @@ internal class DrunkGuys : CalloutBase
             {
                 citizenB.IsRouteEnabled = false;
             }
-            HudHelpers.DisplayHelp(Localization.GetString("TalkTo", Localization.GetString("Citizen"), string.Empty));
+            Hud.DisplayHelp(Localization.GetString("TalkTo", Localization.GetString("Citizen"), string.Empty));
             arrived = true;
         }
 
@@ -109,7 +109,7 @@ internal class DrunkGuys : CalloutBase
             if (KeyHelpers.IsKeysDown(Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey))
             {
                 Conversations.Talk(TalkToCitizen);
-                HudHelpers.DisplayHelp(Localization.GetString("DrunkCallTaxi"));
+                Hud.DisplayHelp(Localization.GetString("DrunkCallTaxi"));
                 if (citizen is not null && citizen.IsValid() && citizen.Exists()) citizen.Dismiss();
                 if (citizenB is not null && citizenB.IsValid() && citizenB.Exists()) citizenB.Delete();
                 End();

@@ -129,14 +129,14 @@ internal class BankHeist : CalloutBase
             }
             if (!Main.Player.IsDead)
             {
-                HudHelpers.DisplayNotification(Localization.GetString("CalloutCode4"), Localization.GetString("Dispatch"), Localization.GetString("BankHeist"));
+                Hud.DisplayNotification(Localization.GetString("CalloutCode4"), Localization.GetString("Dispatch"), Localization.GetString("BankHeist"));
             }
         };
     }
 
     internal override void Accepted()
     {
-        HudHelpers.DisplayNotification(Localization.GetString("BankHeistDesc"));
+        Hud.DisplayNotification(Localization.GetString("BankHeistDesc"));
         CalloutInterfaceAPIFunctions.SendMessage(this, $"{Localization.GetString("BankHeistDesc")} {Localization.GetString("RespondCode3")}");
 
         var weather = CalloutHelpers.GetWeatherType(IPTFunctions.GetWeatherType());
