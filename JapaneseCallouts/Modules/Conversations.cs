@@ -42,7 +42,7 @@ internal static class Conversations
         for (int i = 0; i < lines.Length; i++)
         {
             var text = $"~b~{lines[i].speaker}~s~: {lines[i].text} {(displayCount ? $"({(i + 1).ToString()}/{lines.Length.ToString()})" : "")}";
-            HudHelpers.DisplaySubtitle(text, 10000);
+            Hud.DisplaySubtitle(text, 10000);
             while (i < lines.Length - 1)
             {
                 GameFiber.Yield();
@@ -140,7 +140,7 @@ internal static class Conversations
                 }
             }
         });
-        NativeFunction.Natives.SET_PED_CAN_SWITCH_WEAPON(Main.Player, false);
+        Natives.SET_PED_CAN_SWITCH_WEAPON(Main.Player, false);
         var pos = Main.Player.Position;
         var heading = Main.Player.Heading;
         while (answerIndex is -1)
@@ -156,7 +156,7 @@ internal static class Conversations
             }
             if (!DisplayTime) break;
         }
-        NativeFunction.Natives.SET_PED_CAN_SWITCH_WEAPON(Main.Player, true);
+        Natives.SET_PED_CAN_SWITCH_WEAPON(Main.Player, true);
         DisplayTime = false;
         return answerIndex;
     }

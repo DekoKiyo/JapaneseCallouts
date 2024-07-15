@@ -27,13 +27,13 @@ internal static class FreemodeHelpers
         {
             var mother = Main.MersenneTwister.Next(0);
             var father = Main.MersenneTwister.Next(20);
-            NativeFunction.Natives.SET_PED_HEAD_BLEND_DATA(ped, mother, father, 0, mother, father, 0, shapeMix, skinMix, 0f, false);
+            Natives.SET_PED_HEAD_BLEND_DATA(ped, mother, father, 0, mother, father, 0, shapeMix, skinMix, 0f, false);
         }
         else if (ped.Model == new Model(MP_F_FREEMODE_01))
         {
             var mother = Main.MersenneTwister.Next(21, 41);
             var father = Main.MersenneTwister.Next(21, 41);
-            NativeFunction.Natives.SET_PED_HEAD_BLEND_DATA(ped, mother, father, 0, mother, father, 0, shapeMix, skinMix, 0f, false);
+            Natives.SET_PED_HEAD_BLEND_DATA(ped, mother, father, 0, mother, father, 0, shapeMix, skinMix, 0f, false);
         }
     }
 
@@ -54,7 +54,7 @@ internal static class FreemodeHelpers
 
     private static void SetPedFacialFeature(Ped ped, int facialFeature, float value)
     {
-        NativeFunction.Natives.x71A5C1DBA060049E(ped, facialFeature, value);
+        Natives.SET_PED_MICRO_MORPH(ped, facialFeature, value);
     }
 
     private static void SetRandomAppearance(Ped ped)
@@ -64,11 +64,11 @@ internal static class FreemodeHelpers
         // 1: ヒゲ
         // 2: まゆげ
         // 3: 老化
-        NativeFunction.Natives.SET_PED_HEAD_OVERLAY(ped, 1, Main.MersenneTwister.Next(2) is 0 ? Main.MersenneTwister.Next(29) : 255, 0.8f);
-        NativeFunction.Natives.SET_PED_HEAD_OVERLAY(ped, 2, Main.MersenneTwister.Next(2) is 0 ? Main.MersenneTwister.Next(34) : 255, 0.8f);
-        NativeFunction.Natives.SET_PED_HEAD_OVERLAY(ped, 3, Main.MersenneTwister.Next(2) is 0 ? Main.MersenneTwister.Next(15) : 255, 0.8f);
+        Natives.SET_PED_HEAD_OVERLAY(ped, 1, Main.MersenneTwister.Next(2) is 0 ? Main.MersenneTwister.Next(29) : 255, 0.8f);
+        Natives.SET_PED_HEAD_OVERLAY(ped, 2, Main.MersenneTwister.Next(2) is 0 ? Main.MersenneTwister.Next(34) : 255, 0.8f);
+        Natives.SET_PED_HEAD_OVERLAY(ped, 3, Main.MersenneTwister.Next(2) is 0 ? Main.MersenneTwister.Next(15) : 255, 0.8f);
         // 目の色を設定
-        NativeFunction.Natives.x50B56988B170AFDF(ped, Main.MersenneTwister.Next(7));
+        Natives.SET_HEAD_BLEND_EYE_COLOR(ped, Main.MersenneTwister.Next(7));
     }
 
     private static void SetRandomHair(Ped ped)
@@ -78,7 +78,7 @@ internal static class FreemodeHelpers
         // Banned Female Hairstyles
         var excludedFemaleHairItems = new int[] { };
 
-        var drawableCount = NativeFunction.Natives.GET_NUMBER_OF_PED_DRAWABLE_VARIATIONS<int>(ped, 2);
+        var drawableCount = Natives.GET_NUMBER_OF_PED_DRAWABLE_VARIATIONS(ped, 2);
         int randomHair = Main.MersenneTwister.Next(drawableCount - 1);
         var randomBrow = Main.MersenneTwister.Next(22);
 
@@ -93,9 +93,9 @@ internal static class FreemodeHelpers
             }
             else
             {
-                NativeFunction.Natives.SET_PED_COMPONENT_VARIATION(ped, 2, randomHair, 0, 2);
-                NativeFunction.Natives.SET_PED_HEAD_OVERLAY(ped, 1, randomBeard, 1f);
-                NativeFunction.Natives.SET_PED_HEAD_OVERLAY(ped, 2, randomBrow, 1f);
+                Natives.SET_PED_COMPONENT_VARIATION(ped, 2, randomHair, 0, 2);
+                Natives.SET_PED_HEAD_OVERLAY(ped, 1, randomBeard, 1f);
+                Natives.SET_PED_HEAD_OVERLAY(ped, 2, randomBrow, 1f);
                 SetRandomHairColor(ped);
                 return;
             }
@@ -108,8 +108,8 @@ internal static class FreemodeHelpers
             }
             else
             {
-                NativeFunction.Natives.SET_PED_COMPONENT_VARIATION(ped, 2, randomHair, 0, 2);
-                NativeFunction.Natives.SET_PED_HEAD_OVERLAY(ped, 2, randomBrow, 1f);
+                Natives.SET_PED_COMPONENT_VARIATION(ped, 2, randomHair, 0, 2);
+                Natives.SET_PED_HEAD_OVERLAY(ped, 2, randomBrow, 1f);
                 SetRandomHairColor(ped);
                 return;
             }
@@ -132,7 +132,7 @@ internal static class FreemodeHelpers
         }
         else
         {
-            NativeFunction.Natives.SET_PED_HAIR_TINT(ped, randomColor, randomColor);
+            Natives.SET_PED_HAIR_TINT(ped, randomColor, randomColor);
             SetPedHeadOverlayColor(ped, 1, randomColor);
             SetPedHeadOverlayColor(ped, 2, randomColor);
         }
@@ -140,6 +140,6 @@ internal static class FreemodeHelpers
 
     private static void SetPedHeadOverlayColor(Ped ped, int id, int color)
     {
-        NativeFunction.Natives.x497BF74A7B9CB952(ped, id, 1, color, color);
+        Natives.SET_PED_HEAD_OVERLAY_TINT(ped, id, 1, color, color);
     }
 }

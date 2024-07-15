@@ -60,6 +60,7 @@ global using RAGENativeUI.PauseMenu;
 global using Sprite = RAGENativeUI.Elements.Sprite;
 #endregion
 #region Japanese Callouts
+global using BaseLib;
 global using JapaneseCallouts;
 global using JapaneseCallouts.API;
 global using JapaneseCallouts.Callouts;
@@ -138,7 +139,7 @@ internal class Main : Plugin
     internal static string RemoteLatestVersion = PLUGIN_VERSION;
 
     internal static MersenneTwister MersenneTwister = new((int)DateTime.Now.Ticks);
-    internal const ulong _DOOR_CONTROL = 0x9b12f9a24fabedb0;
+    internal static Logger Logger = new(PLUGIN_NAME);
 
     internal static Ped Player
     {
@@ -188,10 +189,10 @@ internal class Main : Plugin
             EnemyBlip.Initialize();
             Game.AddConsoleCommands();
             CalloutBase.RegisterAllCallouts();
-            HudHelpers.DisplayNotification(Localization.GetString("PluginLoaded", PLUGIN_NAME, DEVELOPER_NAME), PLUGIN_NAME, PLUGIN_VERSION_DATA);
+            Hud.DisplayNotification(Localization.GetString("PluginLoaded", PLUGIN_NAME, DEVELOPER_NAME), PLUGIN_NAME, PLUGIN_VERSION_DATA);
 #if DEBUG
             DebugManager.Initialize();
-            HudHelpers.DisplayNotification(Localization.GetString("PluginIsDebug", PLUGIN_NAME, $"{VERSION_PREFIX}{PLUGIN_VERSION}"), PLUGIN_NAME, "");
+            Hud.DisplayNotification(Localization.GetString("PluginIsDebug", PLUGIN_NAME, $"{VERSION_PREFIX}{PLUGIN_VERSION}"), PLUGIN_NAME, "");
 #endif
             Logger.Info($"{PLUGIN_NAME} {PLUGIN_VERSION_DATA} was successfully initialized.");
 
@@ -215,7 +216,7 @@ internal class Main : Plugin
                         }
                         else
                         {
-                            HudHelpers.DisplayNotification(Localization.GetString("UpdateManual"), PLUGIN_NAME, "");
+                            Hud.DisplayNotification(Localization.GetString("UpdateManual"), PLUGIN_NAME, "");
                         }
                     }
                 }

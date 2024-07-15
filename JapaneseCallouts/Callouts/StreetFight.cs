@@ -31,7 +31,7 @@ internal class StreetFight : CalloutBase
         };
         if (suspect1 is not null && suspect1.IsValid() && suspect1.Exists())
         {
-            NativeFunction.Natives.SET_PED_KEEP_TASK(suspect1, true);
+            Natives.SET_PED_KEEP_TASK(suspect1, true);
             suspect1.SetOutfit(data1);
             suspect1.Tasks.FightAgainstClosestHatedTarget(500f);
         }
@@ -45,7 +45,7 @@ internal class StreetFight : CalloutBase
         };
         if (suspect2 is not null && suspect2.IsValid() && suspect2.Exists())
         {
-            NativeFunction.Natives.SET_PED_KEEP_TASK(suspect2, true);
+            Natives.SET_PED_KEEP_TASK(suspect2, true);
             suspect2.SetOutfit(data2);
             suspect2.Tasks.FightAgainstClosestHatedTarget(500f);
         }
@@ -64,14 +64,14 @@ internal class StreetFight : CalloutBase
             {
                 if (suspect1 is not null && suspect1.IsValid() && suspect1.Exists()) suspect1.Dismiss();
                 if (suspect2 is not null && suspect2.IsValid() && suspect2.Exists()) suspect2.Dismiss();
-                HudHelpers.DisplayNotification(Localization.GetString("CalloutCode4"), Localization.GetString("Dispatch"), Localization.GetString("StreetFight"));
+                Hud.DisplayNotification(Localization.GetString("CalloutCode4"), Localization.GetString("Dispatch"), Localization.GetString("StreetFight"));
             }
         };
     }
 
     internal override void Accepted()
     {
-        HudHelpers.DisplayNotification(Localization.GetString("StreetFightDesc"), Localization.GetString("Dispatch"), Localization.GetString("StreetFight"));
+        Hud.DisplayNotification(Localization.GetString("StreetFightDesc"), Localization.GetString("Dispatch"), Localization.GetString("StreetFight"));
         area = new(CalloutPosition.Around(10f, 20f), 40f)
         {
             Color = Color.Yellow,

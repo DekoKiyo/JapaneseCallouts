@@ -110,8 +110,8 @@ internal class RoadRage : CalloutBase
                 if (victimV is not null && victimV.IsValid() && victimV.Exists()) victimV.Dismiss();
                 if (victimB is not null && victimB.IsValid() && victimB.Exists()) victimB.Delete();
                 if (area is not null && area.IsValid() && area.Exists()) area.Delete();
-                if (count > 10) HudHelpers.DisplayNotification(Localization.GetString("Escaped"), Localization.GetString("Dispatch"), Localization.GetString("RoadRage"));
-                else HudHelpers.DisplayNotification(Localization.GetString("CalloutCode4"), Localization.GetString("Dispatch"), Localization.GetString("RoadRage"));
+                if (count > 10) Hud.DisplayNotification(Localization.GetString("Escaped"), Localization.GetString("Dispatch"), Localization.GetString("RoadRage"));
+                else Hud.DisplayNotification(Localization.GetString("CalloutCode4"), Localization.GetString("Dispatch"), Localization.GetString("RoadRage"));
             }
         };
     }
@@ -120,7 +120,7 @@ internal class RoadRage : CalloutBase
 
     internal override void Accepted()
     {
-        HudHelpers.DisplayNotification($"{Localization.GetString("RoadRageDesc")} {Localization.GetString("RespondCode2")}", Localization.GetString("Dispatch"), Localization.GetString("RoadRage"));
+        Hud.DisplayNotification($"{Localization.GetString("RoadRageDesc")} {Localization.GetString("RespondCode2")}", Localization.GetString("Dispatch"), Localization.GetString("RoadRage"));
         area = new(victimV.Position.Around(Main.MersenneTwister.Next(100)), Main.MersenneTwister.Next(75, 120))
         {
             Color = Color.Yellow,
@@ -150,10 +150,10 @@ internal class RoadRage : CalloutBase
             area.Position = victimV.Position;
             area.IsRouteEnabled = true;
 
-            HudHelpers.DisplayNotification(Localization.GetString("StolenVehicleDataUpdate"));
-            NativeFunction.Natives.GET_STREET_NAME_AT_COORD(victimV.Position.X, victimV.Position.Y, victimV.Position.Z, out uint hash, out uint _);
-            var streetName = NativeFunction.Natives.GET_STREET_NAME_FROM_HASH_KEY<string>(hash);
-            HudHelpers.DisplayNotification(Localization.GetString("TargetIsIn", streetName));
+            Hud.DisplayNotification(Localization.GetString("StolenVehicleDataUpdate"));
+            Natives.GET_STREET_NAME_AT_COORD(victimV.Position.X, victimV.Position.Y, victimV.Position.Z, out uint hash, out uint _);
+            var streetName = Natives.GET_STREET_NAME_FROM_HASH_KEY(hash);
+            Hud.DisplayNotification(Localization.GetString("TargetIsIn", streetName));
             Functions.PlayScannerAudioUsingPosition("JP_TARGET_IS IN_OR_ON_POSITION", victimV.Position);
             count++;
         }
@@ -186,7 +186,7 @@ internal class RoadRage : CalloutBase
         if (!arrested && suspect is not null && suspect.IsValid() && suspect.Exists() && (suspect.IsDead || Functions.IsPedArrested(suspect)))
         {
             arrested = true;
-            HudHelpers.DisplayHelp(Localization.GetString("TalkToGetInfo", Localization.GetString("Victim"), string.Empty));
+            Hud.DisplayHelp(Localization.GetString("TalkToGetInfo", Localization.GetString("Victim"), string.Empty));
             if (victimB is not null && victimB.IsValid() && victimB.Exists())
             {
                 victimB.IsRouteEnabled = true;

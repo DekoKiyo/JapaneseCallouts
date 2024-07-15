@@ -17,20 +17,20 @@ internal static class Remote
         }
         catch (Exception e)
         {
-            Logger.Error(e.ToString());
-            Logger.Error("Failed to initialize the remote process.");
+            Main.Logger.Error(e.ToString());
+            Main.Logger.Error("Failed to initialize the remote process.");
         }
     }
 
     internal static async Task<string> GetStringAsync(string uri)
     {
-        Logger.Info($"Getting string from URI: {uri}");
+        Main.Logger.Info($"Getting string from URI: {uri}");
         return await HttpClient.GetStringAsync(uri);
     }
 
     internal static async Task<byte[]> GetByteArrayAsync(string uri)
     {
-        Logger.Info($"Getting byte array from URI: {uri}");
+        Main.Logger.Info($"Getting byte array from URI: {uri}");
         return await HttpClient.GetByteArrayAsync(uri);
     }
 }

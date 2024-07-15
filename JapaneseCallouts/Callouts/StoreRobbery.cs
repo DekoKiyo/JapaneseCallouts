@@ -43,7 +43,7 @@ internal class StoreRobbery : CalloutBase
             {
                 foreach (var robber in robbers) if (robber is not null && robber.IsValid() && robber.Exists()) robber.Dismiss();
                 if (blip is not null && blip.IsValid() && blip.Exists()) blip.Delete();
-                HudHelpers.DisplayNotification(Localization.GetString("CalloutCode4"), Localization.GetString("Dispatch"), Localization.GetString("StoreRobbery"));
+                Hud.DisplayNotification(Localization.GetString("CalloutCode4"), Localization.GetString("Dispatch"), Localization.GetString("StoreRobbery"));
             }
         };
     }
@@ -53,7 +53,7 @@ internal class StoreRobbery : CalloutBase
     internal override void Accepted()
     {
         RobbersModel.Load();
-        HudHelpers.DisplayNotification($"{Localization.GetString("StoreRobberyDesc")} {Localization.GetString("RespondCode3")}", Localization.GetString("Dispatch"), Localization.GetString("StoreRobbery"));
+        Hud.DisplayNotification($"{Localization.GetString("StoreRobberyDesc")} {Localization.GetString("RespondCode3")}", Localization.GetString("Dispatch"), Localization.GetString("StoreRobbery"));
         foreach (var rp in XmlManager.StoreRobberyConfig.Stores[index].RobbersPositions)
         {
             var robber = new Ped(RobbersModel, new(rp.X, rp.Y, rp.Z), 0f)

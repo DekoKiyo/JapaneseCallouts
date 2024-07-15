@@ -129,14 +129,14 @@ internal class BankHeist : CalloutBase
             }
             if (!Main.Player.IsDead)
             {
-                HudHelpers.DisplayNotification(Localization.GetString("CalloutCode4"), Localization.GetString("Dispatch"), Localization.GetString("BankHeist"));
+                Hud.DisplayNotification(Localization.GetString("CalloutCode4"), Localization.GetString("Dispatch"), Localization.GetString("BankHeist"));
             }
         };
     }
 
     internal override void Accepted()
     {
-        HudHelpers.DisplayNotification(Localization.GetString("BankHeistDesc"));
+        Hud.DisplayNotification(Localization.GetString("BankHeistDesc"));
         CalloutInterfaceAPIFunctions.SendMessage(this, $"{Localization.GetString("BankHeistDesc")} {Localization.GetString("RespondCode3")}");
 
         var weather = CalloutHelpers.GetWeatherType(IPTFunctions.GetWeatherType());
@@ -155,12 +155,12 @@ internal class BankHeist : CalloutBase
             };
             if (robber is not null && robber.IsValid() && robber.Exists())
             {
-                NativeFunction.Natives.SET_PED_KEEP_TASK(robber, true);
+                Natives.SET_PED_KEEP_TASK(robber, true);
 
                 robber.SetOutfit(pedData);
                 robber.GiveWeapon([.. XmlManager.BankHeistConfig.Weapons], true);
 
-                NativeFunction.Natives.SET_PED_SUFFERS_CRITICAL_HITS(robber, false);
+                Natives.SET_PED_SUFFERS_CRITICAL_HITS(robber, false);
                 Robbers.Add(robber);
             }
         }
@@ -202,7 +202,7 @@ internal class BankHeist : CalloutBase
 
             foreach (var (pos, hash) in BankData[CalloutPosition].doors)
             {
-                NativeFunction.CallByHash<uint>(Main._DOOR_CONTROL, hash, pos.X, pos.Y, pos.Z, false, 0f, 0f, 0f);
+                Natives.SET_LOCKED_UNSTREAMED_IN_DOOR_OF_TYPE(hash, pos.X, pos.Y, pos.Z, false, 0f, 0f, 0f);
             }
             Arrived = true;
         }

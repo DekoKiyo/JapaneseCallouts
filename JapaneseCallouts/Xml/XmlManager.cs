@@ -58,7 +58,7 @@ internal static class XmlManager
             }
             else
             {
-                Logger.Warn($"The xml file named '{filename}' was not found. Check whether the filename is correct or the file exists in the correct directory.", filename);
+                Main.Logger.Warn($"The xml file named '{filename}' was not found. Check whether the filename is correct or the file exists in the correct directory.", filename);
                 var stream = assembly.GetManifestResourceStream($"JapaneseCallouts.Resources.{filename}");
                 using var sr = new StreamReader(stream, Encoding.UTF8);
                 return (T)serializer.Deserialize(sr);
@@ -66,7 +66,7 @@ internal static class XmlManager
         }
         catch (FileNotFoundException e)
         {
-            Logger.Error(e.ToString());
+            Main.Logger.Error(e.ToString());
             throw new FileNotFoundException($"The locale file, \"{filename}\" was not loaded.", $"{filename}", e);
         }
         catch (Exception e)

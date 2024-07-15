@@ -35,7 +35,7 @@ internal class StolenVehicle : CalloutBase
         }
         catch (Exception e)
         {
-            Logger.Error(e.ToString());
+            Main.Logger.Error(e.ToString());
         }
 
         CalloutMessage = Localization.GetString("StolenVehicle");
@@ -59,8 +59,8 @@ internal class StolenVehicle : CalloutBase
                 if (suspect is not null && suspect.IsValid() && suspect.Exists()) suspect.Dismiss();
                 if (stolen is not null && stolen.IsValid() && stolen.Exists()) stolen.Dismiss();
                 if (area is not null && area.IsValid() && area.Exists()) area.Delete();
-                if (count > 10) HudHelpers.DisplayNotification(Localization.GetString("Escaped"), Localization.GetString("Dispatch"), Localization.GetString("StolenVehicle"));
-                else HudHelpers.DisplayNotification(Localization.GetString("CalloutCode4"), Localization.GetString("Dispatch"), Localization.GetString("StolenVehicle"));
+                if (count > 10) Hud.DisplayNotification(Localization.GetString("Escaped"), Localization.GetString("Dispatch"), Localization.GetString("StolenVehicle"));
+                else Hud.DisplayNotification(Localization.GetString("CalloutCode4"), Localization.GetString("Dispatch"), Localization.GetString("StolenVehicle"));
             }
         };
     }
@@ -69,8 +69,8 @@ internal class StolenVehicle : CalloutBase
 
     internal override void Accepted()
     {
-        HudHelpers.DisplayNotification(Localization.GetString("StolenVehicleDesc"), Localization.GetString("Dispatch"), Localization.GetString("StolenVehicle"));
-        HudHelpers.DisplayNotification(Localization.GetString("StolenVehicleData", stolen.LicensePlate, stolen.Class.ToString()), Localization.GetString("Dispatch"), Localization.GetString("StolenVehicle"));
+        Hud.DisplayNotification(Localization.GetString("StolenVehicleDesc"), Localization.GetString("Dispatch"), Localization.GetString("StolenVehicle"));
+        Hud.DisplayNotification(Localization.GetString("StolenVehicleData", stolen.LicensePlate, stolen.Class.ToString()), Localization.GetString("Dispatch"), Localization.GetString("StolenVehicle"));
         if (stolen && stolen.IsValid() && stolen.Exists())
         {
             area = new(stolen.Position.Around(Main.MersenneTwister.Next(100)), Main.MersenneTwister.Next(75, 120))
@@ -100,8 +100,8 @@ internal class StolenVehicle : CalloutBase
             area.Position = stolen.Position;
             area.IsRouteEnabled = true;
 
-            HudHelpers.DisplayNotification(Localization.GetString("GPSUpdate"));
-            HudHelpers.DisplayNotification(Localization.GetString("StolenVehicleData", stolen.LicensePlate, stolen.Class.ToString()));
+            Hud.DisplayNotification(Localization.GetString("GPSUpdate"));
+            Hud.DisplayNotification(Localization.GetString("StolenVehicleData", stolen.LicensePlate, stolen.Class.ToString()));
             Functions.PlayScannerAudioUsingPosition("SUSPECT_LAST_SEEN IN_OR_ON_POSITION", stolen.Position);
             count++;
         }

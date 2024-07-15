@@ -389,10 +389,10 @@ internal class PacificBankHeist : CalloutBase
             Main.Player.IsPositionFrozen = false;
             Game.LocalPlayer.HasControl = true;
             // Main.Player.CanAttackFriendlies = false;
-            NativeFunction.Natives.SET_PLAYER_WEAPON_DEFENSE_MODIFIER(Game.LocalPlayer, 1f);
-            NativeFunction.Natives.SET_PLAYER_WEAPON_DAMAGE_MODIFIER(Game.LocalPlayer, 1f);
-            NativeFunction.Natives.RESET_AI_WEAPON_DAMAGE_MODIFIER();
-            NativeFunction.Natives.RESET_AI_MELEE_WEAPON_DAMAGE_MODIFIER();
+            Natives.SET_PLAYER_WEAPON_DEFENSE_MODIFIER(Game.LocalPlayer, 1f);
+            Natives.SET_PLAYER_WEAPON_DAMAGE_MODIFIER(Game.LocalPlayer, 1f);
+            Natives.RESET_AI_WEAPON_DAMAGE_MODIFIER();
+            Natives.RESET_AI_MELEE_WEAPON_DAMAGE_MODIFIER();
             if (SideDoorBlip is not null && SideDoorBlip.IsValid() && SideDoorBlip.Exists()) SideDoorBlip.Delete();
             ToggleMobilePhone(Main.Player, false);
 
@@ -410,7 +410,7 @@ internal class PacificBankHeist : CalloutBase
 
             if (IsCalloutFinished)
             {
-                HudHelpers.DisplayNotification(Localization.GetString("CalloutCode4"), Localization.GetString("Dispatch"), Localization.GetString("PacificBankHeist"));
+                Hud.DisplayNotification(Localization.GetString("CalloutCode4"), Localization.GetString("Dispatch"), Localization.GetString("PacificBankHeist"));
 
                 foreach (var e in AllPoliceVehicles)
                 {
@@ -510,7 +510,7 @@ internal class PacificBankHeist : CalloutBase
 
     internal override void Accepted()
     {
-        HudHelpers.DisplayNotification(Localization.GetString("BankHeistWarning"), Main.PLUGIN_NAME, Localization.GetString("BankHeist"));
+        Hud.DisplayNotification(Localization.GetString("BankHeistWarning"), Main.PLUGIN_NAME, Localization.GetString("BankHeist"));
         BankAlarm = new($"{Main.PLUGIN_DIRECTORY}/{Main.PLUGIN_AUDIO_DIRECTORY}/{ALARM_SOUND_FILE_NAME}");
         BankAlarm.Load();
         NoLastRadio = true;
@@ -518,7 +518,7 @@ internal class PacificBankHeist : CalloutBase
         {
             CalloutEntities.Add(Main.Player.CurrentVehicle);
         }
-        HudHelpers.DisplayNotification(Localization.GetString("PacificBankHeistDesc"), Localization.GetString("Dispatch"), Localization.GetString("BankHeist"));
+        Hud.DisplayNotification(Localization.GetString("PacificBankHeistDesc"), Localization.GetString("Dispatch"), Localization.GetString("BankHeist"));
 
         DiedHostagesTB = new(Localization.GetString("DiedHostages"), $"{(TotalHostagesCount - AliveHostagesCount).ToString()}")
         {
@@ -565,10 +565,10 @@ internal class PacificBankHeist : CalloutBase
                 GameFiber.StartNew(() =>
                 {
                     GameFiber.Wait(4800);
-                    HudHelpers.DisplayNotification(Localization.GetString("BankHeistCopyThat"));
+                    Hud.DisplayNotification(Localization.GetString("BankHeistCopyThat"));
                     Functions.PlayScannerAudio("JP_COPY_THAT_MOVING_RIGHT_NOW REPORT_RESPONSE_COPY JP_PROCEED_WITH_CAUTION");
                     GameFiber.Wait(3400);
-                    HudHelpers.DisplayNotification(Localization.GetString("BankHeistRoger"));
+                    Hud.DisplayNotification(Localization.GetString("BankHeistRoger"));
                 });
                 LoadModels();
                 if (Main.Player.IsInAnyVehicle(false))
@@ -627,12 +627,12 @@ internal class PacificBankHeist : CalloutBase
                         Game.SetRelationshipBetweenRelationshipGroups(Main.Player.RelationshipGroup, RelationshipGroup.Cop, Relationship.Respect);
                         Game.SetRelationshipBetweenRelationshipGroups(HostageRG, Main.Player.RelationshipGroup, Relationship.Respect);
                         Game.SetRelationshipBetweenRelationshipGroups(SneakRobbersRG, Main.Player.RelationshipGroup, Relationship.Hate);
-                        NativeFunction.Natives.SET_PLAYER_WEAPON_DEFENSE_MODIFIER(Game.LocalPlayer, 0.45f);
-                        NativeFunction.Natives.SET_PLAYER_WEAPON_DAMAGE_MODIFIER(Game.LocalPlayer, 0.92f);
-                        NativeFunction.Natives.SET_AI_MELEE_WEAPON_DAMAGE_MODIFIER(1f);
-                        NativeFunction.CallByHash<uint>(Main._DOOR_CONTROL, 4072696575, 256.3116f, 220.6579f, 106.4296f, false, 0f, 0f, 0f);
-                        NativeFunction.CallByHash<uint>(Main._DOOR_CONTROL, 746855201, 262.1981f, 222.5188f, 106.4296f, false, 0f, 0f, 0f);
-                        NativeFunction.CallByHash<uint>(Main._DOOR_CONTROL, 110411286, 258.2022f, 204.1005f, 106.4049f, false, 0f, 0f, 0f);
+                        Natives.SET_PLAYER_WEAPON_DEFENSE_MODIFIER(Game.LocalPlayer, 0.45f);
+                        Natives.SET_PLAYER_WEAPON_DAMAGE_MODIFIER(Game.LocalPlayer, 0.92f);
+                        Natives.SET_AI_MELEE_WEAPON_DAMAGE_MODIFIER(1f);
+                        Natives.SET_LOCKED_UNSTREAMED_IN_DOOR_OF_TYPE(4072696575, 256.3116f, 220.6579f, 106.4296f, false, 0f, 0f, 0f);
+                        Natives.SET_LOCKED_UNSTREAMED_IN_DOOR_OF_TYPE(746855201, 262.1981f, 222.5188f, 106.4296f, false, 0f, 0f, 0f);
+                        Natives.SET_LOCKED_UNSTREAMED_IN_DOOR_OF_TYPE(110411286, 258.2022f, 204.1005f, 106.4049f, false, 0f, 0f, 0f);
                     }
 
                     // When player has just arrived
@@ -646,7 +646,7 @@ internal class PacificBankHeist : CalloutBase
                                 {
                                     if (Vector3.Distance(Main.Player.Position, Commander.Position) < 4f)
                                     {
-                                        HudHelpers.DisplayNotification(Localization.GetString("BankHeistWarning"));
+                                        Hud.DisplayNotification(Localization.GetString("BankHeistWarning"));
                                         KeyHelpers.DisplayKeyHelp("PressToTalkWith", [Localization.GetString("Commander"), $"~{COMMANDER_BLIP.GetIconToken()}~"], Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey);
                                         if (KeyHelpers.IsKeysDown(Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey))
                                         {
@@ -656,7 +656,7 @@ internal class PacificBankHeist : CalloutBase
                                     }
                                     else
                                     {
-                                        HudHelpers.DisplayHelp(Localization.GetString("TalkToCommander", $"~{COMMANDER_BLIP.GetIconToken()}~"));
+                                        Hud.DisplayHelp(Localization.GetString("TalkToCommander", $"~{COMMANDER_BLIP.GetIconToken()}~"));
                                     }
                                 }
                             }
@@ -742,8 +742,8 @@ internal class PacificBankHeist : CalloutBase
                             if (Main.Player.IsShooting)
                             {
                                 IsSWATFollowing = false;
-                                HudHelpers.DisplayHelp(Localization.GetString("SWATIsNotFollowing"));
-                                Logger.Info("Follow off - shooting", "Bank Heist");
+                                Hud.DisplayHelp(Localization.GetString("SWATIsNotFollowing"));
+                                Main.Logger.Info("Follow off - shooting", "Bank Heist");
                             }
                         }
                     }
@@ -768,13 +768,13 @@ internal class PacificBankHeist : CalloutBase
                         Game.SetRelationshipBetweenRelationshipGroups(HostageRG, Main.Player.RelationshipGroup, Relationship.Companion);
                         Game.SetRelationshipBetweenRelationshipGroups(SneakRobbersRG, Main.Player.RelationshipGroup, Relationship.Hate);
                         Main.Player.IsInvincible = false;
-                        NativeFunction.Natives.SET_PLAYER_WEAPON_DEFENSE_MODIFIER(Game.LocalPlayer, 0.45f);
-                        NativeFunction.Natives.SET_PLAYER_WEAPON_DAMAGE_MODIFIER(Game.LocalPlayer, 0.93f);
-                        NativeFunction.Natives.SET_AI_MELEE_WEAPON_DAMAGE_MODIFIER(1f);
+                        Natives.SET_PLAYER_WEAPON_DEFENSE_MODIFIER(Game.LocalPlayer, 0.45f);
+                        Natives.SET_PLAYER_WEAPON_DAMAGE_MODIFIER(Game.LocalPlayer, 0.93f);
+                        Natives.SET_AI_MELEE_WEAPON_DAMAGE_MODIFIER(1f);
                     }
-                    NativeFunction.CallByHash<uint>(Main._DOOR_CONTROL, 4072696575, 256.3116f, 220.6579f, 106.4296f, false, 0f, 0f, 0f);
-                    NativeFunction.CallByHash<uint>(Main._DOOR_CONTROL, 746855201, 262.1981f, 222.5188f, 106.4296f, false, 0f, 0f, 0f);
-                    NativeFunction.CallByHash<uint>(Main._DOOR_CONTROL, 110411286, 258.2022f, 204.1005f, 106.4049f, false, 0f, 0f, 0f);
+                    Natives.SET_LOCKED_UNSTREAMED_IN_DOOR_OF_TYPE(4072696575, 256.3116f, 220.6579f, 106.4296f, false, 0f, 0f, 0f);
+                    Natives.SET_LOCKED_UNSTREAMED_IN_DOOR_OF_TYPE(746855201, 262.1981f, 222.5188f, 106.4296f, false, 0f, 0f, 0f);
+                    Natives.SET_LOCKED_UNSTREAMED_IN_DOOR_OF_TYPE(110411286, 258.2022f, 204.1005f, 106.4049f, false, 0f, 0f, 0f);
                     // If all hostages rescued
                     if (SafeHostagesCount == AliveHostagesCount)
                     {
@@ -792,8 +792,8 @@ internal class PacificBankHeist : CalloutBase
                             if (Main.Player.IsShooting)
                             {
                                 IsSWATFollowing = false;
-                                HudHelpers.DisplayHelp(Localization.GetString("SWATIsNotFollowing"));
-                                Logger.Info("Follow off - shooting", "Bank Heist");
+                                Hud.DisplayHelp(Localization.GetString("SWATIsNotFollowing"));
+                                Main.Logger.Info("Follow off - shooting", "Bank Heist");
                             }
                         }
                     }
@@ -826,7 +826,7 @@ internal class PacificBankHeist : CalloutBase
                                 {
                                     if (!TalkedToCommander2nd)
                                     {
-                                        HudHelpers.DisplayHelp(Localization.GetString("TalkTo", Localization.GetString("Commander"), $"~{COMMANDER_BLIP.GetIconToken()}~"));
+                                        Hud.DisplayHelp(Localization.GetString("TalkTo", Localization.GetString("Commander"), $"~{COMMANDER_BLIP.GetIconToken()}~"));
                                     }
                                 }
                             }
@@ -842,9 +842,9 @@ internal class PacificBankHeist : CalloutBase
                 while (IsCalloutRunning)
                 {
                     GameFiber.Yield();
-                    NativeFunction.CallByHash<uint>(Main._DOOR_CONTROL, 4072696575, 256.3116f, 220.6579f, 106.4296f, false, 0f, 0f, 0f);
-                    NativeFunction.CallByHash<uint>(Main._DOOR_CONTROL, 746855201, 262.1981f, 222.5188f, 106.4296f, false, 0f, 0f, 0f);
-                    NativeFunction.CallByHash<uint>(Main._DOOR_CONTROL, 110411286, 258.2022f, 204.1005f, 106.4049f, false, 0f, 0f, 0f);
+                    Natives.SET_LOCKED_UNSTREAMED_IN_DOOR_OF_TYPE(4072696575, 256.3116f, 220.6579f, 106.4296f, false, 0f, 0f, 0f);
+                    Natives.SET_LOCKED_UNSTREAMED_IN_DOOR_OF_TYPE(746855201, 262.1981f, 222.5188f, 106.4296f, false, 0f, 0f, 0f);
+                    Natives.SET_LOCKED_UNSTREAMED_IN_DOOR_OF_TYPE(110411286, 258.2022f, 204.1005f, 106.4049f, false, 0f, 0f, 0f);
                     if (!EvaluatedWithWells)
                     {
                         if (!Main.Player.IsInAnyVehicle(false))
@@ -865,7 +865,7 @@ internal class PacificBankHeist : CalloutBase
                             }
                             else
                             {
-                                HudHelpers.DisplayHelp(Localization.GetString("TalkTo", Localization.GetString("Commander"), $"~{COMMANDER_BLIP.GetIconToken()}~"));
+                                Hud.DisplayHelp(Localization.GetString("TalkTo", Localization.GetString("Commander"), $"~{COMMANDER_BLIP.GetIconToken()}~"));
                             }
                         }
                     }
@@ -876,7 +876,7 @@ internal class PacificBankHeist : CalloutBase
             }
             catch (Exception e)
             {
-                Logger.Error(e.ToString());
+                Main.Logger.Error(e.ToString());
             }
         });
     }
@@ -897,7 +897,7 @@ internal class PacificBankHeist : CalloutBase
                 DiedRobbersCount++;
             }
         }
-        HudHelpers.DisplayNotification(Localization.GetString("BankHeistReportText", $"{SafeHostagesCount.ToString()}", $"{(TotalHostagesCount - AliveHostagesCount).ToString()}", $"{DiedRobbersCount.ToString()}"), Localization.GetString("BankHeistReportTitle"), TotalHostagesCount - AliveHostagesCount is < 3 ? Localization.GetString("BankHeistReportSubtitle") : "", "mphud", "mp_player_ready");
+        Hud.DisplayNotification(Localization.GetString("BankHeistReportText", $"{SafeHostagesCount.ToString()}", $"{(TotalHostagesCount - AliveHostagesCount).ToString()}", $"{DiedRobbersCount.ToString()}"), Localization.GetString("BankHeistReportTitle"), TotalHostagesCount - AliveHostagesCount is < 3 ? Localization.GetString("BankHeistReportSubtitle") : "", "mphud", "mp_player_ready");
         if (TotalHostagesCount == AliveHostagesCount)
         {
             var bigMessage = new BigMessageThread(true);
@@ -911,11 +911,11 @@ internal class PacificBankHeist : CalloutBase
         IsSWATFollowing = !IsSWATFollowing;
         if (IsSWATFollowing)
         {
-            HudHelpers.DisplayHelp(Localization.GetString("SWATIsFollowing"));
+            Hud.DisplayHelp(Localization.GetString("SWATIsFollowing"));
         }
         else
         {
-            HudHelpers.DisplayHelp(Localization.GetString("SWATIsNotFollowing"));
+            Hud.DisplayHelp(Localization.GetString("SWATIsNotFollowing"));
         }
     }
 
@@ -985,7 +985,7 @@ internal class PacificBankHeist : CalloutBase
     //                         {
     //                             if (!IsSWATFollowing)
     //                             {
-    //                                 NativeFunction.Natives.REGISTER_HATED_TARGETS_AROUND_PED(cop, 60f);
+    //                                 Natives.REGISTER_HATED_TARGETS_AROUND_PED(cop, 60f);
     //                                 cop.Tasks.FightAgainstClosestHatedTarget(60f);
     //                             }
     //                             else
@@ -1028,15 +1028,15 @@ internal class PacificBankHeist : CalloutBase
     //                             var distance = Vector3.Distance(robber.Position, PacificBankInsideChecks[0]) < Vector3.Distance(robber.Position, PacificBankInsideChecks[1]) ? Vector3.Distance(robber.Position, PacificBankInsideChecks[0]) : Vector3.Distance(robber.Position, PacificBankInsideChecks[1]);
     //                             if (distance < 16.5f) distance = 16.5f;
     //                             else if (distance > 21f) distance = 21f;
-    //                             NativeFunction.Natives.REGISTER_HATED_TARGETS_AROUND_PED(robber, distance);
+    //                             Natives.REGISTER_HATED_TARGETS_AROUND_PED(robber, distance);
     //                             robber.Tasks?.FightAgainstClosestHatedTarget(distance);
-    //                             // Rage.Native.NativeFunction.CallByName<uint>("TASK_GUARD_CURRENT_POSITION", robber, 10.0f, 10.0f, true);
+    //                             // CallByName<uint>("TASK_GUARD_CURRENT_POSITION", robber, 10.0f, 10.0f, true);
     //                             try
     //                             {
     //                                 unsafe
     //                                 {
     //                                     uint entityHandle;
-    //                                     NativeFunction.Natives.x2975C866E6713290(Game.LocalPlayer, new IntPtr(&entityHandle)); // Stores the entity the player is aiming at in the uint provided in the second parameter.
+    //                                     Natives.x2975C866E6713290(Game.LocalPlayer, new IntPtr(&entityHandle)); // Stores the entity the player is aiming at in the uint provided in the second parameter.
     //                                     entityPlayerAimingAt = World.GetEntityByHandle<Entity>(entityHandle);
     //                                 }
     //                             }
@@ -1097,7 +1097,7 @@ internal class PacificBankHeist : CalloutBase
                     else
                     {
                         var aimPoint = Vector3.Distance(AllAimingOfficers[i].Position, BankDoorPositions[0]) < Vector3.Distance(AllAimingOfficers[i].Position, BankDoorPositions[1]) ? BankDoorPositions[0] : BankDoorPositions[1];
-                        NativeFunction.Natives.TASK_AIM_GUN_AT_COORD(AllAimingOfficers[i], aimPoint.X, aimPoint.Y, aimPoint.Z, -1, false, false);
+                        Natives.TASK_AIM_GUN_AT_COORD(AllAimingOfficers[i], aimPoint.X, aimPoint.Y, aimPoint.Z, -1, false, false);
                     }
                 }
             }
@@ -1375,9 +1375,9 @@ internal class PacificBankHeist : CalloutBase
         {
             try
             {
-                HudHelpers.DisplayNotification($"~b~{Localization.GetString("Commander")}~s~: {Localization.GetString("SeemSurrender")}");
+                Hud.DisplayNotification($"~b~{Localization.GetString("Commander")}~s~: {Localization.GetString("SeemSurrender")}");
                 GameFiber.Wait(5000);
-                HudHelpers.DisplayHelp(Localization.GetString("SurrenderHelp"), 80000);
+                Hud.DisplayHelp(Localization.GetString("SurrenderHelp"), 80000);
                 bool AllRobbersAtLocation = false;
                 for (int i = 0; i < AllRobbers.Count; i++)
                 {
@@ -1386,7 +1386,7 @@ internal class PacificBankHeist : CalloutBase
                     var pos = new Vector3(data.X, data.Y, data.Z);
                     AllRobbers[i].Tasks.PlayAnimation("random@getawaydriver", "idle_2_hands_up", 1f, AnimationFlags.UpperBodyOnly | AnimationFlags.StayInEndFrame | AnimationFlags.SecondaryTask);
                     AllRobbers[i].Tasks.FollowNavigationMeshToPosition(pos, data.Heading, 1.45f);
-                    NativeFunction.Natives.SET_PED_CAN_RAGDOLL(AllRobbers[i], false);
+                    Natives.SET_PED_CAN_RAGDOLL(AllRobbers[i], false);
                 }
                 int count = 0;
                 while (!AllRobbersAtLocation)
@@ -1423,7 +1423,7 @@ internal class PacificBankHeist : CalloutBase
                     {
                         GameFiber.Yield();
                         var robber = AllRobbers[Main.MersenneTwister.Next(AllRobbers.Count)];
-                        NativeFunction.Natives.TASK_AIM_GUN_AT_COORD(swat, robber.Position.X, robber.Position.Y, robber.Position.Z, -1, false, false);
+                        Natives.TASK_AIM_GUN_AT_COORD(swat, robber.Position.X, robber.Position.Y, robber.Position.Z, -1, false, false);
                     }
                 }
                 GameFiber.Wait(1000);
@@ -1432,12 +1432,12 @@ internal class PacificBankHeist : CalloutBase
                     GameFiber.Yield();
 
                     AllRobbers[i].Tasks.PlayAnimation("random@arrests", "kneeling_arrest_idle", 1f, AnimationFlags.Loop);
-                    NativeFunction.Natives.SET_PED_DROPS_WEAPON(AllRobbers[i]);
+                    Natives.SET_PED_DROPS_WEAPON(AllRobbers[i]);
                     if (AllOfficers.Count > i)
                     {
                         OfficersArresting.Add(AllOfficers[i]);
                         AllOfficers[i].Tasks.FollowNavigationMeshToPosition(AllRobbers[i].GetOffsetPosition(Vector3.RelativeBack * 0.7f), AllRobbers[i].Heading, 1.55f);
-                        NativeFunction.Natives.SET_PED_CAN_RAGDOLL(AllOfficers[i], false);
+                        Natives.SET_PED_CAN_RAGDOLL(AllOfficers[i], false);
                     }
                 }
                 GameFiber.Wait(1000);
@@ -1494,7 +1494,7 @@ internal class PacificBankHeist : CalloutBase
             }
             catch (Exception e)
             {
-                Logger.Error(e.ToString());
+                Main.Logger.Error(e.ToString());
             }
         });
     }
@@ -1637,7 +1637,7 @@ internal class PacificBankHeist : CalloutBase
             };
             if (swat is not null && swat.IsValid() && swat.Exists())
             {
-                NativeFunction.Natives.SET_PED_KEEP_TASK(swat, true);
+                Natives.SET_PED_KEEP_TASK(swat, true);
                 swat.SetOutfit(data);
                 Functions.SetPedAsCop(swat);
                 Functions.SetCopAsBusy(swat, true);
@@ -1663,7 +1663,7 @@ internal class PacificBankHeist : CalloutBase
             };
             if (swat is not null && swat.IsValid() && swat.Exists())
             {
-                NativeFunction.Natives.SET_PED_KEEP_TASK(swat, true);
+                Natives.SET_PED_KEEP_TASK(swat, true);
                 swat.SetOutfit(data);
                 Functions.SetPedAsCop(swat);
                 Functions.SetCopAsBusy(swat, true);
@@ -1689,7 +1689,7 @@ internal class PacificBankHeist : CalloutBase
             };
             if (swat is not null && swat.IsValid() && swat.Exists())
             {
-                NativeFunction.Natives.SET_PED_KEEP_TASK(swat, true);
+                Natives.SET_PED_KEEP_TASK(swat, true);
                 swat.SetOutfit(data);
                 Functions.SetPedAsCop(swat);
                 Functions.SetCopAsBusy(swat, true);
@@ -1715,13 +1715,13 @@ internal class PacificBankHeist : CalloutBase
             };
             if (officer is not null && officer.IsValid() && officer.Exists())
             {
-                NativeFunction.Natives.SET_PED_KEEP_TASK(officer, true);
+                Natives.SET_PED_KEEP_TASK(officer, true);
                 officer.SetOutfit(data);
                 Functions.SetPedAsCop(officer);
                 Functions.SetCopAsBusy(officer, true);
                 officer.GiveWeapon([.. XmlManager.PacificBankHeistConfig.OfficerWeapons], true);
                 var aimPoint = Vector3.Distance(officer.Position, BankDoorPositions[0]) < Vector3.Distance(officer.Position, BankDoorPositions[1]) ? BankDoorPositions[0] : BankDoorPositions[1];
-                NativeFunction.Natives.TASK_AIM_GUN_AT_COORD(officer, aimPoint.X, aimPoint.Y, aimPoint.Z, -1, false, false);
+                Natives.TASK_AIM_GUN_AT_COORD(officer, aimPoint.X, aimPoint.Y, aimPoint.Z, -1, false, false);
 
                 AllOfficers.Add(officer);
                 AllAimingOfficers.Add(officer);
@@ -1744,7 +1744,7 @@ internal class PacificBankHeist : CalloutBase
             };
             if (officer is not null && officer.IsValid() && officer.Exists())
             {
-                NativeFunction.Natives.SET_PED_KEEP_TASK(officer, true);
+                Natives.SET_PED_KEEP_TASK(officer, true);
                 officer.SetOutfit(data);
                 Functions.SetPedAsCop(officer);
                 Functions.SetCopAsBusy(officer, true);
@@ -1839,7 +1839,7 @@ internal class PacificBankHeist : CalloutBase
             };
             if (hostage is not null && hostage.IsValid() && hostage.Exists())
             {
-                NativeFunction.Natives.SET_PED_CAN_RAGDOLL(hostage, false);
+                Natives.SET_PED_CAN_RAGDOLL(hostage, false);
                 hostage.SetOutfit(data);
                 AllHostages.Add(hostage);
                 SpawnedHostages.Add(hostage);
@@ -1874,7 +1874,7 @@ internal class PacificBankHeist : CalloutBase
                 Functions.SetPedCantBeArrestedByPlayer(ped, true);
                 ped.GiveWeapon([.. XmlManager.PacificBankHeistConfig.RobbersThrowableWeapons], false);
                 ped.GiveWeapon([.. XmlManager.PacificBankHeistConfig.RobbersWeapons], false);
-                NativeFunction.Natives.SetPedCombatAbility(ped, 3);
+                Natives.SET_PED_COMBAT_ABILITY(ped, 3);
                 AllRobbers.Add(ped);
                 CalloutEntities.Add(ped);
             }
@@ -1903,7 +1903,7 @@ internal class PacificBankHeist : CalloutBase
                 Functions.SetPedCantBeArrestedByPlayer(ped, true);
                 ped.GiveWeapon([.. XmlManager.PacificBankHeistConfig.RobbersThrowableWeapons], false);
                 ped.GiveWeapon([.. XmlManager.PacificBankHeistConfig.RobbersWeapons], false);
-                NativeFunction.Natives.SetPedCombatAbility(ped, 3);
+                Natives.SET_PED_COMBAT_ABILITY(ped, 3);
                 AllVaultRobbers.Add(ped);
                 CalloutEntities.Add(ped);
             }
@@ -1932,7 +1932,7 @@ internal class PacificBankHeist : CalloutBase
                 ped.SetOutfit(data);
                 Functions.SetPedCantBeArrestedByPlayer(ped, true);
                 ped.GiveWeapon([.. XmlManager.PacificBankHeistConfig.RobbersWeapons], false);
-                NativeFunction.Natives.SetPedCombatAbility(ped, 3);
+                Natives.SET_PED_COMBAT_ABILITY(ped, 3);
                 AllRobbers.Add(ped);
                 CalloutEntities.Add(ped);
             }
@@ -1962,7 +1962,7 @@ internal class PacificBankHeist : CalloutBase
                     ped.SetOutfit(data);
                     Functions.SetPedCantBeArrestedByPlayer(ped, true);
                     ped.GiveWeapon([.. XmlManager.PacificBankHeistConfig.RobbersWeapons], false);
-                    NativeFunction.Natives.SetPedCombatAbility(ped, 3);
+                    Natives.SET_PED_COMBAT_ABILITY(ped, 3);
                     ped.Tasks.PlayAnimation(SWAT_ANIMATION_DICTIONARY, rsP.IsRight ? SWAT_ANIMATION_RIGHT : SWAT_ANIMATION_LEFT, 1f, AnimationFlags.StayInEndFrame);
                     AllSneakRobbers.Add(ped);
                     CalloutEntities.Add(ped);
@@ -2007,7 +2007,7 @@ internal class PacificBankHeist : CalloutBase
                 }
                 catch (Exception e)
                 {
-                    Logger.Error(e.ToString());
+                    Main.Logger.Error(e.ToString());
                 }
             }
         });
@@ -2068,7 +2068,7 @@ internal class PacificBankHeist : CalloutBase
                 }
                 catch (Exception e)
                 {
-                    Logger.Error(e.ToString());
+                    Main.Logger.Error(e.ToString());
                 }
             }
         });
@@ -2131,14 +2131,14 @@ internal class PacificBankHeist : CalloutBase
                                 {
                                     if (rsP[index].IsRight)
                                     {
-                                        if (!NativeFunction.Natives.IS_ENTITY_PLAYING_ANIM<bool>(robber, SWAT_ANIMATION_DICTIONARY, SWAT_ANIMATION_RIGHT, 3))
+                                        if (!Natives.IS_ENTITY_PLAYING_ANIM(robber, SWAT_ANIMATION_DICTIONARY, SWAT_ANIMATION_RIGHT, 3))
                                         {
                                             robber.Tasks.PlayAnimation(SWAT_ANIMATION_DICTIONARY, SWAT_ANIMATION_RIGHT, 2f, AnimationFlags.StayInEndFrame).WaitForCompletion(20);
                                         }
                                     }
                                     else
                                     {
-                                        if (!NativeFunction.Natives.IS_ENTITY_PLAYING_ANIM<bool>(robber, SWAT_ANIMATION_DICTIONARY, SWAT_ANIMATION_LEFT, 3))
+                                        if (!Natives.IS_ENTITY_PLAYING_ANIM(robber, SWAT_ANIMATION_DICTIONARY, SWAT_ANIMATION_LEFT, 3))
                                         {
                                             robber.Tasks.PlayAnimation(SWAT_ANIMATION_DICTIONARY, SWAT_ANIMATION_LEFT, 2f, AnimationFlags.StayInEndFrame).WaitForCompletion(20);
                                         }
@@ -2171,7 +2171,7 @@ internal class PacificBankHeist : CalloutBase
                 }
                 catch (Exception e)
                 {
-                    Logger.Error(e.ToString());
+                    Main.Logger.Error(e.ToString());
                 }
             }
         });
@@ -2195,12 +2195,8 @@ internal class PacificBankHeist : CalloutBase
                     else if (Vector3.Distance(nearestPed.Position, sneak.Position) < 1.70f) break;
                     try
                     {
-                        unsafe
-                        {
-                            uint entityHandle;
-                            NativeFunction.Natives.x2975C866E6713290(Game.LocalPlayer, new IntPtr(&entityHandle)); // Stores the entity the player is aiming at in the uint provided in the second parameter.
-                            entityPlayerAimingAtSneakyRobber = World.GetEntityByHandle<Entity>(entityHandle);
-                        }
+                        Natives.GET_ENTITY_PLAYER_IS_FREE_AIMING_AT(Game.LocalPlayer, out Entity entityHandle); // Stores the entity the player is aiming at in the uint provided in the second parameter.
+                        entityPlayerAimingAtSneakyRobber = entityHandle;
                     }
                     catch // (Exception e)
                     {
@@ -2219,7 +2215,7 @@ internal class PacificBankHeist : CalloutBase
                     GameFiber.Yield();
                     if (!sneak.Exists()) break;
                     if (!nearestPed.Exists()) break;
-                    NativeFunction.Natives.STOP_CURRENT_PLAYING_AMBIENT_SPEECH(sneak);
+                    Natives.STOP_CURRENT_PLAYING_AMBIENT_SPEECH(sneak);
                     if (nearestPed.IsDead)
                     {
                         foreach (var hostage in SpawnedHostages)
@@ -2249,7 +2245,7 @@ internal class PacificBankHeist : CalloutBase
             }
             catch (Exception e)
             {
-                Logger.Error(e.ToString());
+                Main.Logger.Error(e.ToString());
             }
             finally
             {
@@ -2445,7 +2441,7 @@ internal class PacificBankHeist : CalloutBase
                                         {
                                             safe.Delete();
                                             deleteSafeHostageCount = 0;
-                                            NativeFunction.Natives.SET_VEHICLE_DOORS_SHUT(AllAmbulance[1], true);
+                                            Natives.SET_VEHICLE_DOORS_SHUT(AllAmbulance[1], true);
                                         }
                                     }
                                 }
@@ -2505,7 +2501,7 @@ internal class PacificBankHeist : CalloutBase
                                 {
                                     if (CoolDown > 0)
                                     {
-                                        HudHelpers.DisplayNotification(Localization.GetString("GearRunOut"));
+                                        Hud.DisplayNotification(Localization.GetString("GearRunOut"));
                                     }
                                     else
                                     {
@@ -2514,7 +2510,7 @@ internal class PacificBankHeist : CalloutBase
                                         Main.Player.Armor = 100;
                                         Main.Player.Health = Main.Player.MaxHealth;
                                         Main.Player.GiveWeapon([.. XmlManager.PacificBankHeistConfig.WeaponInRiot], false);
-                                        NativeFunction.Natives.PLAY_SOUND_FRONTEND(-1, "PURCHASE", "HUD_LIQUOR_STORE_SOUNDSET", 1);
+                                        Natives.PLAY_SOUND_FRONTEND(-1, "PURCHASE", "HUD_LIQUOR_STORE_SOUNDSET", true);
                                         Main.Player.Tasks.LeaveVehicle(LeaveVehicleFlags.None).WaitForCompletion();
                                     }
                                 }
@@ -2531,7 +2527,7 @@ internal class PacificBankHeist : CalloutBase
                 }
                 catch (Exception e)
                 {
-                    Logger.Error(e.ToString());
+                    Main.Logger.Error(e.ToString());
                 }
             }
         });
@@ -2541,16 +2537,16 @@ internal class PacificBankHeist : CalloutBase
     {
         if (toggle)
         {
-            NativeFunction.Natives.SET_PED_CAN_SWITCH_WEAPON(ped, false);
+            Natives.SET_PED_CAN_SWITCH_WEAPON(ped, false);
             ped.Inventory.GiveNewWeapon(new WeaponAsset("WEAPON_UNARMED"), -1, true);
             MobilePhone = new(PhoneModel, new(0, 0, 0));
-            int boneIndex = NativeFunction.Natives.GET_PED_BONE_INDEX<int>(ped, (int)PedBoneId.RightPhHand);
-            NativeFunction.Natives.ATTACH_ENTITY_TO_ENTITY(MobilePhone, ped, boneIndex, 0f, 0f, 0f, 0f, 0f, 0f, true, true, false, false, 2, 1);
+            int boneIndex = Natives.GET_PED_BONE_INDEX(ped, (int)PedBoneId.RightPhHand);
+            Natives.ATTACH_ENTITY_TO_ENTITY(MobilePhone, ped, boneIndex, 0f, 0f, 0f, 0f, 0f, 0f, true, true, false, false, 2, true);
             ped.Tasks.PlayAnimation("cellphone@", "cellphone_call_listen_base", 1.3f, AnimationFlags.Loop | AnimationFlags.UpperBodyOnly | AnimationFlags.SecondaryTask);
         }
         else
         {
-            NativeFunction.Natives.SET_PED_CAN_SWITCH_WEAPON(ped, true);
+            Natives.SET_PED_CAN_SWITCH_WEAPON(ped, true);
             ped.Tasks.Clear();
             if (GameFiber.CanSleepNow)
             {
