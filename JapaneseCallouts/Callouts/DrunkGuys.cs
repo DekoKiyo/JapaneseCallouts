@@ -66,7 +66,7 @@ internal class DrunkGuys : CalloutBase
         };
         if (citizen is not null && citizen.IsValid() && citizen.Exists())
         {
-            NativeFunction.Natives.SET_PED_KEEP_TASK(citizen, true);
+            Natives.SET_PED_KEEP_TASK(citizen, true);
 
             citizenB = citizen.AttachBlip();
             citizenB.Color = Color.Green;
@@ -82,7 +82,7 @@ internal class DrunkGuys : CalloutBase
             };
             if (cus is not null && cus.IsValid() && cus.Exists())
             {
-                NativeFunction.Natives.SET_PED_KEEP_TASK(cus, true);
+                Natives.SET_PED_KEEP_TASK(cus, true);
                 cus.Tasks.PlayAnimation(ANIM_DICTIONARY, Main.MersenneTwister.Next(2) is 0 ? ANIM_TYPE1 : ANIM_TYPE2, 1f, AnimationFlags.Loop);
                 peds.Add(cus);
             }

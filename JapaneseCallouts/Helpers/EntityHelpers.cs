@@ -17,7 +17,7 @@ internal static class EntityHelpers
             seatIndex = oldPed.SeatIndex;
             spawnInVehicle = true;
         }
-        var newPed = NativeFunction.Natives.ClonePed<Ped>(oldPed, oldPed.Heading, false, true);
+        var newPed = Natives.CLONE_PED(oldPed, false, false, true);
         if (oldPed.Exists() && oldPed.IsValid())
         {
             oldPed.Delete();
@@ -55,20 +55,20 @@ internal static class EntityHelpers
     {
         if (vehicle is not null && vehicle.IsValid() && vehicle.Exists())
         {
-            var liveryCount = NativeFunction.Natives.GET_VEHICLE_LIVERY_COUNT<int>(vehicle);
+            var liveryCount = Natives.GET_VEHICLE_LIVERY_COUNT(vehicle);
             if (liveryCount is -1)
             {
                 if (config.ColorR is >= 0 and < 256 && config.ColorG is >= 0 and < 256 && config.ColorB is >= 0 and < 256)
                 {
-                    NativeFunction.Natives.SET_VEHICLE_CUSTOM_PRIMARY_COLOUR(vehicle, config.ColorR, config.ColorG, config.ColorB);
-                    NativeFunction.Natives.SET_VEHICLE_CUSTOM_SECONDARY_COLOUR(vehicle, config.ColorR, config.ColorG, config.ColorB);
+                    Natives.SET_VEHICLE_CUSTOM_PRIMARY_COLOUR(vehicle, config.ColorR, config.ColorG, config.ColorB);
+                    Natives.SET_VEHICLE_CUSTOM_SECONDARY_COLOUR(vehicle, config.ColorR, config.ColorG, config.ColorB);
                 }
             }
             else
             {
                 if (liveryCount <= config.Livery)
                 {
-                    NativeFunction.Natives.SET_VEHICLE_LIVERY(vehicle, config.Livery);
+                    Natives.SET_VEHICLE_LIVERY(vehicle, config.Livery);
                 }
             }
         }
@@ -79,7 +79,7 @@ internal static class EntityHelpers
         if (CalloutHelpers.IsRandomProps(data))
         {
             ped.RandomizeVariation();
-            NativeFunction.Natives.SET_PED_RANDOM_PROPS(ped);
+            Natives.SET_PED_RANDOM_PROPS(ped);
         }
         else
         {
@@ -94,26 +94,26 @@ internal static class EntityHelpers
             ped.SetVariation((int)EComponents.Armor, data.ArmorModel - 1, data.ArmorTexture - 1);
             ped.SetVariation((int)EComponents.Decal, data.DecalModel - 1, data.DecalTexture - 1);
             ped.SetVariation((int)EComponents.Top, data.TopModel - 1, data.TopTexture - 1);
-            NativeFunction.Natives.CLEAR_ALL_PED_PROPS(ped);
-            NativeFunction.Natives.SET_PED_PROP_INDEX(ped, (int)EProps.Hat, data.HatModel - 1, data.HatTexture - 1, false);
-            NativeFunction.Natives.SET_PED_PROP_INDEX(ped, (int)EProps.Glasses, data.GlassesModel - 1, data.GlassesTexture - 1, false);
-            NativeFunction.Natives.SET_PED_PROP_INDEX(ped, (int)EProps.Ear, data.EarModel - 1, data.EarTexture - 1, false);
-            NativeFunction.Natives.SET_PED_PROP_INDEX(ped, (int)EProps.Watch, data.WatchModel - 1, data.WatchTexture - 1, false);
+            Natives.CLEAR_ALL_PED_PROPS(ped);
+            Natives.SET_PED_PROP_INDEX(ped, (int)EProps.Hat, data.HatModel - 1, data.HatTexture - 1, false);
+            Natives.SET_PED_PROP_INDEX(ped, (int)EProps.Glasses, data.GlassesModel - 1, data.GlassesTexture - 1, false);
+            Natives.SET_PED_PROP_INDEX(ped, (int)EProps.Ear, data.EarModel - 1, data.EarTexture - 1, false);
+            Natives.SET_PED_PROP_INDEX(ped, (int)EProps.Watch, data.WatchModel - 1, data.WatchTexture - 1, false);
         }
     }
 
     internal static void GiveWeapon(this Ped ped, WeaponConfig[] weapons, bool inHand)
     {
         var weapon = CalloutHelpers.Select(weapons);
-        var hash = NativeFunction.Natives.GET_HASH_KEY<Model>(weapon.Model);
-        NativeFunction.Natives.REQUEST_MODEL(hash);
-        NativeFunction.Natives.GIVE_WEAPON_TO_PED(ped, hash, 5000, false, true);
-        NativeFunction.Natives.SET_CURRENT_PED_WEAPON(ped, hash, inHand);
+        var hash = Natives.GET_HASH_KEY(weapon.Model);
+        Natives.REQUEST_MODEL(hash);
+        Natives.GIVE_WEAPON_TO_PED(ped, hash, 5000, false, true);
+        Natives.SET_CURRENT_PED_WEAPON(ped, hash, inHand);
         foreach (var comp in weapon.Components)
         {
-            var compHash = NativeFunction.Natives.GET_HASH_KEY<Model>(comp);
-            NativeFunction.Natives.REQUEST_MODEL(compHash);
-            NativeFunction.Natives.GIVE_WEAPON_COMPONENT_TO_PED(ped, hash, compHash);
+            var compHash = Natives.GET_HASH_KEY(comp);
+            Natives.REQUEST_MODEL(compHash);
+            Natives.GIVE_WEAPON_COMPONENT_TO_PED(ped, hash, compHash);
         }
     }
 
@@ -138,7 +138,7 @@ internal static class EntityHelpers
             }
             if (withOcclusion) // with obstacle detection
             {
-                if (NativeFunction.Natives.HAS_ENTITY_CLEAR_LOS_TO_ENTITY<bool>(target, source, 17)) // No Obstacles?
+                if (Natives.HAS_ENTITY_CLEAR_LOS_TO_ENTITY(target, source, 17)) // No Obstacles?
                 {
                     var dot = GetDotVectorResult(target, source);
                     if (dot > minAngle) // Is in acceptable range for dot product?

@@ -8,9 +8,9 @@ internal static class CalloutHelpers
         while ((DateTime.Now - startTime).TotalMilliseconds < 100)
         {
             GameFiber.Yield();
-            NativeFunction.Natives.THEFEED_FLUSH_QUEUE();
-            NativeFunction.Natives.THEFEED_SET_SNAP_FEED_ITEM_POSITIONS(true);
-            NativeFunction.Natives.THEFEED_SET_SNAP_FEED_ITEM_POSITIONS(false);
+            Natives.THEFEED_FLUSH_QUEUE();
+            Natives.THEFEED_SET_SNAP_FEED_ITEM_POSITIONS(true);
+            Natives.THEFEED_SET_SNAP_FEED_ITEM_POSITIONS(false);
         }
         Hud.DisplayNotification(Localization.GetString("CalloutNotificationText", callName, location), Localization.GetString("Dispatch"), Localization.GetString("CalloutNotificationSubtitle"), "CHAR_CALL911", "CHAR_CALL911");
     }

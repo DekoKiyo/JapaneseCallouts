@@ -140,7 +140,7 @@ internal static class Conversations
                 }
             }
         });
-        NativeFunction.Natives.SET_PED_CAN_SWITCH_WEAPON(Main.Player, false);
+        Natives.SET_PED_CAN_SWITCH_WEAPON(Main.Player, false);
         var pos = Main.Player.Position;
         var heading = Main.Player.Heading;
         while (answerIndex is -1)
@@ -156,7 +156,7 @@ internal static class Conversations
             }
             if (!DisplayTime) break;
         }
-        NativeFunction.Natives.SET_PED_CAN_SWITCH_WEAPON(Main.Player, true);
+        Natives.SET_PED_CAN_SWITCH_WEAPON(Main.Player, true);
         DisplayTime = false;
         return answerIndex;
     }

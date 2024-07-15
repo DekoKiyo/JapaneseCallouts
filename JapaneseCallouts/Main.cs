@@ -140,7 +140,6 @@ internal class Main : Plugin
 
     internal static MersenneTwister MersenneTwister = new((int)DateTime.Now.Ticks);
     internal static Logger Logger = new(PLUGIN_NAME);
-    internal const ulong _DOOR_CONTROL = 0x9b12f9a24fabedb0;
 
     internal static Ped Player
     {
