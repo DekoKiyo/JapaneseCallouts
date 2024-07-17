@@ -103,6 +103,37 @@ internal class PacificBankHeistN : CalloutBase
     private readonly Vector3[] PacificBankInsideChecks = [new(235.9f, 220.6f, 106.2f), new(238.3f, 214.8f, 106.2f), new(261.0f, 208.1f, 106.2f), new(235.2f, 217.1f, 106.2f)];
     private readonly Vector3[] BankDoorPositions = [new(231.5f, 215.2f, 106.2f), new(259.1f, 202.7f, 106.2f)];
 
+    // Doors
+    private static readonly Door[] Doors =
+    [
+        // 東側入口
+        new(new(258.2093f, 204.119f, 106.4328f), 1335308703),
+        new(new(260.6518f, 203.2292f, 106.4328f), 1335308363),
+        // 西側入口
+        new(new(232.6054f, 214.1584f, 106.4049f), 2253290267),
+        new(new(231.5075f, 216.5148f, 106.4049f), 2253290653),
+        // 東側入口第二
+        new(new(259.0951f, 212.8039f, 106.4328f), 1335307501),
+        new(new(259.985f, 215.2464f, 106.4328f), 1335307106),
+        // 窓口横
+        new(new(256.3116f, 220.6579f, 106.4296f), 3048750475),
+        // 地下室入口
+        new(new(262.1981f, 222.5188f, 106.4296f), 1289407241),
+        // 金庫ドア
+        new(new(255.2283f, 223.976f, 102.3932f), 961971378),
+        // 金庫中扉
+        new(new(251.8576f, 221.0655f, 101.8324f), 1655179107),
+        new(new(261.3004f, 214.5051f, 101.8324f), 1655178880),
+        // 2階
+        new(new(266.3624f, 217.5697f, 110.4328f), 1956489620),
+        new(new(262.5366f, 215.0576f, 110.4328f), 964844187),
+        new(new(260.8578f, 210.4453f, 110.4328f), 964845510),
+        new(new(256.6172f, 206.1522f, 110.4328f), 1956487646),
+        // 階段
+        new(new(236.5488f, 228.3147f, 110.4328f), 1956483117),
+        new(new(237.7704f, 227.87f, 106.426f), 1956483639),
+    ];
+
     // Timer Bars
     internal readonly TimerBarPool TBPool = [];
     internal TextTimerBar RescuedHostagesTB;
@@ -1038,9 +1069,10 @@ internal class PacificBankHeistN : CalloutBase
                     Natives.SET_PLAYER_WEAPON_DAMAGE_MODIFIER(Game.LocalPlayer, 0.92f);
                     Natives.SET_AI_MELEE_WEAPON_DAMAGE_MODIFIER(1f);
 
-                    Natives.SET_LOCKED_UNSTREAMED_IN_DOOR_OF_TYPE(4072696575, 256.3116f, 220.6579f, 106.4296f, false, 0f, 0f, 0f);
-                    Natives.SET_LOCKED_UNSTREAMED_IN_DOOR_OF_TYPE(746855201, 262.1981f, 222.5188f, 106.4296f, false, 0f, 0f, 0f);
-                    Natives.SET_LOCKED_UNSTREAMED_IN_DOOR_OF_TYPE(110411286, 258.2022f, 204.1005f, 106.4049f, false, 0f, 0f, 0f);
+                    foreach (var door in Doors)
+                    {
+                        Natives.SET_LOCKED_UNSTREAMED_IN_DOOR_OF_TYPE(door.ModelHash, door.Location.X, door.Location.Y, door.Location.Z, false, 0f, 0f, 0f);
+                    }
                 }
 
                 var fightingPrepared = false;
@@ -1155,10 +1187,6 @@ internal class PacificBankHeistN : CalloutBase
                 {
                     GameFiber.Yield();
 
-                    Natives.SET_LOCKED_UNSTREAMED_IN_DOOR_OF_TYPE(4072696575, 256.3116f, 220.6579f, 106.4296f, false, 0f, 0f, 0f);
-                    Natives.SET_LOCKED_UNSTREAMED_IN_DOOR_OF_TYPE(746855201, 262.1981f, 222.5188f, 106.4296f, false, 0f, 0f, 0f);
-                    Natives.SET_LOCKED_UNSTREAMED_IN_DOOR_OF_TYPE(110411286, 258.2022f, 204.1005f, 106.4049f, false, 0f, 0f, 0f);
-
                     if (!evaluatedWithCommander)
                     {
                         if (!Main.Player.IsInAnyVehicle(false))
@@ -1223,47 +1251,21 @@ internal class PacificBankHeistN : CalloutBase
         {
             foreach (var cop in AllOfficers)
             {
-                cop.Tasks.FightAgainstClosestHatedTarget(500f, -1);
+                var sequence = new TaskSequence(cop);
+                sequence.Tasks.FightAgainstClosestHatedTarget(500f, -1);
+                sequence.Execute(true);
             }
             foreach (var cop in AllSWATUnits)
             {
-                cop.Tasks.FightAgainstClosestHatedTarget(500f, -1);
+                var sequence = new TaskSequence(cop);
+                sequence.Tasks.FightAgainstClosestHatedTarget(500f, -1);
+                sequence.Execute(true);
             }
             foreach (var robber in AllRobbers)
             {
-                robber.Tasks.FightAgainstClosestHatedTarget(500f, -1);
-            }
-        });
-
-        GameFiber.StartNew(() =>
-        {
-            while (Status is EPacificBankHeistStatus.FightingWithRobbers)
-            {
-                GameFiber.Yield();
-                foreach (var cop in AllOfficers)
-                {
-                    if (cop.Tasks.CurrentTaskStatus is not Rage.TaskStatus.InProgress)
-                    {
-                        cop.Tasks.Clear();
-                        cop.Tasks.FightAgainstClosestHatedTarget(500f, -1);
-                    }
-                }
-                foreach (var cop in AllSWATUnits)
-                {
-                    if (cop.Tasks.CurrentTaskStatus is not Rage.TaskStatus.InProgress)
-                    {
-                        cop.Tasks.Clear();
-                        cop.Tasks.FightAgainstClosestHatedTarget(500f, -1);
-                    }
-                }
-                foreach (var robber in AllRobbers)
-                {
-                    if (robber.Tasks.CurrentTaskStatus is not Rage.TaskStatus.InProgress)
-                    {
-                        robber.Tasks.Clear();
-                        robber.Tasks.FightAgainstClosestHatedTarget(500f, -1);
-                    }
-                }
+                var sequence = new TaskSequence(robber);
+                sequence.Tasks.FightAgainstClosestHatedTarget(500f, -1);
+                sequence.Execute(true);
             }
         });
     }
