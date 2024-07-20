@@ -20,7 +20,7 @@ internal static class CalloutHelpers
         int total = 0, pick = 0;
         foreach (var l in data) total += l.Chance;
 
-        int rnd = Main.MersenneTwister.Next(total);
+        int rnd = Main.MT.Next(total);
         for (int i = 0; i < data.Length; i++)
         {
             if (rnd < data[i].Chance)

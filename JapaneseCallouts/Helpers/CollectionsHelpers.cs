@@ -9,7 +9,7 @@ internal static class CollectionsHelpers
         while (n > 1)
         {
             n--;
-            int k = Main.MersenneTwister.Next(n + 1);
+            int k = Main.MT.Next(n + 1);
             (list[n], list[k]) = (list[k], list[n]);
         }
         return list;

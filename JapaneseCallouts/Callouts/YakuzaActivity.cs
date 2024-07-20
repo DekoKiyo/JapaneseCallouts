@@ -88,9 +88,9 @@
 
 //     internal override void Update()
 //     {
-//         if (Main.Player.DistanceTo(caller) < 25f && !arrived)
+//         if (Game.LocalPlayer.Character.DistanceTo(caller) < 25f && !arrived)
 //         {
-//             if (Main.Player.IsOnFoot)
+//             if (Game.LocalPlayer.Character.IsOnFoot)
 //             {
 //                 if (Settings.SpeakWithThePersonModifierKey is Keys.None)
 //                 {
@@ -103,7 +103,7 @@
 
 //                 Functions.PlayScannerAudio("JP_ATTENTION_GENERIC JP_OFFICERS_ARRIVED_ON_SCENE");
 //                 HudExtensions.DisplaySubtitle(Localization.GetString("YakuzaHere"));
-//                 caller.Face(Main.Player);
+//                 caller.Face(Game.LocalPlayer.Character);
 //                 arrived = true;
 //             }
 //             else
@@ -114,9 +114,9 @@
 
 //         if (KeyExtensions.IsKeysDown(Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey))
 //         {
-//             if (arrived && Main.Player.DistanceTo(caller) < 2f && sentenceNum < sentence.Length)
+//             if (arrived && Game.LocalPlayer.Character.DistanceTo(caller) < 2f && sentenceNum < sentence.Length)
 //             {
-//                 caller.Face(Main.Player);
+//                 caller.Face(Game.LocalPlayer.Character);
 //                 HudExtensions.DisplaySubtitle($"{sentence[sentenceNum]} ({sentenceNum}/{sentence.Length})");
 //                 sentenceNum++;
 //             }

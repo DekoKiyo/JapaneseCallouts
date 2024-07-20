@@ -14,7 +14,7 @@ internal class StreetFight : CalloutBase
     internal override void Setup()
     {
         CalloutMessage = Localization.GetString("StreetFight");
-        CalloutPosition = World.GetNextPositionOnStreet(Main.Player.Position.Around(50f, 150f));
+        CalloutPosition = World.GetNextPositionOnStreet(Game.LocalPlayer.Character.Position.Around(50f, 150f));
         ShowCalloutAreaBlipBeforeAccepting(CalloutPosition, 30f);
         Functions.PlayScannerAudioUsingPosition(XmlManager.CalloutsSoundConfig.StreetFight, CalloutPosition);
 
@@ -55,7 +55,7 @@ internal class StreetFight : CalloutBase
             if (area is not null && area.IsValid() && area.Exists()) area.Delete();
             if (susB1 is not null && susB1.IsValid() && susB1.Exists()) susB1.Delete();
             if (susB2 is not null && susB2.IsValid() && susB2.Exists()) susB2.Delete();
-            if (Main.Player.IsDead)
+            if (Game.LocalPlayer.Character.IsDead)
             {
                 if (suspect1 is not null && suspect1.IsValid() && suspect1.Exists()) suspect1.Delete();
                 if (suspect2 is not null && suspect2.IsValid() && suspect2.Exists()) suspect2.Delete();
@@ -84,7 +84,7 @@ internal class StreetFight : CalloutBase
     {
         if (suspect1 is not null && suspect1.IsValid() && suspect1.Exists() &&
             suspect2 is not null && suspect2.IsValid() && suspect2.Exists() &&
-            (Main.Player.DistanceTo(suspect1) < 80f || Main.Player.DistanceTo(suspect2) < 80f) && !started)
+            (Game.LocalPlayer.Character.DistanceTo(suspect1) < 80f || Game.LocalPlayer.Character.DistanceTo(suspect2) < 80f) && !started)
         {
             if (area is not null && area.IsValid() && area.Exists()) area.Delete();
 
@@ -111,8 +111,8 @@ internal class StreetFight : CalloutBase
             suspect2 is not null && suspect2.IsValid() && suspect2.Exists() &&
             !isPursuitBegan)
         {
-            if (suspect1.DistanceTo(Main.Player.Position) < 10f ||
-                suspect2.DistanceTo(Main.Player.Position) < 10f)
+            if (suspect1.DistanceTo(Game.LocalPlayer.Character.Position) < 10f ||
+                suspect2.DistanceTo(Game.LocalPlayer.Character.Position) < 10f)
             {
                 pursuit = Functions.CreatePursuit();
                 if (pursuit is not null)
@@ -125,7 +125,7 @@ internal class StreetFight : CalloutBase
             }
         }
 
-        if (Main.Player.IsDead) End();
+        if (Game.LocalPlayer.Character.IsDead) End();
         if (EntityHelpers.IsAllPedDeadOrArrested([suspect1, suspect2])) End();
         if (KeyHelpers.IsKeysDown(Settings.EndCalloutsKey, Settings.EndCalloutsModifierKey)) End();
     }

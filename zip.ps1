@@ -6,6 +6,7 @@ $AudioFolder = ".\Release\Zip\GrandTheftAutoV\LSPDFR\Audio\scanner"
 
 # コピー元のフォルダ&ファイル
 $PluginDllFolder = ".\JapaneseCallouts\bin\Release\net48"
+$BaseLibDllFile = $PluginDllFolder + "\BaseLib.dll"
 $NAudioCoreDllFile = $PluginDllFolder + "\NAudio.Core.dll"
 $CalloutInterfaceAPIDllFile = $PluginDllFolder + "\CalloutInterfaceAPI.dll"
 $PluginDllFile = $PluginDllFolder + "\JapaneseCallouts.dll"
@@ -95,6 +96,7 @@ Write-Host "[Copy] In progress..." -ForegroundColor DarkBlue
 Copy-Item $PluginDllFile $PluginsLSPDFRFolder
 Copy-Item $PluginIniFile $PluginsLSPDFRFolder
 try {
+    Copy-Item $BaseLibDllFile $GrandTheftAutoV
     Copy-Item $NAudioCoreDllFile $GrandTheftAutoV
     Copy-Item $CalloutInterfaceAPIDllFile $GrandTheftAutoV
 }
@@ -111,6 +113,7 @@ Write-Host "[Zip] Create the folder" -ForegroundColor DarkGray
 New-Item $JapaneseCalloutsFolder -ItemType Directory
 # 圧縮フォルダへのデータコピー
 Write-Host "[Zip] Copy the files to archive folder" -ForegroundColor DarkBlue
+Copy-Item $BaseLibDllFile .\Release\Zip\GrandTheftAutoV\
 Copy-Item $NAudioCoreDllFile .\Release\Zip\GrandTheftAutoV\
 Copy-Item $CalloutInterfaceAPIDllFile .\Release\Zip\GrandTheftAutoV\
 Copy-Item $PluginDllFile .\Release\Zip\GrandTheftAutoV\plugins\LSPDFR

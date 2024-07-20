@@ -57,7 +57,7 @@ internal abstract class CalloutBase : Callout
     internal static void RegisterAllCallouts()
     {
         Functions.RegisterCallout(typeof(BankHeist));
-        Functions.RegisterCallout(typeof(PacificBankHeistN));
+        Functions.RegisterCallout(typeof(PacificBankHeist));
         Functions.RegisterCallout(typeof(DrunkGuys));
         Functions.RegisterCallout(typeof(HotPursuit));
         Functions.RegisterCallout(typeof(StolenVehicle));

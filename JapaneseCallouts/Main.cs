@@ -64,6 +64,7 @@ global using BaseLib;
 global using JapaneseCallouts;
 global using JapaneseCallouts.API;
 global using JapaneseCallouts.Callouts;
+global using JapaneseCallouts.Callouts.PacificBankHeist;
 global using JapaneseCallouts.Debug;
 global using JapaneseCallouts.Helpers;
 global using JapaneseCallouts.Modules;
@@ -99,7 +100,7 @@ namespace JapaneseCallouts;
 internal class Main : Plugin
 {
     // Change here if you want to change the version.
-    internal const string VERSION = "1.0.1";
+    internal const string VERSION = "1.1.0";
 
     private static readonly (string path, bool isError)[] REQUIRE_FILES_PATH =
     [
@@ -114,7 +115,7 @@ internal class Main : Plugin
         ($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.HOT_PURSUIT_XML}", false),
         ($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.WANTED_CRIMINAL_FOUND_XML}", false),
         ($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.CALLOUTS_SOUND_XML}", false),
-        ($"{PLUGIN_DIRECTORY}/{PLUGIN_AUDIO_DIRECTORY}/{PacificBankHeist.ALARM_SOUND_FILE_NAME}", false),
+        ($"{PLUGIN_DIRECTORY}/{PLUGIN_AUDIO_DIRECTORY}/{PBHConstants.ALARM_SOUND_FILE_NAME}", false),
         ($"{PLUGIN_DIRECTORY}/{PLUGIN_AUDIO_DIRECTORY}/{Conversations.PHONE_CALLING_SOUND}", false),
         ($"{PLUGIN_DIRECTORY}/{PLUGIN_AUDIO_DIRECTORY}/{Conversations.PHONE_BUSY_SOUND}", false),
     ];
@@ -138,13 +139,8 @@ internal class Main : Plugin
 
     internal static string RemoteLatestVersion = PLUGIN_VERSION;
 
-    internal static MersenneTwister MersenneTwister = new((int)DateTime.Now.Ticks);
+    internal static MersenneTwister MT = new((int)DateTime.Now.Ticks);
     internal static Logger Logger = new(PLUGIN_NAME);
-
-    internal static Ped Player
-    {
-        get => Game.LocalPlayer.Character;
-    }
 
     public override void Initialize()
     {
@@ -186,7 +182,7 @@ internal class Main : Plugin
             Settings.Initialize();
             Localization.Initialize();
             XmlManager.Initialize();
-            EnemyBlip.Initialize();
+            BlipPlus.Initialize();
             Game.AddConsoleCommands();
             CalloutBase.RegisterAllCallouts();
             Hud.DisplayNotification(Localization.GetString("PluginLoaded", PLUGIN_NAME, DEVELOPER_NAME), PLUGIN_NAME, PLUGIN_VERSION_DATA);

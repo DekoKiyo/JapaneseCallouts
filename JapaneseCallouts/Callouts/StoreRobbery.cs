@@ -33,7 +33,7 @@ internal class StoreRobbery : CalloutBase
 
         OnCalloutsEnded += () =>
         {
-            if (Main.Player.IsDead)
+            if (Game.LocalPlayer.Character.IsDead)
             {
                 foreach (var robber in robbers) if (robber is not null && robber.IsValid() && robber.Exists()) robber.Delete();
                 if (blip is not null && blip.IsValid() && blip.Exists()) blip.Delete();
@@ -73,10 +73,10 @@ internal class StoreRobbery : CalloutBase
         }
         Game.SetRelationshipBetweenRelationshipGroups(RelationshipGroup.Cop, RobbersRG, Relationship.Hate);
         Game.SetRelationshipBetweenRelationshipGroups(RobbersRG, RelationshipGroup.Cop, Relationship.Hate);
-        Game.SetRelationshipBetweenRelationshipGroups(RobbersRG, Main.Player.RelationshipGroup, Relationship.Hate);
-        Game.SetRelationshipBetweenRelationshipGroups(Main.Player.RelationshipGroup, RobbersRG, Relationship.Hate);
-        Game.SetRelationshipBetweenRelationshipGroups(RelationshipGroup.Cop, Main.Player.RelationshipGroup, Relationship.Respect);
-        Game.SetRelationshipBetweenRelationshipGroups(Main.Player.RelationshipGroup, RelationshipGroup.Cop, Relationship.Respect);
+        Game.SetRelationshipBetweenRelationshipGroups(RobbersRG, Game.LocalPlayer.Character.RelationshipGroup, Relationship.Hate);
+        Game.SetRelationshipBetweenRelationshipGroups(Game.LocalPlayer.Character.RelationshipGroup, RobbersRG, Relationship.Hate);
+        Game.SetRelationshipBetweenRelationshipGroups(RelationshipGroup.Cop, Game.LocalPlayer.Character.RelationshipGroup, Relationship.Respect);
+        Game.SetRelationshipBetweenRelationshipGroups(Game.LocalPlayer.Character.RelationshipGroup, RelationshipGroup.Cop, Relationship.Respect);
 
         tbPool.Add(timerBar);
         blip = new(CalloutPosition, 30f)
@@ -104,7 +104,7 @@ internal class StoreRobbery : CalloutBase
 
     internal override void Update()
     {
-        if (!arrived && (Vector3.Distance(Main.Player.Position, CalloutPosition) < 30f || seconds is <= 0))
+        if (!arrived && (Vector3.Distance(Game.LocalPlayer.Character.Position, CalloutPosition) < 30f || seconds is <= 0))
         {
             if (blip is not null && blip.IsValid() && blip.Exists()) blip.Delete();
             pursuit = Functions.CreatePursuit();
@@ -124,7 +124,7 @@ internal class StoreRobbery : CalloutBase
             arrived = true;
         }
 
-        if (Main.Player.IsDead) End();
+        if (Game.LocalPlayer.Character.IsDead) End();
         if (EntityHelpers.IsAllPedDeadOrArrested([.. robbers])) End();
         if (KeyHelpers.IsKeysDown(Settings.EndCalloutsKey, Settings.EndCalloutsModifierKey)) End();
     }

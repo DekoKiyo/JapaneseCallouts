@@ -21,7 +21,7 @@ internal class RoadRage : CalloutBase
 
     internal override void Setup()
     {
-        CalloutPosition = World.GetNextPositionOnStreet(Main.Player.Position.Around(Main.MersenneTwister.Next(450, 800)));
+        CalloutPosition = World.GetNextPositionOnStreet(Game.LocalPlayer.Character.Position.Around(Main.MT.Next(450, 800)));
 
         var weather = CalloutHelpers.GetWeatherType(IPTFunctions.GetWeatherType());
         {
@@ -92,7 +92,7 @@ internal class RoadRage : CalloutBase
 
         OnCalloutsEnded += () =>
         {
-            if (Main.Player.IsDead)
+            if (Game.LocalPlayer.Character.IsDead)
             {
                 if (suspect is not null && suspect.IsValid() && suspect.Exists()) suspect.Delete();
                 if (victim is not null && victim.IsValid() && victim.Exists()) victim.Delete();
@@ -121,7 +121,7 @@ internal class RoadRage : CalloutBase
     internal override void Accepted()
     {
         Hud.DisplayNotification($"{Localization.GetString("RoadRageDesc")} {Localization.GetString("RespondCode2")}", Localization.GetString("Dispatch"), Localization.GetString("RoadRage"));
-        area = new(victimV.Position.Around(Main.MersenneTwister.Next(100)), Main.MersenneTwister.Next(75, 120))
+        area = new(victimV.Position.Around(Main.MT.Next(100)), Main.MT.Next(75, 120))
         {
             Color = Color.Yellow,
             Alpha = 0.5f,
@@ -157,7 +157,7 @@ internal class RoadRage : CalloutBase
             Functions.PlayScannerAudioUsingPosition("JP_TARGET_IS IN_OR_ON_POSITION", victimV.Position);
             count++;
         }
-        if (!found && Vector3.Distance(Main.Player.Position, victimV.Position) < 20f)
+        if (!found && Vector3.Distance(Game.LocalPlayer.Character.Position, victimV.Position) < 20f)
         {
             found = true;
             if (area is not null && area.IsValid() && area.Exists()) area.Delete();
@@ -196,7 +196,7 @@ internal class RoadRage : CalloutBase
         {
             if (!arrived && victim is not null && victim.IsValid() && victim.Exists())
             {
-                if (Vector3.Distance(victim.Position, Main.Player.Position) < 20f)
+                if (Vector3.Distance(victim.Position, Game.LocalPlayer.Character.Position) < 20f)
                 {
                     if (victimB is not null && victimB.IsValid() && victimB.Exists())
                     {
@@ -208,9 +208,9 @@ internal class RoadRage : CalloutBase
 
             if (arrived)
             {
-                if (!Main.Player.IsInAnyVehicle(false))
+                if (!Game.LocalPlayer.Character.IsInAnyVehicle(false))
                 {
-                    if (Vector3.Distance(Main.Player.Position, victim.Position) < 4f)
+                    if (Vector3.Distance(Game.LocalPlayer.Character.Position, victim.Position) < 4f)
                     {
                         KeyHelpers.DisplayKeyHelp("PressToTalkWith", [Localization.GetString("Victim")], Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey);
                         if (KeyHelpers.IsKeysDown(Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey))
@@ -224,7 +224,7 @@ internal class RoadRage : CalloutBase
             }
         }
         if (count > 10) End();
-        if (Main.Player.IsDead) End();
+        if (Game.LocalPlayer.Character.IsDead) End();
         if (KeyHelpers.IsKeysDown(Settings.EndCalloutsKey, Settings.EndCalloutsModifierKey)) End();
     }
 }

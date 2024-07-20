@@ -13,7 +13,7 @@ internal class StolenVehicle : CalloutBase
 
     internal override void Setup()
     {
-        CalloutPosition = World.GetNextPositionOnStreet(Main.Player.Position.Around(Main.MersenneTwister.Next(150, 650)));
+        CalloutPosition = World.GetNextPositionOnStreet(Game.LocalPlayer.Character.Position.Around(Main.MT.Next(150, 650)));
 
         try
         {
@@ -47,7 +47,7 @@ internal class StolenVehicle : CalloutBase
 
         OnCalloutsEnded += () =>
         {
-            if (Main.Player.IsDead)
+            if (Game.LocalPlayer.Character.IsDead)
             {
                 if (suspect is not null && suspect.IsValid() && suspect.Exists()) suspect.Delete();
                 if (stolen is not null && stolen.IsValid() && stolen.Exists()) stolen.Delete();
@@ -73,7 +73,7 @@ internal class StolenVehicle : CalloutBase
         Hud.DisplayNotification(Localization.GetString("StolenVehicleData", stolen.LicensePlate, stolen.Class.ToString()), Localization.GetString("Dispatch"), Localization.GetString("StolenVehicle"));
         if (stolen && stolen.IsValid() && stolen.Exists())
         {
-            area = new(stolen.Position.Around(Main.MersenneTwister.Next(100)), Main.MersenneTwister.Next(75, 120))
+            area = new(stolen.Position.Around(Main.MT.Next(100)), Main.MT.Next(75, 120))
             {
                 Color = Color.Yellow,
                 Alpha = 0.5f,
@@ -105,7 +105,7 @@ internal class StolenVehicle : CalloutBase
             Functions.PlayScannerAudioUsingPosition("SUSPECT_LAST_SEEN IN_OR_ON_POSITION", stolen.Position);
             count++;
         }
-        if (!found && Vector3.Distance(Main.Player.Position, stolen.Position) < 30f)
+        if (!found && Vector3.Distance(Game.LocalPlayer.Character.Position, stolen.Position) < 30f)
         {
             found = true;
             if (area is not null && area.IsValid() && area.Exists()) area.Delete();
@@ -121,7 +121,7 @@ internal class StolenVehicle : CalloutBase
             }
         }
         if (count > 15) End();
-        if (Main.Player.IsDead) End();
+        if (Game.LocalPlayer.Character.IsDead) End();
         if (suspect is not null && suspect.IsValid() && suspect.Exists() && (suspect.IsDead || Functions.IsPedArrested(suspect))) End();
         if (KeyHelpers.IsKeysDown(Settings.EndCalloutsKey, Settings.EndCalloutsModifierKey)) End();
     }

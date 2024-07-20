@@ -12,20 +12,20 @@ internal static class Conversations
     internal static void Talk((string speaker, string text)[] lines, bool displayCount = true, Ped ped = null)
     {
         IsTalking = true;
-        var pos = Main.Player.Position;
-        var heading = Main.Player.Heading;
+        var pos = Game.LocalPlayer.Character.Position;
+        var heading = Game.LocalPlayer.Character.Heading;
         GameFiber.StartNew(() =>
         {
             while (IsTalking)
             {
                 GameFiber.Yield();
-                if (Vector3.Distance(Main.Player.Position, pos) > 2.5f)
+                if (Vector3.Distance(Game.LocalPlayer.Character.Position, pos) > 2.5f)
                 {
-                    Main.Player.Tasks.FollowNavigationMeshToPosition(pos, heading, 1f).WaitForCompletion(1000);
+                    Game.LocalPlayer.Character.Tasks.FollowNavigationMeshToPosition(pos, heading, 1f).WaitForCompletion(1000);
                 }
-                if (Main.Player.IsInAnyVehicle(false))
+                if (Game.LocalPlayer.Character.IsInAnyVehicle(false))
                 {
-                    Main.Player.Tasks.LeaveVehicle(LeaveVehicleFlags.None).WaitForCompletion(1800);
+                    Game.LocalPlayer.Character.Tasks.LeaveVehicle(LeaveVehicleFlags.None).WaitForCompletion(1800);
                 }
             }
         });
@@ -140,23 +140,23 @@ internal static class Conversations
                 }
             }
         });
-        Natives.SET_PED_CAN_SWITCH_WEAPON(Main.Player, false);
-        var pos = Main.Player.Position;
-        var heading = Main.Player.Heading;
+        Natives.SET_PED_CAN_SWITCH_WEAPON(Game.LocalPlayer.Character, false);
+        var pos = Game.LocalPlayer.Character.Position;
+        var heading = Game.LocalPlayer.Character.Heading;
         while (answerIndex is -1)
         {
             GameFiber.Yield();
-            if (Vector3.Distance(Main.Player.Position, pos) > 4f)
+            if (Vector3.Distance(Game.LocalPlayer.Character.Position, pos) > 4f)
             {
-                Main.Player.Tasks.FollowNavigationMeshToPosition(pos, heading, 1.2f).WaitForCompletion(1500);
+                Game.LocalPlayer.Character.Tasks.FollowNavigationMeshToPosition(pos, heading, 1.2f).WaitForCompletion(1500);
             }
-            if (Main.Player.IsInAnyVehicle(false))
+            if (Game.LocalPlayer.Character.IsInAnyVehicle(false))
             {
-                Main.Player.Tasks.LeaveVehicle(LeaveVehicleFlags.None).WaitForCompletion(1800);
+                Game.LocalPlayer.Character.Tasks.LeaveVehicle(LeaveVehicleFlags.None).WaitForCompletion(1800);
             }
             if (!DisplayTime) break;
         }
-        Natives.SET_PED_CAN_SWITCH_WEAPON(Main.Player, true);
+        Natives.SET_PED_CAN_SWITCH_WEAPON(Game.LocalPlayer.Character, true);
         DisplayTime = false;
         return answerIndex;
     }

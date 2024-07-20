@@ -21,18 +21,18 @@ internal static class FreemodeHelpers
 
     private static void SetRandomHeadBlend(this Ped ped)
     {
-        var shapeMix = Main.MersenneTwister.NextSingle();
-        var skinMix = Main.MersenneTwister.NextSingle();
+        var shapeMix = Main.MT.NextSingle();
+        var skinMix = Main.MT.NextSingle();
         if (ped.Model == new Model(MP_M_FREEMODE_01))
         {
-            var mother = Main.MersenneTwister.Next(0);
-            var father = Main.MersenneTwister.Next(20);
+            var mother = Main.MT.Next(0);
+            var father = Main.MT.Next(20);
             Natives.SET_PED_HEAD_BLEND_DATA(ped, mother, father, 0, mother, father, 0, shapeMix, skinMix, 0f, false);
         }
         else if (ped.Model == new Model(MP_F_FREEMODE_01))
         {
-            var mother = Main.MersenneTwister.Next(21, 41);
-            var father = Main.MersenneTwister.Next(21, 41);
+            var mother = Main.MT.Next(21, 41);
+            var father = Main.MT.Next(21, 41);
             Natives.SET_PED_HEAD_BLEND_DATA(ped, mother, father, 0, mother, father, 0, shapeMix, skinMix, 0f, false);
         }
     }
@@ -42,10 +42,10 @@ internal static class FreemodeHelpers
         for (int i = 0; i < 20; i++)
         {
             var value = 0f;
-            if (Main.MersenneTwister.Next(2) is 1)
+            if (Main.MT.Next(2) is 1)
             {
-                value = Main.MersenneTwister.NextSingle();
-                if (Main.MersenneTwister.Next(2) is 0) value *= -1f;
+                value = Main.MT.NextSingle();
+                if (Main.MT.Next(2) is 0) value *= -1f;
             }
 
             SetPedFacialFeature(ped, i, value);
@@ -64,11 +64,11 @@ internal static class FreemodeHelpers
         // 1: ヒゲ
         // 2: まゆげ
         // 3: 老化
-        Natives.SET_PED_HEAD_OVERLAY(ped, 1, Main.MersenneTwister.Next(2) is 0 ? Main.MersenneTwister.Next(29) : 255, 0.8f);
-        Natives.SET_PED_HEAD_OVERLAY(ped, 2, Main.MersenneTwister.Next(2) is 0 ? Main.MersenneTwister.Next(34) : 255, 0.8f);
-        Natives.SET_PED_HEAD_OVERLAY(ped, 3, Main.MersenneTwister.Next(2) is 0 ? Main.MersenneTwister.Next(15) : 255, 0.8f);
+        Natives.SET_PED_HEAD_OVERLAY(ped, 1, Main.MT.Next(2) is 0 ? Main.MT.Next(29) : 255, 0.8f);
+        Natives.SET_PED_HEAD_OVERLAY(ped, 2, Main.MT.Next(2) is 0 ? Main.MT.Next(34) : 255, 0.8f);
+        Natives.SET_PED_HEAD_OVERLAY(ped, 3, Main.MT.Next(2) is 0 ? Main.MT.Next(15) : 255, 0.8f);
         // 目の色を設定
-        Natives.SET_HEAD_BLEND_EYE_COLOR(ped, Main.MersenneTwister.Next(7));
+        Natives.SET_HEAD_BLEND_EYE_COLOR(ped, Main.MT.Next(7));
     }
 
     private static void SetRandomHair(Ped ped)
@@ -79,13 +79,13 @@ internal static class FreemodeHelpers
         var excludedFemaleHairItems = new int[] { };
 
         var drawableCount = Natives.GET_NUMBER_OF_PED_DRAWABLE_VARIATIONS(ped, 2);
-        int randomHair = Main.MersenneTwister.Next(drawableCount - 1);
-        var randomBrow = Main.MersenneTwister.Next(22);
+        int randomHair = Main.MT.Next(drawableCount - 1);
+        var randomBrow = Main.MT.Next(22);
 
         if (ped.Model == new Model(MP_M_FREEMODE_01))
         {
-            var beardChance = Main.MersenneTwister.Next(10);
-            var randomBeard = beardChance <= 3 ? Main.MersenneTwister.Next(18) : 255;
+            var beardChance = Main.MT.Next(10);
+            var randomBeard = beardChance <= 3 ? Main.MT.Next(18) : 255;
 
             if (excludedMaleHairItems.Contains(randomHair))
             {
@@ -122,7 +122,7 @@ internal static class FreemodeHelpers
         // List only goes until 27 to filter out 'unnatural'
         // hair colors like pink or green.
         var excludedHairColors = new int[] { 20, 21, 22, 23, 24, 25, 26 };
-        var randomColor = Main.MersenneTwister.Next(27);
+        var randomColor = Main.MT.Next(27);
 
         // Checks if the random hair color is on the banned hair color list.
         // Checks if bannedColor was set to true, if so, repeat the randomization.

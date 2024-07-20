@@ -7,7 +7,7 @@ internal class BankHeist : CalloutBase
     private Blip BankBlip;
     private bool Arrived = false;
     private List<Ped> Robbers;
-    private List<EnemyBlip> EnemyBlips;
+    private List<BlipPlus> EnemyBlips;
 
     private static readonly Dictionary<Vector3, ((Vector3 pos, float heading)[] positions, (Vector3 pos, uint hash)[] doors)> BankData = new()
     {
@@ -118,7 +118,7 @@ internal class BankHeist : CalloutBase
             foreach (var b in EnemyBlips) b?.Dismiss();
             foreach (var r in Robbers)
             {
-                if (Main.Player.IsDead)
+                if (Game.LocalPlayer.Character.IsDead)
                 {
                     if (r && r.IsValid() && r.Exists()) r.Delete();
                 }
@@ -127,7 +127,7 @@ internal class BankHeist : CalloutBase
                     if (r && r.IsValid() && r.Exists()) r.Dismiss();
                 }
             }
-            if (!Main.Player.IsDead)
+            if (!Game.LocalPlayer.Character.IsDead)
             {
                 Hud.DisplayNotification(Localization.GetString("CalloutCode4"), Localization.GetString("Dispatch"), Localization.GetString("BankHeist"));
             }
@@ -167,8 +167,8 @@ internal class BankHeist : CalloutBase
 
         Game.SetRelationshipBetweenRelationshipGroups(RelationshipGroup.Cop, RobberRG, Relationship.Hate);
         Game.SetRelationshipBetweenRelationshipGroups(RobberRG, RelationshipGroup.Cop, Relationship.Hate);
-        Game.SetRelationshipBetweenRelationshipGroups(RobberRG, Main.Player.RelationshipGroup, Relationship.Hate);
-        Game.SetRelationshipBetweenRelationshipGroups(RelationshipGroup.Cop, Main.Player.RelationshipGroup, Relationship.Respect);
+        Game.SetRelationshipBetweenRelationshipGroups(RobberRG, Game.LocalPlayer.Character.RelationshipGroup, Relationship.Hate);
+        Game.SetRelationshipBetweenRelationshipGroups(RelationshipGroup.Cop, Game.LocalPlayer.Character.RelationshipGroup, Relationship.Respect);
 
         BankBlip = new(CalloutPosition, 90f)
         {
@@ -181,7 +181,7 @@ internal class BankHeist : CalloutBase
     internal override void Update()
     {
         GameFiber.Yield();
-        if (CalloutPosition.DistanceTo(Main.Player.Position) < 50f && !Arrived)
+        if (CalloutPosition.DistanceTo(Game.LocalPlayer.Character.Position) < 50f && !Arrived)
         {
             if (BankBlip is not null && BankBlip.IsValid() && BankBlip.Exists())
             {
@@ -195,7 +195,7 @@ internal class BankHeist : CalloutBase
                 if (r is not null && r.IsValid() && r.Exists())
                 {
                     r.Tasks.FightAgainstClosestHatedTarget(500f);
-                    var eb = new EnemyBlip(r);
+                    var eb = new BlipPlus(r, HudColor.Enemy.GetColor(), BlipSprite.Enemy);
                     EnemyBlips.Add(eb);
                 }
             }
@@ -207,7 +207,7 @@ internal class BankHeist : CalloutBase
             Arrived = true;
         }
 
-        if (Main.Player.IsDead) End();
+        if (Game.LocalPlayer.Character.IsDead) End();
         if (EntityHelpers.IsAllPedDeadOrArrested([.. Robbers])) End();
         if (KeyHelpers.IsKeysDown(Settings.EndCalloutsKey, Settings.EndCalloutsModifierKey)) End();
     }

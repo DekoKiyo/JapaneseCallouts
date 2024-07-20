@@ -40,7 +40,7 @@ internal class DrunkGuys : CalloutBase
 
         OnCalloutsEnded += () =>
         {
-            if (Main.Player.IsDead)
+            if (Game.LocalPlayer.Character.IsDead)
             {
                 if (citizen is not null && citizen.IsValid() && citizen.Exists()) citizen.Delete();
                 foreach (var ped in peds) if (ped is not null && ped.IsValid() && ped.Exists()) ped.Delete();
@@ -83,7 +83,7 @@ internal class DrunkGuys : CalloutBase
             if (cus is not null && cus.IsValid() && cus.Exists())
             {
                 Natives.SET_PED_KEEP_TASK(cus, true);
-                cus.Tasks.PlayAnimation(ANIM_DICTIONARY, Main.MersenneTwister.Next(2) is 0 ? ANIM_TYPE1 : ANIM_TYPE2, 1f, AnimationFlags.Loop);
+                cus.Tasks.PlayAnimation(ANIM_DICTIONARY, Main.MT.Next(2) is 0 ? ANIM_TYPE1 : ANIM_TYPE2, 1f, AnimationFlags.Loop);
                 peds.Add(cus);
             }
         }
@@ -93,7 +93,7 @@ internal class DrunkGuys : CalloutBase
 
     internal override void Update()
     {
-        if (!arrived && Main.Player.DistanceTo(citizen.Position) < 30f)
+        if (!arrived && Game.LocalPlayer.Character.DistanceTo(citizen.Position) < 30f)
         {
             if (citizenB is not null && citizenB.IsValid() && citizenB.Exists())
             {
@@ -103,7 +103,7 @@ internal class DrunkGuys : CalloutBase
             arrived = true;
         }
 
-        if (arrived && Main.Player.DistanceTo(citizen.Position) < 4f && !Main.Player.IsInAnyVehicle(false))
+        if (arrived && Game.LocalPlayer.Character.DistanceTo(citizen.Position) < 4f && !Game.LocalPlayer.Character.IsInAnyVehicle(false))
         {
             KeyHelpers.DisplayKeyHelp("PressToTalkWith", [Localization.GetString("Victim"), string.Empty], Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey);
             if (KeyHelpers.IsKeysDown(Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey))

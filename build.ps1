@@ -12,6 +12,7 @@ $PluginDllFile = $PluginDllFolder + "\JapaneseCallouts.dll"
 $PluginIniFile = ".\JapaneseCallouts\JapaneseCallouts.ini"
 $LocalizationFolder = ".\JapaneseCallouts\Localization\"
 $ProjectFile = ".\JapaneseCallouts\JapaneseCallouts.csproj"
+$BaseLibDllFile = $PluginDllFolder + "\BaseLib.dll"
 $NAudioCoreDllFile = $PluginDllFolder + "\NAudio.Core.dll"
 $CalloutInterfaceAPIDllFile = $PluginDllFolder + "\CalloutInterfaceAPI.dll"
 
@@ -78,6 +79,7 @@ Copy-Item $PluginDllFile $PluginsLSPDFRFolder
 Copy-Item $PluginIniFile $PluginsLSPDFRFolder
 try
 {
+    Copy-Item $BaseLibDllFile $GrandTheftAutoV
     Copy-Item $NAudioCoreDllFile $GrandTheftAutoV
     Copy-Item $CalloutInterfaceAPIDllFile $GrandTheftAutoV
 }
