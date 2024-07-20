@@ -139,11 +139,16 @@ internal class Main : Plugin
 
     internal static string RemoteLatestVersion = PLUGIN_VERSION;
 
+    internal static bool IsSTPRunning = false;
+    internal static bool IsUBRunning = false;
+
     internal static MersenneTwister MT = new((int)DateTime.Now.Ticks);
     internal static Logger Logger = new(PLUGIN_NAME);
 
     public override void Initialize()
     {
+        IsSTPRunning = Functions.GetAllUserPlugins().Any(x => x.GetName().Name == "StopThePed");
+        IsUBRunning = Functions.GetAllUserPlugins().Any(x => x.GetName().Name == "UltimateBackup");
         Functions.OnOnDutyStateChanged += OnDutyStateChanged;
         Logger.Info($"{PLUGIN_NAME} {PLUGIN_VERSION_DATA} was loaded.");
     }

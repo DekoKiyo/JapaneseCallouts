@@ -66,6 +66,10 @@ internal class DrunkGuys : CalloutBase
         };
         if (citizen is not null && citizen.IsValid() && citizen.Exists())
         {
+            if (Main.IsSTPRunning)
+            {
+                StopThePedFunctions.SetPedAlcoholOverLimit(citizen, true);
+            }
             Natives.SET_PED_KEEP_TASK(citizen, true);
 
             citizenB = citizen.AttachBlip();
