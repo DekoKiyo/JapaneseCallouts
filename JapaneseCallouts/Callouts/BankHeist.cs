@@ -23,6 +23,9 @@ internal class BankHeist : CalloutBase
                 [
                     (new(149.6298f, -1037.231f, 29.71915f), 3142793112),
                     (new(152.0632f, -1038.124f, 29.71909f), 73386408),
+                    (new(150.2913f, -1047.629f, 29.6663f), 2703963187),
+                    (new(148.0266f, -1044.364f, 29.50693f), 2121050683),
+                    (new(145.4186f, -1041.813f, 29.64255f), 4163212883),
                 ]
             )
         },
@@ -38,6 +41,9 @@ internal class BankHeist : CalloutBase
                 [
                     (new(313.9587f, -275.5965f, 54.51586f), 3142793112),
                     (new(316.3925f, -276.4888f, 54.5158f), 73386408),
+                    (new(314.6238f, -285.9945f, 54.46301f), 2703963187),
+                    (new(312.358f, -282.7301f, 54.30365f), 2121050683),
+                    (new(309.7491f, -280.1797f, 54.43926f), 4163212883),
                 ]
             )
         },
@@ -53,6 +59,9 @@ internal class BankHeist : CalloutBase
                 [
                     (new(-351.2598f, -46.41221f, 49.38765f), 3142793112),
                     (new(-348.8109f, -47.26213f, 49.38759f), 73386408),
+                    (new(-350.4144f, -56.79705f, 49.3348f), 2703963187),
+                    (new(-352.7365f, -53.57248f, 49.17543f), 2121050683),
+                    (new(-355.3892f, -51.06768f, 49.31105f), 4163212883),
                 ]
             )
         },
@@ -68,6 +77,9 @@ internal class BankHeist : CalloutBase
                 [
                     (new(-2965.71f, 484.2195f, 16.0481f), 73386408),
                     (new(-2965.821f, 481.6297f, 16.04816f), 3142793112),
+                    (new(-2956.116f, 485.4206f, 15.99531f), 2703963187),
+                    (new(-2958.538f, 482.2705f, 15.83594f), 2121050683),
+                    (new(-2960.176f, 479.0105f, 15.97156f), 4163212883),
                 ]
             )
         },
@@ -83,6 +95,9 @@ internal class BankHeist : CalloutBase
                 [
                     (new(-1215.386f, -328.5237f, 38.13211f), 3142793112),
                     (new(-1213.074f, -327.3524f, 38.13205f), 73386408),
+                    (new(-1207.328f, -335.1289f, 38.07925f), 2703963187),
+                    (new(-1211.261f, -334.5596f, 37.91989f), 2121050683),
+                    (new(-1214.906f, -334.7281f, 38.05551f), 4163212883),
                 ]
             )
         },
@@ -98,6 +113,9 @@ internal class BankHeist : CalloutBase
                 [
                     (new(1173.903f, 2703.613f, 38.43904f), 73386408),
                     (new(1176.495f, 2703.613f, 38.43911f), 3142793112),
+                    (new(1172.291f, 2713.146f, 38.38625f), 2703963187),
+                    (new(1175.542f, 2710.861f, 38.22689f), 2121050683),
+                    (new(1178.87f, 2709.365f, 38.36251f), 4163212883),
                 ]
             )
         },
@@ -199,12 +217,12 @@ internal class BankHeist : CalloutBase
                     EnemyBlips.Add(eb);
                 }
             }
-
-            foreach (var (pos, hash) in BankData[CalloutPosition].doors)
-            {
-                Natives.SET_LOCKED_UNSTREAMED_IN_DOOR_OF_TYPE(hash, pos.X, pos.Y, pos.Z, false, 0f, 0f, 0f);
-            }
             Arrived = true;
+        }
+
+        foreach (var (pos, hash) in BankData[CalloutPosition].doors)
+        {
+            Natives.SET_LOCKED_UNSTREAMED_IN_DOOR_OF_TYPE(hash, pos.X, pos.Y, pos.Z, false, 0f, 0f, 0f);
         }
 
         if (Game.LocalPlayer.Character.IsDead) End();

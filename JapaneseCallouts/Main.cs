@@ -147,8 +147,6 @@ internal class Main : Plugin
 
     public override void Initialize()
     {
-        IsSTPRunning = Functions.GetAllUserPlugins().Any(x => x.GetName().Name == "StopThePed");
-        IsUBRunning = Functions.GetAllUserPlugins().Any(x => x.GetName().Name == "UltimateBackup");
         Functions.OnOnDutyStateChanged += OnDutyStateChanged;
         Logger.Info($"{PLUGIN_NAME} {PLUGIN_VERSION_DATA} was loaded.");
     }
@@ -170,6 +168,8 @@ internal class Main : Plugin
             Logger.Info(@"          /_/");
             Logger.Info(string.Empty);
             Logger.Info($"Initializing {PLUGIN_NAME}, {PLUGIN_VERSION_DATA}");
+            IsSTPRunning = Functions.GetAllUserPlugins().Any(x => x.GetName().Name == "StopThePed");
+            IsUBRunning = Functions.GetAllUserPlugins().Any(x => x.GetName().Name == "UltimateBackup");
             var missing = FileCheck(out bool error);
             if (missing.Length is not 0)
             {
