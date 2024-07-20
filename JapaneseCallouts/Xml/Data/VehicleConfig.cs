@@ -3,7 +3,7 @@ namespace JapaneseCallouts.Xml.Data;
 public class VehicleConfig : IBackupObject
 {
     [XmlAttribute("chance")]
-    public int Chance { get; set; }
+    public int Chance { get; set; } = 100;
     [XmlAttribute("livery")]
     public int Livery { get; set; } = -1;
     [XmlAttribute("color_r")]

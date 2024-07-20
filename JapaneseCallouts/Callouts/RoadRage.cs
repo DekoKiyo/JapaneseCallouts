@@ -23,64 +23,73 @@ internal class RoadRage : CalloutBase
     {
         CalloutPosition = World.GetNextPositionOnStreet(Game.LocalPlayer.Character.Position.Around(Main.MT.Next(450, 800)));
 
-        var weather = CalloutHelpers.GetWeatherType(IPTFunctions.GetWeatherType());
-        {
-            var data = CalloutHelpers.Select([.. XmlManager.RoadRageConfig.SuspectVehicles]);
-            suspectV = new(data.Model, CalloutPosition)
-            {
-                IsPersistent = true,
-            };
-            if (suspectV is not null && suspectV.IsValid() && suspectV.Exists())
-            {
-                suspectV.ApplyTexture(data);
-            }
-        }
-        {
-            var data = CalloutHelpers.Select([.. XmlManager.RoadRageConfig.SuspectVehicles]);
-            victimV = new(data.Model, suspectV.GetOffsetPositionFront(5f))
-            {
-                IsPersistent = true,
-            };
-            if (victimV is not null && victimV.IsValid() && victimV.Exists())
-            {
-                victimV.ApplyTexture(data);
-            }
-        }
-        {
-            var vData = CalloutHelpers.SelectPed(weather, [.. XmlManager.RoadRageConfig.SuspectPeds]);
-            victim = new(x => x.IsPed)
-            {
-                IsPersistent = true,
-                BlockPermanentEvents = true,
-                MaxHealth = vData.Health,
-                Health = vData.Health,
-                Armor = vData.Armor,
-            };
-            var sData = CalloutHelpers.SelectPed(weather, [.. XmlManager.RoadRageConfig.SuspectPeds]);
-            suspect = new(sData.Model, Vector3.Zero, 0f)
-            {
-                IsPersistent = true,
-                BlockPermanentEvents = true,
-                MaxHealth = sData.Health,
-                Health = sData.Health,
-                Armor = sData.Armor,
-            };
-            if (victim is not null && victim.IsValid() && victim.Exists() &&
-                victimV is not null && victimV.IsValid() && victimV.Exists())
-            {
-                victim.SetOutfit(vData);
-                victim.WarpIntoVehicle(victimV, -1);
-                victim.Tasks.CruiseWithVehicle(victimV, 10f, VehicleDrivingFlags.Emergency);
+        World.GetEntities(CalloutPosition, 30f, GetEntitiesFlags.ConsiderAirVehicles);
+        var pos = World.GetNextPositionOnStreet(CalloutPosition.Around(20f));
+        World.GetEntities(pos, 15f, GetEntitiesFlags.ConsiderAirVehicles);
 
-                if (suspect is not null && suspect.IsValid() && suspect.Exists() &&
-                    suspectV is not null && suspectV.IsValid() && suspectV.Exists())
+        GameFiber.StartNew(() =>
+        {
+            var weather = CalloutHelpers.GetWeatherType(IPTFunctions.GetWeatherType());
+            {
+                var data = CalloutHelpers.Select([.. XmlManager.RoadRageConfig.SuspectVehicles]);
+                suspectV = new(data.Model, CalloutPosition)
                 {
-                    suspect.SetOutfit(sData);
-                    suspect.WarpIntoVehicle(suspectV, -1);
-                    suspect.Tasks.ChaseWithGroundVehicle(victim);
+                    IsPersistent = true,
+                    DirtLevel = 0,
+                };
+                if (suspectV is not null && suspectV.IsValid() && suspectV.Exists())
+                {
+                    suspectV.ApplyTexture(data);
                 }
             }
-        }
+            {
+                var data = CalloutHelpers.Select([.. XmlManager.RoadRageConfig.VictimVehicles]);
+                victimV = new(data.Model, pos)
+                {
+                    IsPersistent = true,
+                    DirtLevel = 0,
+                };
+                if (victimV is not null && victimV.IsValid() && victimV.Exists())
+                {
+                    victimV.ApplyTexture(data);
+                }
+            }
+            {
+                var vData = CalloutHelpers.SelectPed(weather, [.. XmlManager.RoadRageConfig.SuspectPeds]);
+                victim = new(x => x.IsPed)
+                {
+                    IsPersistent = true,
+                    BlockPermanentEvents = true,
+                    MaxHealth = vData.Health,
+                    Health = vData.Health,
+                    Armor = vData.Armor,
+                };
+                var sData = CalloutHelpers.SelectPed(weather, [.. XmlManager.RoadRageConfig.SuspectPeds]);
+                suspect = new(sData.Model, Vector3.Zero, 0f)
+                {
+                    IsPersistent = true,
+                    BlockPermanentEvents = true,
+                    MaxHealth = sData.Health,
+                    Health = sData.Health,
+                    Armor = sData.Armor,
+                };
+                if (victim is not null && victim.IsValid() && victim.Exists() &&
+                    victimV is not null && victimV.IsValid() && victimV.Exists())
+                {
+                    victim.SetOutfit(vData);
+                    victim.WarpIntoVehicle(victimV, -1);
+                    victim.Tasks.CruiseWithVehicle(victimV, 10f, VehicleDrivingFlags.Emergency);
+
+                    if (suspect is not null && suspect.IsValid() && suspect.Exists() &&
+                        suspectV is not null && suspectV.IsValid() && suspectV.Exists())
+                    {
+                        suspect.SetOutfit(sData);
+                        suspect.WarpIntoVehicle(suspectV, -1);
+                        suspect.Tasks.ChaseWithGroundVehicle(victim);
+                    }
+                }
+            }
+        });
 
         CalloutMessage = Localization.GetString("RoadRage");
         ShowCalloutAreaBlipBeforeAccepting(CalloutPosition, 50f);
@@ -150,14 +159,14 @@ internal class RoadRage : CalloutBase
             area.Position = victimV.Position;
             area.IsRouteEnabled = true;
 
-            Hud.DisplayNotification(Localization.GetString("StolenVehicleDataUpdate"));
+            Hud.DisplayNotification(Localization.GetString("GPSUpdate"));
             Natives.GET_STREET_NAME_AT_COORD(victimV.Position.X, victimV.Position.Y, victimV.Position.Z, out uint hash, out uint _);
             var streetName = Natives.GET_STREET_NAME_FROM_HASH_KEY(hash);
             Hud.DisplayNotification(Localization.GetString("TargetIsIn", streetName));
             Functions.PlayScannerAudioUsingPosition("JP_TARGET_IS IN_OR_ON_POSITION", victimV.Position);
             count++;
         }
-        if (!found && Vector3.Distance(Game.LocalPlayer.Character.Position, victimV.Position) < 20f)
+        if (!found && (Vector3.Distance(Game.LocalPlayer.Character.Position, victimV.Position) < 20f || Vector3.Distance(Game.LocalPlayer.Character.Position, suspectV.Position) < 20f))
         {
             found = true;
             if (area is not null && area.IsValid() && area.Exists()) area.Delete();
@@ -186,7 +195,7 @@ internal class RoadRage : CalloutBase
         if (!arrested && suspect is not null && suspect.IsValid() && suspect.Exists() && (suspect.IsDead || Functions.IsPedArrested(suspect)))
         {
             arrested = true;
-            Hud.DisplayHelp(Localization.GetString("TalkToGetInfo", Localization.GetString("Victim"), string.Empty));
+            Hud.DisplayHelp(Localization.GetString("TalkToGetInfo", Localization.GetString("Victim"), $"~{victimB.GetIconToken()}~"));
             if (victimB is not null && victimB.IsValid() && victimB.Exists())
             {
                 victimB.IsRouteEnabled = true;
@@ -201,6 +210,7 @@ internal class RoadRage : CalloutBase
                     if (victimB is not null && victimB.IsValid() && victimB.Exists())
                     {
                         victimB.IsRouteEnabled = false;
+                        victim.Tasks.LeaveVehicle(victimV, LeaveVehicleFlags.None);
                         arrived = true;
                     }
                 }
@@ -212,7 +222,7 @@ internal class RoadRage : CalloutBase
                 {
                     if (Vector3.Distance(Game.LocalPlayer.Character.Position, victim.Position) < 4f)
                     {
-                        KeyHelpers.DisplayKeyHelp("PressToTalkWith", [Localization.GetString("Victim")], Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey);
+                        KeyHelpers.DisplayKeyHelp("PressToTalkWith", [Localization.GetString("Victim"), $"~{victimB.GetIconToken()}~"], Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey);
                         if (KeyHelpers.IsKeysDown(Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey))
                         {
                             Conversations.Talk(FinalVictimTalk);
