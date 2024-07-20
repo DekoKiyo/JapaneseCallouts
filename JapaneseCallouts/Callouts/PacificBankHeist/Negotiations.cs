@@ -372,12 +372,12 @@ internal class PBHNegotiations
         if (alarm is 0)
         {
             Conversations.Talk(instance.conversations.AlarmOffConversation);
-            instance.variables.IsAlarmEnabled = false;
+            instance.variables.CurrentAlarmState = AlarmState.None;
             Conversations.Talk([(Localization.GetString("Commander"), Localization.GetString("Alarm5"))]);
         }
         else if (alarm is 1)
         {
-            instance.variables.IsAlarmEnabled = true;
+            instance.variables.CurrentAlarmState = AlarmState.Alarm;
             Conversations.Talk(instance.conversations.AlarmOnConversation);
         }
         KeyHelpers.DisplayKeyHelp("AlarmSwitchKey", Settings.ToggleBankHeistAlarmSoundKey, Settings.ToggleBankHeistAlarmSoundModifierKey);

@@ -965,7 +965,7 @@ internal static class PBHFunctions
                     GameFiber.Wait(2000);
 
                     World.SpawnExplosion(new(252.2609f, 225.3824f, 101.6835f), 2, 0.2f, true, false, 0.6f);
-                    instance.variables.IsAlarmEnabled = true;
+                    instance.variables.CurrentAlarmState = AlarmState.Alarm;
                     GameFiber.Wait(900);
                     foreach (var robber in instance.variables.AllVaultRobbers)
                     {

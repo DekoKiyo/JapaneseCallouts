@@ -516,7 +516,6 @@ internal class PacificBankHeist : CalloutBase
 
                 // The end
                 variables.Status = EPacificBankHeistStatus.Last;
-                variables.IsAlarmEnabled = false;
                 variables.CurrentAlarmState = AlarmState.None;
 
                 while (IsCalloutRunning)
