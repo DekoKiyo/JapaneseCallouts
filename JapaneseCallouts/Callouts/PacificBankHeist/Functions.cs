@@ -543,7 +543,7 @@ internal static class PBHFunctions
                 if (instance.CalloutEntities.Contains(ped)) continue;
                 if (ped is not null && ped.IsValid() && ped.Exists())
                 {
-                    if (ped != Game.LocalPlayer.Character && !ped.CreatedByTheCallingPlugin)
+                    if (!(ped == Game.LocalPlayer.Character || ped.CreatedByTheCallingPlugin || UltimateBackupFunctions.IsUltimateBackupCop(ped)))
                     {
                         if (ped.IsInAnyVehicle(false))
                         {
