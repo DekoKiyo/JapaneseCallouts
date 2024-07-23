@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EscortConfig>
+  <TargetVehicles>
+    <Vehicle></Vehicle>
+  </TargetVehicles>
+  <PoliceVehicles>
+    <Vehicle></Vehicle>
+  </PoliceVehicles>
+  <AttackerVehicles>
+    <Vehicle></Vehicle>
+  </AttackerVehicles>
+  <TargetPeds>
+    <Ped></Ped>
+  </TargetPeds>
+  <PoliceOfficers>
+    <Ped></Ped>
+  </PoliceOfficers>
+  <AttackerPeds>
+    <Ped></Ped>
+  </AttackerPeds>
+  <Presets>
+    <Preset>
+      <TargetVehiclePosStart x="" y="" z="" heading="" />
+      <EscortPoliceVehicle1PosStart x="" y="" z="" heading="" />
+      <EscortPoliceVehicle2PosStart x="" y="" z="" heading="" />
+      <CheckPoints>
+        <Position x="" y="" z="" heading="" />
+      </CheckPoints>
+      <AttackPoints>
+        <Position x="" y="" z="" heading="" />
+      </AttackPoints>
+    </Preset>
+  </Presets>
+</EscortConfig>

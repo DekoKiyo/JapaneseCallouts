@@ -1,6 +1,6 @@
 namespace JapaneseCallouts.Xml.Data;
 
-public class VehicleConfig : IBackupObject
+public class VehicleConfig : IChanceObject, IEntityObject
 {
     [XmlAttribute("chance")]
     public int Chance { get; set; } = 100;

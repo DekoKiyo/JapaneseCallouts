@@ -1,6 +1,6 @@
 namespace JapaneseCallouts.Xml.Data;
 
-public class WeaponConfig : IBackupObject
+public class WeaponConfig : IChanceObject, IEntityObject
 {
     [XmlAttribute("chance")]
     public int Chance { get; set; } = 100;

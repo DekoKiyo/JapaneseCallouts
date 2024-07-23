@@ -15,7 +15,7 @@ internal static class CalloutHelpers
         Hud.DisplayNotification(Localization.GetString("CalloutNotificationText", callName, location), Localization.GetString("Dispatch"), Localization.GetString("CalloutNotificationSubtitle"), "CHAR_CALL911", "CHAR_CALL911");
     }
 
-    internal static T Select<T>(T[] data) where T : IBackupObject
+    internal static T Select<T>(T[] data) where T : IChanceObject
     {
         int total = 0, pick = 0;
         foreach (var l in data) total += l.Chance;

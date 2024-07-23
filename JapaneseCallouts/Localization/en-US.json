@@ -137,6 +137,7 @@
     "StoreRobbery": "Store Robbery",
     "StreetFight": "Street Fight",
     "WantedCriminalFound": "Wanted Criminal Found",
+    "Escort": "Escort the target",
     "BankHeistDesc": "The bank reported a robber is stealing money now.",
     "PacificBankHeistDesc": "An officer is requesting the backup because the robber has taken hostages and barricaded themselves inside the bank.",
     "DrunkGuysDesc": "A citizen reports that some drunk persons are sleeping in public spaces.",
@@ -145,7 +146,8 @@
     "StolenVehicleDesc": "The suspect stole the vehicle. Search and pursue it!",
     "StoreRobberyDesc": "It appears the robbers are robbing the store.",
     "StreetFightDesc": "It appears two persons are fighting on the road. Stop them and ask what happened.",
-    "WantedCriminalFoundDesc": "It appears the person who looks like the criminal was found. Check them!"
+    "WantedCriminalFoundDesc": "It appears the person who looks like the criminal was found. Check them!",
+    "EscortDesc": "ESCORT DESC (TEMP MESSAGE)"
   },
   "CalloutsText": {
     "AlarmSwitchKey": "Press {0} at any time to toggle the ~r~alarm~s~.",
@@ -205,5 +207,14 @@
     "UpdateNo": "No (You have to update manually)",
     "UpdateManual": "The ~g~latest~s~ version of ~b~{0}~s~ is available! ~y~Please update yourself.~s~ You can download them from ~b~GitHub~s~ or ~b~lcpdfr.com~s~.",
     "UpdateAuto": "The ~g~latest~s~ version of ~b~{0}~s~ was ~g~successfully updated~s~! ~y~Please reload LSPDFR now to apply the new version.~s~"
+  },
+  "MenuText": {
+    "EscortMenuTitle": "Escort Menu",
+    "EscortTargetVehicle": "Target Vehicle",
+    "EscortPoliceVehicle1": "Police Vehicle 1",
+    "EscortPoliceVehicle2": "Police Vehicle 1",
+    "EscortTargetPed": "Target Ped",
+    "EscortPoliceOfficer": "Police Officer",
+    "Confirm": "Confirm"
   }
 }
