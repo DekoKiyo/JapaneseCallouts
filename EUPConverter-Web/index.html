@@ -2,27 +2,43 @@
 <html lang="ja">
 
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css" />
   <title>INI to XML Converter</title>
 </head>
 
 <body>
   <input type="file" id="fileInput" accept=".ini">
   <button id="convertBtn">Convert to XML</button>
-  <select id="list-box" name="eup-outfit-list">
+  <select id="gender-list-box" name="gender-list-box">
+    <option value="Male" selected>Male</option>
+    <option value="Female">Female</option>
   </select>
+
   <div>
-    <label for="is_sunny">Is ped spawned in sunny</label>
     <input type="checkbox" id="is_sunny">
-    <label for="is_rainy">Is ped spawned in rainy</label>
+    <label for="is_sunny">Is ped spawned in sunny</label><br />
     <input type="checkbox" id="is_rainy">
-    <label for="is_snowy">Is ped spawned in snowy</label>
+    <label for="is_rainy">Is ped spawned in rainy</label><br />
     <input type="checkbox" id="is_snowy">
-    <label for="health">Input ped health value</label>
-    <input type="number" id="health">
-    <label for="armor">Input ped armor value</label>
-    <input type="number" id="armor">
+    <label for="is_snowy">Is ped spawned in snowy</label><br />
+
+    <div class="num-inline">
+      <label for="chance">Ped spawn chance</label> <br />
+      <input type="number" id="chance" value="100">
+    </div>
+    <div class="num-inline">
+      <label for="health">Ped health value</label> <br />
+      <input type="number" id="health" value="200">
+    </div>
+    <div class="num-inline">
+      <label for="armor">Ped armor value</label> <br />
+      <input type="number" id="armor" value="200">
+    </div>
   </div>
-  <pre id="output"></pre>
+
+  <div class="output-parent" id="xml"></div>
 </body>
 
 <script src="script.js"></script>

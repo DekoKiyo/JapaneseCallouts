@@ -21,6 +21,41 @@
     font-size: 20px;
     padding: 15px;
     display: inline-block;
-    border: 2px solid black;
     border-radius: 15px;
+}
+
+.num-inline {
+    display: inline-block;
+}
+
+.hide {
+    display: none;
+}
+
+.output-parent {
+    display: block;
+}
+
+.output .block {
+    display: flex;
+    border: 3px solid rgb(9, 184, 190);
+    border-radius: 10px;
+    background-color: rgb(39, 79, 131);
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: left;
+    align-items: center;
+}
+
+.output .block textarea {
+    overflow-x: scroll;
+    overflow-y: hidden;
+    color: white;
+    width: 100%;
+    background-color: transparent;
+    border-color: transparent;
+}
+
+.output p {
+    display: block;
 }
