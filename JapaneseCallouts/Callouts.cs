@@ -1,3 +1,5 @@
+using JapaneseCallouts.Callouts.PacificBankHeist;
+
 namespace JapaneseCallouts;
 
 internal abstract class CalloutBase : Callout

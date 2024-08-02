@@ -1,0 +1,82 @@
+{
+  "HostageCount": 8,
+  "WifeName": "Maria",
+  "PoliceCruisers": [
+    {
+      "Chance": 50,
+      "Model": "POLICE"
+    },
+    {
+      "Chance": 30,
+      "Model": "POLICE2"
+    },
+    {
+      "Chance": 75,
+      "Model": "POLICE3"
+    },
+    {
+      "Chance": 15,
+      "Model": "POLICE4"
+    },
+    {
+      "Chance": 30,
+      "Model": "POLICE5"
+    }
+  ],
+  "PoliceTransporters": [
+    {
+      "Model": "POLICET"
+    }
+  ],
+  "PoliceRiots": [
+    {
+      "Model": "RIOT"
+    }
+  ],
+  "Ambulances": [
+    {
+      "Model": "AMBULANCE"
+    }
+  ],
+  "Firetrucks": [
+    {
+      "Model": "FIRETRUK"
+    }
+  ],
+  "PoliceOfficerModels": [],
+  "PoliceSWATModels": [],
+  "ParamedicModels": [],
+  "FirefighterModels": [],
+  "CommanderModels": [],
+  "WifeModels": [],
+  "RobberModels": [],
+  "HostageModels": [],
+  "OfficerWeapons": [],
+  "SWATWeapons": [],
+  "RobbersWeapons": [],
+  "RobbersThrowableWeapons": [],
+  "WeaponInRiot": [],
+  "PoliceCruiserPositions": [],
+  "PoliceTransportPositions": [],
+  "RiotPositions": [],
+  "AmbulancePositions": [],
+  "FiretruckPositions": [],
+  "BarrierPositions": [],
+  "AimingOfficerPositions": [],
+  "StandingOfficerPositions": [],
+  "NormalRobbersPositions": [],
+  "RobbersNegotiationPositions": [],
+  "RobbersSneakPosition": [],
+  "RobbersInVaultPositions": [],
+  "RobbersSurrenderingPositions": [],
+  "FirefighterPositions": [],
+  "ParamedicPositions": [],
+  "LeftSittingSWATPositions": [],
+  "RightSittingSWATPositions": [],
+  "RightLookingSWATPositions": [],
+  "HostagePositions": [],
+  "HostageSafePosition": [],
+  "CommanderPosition": [],
+  "WifePosition": [],
+  "WifeVehicleDestination": []
+}

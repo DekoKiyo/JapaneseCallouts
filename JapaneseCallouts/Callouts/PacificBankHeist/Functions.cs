@@ -95,7 +95,7 @@ internal static class PBHFunctions
 
                 var blip = new Blip(vehicle)
                 {
-                    Sprite = PBHConstants.RIOT_BLIP,
+                    Sprite = Constants.RIOT_BLIP,
                     Color = HudColor.Michael.GetColor(),
                 };
                 if (blip is not null && blip.IsValid() && blip.Exists())
@@ -144,7 +144,7 @@ internal static class PBHFunctions
         foreach (var p in XmlManager.PacificBankHeistConfig.BarrierPositions)
         {
             GameFiber.Yield();
-            var barrier = new RObject(PBHConstants.BarrierModel, new(p.X, p.Y, p.Z), p.Heading)
+            var barrier = new RObject(Constants.BarrierModel, new(p.X, p.Y, p.Z), p.Heading)
             {
                 IsPositionFrozen = true,
                 IsPersistent = true
@@ -190,7 +190,7 @@ internal static class PBHFunctions
                 Functions.SetPedAsCop(swat);
                 Functions.SetCopAsBusy(swat, true);
                 swat.GiveWeapon([.. XmlManager.PacificBankHeistConfig.SWATWeapons], true);
-                swat.Tasks.PlayAnimation(PBHConstants.SWAT_ANIMATION_DICTIONARY, PBHConstants.SWAT_ANIMATION_LEFT, 1f, AnimationFlags.StayInEndFrame);
+                swat.Tasks.PlayAnimation(Constants.SWAT_ANIMATION_DICTIONARY, Constants.SWAT_ANIMATION_LEFT, 1f, AnimationFlags.StayInEndFrame);
 
                 instance.variables.AllSWATUnits.Add(swat);
                 instance.CalloutEntities.Add(swat);
@@ -218,7 +218,7 @@ internal static class PBHFunctions
                 Functions.SetPedAsCop(swat);
                 Functions.SetCopAsBusy(swat, true);
                 swat.GiveWeapon([.. XmlManager.PacificBankHeistConfig.SWATWeapons], true);
-                swat.Tasks.PlayAnimation(PBHConstants.SWAT_ANIMATION_DICTIONARY, PBHConstants.SWAT_ANIMATION_RIGHT_LOOKING, 1f, AnimationFlags.StayInEndFrame);
+                swat.Tasks.PlayAnimation(Constants.SWAT_ANIMATION_DICTIONARY, Constants.SWAT_ANIMATION_RIGHT_LOOKING, 1f, AnimationFlags.StayInEndFrame);
 
                 instance.variables.AllSWATUnits.Add(swat);
                 instance.CalloutEntities.Add(swat);
@@ -246,7 +246,7 @@ internal static class PBHFunctions
                 Functions.SetPedAsCop(swat);
                 Functions.SetCopAsBusy(swat, true);
                 swat.GiveWeapon([.. XmlManager.PacificBankHeistConfig.SWATWeapons], true);
-                swat.Tasks.PlayAnimation(PBHConstants.SWAT_ANIMATION_DICTIONARY, PBHConstants.SWAT_ANIMATION_RIGHT, 1f, AnimationFlags.StayInEndFrame);
+                swat.Tasks.PlayAnimation(Constants.SWAT_ANIMATION_DICTIONARY, Constants.SWAT_ANIMATION_RIGHT, 1f, AnimationFlags.StayInEndFrame);
 
                 instance.variables.AllSWATUnits.Add(swat);
                 instance.CalloutEntities.Add(swat);
@@ -274,7 +274,7 @@ internal static class PBHFunctions
                 Functions.SetPedAsCop(officer);
                 Functions.SetCopAsBusy(officer, true);
                 officer.GiveWeapon([.. XmlManager.PacificBankHeistConfig.OfficerWeapons], true);
-                var aimPoint = Vector3.Distance(officer.Position, PBHConstants.BankDoorPositions[0]) < Vector3.Distance(officer.Position, PBHConstants.BankDoorPositions[1]) ? PBHConstants.BankDoorPositions[0] : PBHConstants.BankDoorPositions[1];
+                var aimPoint = Vector3.Distance(officer.Position, Constants.BankDoorPositions[0]) < Vector3.Distance(officer.Position, Constants.BankDoorPositions[1]) ? Constants.BankDoorPositions[0] : Constants.BankDoorPositions[1];
                 Natives.TASK_AIM_GUN_AT_COORD(officer, aimPoint.X, aimPoint.Y, aimPoint.Z, -1, false, false);
 
                 instance.variables.AllOfficers.Add(officer);
@@ -330,7 +330,7 @@ internal static class PBHFunctions
             instance.variables.CommanderBlip = instance.variables.Commander.AttachBlip();
             if (instance.variables.CommanderBlip is not null && instance.variables.CommanderBlip.IsValid() && instance.variables.CommanderBlip.Exists())
             {
-                instance.variables.CommanderBlip.Sprite = PBHConstants.COMMANDER_BLIP;
+                instance.variables.CommanderBlip.Sprite = Constants.COMMANDER_BLIP;
                 instance.variables.CommanderBlip.Color = Color.Green;
             }
             instance.CalloutEntities.Add(instance.variables.Commander);
@@ -389,7 +389,7 @@ internal static class PBHFunctions
                     Functions.SetPedCantBeArrestedByPlayer(ped, true);
                     ped.GiveWeapon([.. XmlManager.PacificBankHeistConfig.RobbersWeapons], false);
                     Natives.SET_PED_COMBAT_ABILITY(ped, 3);
-                    ped.Tasks.PlayAnimation(PBHConstants.SWAT_ANIMATION_DICTIONARY, rsP.IsRight ? PBHConstants.SWAT_ANIMATION_RIGHT : PBHConstants.SWAT_ANIMATION_LEFT, 1f, AnimationFlags.StayInEndFrame);
+                    ped.Tasks.PlayAnimation(Constants.SWAT_ANIMATION_DICTIONARY, rsP.IsRight ? Constants.SWAT_ANIMATION_RIGHT : Constants.SWAT_ANIMATION_LEFT, 1f, AnimationFlags.StayInEndFrame);
                     instance.variables.AllSneakRobbers.Add(ped);
                     instance.CalloutEntities.Add(ped);
                 }
@@ -465,7 +465,7 @@ internal static class PBHFunctions
                 instance.variables.AllHostages.Add(hostage);
                 instance.variables.SpawnedHostages.Add(hostage);
                 instance.CalloutEntities.Add(hostage);
-                hostage.Tasks.PlayAnimation(PBHConstants.HOSTAGE_ANIMATION_DICTIONARY, PBHConstants.HOSTAGE_ANIMATION_KNEELING, 1f, AnimationFlags.Loop);
+                hostage.Tasks.PlayAnimation(Constants.HOSTAGE_ANIMATION_DICTIONARY, Constants.HOSTAGE_ANIMATION_KNEELING, 1f, AnimationFlags.Loop);
                 GameFiber.Yield();
                 instance.variables.AliveHostagesCount++;
                 instance.variables.TotalHostagesCount++;
@@ -585,16 +585,16 @@ internal static class PBHFunctions
                             {
                                 if (rsP[index].IsRight)
                                 {
-                                    if (!Natives.IS_ENTITY_PLAYING_ANIM(robber, PBHConstants.SWAT_ANIMATION_DICTIONARY, PBHConstants.SWAT_ANIMATION_RIGHT, 3))
+                                    if (!Natives.IS_ENTITY_PLAYING_ANIM(robber, Constants.SWAT_ANIMATION_DICTIONARY, Constants.SWAT_ANIMATION_RIGHT, 3))
                                     {
-                                        robber.Tasks.PlayAnimation(PBHConstants.SWAT_ANIMATION_DICTIONARY, PBHConstants.SWAT_ANIMATION_RIGHT, 2f, AnimationFlags.StayInEndFrame).WaitForCompletion(20);
+                                        robber.Tasks.PlayAnimation(Constants.SWAT_ANIMATION_DICTIONARY, Constants.SWAT_ANIMATION_RIGHT, 2f, AnimationFlags.StayInEndFrame).WaitForCompletion(20);
                                     }
                                 }
                                 else
                                 {
-                                    if (!Natives.IS_ENTITY_PLAYING_ANIM(robber, PBHConstants.SWAT_ANIMATION_DICTIONARY, PBHConstants.SWAT_ANIMATION_LEFT, 3))
+                                    if (!Natives.IS_ENTITY_PLAYING_ANIM(robber, Constants.SWAT_ANIMATION_DICTIONARY, Constants.SWAT_ANIMATION_LEFT, 3))
                                     {
-                                        robber.Tasks.PlayAnimation(PBHConstants.SWAT_ANIMATION_DICTIONARY, PBHConstants.SWAT_ANIMATION_LEFT, 2f, AnimationFlags.StayInEndFrame).WaitForCompletion(20);
+                                        robber.Tasks.PlayAnimation(Constants.SWAT_ANIMATION_DICTIONARY, Constants.SWAT_ANIMATION_LEFT, 2f, AnimationFlags.StayInEndFrame).WaitForCompletion(20);
                                     }
                                 }
                             }
@@ -607,7 +607,7 @@ internal static class PBHFunctions
                                     GameFiber.Yield();
                                     if (ped is not null && ped.IsValid() && ped.Exists() && ped.IsAlive)
                                     {
-                                        if (ped.RelationshipGroup == Game.LocalPlayer.Character.RelationshipGroup || ped.RelationshipGroup == RelationshipGroup.Cop || ped.RelationshipGroup == PBHConstants.PoliceRG)
+                                        if (ped.RelationshipGroup == Game.LocalPlayer.Character.RelationshipGroup || ped.RelationshipGroup == RelationshipGroup.Cop || ped.RelationshipGroup == Constants.PoliceRG)
                                         {
                                             if (Vector3.Distance(ped.Position, robber.Position) < 3.9f)
                                             {
@@ -678,7 +678,7 @@ internal static class PBHFunctions
                                     instance.variables.IsRescuingHostage = true;
                                     Game.LocalPlayer.Character.Tasks.AchieveHeading(MathHelper.ConvertDirectionToHeading(direction)).WaitForCompletion(1200);
                                     hostage.RelationshipGroup = RelationshipGroup.Cop;
-                                    Conversations.Talk([(Settings.OfficerName, Localization.GetString("RescueHostage"))], false);
+                                    Modules.Conversations.Talk([(Settings.OfficerName, Localization.GetString("RescueHostage"))], false);
                                     Game.LocalPlayer.Character.Tasks.PlayAnimation("random@rescue_hostage", "bystander_helping_girl_loop", 1.5f, AnimationFlags.None).WaitForCompletion(3000);
 
                                     if (hostage.IsAlive)
@@ -874,7 +874,7 @@ internal static class PBHFunctions
                             {
                                 if (cooldown is 0)
                                 {
-                                    KeyHelpers.DisplayKeyHelp("EnterRiot", [$"~{PBHConstants.RIOT_BLIP.GetIconToken()}~"], Settings.EnterRiotVanKey, Settings.EnterRiotVanModifierKey, 500);
+                                    KeyHelpers.DisplayKeyHelp("EnterRiot", [$"~{Constants.RIOT_BLIP.GetIconToken()}~"], Settings.EnterRiotVanKey, Settings.EnterRiotVanModifierKey, 500);
                                 }
                             }
                         }
@@ -960,7 +960,7 @@ internal static class PBHFunctions
             GameFiber.Yield();
             try
             {
-                if (Vector3.Distance(Game.LocalPlayer.Character.Position, PBHConstants.OutsideBankVault) < 4f)
+                if (Vector3.Distance(Game.LocalPlayer.Character.Position, Constants.OutsideBankVault) < 4f)
                 {
                     GameFiber.Wait(2000);
 
@@ -969,7 +969,7 @@ internal static class PBHFunctions
                     GameFiber.Wait(900);
                     foreach (var robber in instance.variables.AllVaultRobbers)
                     {
-                        robber.Tasks.FollowNavigationMeshToPosition(PBHConstants.OutsideBankVault, robber.Heading, 2f).WaitForCompletion(500);
+                        robber.Tasks.FollowNavigationMeshToPosition(Constants.OutsideBankVault, robber.Heading, 2f).WaitForCompletion(500);
                     }
                     GameFiber.Wait(700);
                     foreach (var robber in instance.variables.AllVaultRobbers)
@@ -994,7 +994,7 @@ internal static class PBHFunctions
         {
             Natives.SET_PED_CAN_SWITCH_WEAPON(ped, false);
             ped.Inventory.GiveNewWeapon(new WeaponAsset("WEAPON_UNARMED"), -1, true);
-            instance.variables.MobilePhone = new(PBHConstants.PhoneModel, new(0, 0, 0));
+            instance.variables.MobilePhone = new(Constants.PhoneModel, new(0, 0, 0));
             var boneIndex = Natives.GET_PED_BONE_INDEX(ped, (int)PedBoneId.RightPhHand);
             Natives.ATTACH_ENTITY_TO_ENTITY(instance.variables.MobilePhone, ped, boneIndex, 0f, 0f, 0f, 0f, 0f, 0f, true, true, false, false, 2, true);
             ped.Tasks.PlayAnimation("cellphone@", "cellphone_call_listen_base", 1.3f, AnimationFlags.Loop | AnimationFlags.UpperBodyOnly | AnimationFlags.SecondaryTask);
@@ -1060,7 +1060,7 @@ internal static class PBHFunctions
             KeyHelpers.DisplayKeyHelp("BankHeistMoveIn", Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey);
             if (KeyHelpers.IsKeysDown(Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey))
             {
-                Conversations.Talk([(Settings.OfficerName, Localization.GetString("MoveIn"))]);
+                Modules.Conversations.Talk([(Settings.OfficerName, Localization.GetString("MoveIn"))]);
                 KeyHelpers.DisplayKeyHelp("SWATFollowing", Settings.SWATFollowKey, Settings.SWATFollowModifierKey);
                 instance.variables.Status = EPacificBankHeistStatus.FightingWithRobbers;
                 break;
@@ -1101,7 +1101,7 @@ internal static class PBHFunctions
                 if (sneak is not null && sneak.IsValid() && sneak.Exists())
                 {
                     sneak.Tasks.FightAgainstClosestHatedTarget(15f);
-                    sneak.RelationshipGroup = PBHConstants.RobbersRG;
+                    sneak.RelationshipGroup = Constants.RobbersRG;
                 }
 
                 while (instance.IsCalloutRunning)
@@ -1183,9 +1183,9 @@ internal static class PBHFunctions
                         GameFiber.Yield();
                         if (robber.Exists())
                         {
-                            var distance = Vector3.Distance(robber.Position, PBHConstants.PacificBankInsideChecks[0]) < Vector3.Distance(robber.Position, PBHConstants.PacificBankInsideChecks[1])
-                                ? Vector3.Distance(robber.Position, PBHConstants.PacificBankInsideChecks[0])
-                                : Vector3.Distance(robber.Position, PBHConstants.PacificBankInsideChecks[1]);
+                            var distance = Vector3.Distance(robber.Position, Constants.PacificBankInsideChecks[0]) < Vector3.Distance(robber.Position, Constants.PacificBankInsideChecks[1])
+                                ? Vector3.Distance(robber.Position, Constants.PacificBankInsideChecks[0])
+                                : Vector3.Distance(robber.Position, Constants.PacificBankInsideChecks[1]);
                             if (distance < 16.5f) distance = 16.5f;
                             else if (distance > 21f) distance = 21f;
                             Natives.REGISTER_HATED_TARGETS_AROUND_PED(robber, distance);
@@ -1292,7 +1292,7 @@ internal static class PBHFunctions
             GameFiber.Yield();
             if (instance.variables.Status is EPacificBankHeistStatus.FightingWithRobbers)
             {
-                foreach (var location in PBHConstants.BankDoorPositions)
+                foreach (var location in Constants.BankDoorPositions)
                 {
                     foreach (var robber in World.GetEntities(location, 1.6f, GetEntitiesFlags.ConsiderAllPeds).Cast<Ped>())
                     {
@@ -1349,7 +1349,7 @@ internal static class PBHFunctions
                 }
                 else
                 {
-                    var aimPoint = Vector3.Distance(officer.Position, PBHConstants.BankDoorPositions[0]) < Vector3.Distance(officer.Position, PBHConstants.BankDoorPositions[1]) ? PBHConstants.BankDoorPositions[0] : PBHConstants.BankDoorPositions[1];
+                    var aimPoint = Vector3.Distance(officer.Position, Constants.BankDoorPositions[0]) < Vector3.Distance(officer.Position, Constants.BankDoorPositions[1]) ? Constants.BankDoorPositions[0] : Constants.BankDoorPositions[1];
                     Natives.TASK_AIM_GUN_AT_COORD(officer, aimPoint.X, aimPoint.Y, aimPoint.Z, -1, false, false);
                 }
             }
@@ -1371,29 +1371,29 @@ internal static class PBHFunctions
 
     internal static void SetRelationships()
     {
-        PBHConstants.RobbersRG.SetRelationshipWith(PBHConstants.SneakRobbersRG, Relationship.Respect);
-        PBHConstants.RobbersRG.SetRelationshipWith(RelationshipGroup.Cop, Relationship.Hate);
-        PBHConstants.RobbersRG.SetRelationshipWith(PBHConstants.PoliceRG, Relationship.Hate);
-        PBHConstants.RobbersRG.SetRelationshipWith(Game.LocalPlayer.Character.RelationshipGroup, Relationship.Hate);
+        Constants.RobbersRG.SetRelationshipWith(Constants.SneakRobbersRG, Relationship.Respect);
+        Constants.RobbersRG.SetRelationshipWith(RelationshipGroup.Cop, Relationship.Hate);
+        Constants.RobbersRG.SetRelationshipWith(Constants.PoliceRG, Relationship.Hate);
+        Constants.RobbersRG.SetRelationshipWith(Game.LocalPlayer.Character.RelationshipGroup, Relationship.Hate);
 
-        PBHConstants.SneakRobbersRG.SetRelationshipWith(PBHConstants.RobbersRG, Relationship.Respect);
-        PBHConstants.SneakRobbersRG.SetRelationshipWith(RelationshipGroup.Cop, Relationship.Hate);
-        PBHConstants.SneakRobbersRG.SetRelationshipWith(PBHConstants.PoliceRG, Relationship.Hate);
-        PBHConstants.SneakRobbersRG.SetRelationshipWith(Game.LocalPlayer.Character.RelationshipGroup, Relationship.Hate);
+        Constants.SneakRobbersRG.SetRelationshipWith(Constants.RobbersRG, Relationship.Respect);
+        Constants.SneakRobbersRG.SetRelationshipWith(RelationshipGroup.Cop, Relationship.Hate);
+        Constants.SneakRobbersRG.SetRelationshipWith(Constants.PoliceRG, Relationship.Hate);
+        Constants.SneakRobbersRG.SetRelationshipWith(Game.LocalPlayer.Character.RelationshipGroup, Relationship.Hate);
 
-        RelationshipGroup.Cop.SetRelationshipWith(PBHConstants.RobbersRG, Relationship.Hate);
+        RelationshipGroup.Cop.SetRelationshipWith(Constants.RobbersRG, Relationship.Hate);
         RelationshipGroup.Cop.SetRelationshipWith(Game.LocalPlayer.Character.RelationshipGroup, Relationship.Respect);
-        RelationshipGroup.Cop.SetRelationshipWith(PBHConstants.PoliceRG, Relationship.Respect);
-        RelationshipGroup.Cop.SetRelationshipWith(PBHConstants.HostageRG, Relationship.Respect);
+        RelationshipGroup.Cop.SetRelationshipWith(Constants.PoliceRG, Relationship.Respect);
+        RelationshipGroup.Cop.SetRelationshipWith(Constants.HostageRG, Relationship.Respect);
 
-        PBHConstants.PoliceRG.SetRelationshipWith(PBHConstants.RobbersRG, Relationship.Hate);
-        PBHConstants.PoliceRG.SetRelationshipWith(Game.LocalPlayer.Character.RelationshipGroup, Relationship.Respect);
-        PBHConstants.PoliceRG.SetRelationshipWith(RelationshipGroup.Cop, Relationship.Respect);
-        PBHConstants.PoliceRG.SetRelationshipWith(PBHConstants.HostageRG, Relationship.Respect);
+        Constants.PoliceRG.SetRelationshipWith(Constants.RobbersRG, Relationship.Hate);
+        Constants.PoliceRG.SetRelationshipWith(Game.LocalPlayer.Character.RelationshipGroup, Relationship.Respect);
+        Constants.PoliceRG.SetRelationshipWith(RelationshipGroup.Cop, Relationship.Respect);
+        Constants.PoliceRG.SetRelationshipWith(Constants.HostageRG, Relationship.Respect);
 
-        PBHConstants.HostageRG.SetRelationshipWith(Game.LocalPlayer.Character.RelationshipGroup, Relationship.Respect);
-        PBHConstants.HostageRG.SetRelationshipWith(RelationshipGroup.Cop, Relationship.Respect);
-        PBHConstants.HostageRG.SetRelationshipWith(PBHConstants.PoliceRG, Relationship.Respect);
+        Constants.HostageRG.SetRelationshipWith(Game.LocalPlayer.Character.RelationshipGroup, Relationship.Respect);
+        Constants.HostageRG.SetRelationshipWith(RelationshipGroup.Cop, Relationship.Respect);
+        Constants.HostageRG.SetRelationshipWith(Constants.PoliceRG, Relationship.Respect);
     }
 
     internal static void UnlockDoorsAlways(PacificBankHeist instance)
@@ -1401,7 +1401,7 @@ internal static class PBHFunctions
         while (instance.IsCalloutRunning)
         {
             GameFiber.Yield();
-            foreach (var (pos, hash) in PBHConstants.Doors)
+            foreach (var (pos, hash) in Constants.Doors)
             {
                 Natives.SET_LOCKED_UNSTREAMED_IN_DOOR_OF_TYPE(hash, pos.X, pos.Y, pos.Z, false, 0f, 0f, 0f);
             }

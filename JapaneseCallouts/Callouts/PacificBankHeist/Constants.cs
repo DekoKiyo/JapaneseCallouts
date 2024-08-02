@@ -1,10 +1,7 @@
 namespace JapaneseCallouts.Callouts.PacificBankHeist;
 
-internal static class PBHConstants
+internal static class Constants
 {
-    // Alarm file name
-    internal const string ALARM_SOUND_FILE_NAME = "BankHeistAlarm.wav";
-
     // Blips sprites
     internal const BlipSprite SPRITE = BlipSprite.CriminalCarsteal;
     internal const BlipSprite RIOT_BLIP = BlipSprite.PolicePatrol;

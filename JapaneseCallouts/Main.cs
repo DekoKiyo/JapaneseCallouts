@@ -64,7 +64,6 @@ global using BaseLib;
 global using JapaneseCallouts;
 global using JapaneseCallouts.API;
 global using JapaneseCallouts.Callouts;
-global using JapaneseCallouts.Callouts.PacificBankHeist;
 global using JapaneseCallouts.Debug;
 global using JapaneseCallouts.Helpers;
 global using JapaneseCallouts.Modules;
@@ -116,7 +115,7 @@ internal class Main : Plugin
         ($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.WANTED_CRIMINAL_FOUND_XML}", false),
         ($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.ESCORT_XML}", false),
         ($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.CALLOUTS_SOUND_XML}", false),
-        ($"{PLUGIN_DIRECTORY}/{PLUGIN_AUDIO_DIRECTORY}/{PBHConstants.ALARM_SOUND_FILE_NAME}", false),
+        ($"{PLUGIN_DIRECTORY}/{PLUGIN_AUDIO_DIRECTORY}/{ALARM_SOUND_FILE_NAME}", false),
         ($"{PLUGIN_DIRECTORY}/{PLUGIN_AUDIO_DIRECTORY}/{Conversations.PHONE_CALLING_SOUND}", false),
         ($"{PLUGIN_DIRECTORY}/{PLUGIN_AUDIO_DIRECTORY}/{Conversations.PHONE_BUSY_SOUND}", false),
     ];
@@ -133,6 +132,7 @@ internal class Main : Plugin
     internal const string SETTINGS_INI_FILE = @$"{PLUGIN_NAME_NO_SPACE}.ini";
     internal const string NAUDIO_CORE_DLL = @"NAudio.Core.dll";
     internal const string CALLOUT_INTERFACE_API_DLL = @"CalloutInterfaceAPI.dll";
+    internal const string ALARM_SOUND_FILE_NAME = "BankHeistAlarm.wav";
 
     internal static readonly string PLUGIN_VERSION = Assembly.GetExecutingAssembly().GetName().Version.ToString();
     internal static readonly string PLUGIN_INFO = $"~b~{PLUGIN_NAME}~s~ {PLUGIN_VERSION_DATA}";
@@ -211,7 +211,7 @@ internal class Main : Plugin
                     }
                     else
                     {
-                        var answer = Conversations.DisplayQuestionPopup(Localization.GetString("PluginUpdateAvailable", PLUGIN_NAME), new() { { Localization.GetString("UpdateYes"), Keys.D1 }, { Localization.GetString("UpdateNo"), Keys.D2 } }, true);
+                        var answer = Modules.Conversations.DisplayQuestionPopup(Localization.GetString("PluginUpdateAvailable", PLUGIN_NAME), new() { { Localization.GetString("UpdateYes"), Keys.D1 }, { Localization.GetString("UpdateNo"), Keys.D2 } }, true);
                         if (answer is 0)
                         {
                             PluginUpdater.Update();

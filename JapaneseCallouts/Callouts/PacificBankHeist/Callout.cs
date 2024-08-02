@@ -17,12 +17,12 @@ internal class PacificBankHeist : CalloutBase
 
     internal readonly List<Entity> CalloutEntities = [];
     internal readonly PBHConversations conversations = new();
-    internal readonly PBHVariables variables = new();
+    internal readonly Variables variables = new();
     internal readonly PBHNegotiations negotiations = new();
 
     internal override void Setup()
     {
-        CalloutPosition = PBHConstants.BankLocation;
+        CalloutPosition = Constants.BankLocation;
         CalloutMessage = Localization.GetString("PacificBankHeist");
         NoLastRadio = true;
         ShowCalloutAreaBlipBeforeAccepting(CalloutPosition, 40f);
@@ -201,7 +201,7 @@ internal class PacificBankHeist : CalloutBase
     internal override void Accepted()
     {
         // setup alarm
-        variables.BankAlarm = new($"{Main.PLUGIN_DIRECTORY}/{Main.PLUGIN_AUDIO_DIRECTORY}/{PBHConstants.ALARM_SOUND_FILE_NAME}");
+        variables.BankAlarm = new($"{Main.PLUGIN_DIRECTORY}/{Main.PLUGIN_AUDIO_DIRECTORY}/{Main.ALARM_SOUND_FILE_NAME}");
         variables.BankAlarm.Load();
 
         Hud.DisplayNotification(Localization.GetString("BankHeistWarning"), Main.PLUGIN_NAME, Localization.GetString("BankHeist"));
@@ -233,14 +233,14 @@ internal class PacificBankHeist : CalloutBase
             {
                 variables.BankBlip = new(CalloutPosition)
                 {
-                    Sprite = PBHConstants.SPRITE,
+                    Sprite = Constants.SPRITE,
                     Color = Color.Yellow,
                     RouteColor = Color.Yellow,
                     IsRouteEnabled = true,
                 };
                 variables.SideDoorBlip = new(new Vector3(258.3f, 200.4f, 104.9f))
                 {
-                    Sprite = PBHConstants.SPRITE,
+                    Sprite = Constants.SPRITE,
                     Color = Color.Yellow,
                 };
 
@@ -255,8 +255,8 @@ internal class PacificBankHeist : CalloutBase
 
                 // Loading models
                 GameFiber.Yield();
-                PBHConstants.BarrierModel.Load();
-                PBHConstants.PhoneModel.Load();
+                Constants.BarrierModel.Load();
+                Constants.PhoneModel.Load();
 
                 if (Game.LocalPlayer.Character.IsInAnyVehicle(false))
                 {
@@ -324,7 +324,7 @@ internal class PacificBankHeist : CalloutBase
                                     if (Vector3.Distance(Game.LocalPlayer.Character.Position, variables.Commander.Position) < 4f)
                                     {
                                         Hud.DisplayNotification(Localization.GetString("BankHeistWarning"));
-                                        KeyHelpers.DisplayKeyHelp("PressToTalkWith", [Localization.GetString("Commander"), $"~{PBHConstants.COMMANDER_BLIP.GetIconToken()}~"], Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey);
+                                        KeyHelpers.DisplayKeyHelp("PressToTalkWith", [Localization.GetString("Commander"), $"~{Constants.COMMANDER_BLIP.GetIconToken()}~"], Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey);
                                         if (KeyHelpers.IsKeysDown(Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey))
                                         {
                                             variables.Status = EPacificBankHeistStatus.TalkingToCommander;
@@ -333,7 +333,7 @@ internal class PacificBankHeist : CalloutBase
                                     }
                                     else
                                     {
-                                        Hud.DisplayHelp(Localization.GetString("TalkToCommander", $"~{PBHConstants.COMMANDER_BLIP.GetIconToken()}~"));
+                                        Hud.DisplayHelp(Localization.GetString("TalkToCommander", $"~{Constants.COMMANDER_BLIP.GetIconToken()}~"));
                                     }
                                 }
                             }
@@ -354,17 +354,17 @@ internal class PacificBankHeist : CalloutBase
 
                             foreach (var cop in variables.AllOfficers)
                             {
-                                cop.RelationshipGroup = PBHConstants.PoliceRG;
+                                cop.RelationshipGroup = Constants.PoliceRG;
                             }
                             foreach (var cop in variables.AllSWATUnits)
                             {
-                                cop.RelationshipGroup = PBHConstants.PoliceRG;
+                                cop.RelationshipGroup = Constants.PoliceRG;
                             }
                             foreach (var robber in variables.AllRobbers)
                             {
                                 var blip = new BlipPlus(robber, HudColor.Enemy.GetColor(), BlipSprite.Enemy);
                                 variables.EnemyBlips.Add(blip);
-                                robber.RelationshipGroup = PBHConstants.RobbersRG;
+                                robber.RelationshipGroup = Constants.RobbersRG;
                             }
                             foreach (var robber in variables.AllSneakRobbers)
                             {
@@ -372,14 +372,14 @@ internal class PacificBankHeist : CalloutBase
                                 {
                                     var blip = new BlipPlus(robber, HudColor.Enemy.GetColor(), BlipSprite.Enemy);
                                     variables.EnemyBlips.Add(blip);
-                                    robber.RelationshipGroup = PBHConstants.SneakRobbersRG;
+                                    robber.RelationshipGroup = Constants.SneakRobbersRG;
                                 }
                             }
                             foreach (var hostage in variables.AllHostages)
                             {
                                 var blip = new BlipPlus(hostage, HudColor.Michael.GetColor(), BlipSprite.Friend);
                                 variables.EnemyBlips.Add(blip);
-                                hostage.RelationshipGroup = PBHConstants.HostageRG;
+                                hostage.RelationshipGroup = Constants.HostageRG;
                             }
 
                             PBHFunctions.SetRelationships();
@@ -403,7 +403,7 @@ internal class PacificBankHeist : CalloutBase
                                 {
                                     if (Vector3.Distance(Game.LocalPlayer.Character.Position, variables.Commander.Position) < 3f)
                                     {
-                                        KeyHelpers.DisplayKeyHelp("PressToTalkWith", [Localization.GetString("Commander"), $"~{PBHConstants.COMMANDER_BLIP.GetIconToken()}~"], Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey);
+                                        KeyHelpers.DisplayKeyHelp("PressToTalkWith", [Localization.GetString("Commander"), $"~{Constants.COMMANDER_BLIP.GetIconToken()}~"], Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey);
                                         if (KeyHelpers.IsKeysDown(Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey))
                                         {
                                             Conversations.Talk([(Localization.GetString("Commander"), Localization.GetString("StillFighting"))]);
@@ -417,7 +417,7 @@ internal class PacificBankHeist : CalloutBase
                     // Make everyone fight if player enters bank
                     if (variables.Status is not EPacificBankHeistStatus.FightingWithRobbers and not EPacificBankHeistStatus.Surrendering)
                     {
-                        foreach (var check in PBHConstants.PacificBankInsideChecks)
+                        foreach (var check in Constants.PacificBankInsideChecks)
                         {
                             if (Game.LocalPlayer.Character is not null && Game.LocalPlayer.Character.IsValid() && Game.LocalPlayer.Character.IsAlive)
                             {
@@ -506,7 +506,7 @@ internal class PacificBankHeist : CalloutBase
                                 {
                                     if (!variables.TalkedToCommander2nd)
                                     {
-                                        Hud.DisplayHelp(Localization.GetString("TalkTo", Localization.GetString("Commander"), $"~{PBHConstants.COMMANDER_BLIP.GetIconToken()}~"));
+                                        Hud.DisplayHelp(Localization.GetString("TalkTo", Localization.GetString("Commander"), $"~{Constants.COMMANDER_BLIP.GetIconToken()}~"));
                                     }
                                 }
                             }
@@ -528,7 +528,7 @@ internal class PacificBankHeist : CalloutBase
                         {
                             if (Vector3.Distance(Game.LocalPlayer.Character.Position, variables.Commander.Position) < 4f)
                             {
-                                KeyHelpers.DisplayKeyHelp("PressToTalkWith", [Localization.GetString("Commander"), $"~{PBHConstants.COMMANDER_BLIP.GetIconToken()}~"], Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey);
+                                KeyHelpers.DisplayKeyHelp("PressToTalkWith", [Localization.GetString("Commander"), $"~{Constants.COMMANDER_BLIP.GetIconToken()}~"], Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey);
                                 if (KeyHelpers.IsKeysDown(Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey))
                                 {
                                     evaluatedWithCommander = true;
@@ -541,7 +541,7 @@ internal class PacificBankHeist : CalloutBase
                             }
                             else
                             {
-                                Hud.DisplayHelp(Localization.GetString("TalkTo", Localization.GetString("Commander"), $"~{PBHConstants.COMMANDER_BLIP.GetIconToken()}~"));
+                                Hud.DisplayHelp(Localization.GetString("TalkTo", Localization.GetString("Commander"), $"~{Constants.COMMANDER_BLIP.GetIconToken()}~"));
                             }
                         }
                     }

@@ -1,8 +1,8 @@
 namespace JapaneseCallouts.Callouts.PacificBankHeist;
 
-internal class PBHVariables
+internal class Variables
 {
-    internal PBHVariables() { }
+    internal Variables() { }
 
     internal EPacificBankHeistStatus Status = EPacificBankHeistStatus.Init;
 
