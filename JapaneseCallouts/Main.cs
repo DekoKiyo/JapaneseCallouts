@@ -21,6 +21,8 @@ global using System.Runtime.CompilerServices;
 global using System.Runtime.InteropServices;
 global using System.Security.Cryptography;
 global using System.Text;
+global using System.Text.Json;
+global using System.Text.Json.Serialization;
 global using System.Text.RegularExpressions;
 global using System.Threading;
 global using System.Threading.Tasks;
@@ -68,8 +70,6 @@ global using JapaneseCallouts.Configurations;
 global using JapaneseCallouts.Debug;
 global using JapaneseCallouts.Helpers;
 global using JapaneseCallouts.Modules;
-global using JapaneseCallouts.Xml;
-global using JapaneseCallouts.Xml.Callouts;
 #endregion
 #region Rage
 global using Rage;
@@ -105,15 +105,15 @@ internal class Main : Plugin
         (CALLOUT_INTERFACE_API_DLL, true),
         (NAUDIO_CORE_DLL, true),
         ($"{LSPDFR_DIRECTORY}/{SETTINGS_INI_FILE}", false),
-        ($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.PACIFIC_BANK_HEIST_XML}", false),
-        ($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.DRUNK_GUYS_XML}", false),
-        ($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.ROAD_RAGE_XML}", false),
-        ($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.STORE_ROBBERY_XML}", false),
-        ($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.BANK_HEIST_XML}", false),
-        ($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.HOT_PURSUIT_XML}", false),
-        ($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.WANTED_CRIMINAL_FOUND_XML}", false),
-        ($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.ESCORT_XML}", false),
-        ($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.CALLOUTS_SOUND_XML}", false),
+        // ($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.PACIFIC_BANK_HEIST_XML}", false),
+        // ($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.DRUNK_GUYS_XML}", false),
+        // ($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.ROAD_RAGE_XML}", false),
+        // ($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.STORE_ROBBERY_XML}", false),
+        // ($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.BANK_HEIST_XML}", false),
+        // ($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.HOT_PURSUIT_XML}", false),
+        // ($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.WANTED_CRIMINAL_FOUND_XML}", false),
+        // ($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.ESCORT_XML}", false),
+        // ($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.CALLOUTS_SOUND_XML}", false),
         ($"{PLUGIN_DIRECTORY}/{PLUGIN_AUDIO_DIRECTORY}/{ALARM_SOUND_FILE_NAME}", false),
         ($"{PLUGIN_DIRECTORY}/{PLUGIN_AUDIO_DIRECTORY}/{Conversations.PHONE_CALLING_SOUND}", false),
         ($"{PLUGIN_DIRECTORY}/{PLUGIN_AUDIO_DIRECTORY}/{Conversations.PHONE_BUSY_SOUND}", false),
@@ -186,7 +186,7 @@ internal class Main : Plugin
             Remote.Initialize();
             Settings.Initialize();
             Localization.Initialize();
-            XmlManager.Initialize();
+            // XmlManager.Initialize();
             BlipPlus.Initialize();
             Game.AddConsoleCommands();
             CalloutBase.RegisterAllCallouts();

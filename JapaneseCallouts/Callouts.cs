@@ -1,4 +1,11 @@
+using JapaneseCallouts.Callouts.BankHeist;
+using JapaneseCallouts.Callouts.DrunkGuys;
+using JapaneseCallouts.Callouts.HotPursuit;
 using JapaneseCallouts.Callouts.PacificBankHeist;
+using JapaneseCallouts.Callouts.RoadRage;
+using JapaneseCallouts.Callouts.StoreRobbery;
+using JapaneseCallouts.Callouts.StreetFight;
+using JapaneseCallouts.Callouts.WantedCriminalFound;
 
 namespace JapaneseCallouts;
 

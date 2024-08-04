@@ -2,16 +2,16 @@ namespace JapaneseCallouts.Configurations;
 
 internal class VehicleConfig : IChanceObject, IModelObject
 {
-    [JsonProperty("chance")]
+    [JsonPropertyName("chance")]
     public int Chance { get; set; } = 100;
-    [JsonProperty("livery")]
+    [JsonPropertyName("livery")]
     internal int Livery { get; set; } = -1;
-    [JsonProperty("color_r")]
+    [JsonPropertyName("color_r")]
     internal int ColorR { get; set; } = -1;
-    [JsonProperty("color_g")]
+    [JsonPropertyName("color_g")]
     internal int ColorG { get; set; } = -1;
-    [JsonProperty("color_b")]
+    [JsonPropertyName("color_b")]
     internal int ColorB { get; set; } = -1;
-    [JsonProperty("model")]
+    [JsonPropertyName("model")]
     public string Model { get; set; }
 }

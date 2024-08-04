@@ -70,7 +70,7 @@ internal static class Localization
             if (File.Exists(path))
             {
                 using var sr = new StreamReader(path);
-                return JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, string>>>(sr.ReadToEnd());
+                return JsonSerializer.Deserialize<Dictionary<string, Dictionary<string, string>>>(sr.ReadToEnd());
             }
             else
             {
@@ -80,7 +80,7 @@ internal static class Localization
                 _ = stream.Read(byteArray, 0, (int)stream.Length);
                 var json = Encoding.UTF8.GetString(byteArray);
 
-                return JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, string>>>(json);
+                return JsonSerializer.Deserialize<Dictionary<string, Dictionary<string, string>>>(json);
             }
         }
         catch (FileNotFoundException e)

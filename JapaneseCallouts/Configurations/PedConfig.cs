@@ -2,20 +2,20 @@ namespace JapaneseCallouts.Configurations;
 
 internal class PedConfig : IChanceObject
 {
-    [JsonProperty("chance")]
+    [JsonPropertyName("chance")]
     public int Chance { get; set; } = 100;
-    [JsonProperty("random_props")]
+    [JsonPropertyName("random_props")]
     internal bool RandomProps { get; set; } = false;
-    [JsonProperty("health")]
+    [JsonPropertyName("health")]
     internal int Health { get; set; } = 200;
-    [JsonProperty("armor")]
+    [JsonPropertyName("armor")]
     internal int Armor { get; set; } = 200;
-    [JsonProperty("is_sunny")]
+    [JsonPropertyName("is_sunny")]
     internal bool IsSunny { get; set; } = true;
-    [JsonProperty("is_rainy")]
+    [JsonPropertyName("is_rainy")]
     internal bool IsRainy { get; set; } = false;
-    [JsonProperty("is_snowy")]
+    [JsonPropertyName("is_snowy")]
     internal bool IsSnowy { get; set; } = false;
-    [JsonProperty("outfit_name"), JsonRequired]
+    [JsonPropertyName("outfit_name"), JsonRequired]
     internal string OutfitName { get; set; }
 }

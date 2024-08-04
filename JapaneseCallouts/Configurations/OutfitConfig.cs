@@ -2,62 +2,62 @@ namespace JapaneseCallouts.Configurations;
 
 internal class OutfitConfig
 {
-    [JsonProperty("model"), JsonRequired]
+    [JsonPropertyName("model"), JsonRequired]
     internal string Model { get; set; }
-    [JsonProperty("comp_mask_model")]
+    [JsonPropertyName("comp_mask_model")]
     internal int MaskModel { get; set; } = 0;
-    [JsonProperty("comp_upperskin_model")]
+    [JsonPropertyName("comp_upperskin_model")]
     internal int UpperSkinModel { get; set; } = 0;
-    [JsonProperty("comp_pants_model")]
+    [JsonPropertyName("comp_pants_model")]
     internal int PantsModel { get; set; } = 0;
-    [JsonProperty("comp_parachute_model")]
+    [JsonPropertyName("comp_parachute_model")]
     internal int ParachuteModel { get; set; } = 0;
-    [JsonProperty("comp_shoes_model")]
+    [JsonPropertyName("comp_shoes_model")]
     internal int ShoesModel { get; set; } = 0;
-    [JsonProperty("comp_accessories_model")]
+    [JsonPropertyName("comp_accessories_model")]
     internal int AccessoriesModel { get; set; } = 0;
-    [JsonProperty("comp_undercoat_model")]
+    [JsonPropertyName("comp_undercoat_model")]
     internal int UndercoatModel { get; set; } = 0;
-    [JsonProperty("comp_armor_model")]
+    [JsonPropertyName("comp_armor_model")]
     internal int ArmorModel { get; set; } = 0;
-    [JsonProperty("comp_decal_model")]
+    [JsonPropertyName("comp_decal_model")]
     internal int DecalModel { get; set; } = 0;
-    [JsonProperty("comp_top_model")]
+    [JsonPropertyName("comp_top_model")]
     internal int TopModel { get; set; } = 0;
-    [JsonProperty("comp_mask_texture")]
+    [JsonPropertyName("comp_mask_texture")]
     internal int MaskTexture { get; set; } = 0;
-    [JsonProperty("comp_upperskin_texture")]
+    [JsonPropertyName("comp_upperskin_texture")]
     internal int UpperSkinTexture { get; set; } = 0;
-    [JsonProperty("comp_pants_texture")]
+    [JsonPropertyName("comp_pants_texture")]
     internal int PantsTexture { get; set; } = 0;
-    [JsonProperty("comp_parachute_texture")]
+    [JsonPropertyName("comp_parachute_texture")]
     internal int ParachuteTexture { get; set; } = 0;
-    [JsonProperty("comp_shoes_texture")]
+    [JsonPropertyName("comp_shoes_texture")]
     internal int ShoesTexture { get; set; } = 0;
-    [JsonProperty("comp_accessories_texture")]
+    [JsonPropertyName("comp_accessories_texture")]
     internal int AccessoriesTexture { get; set; } = 0;
-    [JsonProperty("comp_undercoat_texture")]
+    [JsonPropertyName("comp_undercoat_texture")]
     internal int UndercoatTexture { get; set; } = 0;
-    [JsonProperty("comp_armor_texture")]
+    [JsonPropertyName("comp_armor_texture")]
     internal int ArmorTexture { get; set; } = 0;
-    [JsonProperty("comp_decal_texture")]
+    [JsonPropertyName("comp_decal_texture")]
     internal int DecalTexture { get; set; } = 0;
-    [JsonProperty("comp_top_texture")]
+    [JsonPropertyName("comp_top_texture")]
     internal int TopTexture { get; set; } = 0;
-    [JsonProperty("prop_hat_model")]
+    [JsonPropertyName("prop_hat_model")]
     internal int HatModel { get; set; } = 0;
-    [JsonProperty("prop_glasses_model")]
+    [JsonPropertyName("prop_glasses_model")]
     internal int GlassesModel { get; set; } = 0;
-    [JsonProperty("prop_ear_model")]
+    [JsonPropertyName("prop_ear_model")]
     internal int EarModel { get; set; } = 0;
-    [JsonProperty("prop_watch_model")]
+    [JsonPropertyName("prop_watch_model")]
     internal int WatchModel { get; set; } = 0;
-    [JsonProperty("prop_hat_texture")]
+    [JsonPropertyName("prop_hat_texture")]
     internal int HatTexture { get; set; } = 0;
-    [JsonProperty("prop_glasses_texture")]
+    [JsonPropertyName("prop_glasses_texture")]
     internal int GlassesTexture { get; set; } = 0;
-    [JsonProperty("prop_ear_texture")]
+    [JsonPropertyName("prop_ear_texture")]
     internal int EarTexture { get; set; } = 0;
-    [JsonProperty("prop_watch_texture")]
+    [JsonPropertyName("prop_watch_texture")]
     internal int WatchTexture { get; set; } = 0;
 }
