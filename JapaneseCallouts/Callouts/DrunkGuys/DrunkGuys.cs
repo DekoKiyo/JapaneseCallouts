@@ -1,7 +1,7 @@
 namespace JapaneseCallouts.Callouts.DrunkGuys;
 
 [CalloutInfo("[JPC] Drunk Guys", CalloutProbability.High)]
-internal class DrunkGuys : CalloutBase
+internal class DrunkGuys : CalloutBase<Configurations>
 {
     private Ped citizen;
     private Blip citizenB;
@@ -15,28 +15,28 @@ internal class DrunkGuys : CalloutBase
 
     private readonly (string, string)[] TalkToCitizen =
     [
-        (Settings.OfficerName, Localization.GetString("DrunkCitizen1")),
+        (Settings.Instance.OfficerName, Localization.GetString("DrunkCitizen1")),
         (Localization.GetString("Citizen"), Localization.GetString("DrunkCitizen2")),
         (Localization.GetString("Citizen"), Localization.GetString("DrunkCitizen3")),
-        (Settings.OfficerName, Localization.GetString("DrunkCitizen4")),
+        (Settings.Instance.OfficerName, Localization.GetString("DrunkCitizen4")),
         (Localization.GetString("Citizen"), Localization.GetString("DrunkCitizen5")),
     ];
 
     internal override void Setup()
     {
         var positions = new List<Vector3>();
-        foreach (var p in XmlManager.DrunkGuysConfig.DrunkGuysPositions)
+        foreach (var p in Configuration.DrunkGuysPositions)
         {
             positions.Add(new(p.X, p.Y, p.Z));
         }
         var index = Vector3Helpers.GetNearestPosIndex(positions);
-        calloutData = XmlManager.DrunkGuysConfig.DrunkGuysPositions[index];
-        peds = new(calloutData.DrunkPos.Count);
+        calloutData = Configuration.DrunkGuysPositions[index];
+        peds = new(calloutData.DrunkPos.Length);
         CalloutPosition = positions[index];
         CalloutMessage = Localization.GetString("DrunkGuys");
         NoLastRadio = true;
         ShowCalloutAreaBlipBeforeAccepting(CalloutPosition, 20f);
-        Functions.PlayScannerAudioUsingPosition(Settings.DrunkGuysRadioSound, CalloutPosition);
+        Functions.PlayScannerAudioUsingPosition(Settings.Instance.DrunkGuysRadioSound, CalloutPosition);
 
         OnCalloutsEnded += () =>
         {
@@ -109,8 +109,8 @@ internal class DrunkGuys : CalloutBase
 
         if (arrived && Game.LocalPlayer.Character.DistanceTo(citizen.Position) < 4f && !Game.LocalPlayer.Character.IsInAnyVehicle(false))
         {
-            KeyHelpers.DisplayKeyHelp("PressToTalkWith", [Localization.GetString("Victim"), string.Empty], Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey);
-            if (KeyHelpers.IsKeysDown(Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey))
+            KeyHelpers.DisplayKeyHelp("PressToTalkWith", [Localization.GetString("Victim"), string.Empty], Settings.Instance.SpeakWithThePersonKey, Settings.Instance.SpeakWithThePersonModifierKey);
+            if (KeyHelpers.IsKeysDown(Settings.Instance.SpeakWithThePersonKey, Settings.Instance.SpeakWithThePersonModifierKey))
             {
                 Conversations.Talk(TalkToCitizen);
                 Hud.DisplayHelp(Localization.GetString("DrunkCallTaxi"));
@@ -119,6 +119,6 @@ internal class DrunkGuys : CalloutBase
                 End();
             }
         }
-        if (KeyHelpers.IsKeysDown(Settings.EndCalloutsKey, Settings.EndCalloutsModifierKey)) End();
+        if (KeyHelpers.IsKeysDown(Settings.Instance.EndCalloutsKey, Settings.Instance.EndCalloutsModifierKey)) End();
     }
 }

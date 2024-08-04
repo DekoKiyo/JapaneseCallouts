@@ -100,23 +100,15 @@ internal class Main : Plugin
     // Change here if you want to change the version.
     internal const string VERSION = "1.1.0";
 
-    private static readonly (string path, bool isError)[] REQUIRE_FILES_PATH =
+    private static readonly (string path, bool isError)[] REQUIRED_FILES_PATH =
     [
+        .. ConfigurationManager.REQUIRED_FILES_PATH.Values,
         (CALLOUT_INTERFACE_API_DLL, true),
         (NAUDIO_CORE_DLL, true),
         ($"{LSPDFR_DIRECTORY}/{SETTINGS_INI_FILE}", false),
-        // ($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.PACIFIC_BANK_HEIST_XML}", false),
-        // ($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.DRUNK_GUYS_XML}", false),
-        // ($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.ROAD_RAGE_XML}", false),
-        // ($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.STORE_ROBBERY_XML}", false),
-        // ($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.BANK_HEIST_XML}", false),
-        // ($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.HOT_PURSUIT_XML}", false),
-        // ($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.WANTED_CRIMINAL_FOUND_XML}", false),
-        // ($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.ESCORT_XML}", false),
-        // ($"{PLUGIN_DIRECTORY}/Xml/{XmlManager.CALLOUTS_SOUND_XML}", false),
-        ($"{PLUGIN_DIRECTORY}/{PLUGIN_AUDIO_DIRECTORY}/{ALARM_SOUND_FILE_NAME}", false),
-        ($"{PLUGIN_DIRECTORY}/{PLUGIN_AUDIO_DIRECTORY}/{Conversations.PHONE_CALLING_SOUND}", false),
-        ($"{PLUGIN_DIRECTORY}/{PLUGIN_AUDIO_DIRECTORY}/{Conversations.PHONE_BUSY_SOUND}", false),
+        ($"{PLUGIN_DIRECTORY}/{PLUGIN_AUDIO_DIRECTORY}/{ALARM_SOUND_FILE_NAME}", true),
+        ($"{PLUGIN_DIRECTORY}/{PLUGIN_AUDIO_DIRECTORY}/{Conversations.PHONE_CALLING_SOUND}", true),
+        ($"{PLUGIN_DIRECTORY}/{PLUGIN_AUDIO_DIRECTORY}/{Conversations.PHONE_BUSY_SOUND}", true),
     ];
 
     internal const string PLUGIN_NAME = "Japanese Callouts";
@@ -185,13 +177,12 @@ internal class Main : Plugin
                 }
             }
             Remote.Initialize();
-            Settings.Initialize();
             Localization.Initialize();
             // XmlManager.Initialize();
             ConfigurationManager.Initialize();
             BlipPlus.Initialize();
             Game.AddConsoleCommands();
-            CalloutBase.RegisterAllCallouts();
+            CalloutBase<IConfig>.RegisterAllCallouts();
             Hud.DisplayNotification(Localization.GetString("PluginLoaded", PLUGIN_NAME, DEVELOPER_NAME), PLUGIN_NAME, PLUGIN_VERSION_DATA);
 #if DEBUG
             DebugManager.Initialize();
@@ -206,7 +197,7 @@ internal class Main : Plugin
                 {
                     Logger.Info($"The latest update found. Latest Version: {RemoteLatestVersion}");
 
-                    if (Settings.EnableAutoUpdate)
+                    if (Settings.Instance.EnableAutoUpdate)
                     {
                         PluginUpdater.Update();
                     }
@@ -232,7 +223,7 @@ internal class Main : Plugin
         error = false;
         var missing = new List<string>();
 
-        foreach (var (path, isError) in REQUIRE_FILES_PATH)
+        foreach (var (path, isError) in REQUIRED_FILES_PATH)
         {
             if (!File.Exists(path))
             {

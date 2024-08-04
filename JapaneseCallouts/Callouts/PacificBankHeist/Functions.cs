@@ -671,14 +671,14 @@ internal static class PBHFunctions
                         {
                             if (Vector3.Distance(hostage.Position, Game.LocalPlayer.Character.Position) < 1.45f)
                             {
-                                if (KeyHelpers.IsKeysDownRightNow(Settings.HostageRescueKey, Settings.HostageRescueModifierKey))
+                                if (KeyHelpers.IsKeysDownRightNow(Settings.Instance.HostageRescueKey, Settings.Instance.HostageRescueModifierKey))
                                 {
                                     var direction = hostage.Position - Game.LocalPlayer.Character.Position;
                                     direction.Normalize();
                                     instance.variables.IsRescuingHostage = true;
                                     Game.LocalPlayer.Character.Tasks.AchieveHeading(MathHelper.ConvertDirectionToHeading(direction)).WaitForCompletion(1200);
                                     hostage.RelationshipGroup = RelationshipGroup.Cop;
-                                    Modules.Conversations.Talk([(Settings.OfficerName, Localization.GetString("RescueHostage"))], false);
+                                    Modules.Conversations.Talk([(Settings.Instance.OfficerName, Localization.GetString("RescueHostage"))], false);
                                     Game.LocalPlayer.Character.Tasks.PlayAnimation("random@rescue_hostage", "bystander_helping_girl_loop", 1.5f, AnimationFlags.None).WaitForCompletion(3000);
 
                                     if (hostage.IsAlive)
@@ -710,7 +710,7 @@ internal static class PBHFunctions
                                     closeHostage = hostage;
                                     if (subtitleCount > 5)
                                     {
-                                        KeyHelpers.DisplayKeyHelp("BankHeistReleaseHostage", Settings.HostageRescueKey, Settings.HostageRescueModifierKey);
+                                        KeyHelpers.DisplayKeyHelp("BankHeistReleaseHostage", Settings.Instance.HostageRescueKey, Settings.Instance.HostageRescueModifierKey);
                                     }
                                 }
                             }
@@ -852,7 +852,7 @@ internal static class PBHFunctions
                     {
                         if (Vector3.Distance(riot.GetOffsetPosition(Vector3.RelativeBack * 4f), Game.LocalPlayer.Character.Position) < 2f)
                         {
-                            if (KeyHelpers.IsKeysDownRightNow(Settings.EnterRiotVanKey, Settings.EnterRiotVanModifierKey))
+                            if (KeyHelpers.IsKeysDownRightNow(Settings.Instance.EnterRiotVanKey, Settings.Instance.EnterRiotVanModifierKey))
                             {
                                 if (cooldown > 0)
                                 {
@@ -874,7 +874,7 @@ internal static class PBHFunctions
                             {
                                 if (cooldown is 0)
                                 {
-                                    KeyHelpers.DisplayKeyHelp("EnterRiot", [$"~{Constants.RIOT_BLIP.GetIconToken()}~"], Settings.EnterRiotVanKey, Settings.EnterRiotVanModifierKey, 500);
+                                    KeyHelpers.DisplayKeyHelp("EnterRiot", [$"~{Constants.RIOT_BLIP.GetIconToken()}~"], Settings.Instance.EnterRiotVanKey, Settings.Instance.EnterRiotVanModifierKey, 500);
                                 }
                             }
                         }
@@ -918,7 +918,7 @@ internal static class PBHFunctions
                     }
                 }
 
-                if (KeyHelpers.IsKeysDown(Settings.ToggleBankHeistAlarmSoundKey, Settings.ToggleBankHeistAlarmSoundModifierKey))
+                if (KeyHelpers.IsKeysDown(Settings.Instance.ToggleBankHeistAlarmSoundKey, Settings.Instance.ToggleBankHeistAlarmSoundModifierKey))
                 {
                     if (instance.variables.CurrentAlarmState is not AlarmState.None)
                     {
@@ -1057,11 +1057,11 @@ internal static class PBHFunctions
         while (instance.IsCalloutRunning)
         {
             GameFiber.Yield();
-            KeyHelpers.DisplayKeyHelp("BankHeistMoveIn", Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey);
-            if (KeyHelpers.IsKeysDown(Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey))
+            KeyHelpers.DisplayKeyHelp("BankHeistMoveIn", Settings.Instance.SpeakWithThePersonKey, Settings.Instance.SpeakWithThePersonModifierKey);
+            if (KeyHelpers.IsKeysDown(Settings.Instance.SpeakWithThePersonKey, Settings.Instance.SpeakWithThePersonModifierKey))
             {
-                Modules.Conversations.Talk([(Settings.OfficerName, Localization.GetString("MoveIn"))]);
-                KeyHelpers.DisplayKeyHelp("SWATFollowing", Settings.SWATFollowKey, Settings.SWATFollowModifierKey);
+                Modules.Conversations.Talk([(Settings.Instance.OfficerName, Localization.GetString("MoveIn"))]);
+                KeyHelpers.DisplayKeyHelp("SWATFollowing", Settings.Instance.SWATFollowKey, Settings.Instance.SWATFollowModifierKey);
                 instance.variables.Status = EPacificBankHeistStatus.FightingWithRobbers;
                 break;
             }

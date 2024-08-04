@@ -17,8 +17,8 @@ internal class PBHNegotiations
             while (instance.IsCalloutRunning)
             {
                 GameFiber.Yield();
-                KeyHelpers.DisplayKeyHelp("CallBankRobbers", Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey);
-                if (KeyHelpers.IsKeysDown(Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey)) break;
+                KeyHelpers.DisplayKeyHelp("CallBankRobbers", Settings.Instance.SpeakWithThePersonKey, Settings.Instance.SpeakWithThePersonModifierKey);
+                if (KeyHelpers.IsKeysDown(Settings.Instance.SpeakWithThePersonKey, Settings.Instance.SpeakWithThePersonModifierKey)) break;
             }
             Game.HideHelp();
             NegotiationIntro(instance);
@@ -221,7 +221,7 @@ internal class PBHNegotiations
                         }
                         break;
                     case 2:
-                        Conversations.Talk([(Settings.OfficerName, Localization.GetString("Request231"))]);
+                        Conversations.Talk([(Settings.Instance.OfficerName, Localization.GetString("Request231"))]);
                         instance.variables.IsNegotiationSucceed = false;
                         break;
                 }
@@ -380,6 +380,6 @@ internal class PBHNegotiations
             instance.variables.CurrentAlarmState = AlarmState.Alarm;
             Conversations.Talk(instance.conversations.AlarmOnConversation);
         }
-        KeyHelpers.DisplayKeyHelp("AlarmSwitchKey", Settings.ToggleBankHeistAlarmSoundKey, Settings.ToggleBankHeistAlarmSoundModifierKey);
+        KeyHelpers.DisplayKeyHelp("AlarmSwitchKey", Settings.Instance.ToggleBankHeistAlarmSoundKey, Settings.Instance.ToggleBankHeistAlarmSoundModifierKey);
     }
 }

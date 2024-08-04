@@ -10,7 +10,7 @@
 namespace JapaneseCallouts.Callouts.PacificBankHeist;
 
 [CalloutInfo("[JPC] Pacific Bank Heist", CalloutProbability.High)]
-internal class PacificBankHeist : CalloutBase
+internal class PacificBankHeist : CalloutBase<Configurations>
 {
     private static GameFiber CopFightingAIGameFiber;
     private static GameFiber RobbersFightingAIGameFiber;
@@ -26,14 +26,14 @@ internal class PacificBankHeist : CalloutBase
         CalloutMessage = Localization.GetString("PacificBankHeist");
         NoLastRadio = true;
         ShowCalloutAreaBlipBeforeAccepting(CalloutPosition, 40f);
-        Functions.PlayScannerAudioUsingPosition(Settings.PacificBankHeistRadioSound, CalloutPosition);
+        Functions.PlayScannerAudioUsingPosition(Settings.Instance.PacificBankHeistRadioSound, CalloutPosition);
         CalloutInterfaceAPIFunctions.SendMessage(this, Localization.GetString("PacificBankHeistDesc"));
 
         conversations.IntroConversation =
         [
-            (Settings.OfficerName, Localization.GetString("Intro1")),
+            (Settings.Instance.OfficerName, Localization.GetString("Intro1")),
             (Localization.GetString("Commander"), Localization.GetString("Intro2")),
-            (Settings.OfficerName, Localization.GetString("Intro3")),
+            (Settings.Instance.OfficerName, Localization.GetString("Intro3")),
             (Localization.GetString("Commander"), Localization.GetString("Intro4", variables.HostageCount.ToString())),
             (Localization.GetString("Commander"), Localization.GetString("Intro5")),
             (Localization.GetString("Commander"), Localization.GetString("Intro6")),
@@ -324,8 +324,8 @@ internal class PacificBankHeist : CalloutBase
                                     if (Vector3.Distance(Game.LocalPlayer.Character.Position, variables.Commander.Position) < 4f)
                                     {
                                         Hud.DisplayNotification(Localization.GetString("BankHeistWarning"));
-                                        KeyHelpers.DisplayKeyHelp("PressToTalkWith", [Localization.GetString("Commander"), $"~{Constants.COMMANDER_BLIP.GetIconToken()}~"], Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey);
-                                        if (KeyHelpers.IsKeysDown(Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey))
+                                        KeyHelpers.DisplayKeyHelp("PressToTalkWith", [Localization.GetString("Commander"), $"~{Constants.COMMANDER_BLIP.GetIconToken()}~"], Settings.Instance.SpeakWithThePersonKey, Settings.Instance.SpeakWithThePersonModifierKey);
+                                        if (KeyHelpers.IsKeysDown(Settings.Instance.SpeakWithThePersonKey, Settings.Instance.SpeakWithThePersonModifierKey))
                                         {
                                             variables.Status = EPacificBankHeistStatus.TalkingToCommander;
                                             negotiations.DetermineInitialDialogue(this);
@@ -403,8 +403,8 @@ internal class PacificBankHeist : CalloutBase
                                 {
                                     if (Vector3.Distance(Game.LocalPlayer.Character.Position, variables.Commander.Position) < 3f)
                                     {
-                                        KeyHelpers.DisplayKeyHelp("PressToTalkWith", [Localization.GetString("Commander"), $"~{Constants.COMMANDER_BLIP.GetIconToken()}~"], Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey);
-                                        if (KeyHelpers.IsKeysDown(Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey))
+                                        KeyHelpers.DisplayKeyHelp("PressToTalkWith", [Localization.GetString("Commander"), $"~{Constants.COMMANDER_BLIP.GetIconToken()}~"], Settings.Instance.SpeakWithThePersonKey, Settings.Instance.SpeakWithThePersonModifierKey);
+                                        if (KeyHelpers.IsKeysDown(Settings.Instance.SpeakWithThePersonKey, Settings.Instance.SpeakWithThePersonModifierKey))
                                         {
                                             Conversations.Talk([(Localization.GetString("Commander"), Localization.GetString("StillFighting"))]);
                                         }
@@ -434,7 +434,7 @@ internal class PacificBankHeist : CalloutBase
                     // If surrendered
                     if (variables.SurrenderComplete) break;
 
-                    if (KeyHelpers.IsKeysDown(Settings.SWATFollowKey, Settings.SWATFollowModifierKey))
+                    if (KeyHelpers.IsKeysDown(Settings.Instance.SWATFollowKey, Settings.Instance.SWATFollowModifierKey))
                     {
                         PBHFunctions.SwitchSWATFollowing(this);
                     }
@@ -464,7 +464,7 @@ internal class PacificBankHeist : CalloutBase
                         break;
                     }
 
-                    if (KeyHelpers.IsKeysDown(Settings.SWATFollowKey, Settings.SWATFollowModifierKey))
+                    if (KeyHelpers.IsKeysDown(Settings.Instance.SWATFollowKey, Settings.Instance.SWATFollowModifierKey))
                     {
                         PBHFunctions.SwitchSWATFollowing(this);
                     }
@@ -486,15 +486,15 @@ internal class PacificBankHeist : CalloutBase
                             {
                                 if (Vector3.Distance(Game.LocalPlayer.Character.Position, variables.Commander.Position) < 4f)
                                 {
-                                    KeyHelpers.DisplayKeyHelp("PressToTalk", [Localization.GetString("Commander")], Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey);
-                                    if (KeyHelpers.IsKeysDown(Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey))
+                                    KeyHelpers.DisplayKeyHelp("PressToTalk", [Localization.GetString("Commander")], Settings.Instance.SpeakWithThePersonKey, Settings.Instance.SpeakWithThePersonModifierKey);
+                                    if (KeyHelpers.IsKeysDown(Settings.Instance.SpeakWithThePersonKey, Settings.Instance.SpeakWithThePersonModifierKey))
                                     {
                                         if (!variables.TalkedToCommander2nd)
                                         {
                                             Conversations.Talk(conversations.AfterSurrendered);
                                             variables.TalkedToCommander2nd = true;
                                             variables.Status = EPacificBankHeistStatus.FightingWithRobbers;
-                                            KeyHelpers.DisplayKeyHelp("SWATFollowing", Settings.SWATFollowKey, Settings.SWATFollowModifierKey);
+                                            KeyHelpers.DisplayKeyHelp("SWATFollowing", Settings.Instance.SWATFollowKey, Settings.Instance.SWATFollowModifierKey);
                                         }
                                         else
                                         {
@@ -528,8 +528,8 @@ internal class PacificBankHeist : CalloutBase
                         {
                             if (Vector3.Distance(Game.LocalPlayer.Character.Position, variables.Commander.Position) < 4f)
                             {
-                                KeyHelpers.DisplayKeyHelp("PressToTalkWith", [Localization.GetString("Commander"), $"~{Constants.COMMANDER_BLIP.GetIconToken()}~"], Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey);
-                                if (KeyHelpers.IsKeysDown(Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey))
+                                KeyHelpers.DisplayKeyHelp("PressToTalkWith", [Localization.GetString("Commander"), $"~{Constants.COMMANDER_BLIP.GetIconToken()}~"], Settings.Instance.SpeakWithThePersonKey, Settings.Instance.SpeakWithThePersonModifierKey);
+                                if (KeyHelpers.IsKeysDown(Settings.Instance.SpeakWithThePersonKey, Settings.Instance.SpeakWithThePersonModifierKey))
                                 {
                                     evaluatedWithCommander = true;
                                     Conversations.Talk(conversations.Final);

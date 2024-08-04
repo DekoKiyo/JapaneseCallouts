@@ -1,6 +1,6 @@
 namespace JapaneseCallouts.Callouts.DrunkGuys;
 
-internal class Configurations
+internal class Configurations : IConfig
 {
     [JsonPropertyName("callout_positions")]
     internal DrunkGuysPosition[] DrunkGuysPositions { get; set; }

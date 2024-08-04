@@ -1,7 +1,7 @@
 namespace JapaneseCallouts.Callouts.BankHeist;
 
 [CalloutInfo("[JPC] Bank Heist", CalloutProbability.High)]
-internal class BankHeist : CalloutBase
+internal class BankHeist : CalloutBase<Configurations>
 {
     private readonly RelationshipGroup RobberRG = new("ROBBER");
     private Blip BankBlip;
@@ -126,7 +126,7 @@ internal class BankHeist : CalloutBase
         CalloutMessage = Localization.GetString("BankHeist");
         CalloutPosition = Vector3Helpers.GetNearestPos([.. BankData.Keys]);
         ShowCalloutAreaBlipBeforeAccepting(CalloutPosition, 100f);
-        Functions.PlayScannerAudioUsingPosition(Settings.BankHeistRadioSound, CalloutPosition);
+        Functions.PlayScannerAudioUsingPosition(Settings.Instance.BankHeistRadioSound, CalloutPosition);
 
         Robbers = new(BankData[CalloutPosition].positions.Count());
         EnemyBlips = new(Robbers.Count());
@@ -161,7 +161,7 @@ internal class BankHeist : CalloutBase
 
         foreach (var (pos, heading) in BankData[CalloutPosition].positions)
         {
-            var pedData = CalloutHelpers.SelectPed(weather, [.. XmlManager.BankHeistConfig.Robbers]);
+            var pedData = CalloutHelpers.SelectPed(weather, [.. Configuration.Robbers]);
             var robber = new Ped(pedData.Model, pos, heading)
             {
                 IsPersistent = true,
@@ -176,7 +176,7 @@ internal class BankHeist : CalloutBase
                 Natives.SET_PED_KEEP_TASK(robber, true);
 
                 robber.SetOutfit(pedData);
-                robber.GiveWeapon([.. XmlManager.BankHeistConfig.Weapons], true);
+                robber.GiveWeapon([.. Configuration.Weapons], true);
 
                 Natives.SET_PED_SUFFERS_CRITICAL_HITS(robber, false);
                 Robbers.Add(robber);
@@ -227,7 +227,7 @@ internal class BankHeist : CalloutBase
 
         if (Game.LocalPlayer.Character.IsDead) End();
         if (EntityHelpers.IsAllPedDeadOrArrested([.. Robbers])) End();
-        if (KeyHelpers.IsKeysDown(Settings.EndCalloutsKey, Settings.EndCalloutsModifierKey)) End();
+        if (KeyHelpers.IsKeysDown(Settings.Instance.EndCalloutsKey, Settings.Instance.EndCalloutsModifierKey)) End();
     }
 
     internal override void NotAccepted() { }

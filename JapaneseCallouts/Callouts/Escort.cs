@@ -259,7 +259,7 @@ internal class Escort : CalloutBase
         }
     }
 
-    private static void AddOptions<T>(List<T> list, UIMenuListScrollerItem<string> item) where T : IEntityObject
+    private static void AddOptions<T>(List<T> list, UIMenuListScrollerItem<string> item) where T : IModelObject
     {
         foreach (var option in list)
         {

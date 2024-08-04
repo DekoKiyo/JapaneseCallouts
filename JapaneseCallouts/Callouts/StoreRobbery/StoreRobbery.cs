@@ -1,7 +1,7 @@
 namespace JapaneseCallouts.Callouts.StoreRobbery;
 
 [CalloutInfo("[JPC] Store Robbery", CalloutProbability.VeryHigh)]
-internal class StoreRobbery : CalloutBase
+internal class StoreRobbery : CalloutBase<Configurations>
 {
     private int index = 0, seconds = 80;
     private List<Ped> robbers;
@@ -17,18 +17,16 @@ internal class StoreRobbery : CalloutBase
     internal override void Setup()
     {
         var list = new List<Vector3>();
-        foreach (var store in XmlManager.StoreRobberyConfig.Stores)
+        foreach (var store in Configuration.Stores)
         {
-            list.Add(new(store.Store_X, store.Store_Y, store.Store_Z));
+            list.Add(new(store.X, store.Y, store.Z));
         }
-        // index = Main.MersenneTwister.Next(XmlManager.StoreRobberyConfig.Stores.Count);
-        // var pos = new Vector3(XmlManager.StoreRobberyConfig.Stores[index].Store_X, XmlManager.StoreRobberyConfig.Stores[index].Store_Y, XmlManager.StoreRobberyConfig.Stores[index].Store_Z);
         index = list.GetNearestPosIndex();
-        robbers = new(XmlManager.StoreRobberyConfig.Stores[index].RobbersPositions.Count());
+        robbers = new(Configuration.Stores[index].RobbersPositions.Count());
         CalloutPosition = list[index];
         CalloutMessage = Localization.GetString("StoreRobbery");
         ShowCalloutAreaBlipBeforeAccepting(CalloutPosition, 50f);
-        Functions.PlayScannerAudioUsingPosition(Settings.StoreRobberyRadioSound, CalloutPosition);
+        Functions.PlayScannerAudioUsingPosition(Settings.Instance.StoreRobberyRadioSound, CalloutPosition);
         CalloutInterfaceAPIFunctions.SendMessage(this, $"{Localization.GetString("StoreRobberyDesc")} {Localization.GetString("RespondCode3")}");
 
         OnCalloutsEnded += () =>
@@ -126,7 +124,7 @@ internal class StoreRobbery : CalloutBase
 
         if (Game.LocalPlayer.Character.IsDead) End();
         if (EntityHelpers.IsAllPedDeadOrArrested([.. robbers])) End();
-        if (KeyHelpers.IsKeysDown(Settings.EndCalloutsKey, Settings.EndCalloutsModifierKey)) End();
+        if (KeyHelpers.IsKeysDown(Settings.Instance.EndCalloutsKey, Settings.Instance.EndCalloutsModifierKey)) End();
     }
 
     private void ProcessTimerBars()

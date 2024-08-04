@@ -1,7 +1,7 @@
 namespace JapaneseCallouts.Callouts.StreetFight;
 
 [CalloutInfo("[JPC] Street Fight", CalloutProbability.Medium)]
-internal class StreetFight : CalloutBase
+internal class StreetFight : CalloutBase<Configurations>
 {
     private Ped suspect1, suspect2;
     private Blip area, susB1, susB2;
@@ -16,13 +16,13 @@ internal class StreetFight : CalloutBase
         CalloutMessage = Localization.GetString("StreetFight");
         CalloutPosition = World.GetNextPositionOnStreet(Game.LocalPlayer.Character.Position.Around(50f, 150f));
         ShowCalloutAreaBlipBeforeAccepting(CalloutPosition, 30f);
-        Functions.PlayScannerAudioUsingPosition(Settings.StreetFightRadioSound, CalloutPosition);
+        Functions.PlayScannerAudioUsingPosition(Settings.Instance.StreetFightRadioSound, CalloutPosition);
 
         Game.SetRelationshipBetweenRelationshipGroups(suspect1RG, suspect2RG, Relationship.Hate);
         Game.SetRelationshipBetweenRelationshipGroups(suspect2RG, suspect1RG, Relationship.Hate);
 
         var weather = CalloutHelpers.GetWeatherType(IPTFunctions.GetWeatherType());
-        var data1 = CalloutHelpers.SelectPed(weather, [.. XmlManager.StreetFightConfig.Suspects]);
+        var data1 = CalloutHelpers.SelectPed(weather, [.. Configuration.Suspects]);
         suspect1 = new(data1.Model, new(CalloutPosition.X, CalloutPosition.Y, (float)World.GetGroundZ(CalloutPosition, true, true)), 0f)
         {
             IsPersistent = true,
@@ -36,7 +36,7 @@ internal class StreetFight : CalloutBase
             suspect1.Tasks.FightAgainstClosestHatedTarget(500f);
         }
 
-        var data2 = CalloutHelpers.SelectPed(weather, [.. XmlManager.StreetFightConfig.Suspects]);
+        var data2 = CalloutHelpers.SelectPed(weather, [.. Configuration.Suspects]);
         suspect2 = new(data2.Model, new(CalloutPosition.X, CalloutPosition.Y, (float)World.GetGroundZ(CalloutPosition, true, true)), 0f)
         {
             IsPersistent = true,
@@ -127,7 +127,7 @@ internal class StreetFight : CalloutBase
 
         if (Game.LocalPlayer.Character.IsDead) End();
         if (EntityHelpers.IsAllPedDeadOrArrested([suspect1, suspect2])) End();
-        if (KeyHelpers.IsKeysDown(Settings.EndCalloutsKey, Settings.EndCalloutsModifierKey)) End();
+        if (KeyHelpers.IsKeysDown(Settings.Instance.EndCalloutsKey, Settings.Instance.EndCalloutsModifierKey)) End();
     }
 
     internal override void NotAccepted()

@@ -1,6 +1,6 @@
 namespace JapaneseCallouts.Callouts.PacificBankHeist;
 
-internal class Configurations
+internal class Configurations : IConfig
 {
     // Numbers
     [JsonPropertyName("hostage_count")]

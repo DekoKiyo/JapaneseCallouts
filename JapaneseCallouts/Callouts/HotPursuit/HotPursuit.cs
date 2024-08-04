@@ -1,7 +1,7 @@
 namespace JapaneseCallouts.Callouts.HotPursuit;
 
 [CalloutInfo("[JPC] Hot Pursuit", CalloutProbability.VeryHigh)]
-internal class HotPursuit : CalloutBase
+internal class HotPursuit : CalloutBase<Configurations>
 {
     private Vehicle vehicle;
     private Ped suspect;
@@ -12,7 +12,7 @@ internal class HotPursuit : CalloutBase
         CalloutMessage = Localization.GetString("HotPursuit");
         CalloutPosition = World.GetNextPositionOnStreet(Game.LocalPlayer.Character.Position.Around(350f, 750f));
         ShowCalloutAreaBlipBeforeAccepting(CalloutPosition, 50f);
-        Functions.PlayScannerAudioUsingPosition(Settings.HotPursuitRadioSound, CalloutPosition);
+        Functions.PlayScannerAudioUsingPosition(Settings.Instance.HotPursuitRadioSound, CalloutPosition);
 
         OnCalloutsEnded += () =>
         {
@@ -34,7 +34,7 @@ internal class HotPursuit : CalloutBase
     {
         Hud.DisplayNotification(Localization.GetString("HotPursuitDesc"), Localization.GetString("Dispatch"), Localization.GetString("HotPursuit"));
 
-        var vData = CalloutHelpers.Select([.. XmlManager.HotPursuitConfig.Vehicles]);
+        var vData = CalloutHelpers.Select([.. Configuration.Vehicles]);
         vehicle = new(vData.Model, CalloutPosition);
         if (vehicle is not null && vehicle.IsValid() && vehicle.Exists())
         {
@@ -88,7 +88,7 @@ internal class HotPursuit : CalloutBase
         GameFiber.Yield();
         if (Game.LocalPlayer.Character.IsDead) End();
         if (suspect is not null && suspect.IsValid() && suspect.Exists() && EntityHelpers.IsAllPedDeadOrArrested([suspect])) End();
-        if (KeyHelpers.IsKeysDown(Settings.EndCalloutsKey, Settings.EndCalloutsModifierKey)) End();
+        if (KeyHelpers.IsKeysDown(Settings.Instance.EndCalloutsKey, Settings.Instance.EndCalloutsModifierKey)) End();
     }
 
     internal override void NotAccepted() { }

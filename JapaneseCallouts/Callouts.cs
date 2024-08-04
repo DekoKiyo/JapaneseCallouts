@@ -65,27 +65,45 @@ internal abstract class CalloutBase : Callout
 
     internal static void RegisterAllCallouts()
     {
-        RegisterCallout<BankHeist>(Settings.EnableBankHeist);
-        RegisterCallout<PacificBankHeist>(Settings.EnablePacificBankHeist);
-        RegisterCallout<DrunkGuys>(Settings.EnableDrunkGuys);
-        RegisterCallout<RoadRage>(Settings.EnableRoadRage);
-        RegisterCallout<StolenVehicle>(Settings.EnableStolenVehicle);
-        RegisterCallout<StoreRobbery>(Settings.EnableStoreRobbery);
-        RegisterCallout<HotPursuit>(Settings.EnableHotPursuit);
-        RegisterCallout<WantedCriminalFound>(Settings.EnableWantedCriminalFound);
-        RegisterCallout<StreetFight>(Settings.EnableStreetFight);
+        RegisterCallout<BankHeist, Callouts.BankHeist.Configurations>(Settings.Instance.EnableBankHeist);
+        RegisterCallout<PacificBankHeist, Callouts.PacificBankHeist.Configurations>(Settings.Instance.EnablePacificBankHeist);
+        RegisterCallout<DrunkGuys, Callouts.DrunkGuys.Configurations>(Settings.Instance.EnableDrunkGuys);
+        RegisterCallout<RoadRage, Callouts.RoadRage.Configurations>(Settings.Instance.EnableRoadRage);
+        RegisterCallout<StolenVehicle>(Settings.Instance.EnableStolenVehicle);
+        RegisterCallout<StoreRobbery, Callouts.StoreRobbery.Configurations>(Settings.Instance.EnableStoreRobbery);
+        RegisterCallout<HotPursuit, Callouts.HotPursuit.Configurations>(Settings.Instance.EnableHotPursuit);
+        RegisterCallout<WantedCriminalFound, Callouts.WantedCriminalFound.Configurations>(Settings.Instance.EnableWantedCriminalFound);
+        RegisterCallout<StreetFight, Callouts.StreetFight.Configurations>(Settings.Instance.EnableStreetFight);
     }
 
-    private static void RegisterCallout<T>(bool enabled) where T : CalloutBase
+    private static void RegisterCallout<T2>(bool enabled) where T2 : CalloutBase
     {
         if (enabled)
         {
-            Functions.RegisterCallout(typeof(T));
-            Main.Logger.Info($"The callout {nameof(T)} was registered.");
+            Functions.RegisterCallout(typeof(T2));
+            Main.Logger.Info($"The callout {nameof(T2)} was registered.");
         }
         else
         {
-            Main.Logger.Info($"The callout {nameof(T)} was not registered. The callout was skipped loading with setting.");
+            Main.Logger.Info($"The callout {nameof(T2)} was not registered. The callout was skipped loading with setting.");
         }
     }
+
+    private static void RegisterCallout<T2, T3>(bool enabled) where T2 : CalloutBase<T3> where T3 : IConfig
+    {
+        if (enabled)
+        {
+            Functions.RegisterCallout(typeof(T2));
+            Main.Logger.Info($"The callout {nameof(T2)} was registered.");
+        }
+        else
+        {
+            Main.Logger.Info($"The callout {nameof(T2)} was not registered. The callout was skipped loading with setting.");
+        }
+    }
+}
+
+internal abstract class CalloutBase<T> : CalloutBase where T : IConfig
+{
+    internal static T Configuration;
 }

@@ -41,7 +41,7 @@ internal class StolenVehicle : CalloutBase
         CalloutMessage = Localization.GetString("StolenVehicle");
 
         ShowCalloutAreaBlipBeforeAccepting(CalloutPosition, 50f);
-        Functions.PlayScannerAudioUsingPosition(Settings.StolenVehicleRadioSound, CalloutPosition);
+        Functions.PlayScannerAudioUsingPosition(Settings.Instance.StolenVehicleRadioSound, CalloutPosition);
         CalloutInterfaceAPIFunctions.SendMessage(this, Localization.GetString("StolenVehicleDesc"));
         CalloutInterfaceAPIFunctions.SendVehicle(stolen);
 
@@ -109,7 +109,7 @@ internal class StolenVehicle : CalloutBase
         {
             found = true;
             if (area is not null && area.IsValid() && area.Exists()) area.Delete();
-            Functions.PlayScannerAudioUsingPosition(XmlManager.CalloutsSoundConfig.StolenVehicle, stolen.Position);
+            Functions.PlayScannerAudioUsingPosition(Settings.Instance.StolenVehicleRadioSound, stolen.Position);
             if (suspect is not null && suspect.IsValid() && suspect.Exists())
             {
                 pursuit = Functions.CreatePursuit();
@@ -123,6 +123,6 @@ internal class StolenVehicle : CalloutBase
         if (count > 15) End();
         if (Game.LocalPlayer.Character.IsDead) End();
         if (suspect is not null && suspect.IsValid() && suspect.Exists() && (suspect.IsDead || Functions.IsPedArrested(suspect))) End();
-        if (KeyHelpers.IsKeysDown(Settings.EndCalloutsKey, Settings.EndCalloutsModifierKey)) End();
+        if (KeyHelpers.IsKeysDown(Settings.Instance.EndCalloutsKey, Settings.Instance.EndCalloutsModifierKey)) End();
     }
 }

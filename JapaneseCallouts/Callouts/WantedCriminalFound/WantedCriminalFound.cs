@@ -1,7 +1,7 @@
 namespace JapaneseCallouts.Callouts.WantedCriminalFound;
 
 [CalloutInfo("[JPC] Wanted Criminal Found", CalloutProbability.High)]
-internal class WantedCriminalFound : CalloutBase
+internal class WantedCriminalFound : CalloutBase<Configurations>
 {
     private Ped criminal;
     private Blip blip;
@@ -17,7 +17,7 @@ internal class WantedCriminalFound : CalloutBase
         CalloutMessage = Localization.GetString("WantedCriminalFound");
         CalloutPosition = World.GetNextPositionOnStreet(Game.LocalPlayer.Character.Position.Around(500f, 1200f));
         ShowCalloutAreaBlipBeforeAccepting(CalloutPosition, 50f);
-        Functions.PlayScannerAudioUsingPosition(Settings.WantedCriminalFoundRadioSound, CalloutPosition);
+        Functions.PlayScannerAudioUsingPosition(Settings.Instance.WantedCriminalFoundRadioSound, CalloutPosition);
 
         OnCalloutsEnded += () =>
         {
@@ -42,7 +42,7 @@ internal class WantedCriminalFound : CalloutBase
         Hud.DisplayNotification(Localization.GetString("WantedCriminalFoundDesc"), Localization.GetString("Dispatch"), Localization.GetString("WantedCriminalFound"));
 
         var weather = CalloutHelpers.GetWeatherType(IPTFunctions.GetWeatherType());
-        var data = CalloutHelpers.SelectPed(weather, [.. XmlManager.WantedCriminalFoundConfig.Criminals]);
+        var data = CalloutHelpers.SelectPed(weather, [.. Configuration.Criminals]);
         criminal = new(data.Model, CalloutPosition, 0f)
         {
             IsPersistent = true,
@@ -54,7 +54,7 @@ internal class WantedCriminalFound : CalloutBase
             Functions.GetPersonaForPed(criminal).Wanted = true;
             if (fight)
             {
-                criminal.GiveWeapon([.. XmlManager.WantedCriminalFoundConfig.Weapons], true);
+                criminal.GiveWeapon([.. Configuration.Weapons], true);
             }
             criminal.Tasks.Wander();
             blip = new(criminal.Position.Around(Main.MT.Next(100)), Main.MT.Next(75, 120))
@@ -89,7 +89,7 @@ internal class WantedCriminalFound : CalloutBase
         {
             found = true;
             if (blip is not null && blip.IsValid() && blip.Exists()) blip.Delete();
-            Functions.PlayScannerAudioUsingPosition(XmlManager.CalloutsSoundConfig.WantedCriminalFound, criminal.Position);
+            Functions.PlayScannerAudioUsingPosition(Settings.Instance.WantedCriminalFoundRadioSound, criminal.Position);
             if (criminal is not null && criminal.IsValid() && criminal.Exists())
             {
                 criminal.Tasks.Clear();
@@ -108,7 +108,7 @@ internal class WantedCriminalFound : CalloutBase
         if (count > 15) End();
         if (Game.LocalPlayer.Character.IsDead) End();
         if (criminal is not null && criminal.IsValid() && criminal.Exists() && EntityHelpers.IsAllPedDeadOrArrested([criminal])) End();
-        if (KeyHelpers.IsKeysDown(Settings.EndCalloutsKey, Settings.EndCalloutsModifierKey)) End();
+        if (KeyHelpers.IsKeysDown(Settings.Instance.EndCalloutsKey, Settings.Instance.EndCalloutsModifierKey)) End();
     }
 
     internal override void OnDisplayed() { }

@@ -7,48 +7,48 @@ internal class Settings
 
     internal static Settings Instance { get; } = new();
 
-    internal static string OfficerName { get; private set; } = "Officer";
-    internal static bool EnableAutoUpdate { get; private set; } = false;
+    internal string OfficerName { get; private set; } = "Officer";
+    internal bool EnableAutoUpdate { get; private set; } = false;
 
-    internal static Keys EndCalloutsKey { get; private set; } = Keys.End;
-    internal static Keys EndCalloutsModifierKey { get; private set; } = Keys.None;
-    internal static Keys SpeakWithThePersonKey { get; private set; } = Keys.Y;
-    internal static Keys SpeakWithThePersonModifierKey { get; private set; } = Keys.None;
-    internal static Keys ToggleBankHeistAlarmSoundKey { get; private set; } = Keys.F5;
-    internal static Keys ToggleBankHeistAlarmSoundModifierKey { get; private set; } = Keys.None;
-    internal static Keys SWATFollowKey { get; private set; } = Keys.I;
-    internal static Keys SWATFollowModifierKey { get; private set; } = Keys.None;
-    internal static Keys HostageRescueKey { get; private set; } = Keys.D0;
-    internal static Keys HostageRescueModifierKey { get; private set; } = Keys.None;
-    internal static Keys EnterRiotVanKey { get; private set; } = Keys.Enter;
-    internal static Keys EnterRiotVanModifierKey { get; private set; } = Keys.None;
+    internal Keys EndCalloutsKey { get; private set; } = Keys.End;
+    internal Keys EndCalloutsModifierKey { get; private set; } = Keys.None;
+    internal Keys SpeakWithThePersonKey { get; private set; } = Keys.Y;
+    internal Keys SpeakWithThePersonModifierKey { get; private set; } = Keys.None;
+    internal Keys ToggleBankHeistAlarmSoundKey { get; private set; } = Keys.F5;
+    internal Keys ToggleBankHeistAlarmSoundModifierKey { get; private set; } = Keys.None;
+    internal Keys SWATFollowKey { get; private set; } = Keys.I;
+    internal Keys SWATFollowModifierKey { get; private set; } = Keys.None;
+    internal Keys HostageRescueKey { get; private set; } = Keys.D0;
+    internal Keys HostageRescueModifierKey { get; private set; } = Keys.None;
+    internal Keys EnterRiotVanKey { get; private set; } = Keys.Enter;
+    internal Keys EnterRiotVanModifierKey { get; private set; } = Keys.None;
 
-    internal static string BankHeistRadioSound { get; private set; } = "WE_HAVE JP_CRIME_BANK_ROBBERY IN_OR_ON_POSITION UNITS_RESPOND_CODE_99";
-    internal static string PacificBankHeistRadioSound { get; private set; } = "CITIZENS_REPORT JP_CRIME_BANK_ROBBERY IN_OR_ON_POSITION UNITS_RESPOND_CODE_99";
-    internal static string DrunkGuysRadioSound { get; private set; } = "CITIZENS_REPORT JP_CRIME_ACCIDENT IN_OR_ON_POSITION";
-    internal static string RoadRageRadioSound { get; private set; } = "CITIZENS_REPORT JP_CRIME_TRAFFIC_VIOLATION IN_OR_ON_POSITION";
-    internal static string StolenVehicleRadioSound { get; private set; } = "WE_HAVE JP_CRIME_STOLEN_VEHICLE IN_OR_ON_POSITION";
-    internal static string StoreRobberyRadioSound { get; private set; } = "CITIZENS_REPORT CRIME_ROBBERY IN_OR_ON_POSITION";
-    internal static string HotPursuitRadioSound { get; private set; } = "WE_HAVE CRIME_GRAND_THEFT_AUTO IN_OR_ON_POSITION";
-    internal static string WantedCriminalFoundRadioSound { get; private set; } = "ATTENTION_ALL_UNITS WE_HAVE JP_CRIME_SUSPECT_RESISTING_ARREST IN_OR_ON_POSITION";
-    internal static string StreetFightRadioSound { get; private set; } = "ATTENTION_ALL_UNITS WE_HAVE JP_CRIME_CIVIL_DISTURBANCE IN_OR_ON_POSITION";
+    internal string BankHeistRadioSound { get; private set; } = "WE_HAVE JP_CRIME_BANK_ROBBERY IN_OR_ON_POSITION UNITS_RESPOND_CODE_99";
+    internal string PacificBankHeistRadioSound { get; private set; } = "CITIZENS_REPORT JP_CRIME_BANK_ROBBERY IN_OR_ON_POSITION UNITS_RESPOND_CODE_99";
+    internal string DrunkGuysRadioSound { get; private set; } = "CITIZENS_REPORT JP_CRIME_ACCIDENT IN_OR_ON_POSITION";
+    internal string RoadRageRadioSound { get; private set; } = "CITIZENS_REPORT JP_CRIME_TRAFFIC_VIOLATION IN_OR_ON_POSITION";
+    internal string StolenVehicleRadioSound { get; private set; } = "WE_HAVE JP_CRIME_STOLEN_VEHICLE IN_OR_ON_POSITION";
+    internal string StoreRobberyRadioSound { get; private set; } = "CITIZENS_REPORT CRIME_ROBBERY IN_OR_ON_POSITION";
+    internal string HotPursuitRadioSound { get; private set; } = "WE_HAVE CRIME_GRAND_THEFT_AUTO IN_OR_ON_POSITION";
+    internal string WantedCriminalFoundRadioSound { get; private set; } = "ATTENTION_ALL_UNITS WE_HAVE JP_CRIME_SUSPECT_RESISTING_ARREST IN_OR_ON_POSITION";
+    internal string StreetFightRadioSound { get; private set; } = "ATTENTION_ALL_UNITS WE_HAVE JP_CRIME_CIVIL_DISTURBANCE IN_OR_ON_POSITION";
 
-    internal static bool EnableBankHeist { get; private set; } = true;
-    internal static bool EnablePacificBankHeist { get; private set; } = true;
-    internal static bool EnableDrunkGuys { get; private set; } = true;
-    internal static bool EnableRoadRage { get; private set; } = true;
-    internal static bool EnableStolenVehicle { get; private set; } = true;
-    internal static bool EnableStoreRobbery { get; private set; } = true;
-    internal static bool EnableHotPursuit { get; private set; } = true;
-    internal static bool EnableWantedCriminalFound { get; private set; } = true;
-    internal static bool EnableStreetFight { get; private set; } = true;
+    internal bool EnableBankHeist { get; private set; } = true;
+    internal bool EnablePacificBankHeist { get; private set; } = true;
+    internal bool EnableDrunkGuys { get; private set; } = true;
+    internal bool EnableRoadRage { get; private set; } = true;
+    internal bool EnableStolenVehicle { get; private set; } = true;
+    internal bool EnableStoreRobbery { get; private set; } = true;
+    internal bool EnableHotPursuit { get; private set; } = true;
+    internal bool EnableWantedCriminalFound { get; private set; } = true;
+    internal bool EnableStreetFight { get; private set; } = true;
 
     internal Settings()
     {
         Init();
     }
 
-    [ConsoleCommand(Name = "JPC_ReloadSettings", Description = "Reload Japanese Callouts' settings.")]
+    [ConsoleCommand(Name = "JPC_ReloadSettings", Description = "Reload Japanese Callouts' Settings.Instance.")]
     private void Init()
     {
         OfficerName = Ini["General"][nameof(OfficerName)] ??= "Officer";

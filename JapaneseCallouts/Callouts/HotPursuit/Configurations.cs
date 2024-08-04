@@ -1,6 +1,6 @@
 namespace JapaneseCallouts.Callouts.HotPursuit;
 
-internal class Configurations
+internal class Configurations : IConfig
 {
     [JsonPropertyName("vehicles")]
     internal VehicleConfig[] Vehicles { get; set; }

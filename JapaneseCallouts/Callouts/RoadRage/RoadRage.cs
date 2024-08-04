@@ -1,7 +1,7 @@
 namespace JapaneseCallouts.Callouts.RoadRage;
 
 [CalloutInfo("[JPC] Road Rage", CalloutProbability.VeryHigh)]
-internal class RoadRage : CalloutBase
+internal class RoadRage : CalloutBase<Configurations>
 {
     private Vehicle suspectV, victimV;
     private Ped suspect, victim;
@@ -13,9 +13,9 @@ internal class RoadRage : CalloutBase
     private static readonly (string, string)[] FinalVictimTalk =
     [
         (Localization.GetString("Victim"), Localization.GetString("RoadRageFinal1")),
-        (Settings.OfficerName, Localization.GetString("RoadRageFinal2")),
+        (Settings.Instance.OfficerName, Localization.GetString("RoadRageFinal2")),
         (Localization.GetString("Victim"), Localization.GetString("RoadRageFinal3")),
-        (Settings.OfficerName, Localization.GetString("RoadRageFinal4")),
+        (Settings.Instance.OfficerName, Localization.GetString("RoadRageFinal4")),
         (Localization.GetString("Victim"), Localization.GetString("RoadRageFinal5")),
     ];
 
@@ -31,7 +31,7 @@ internal class RoadRage : CalloutBase
         {
             var weather = CalloutHelpers.GetWeatherType(IPTFunctions.GetWeatherType());
             {
-                var data = CalloutHelpers.Select([.. XmlManager.RoadRageConfig.SuspectVehicles]);
+                var data = CalloutHelpers.Select([.. Configuration.SuspectVehicles]);
                 suspectV = new(data.Model, CalloutPosition)
                 {
                     IsPersistent = true,
@@ -43,7 +43,7 @@ internal class RoadRage : CalloutBase
                 }
             }
             {
-                var data = CalloutHelpers.Select([.. XmlManager.RoadRageConfig.VictimVehicles]);
+                var data = CalloutHelpers.Select([.. Configuration.VictimVehicles]);
                 victimV = new(data.Model, pos)
                 {
                     IsPersistent = true,
@@ -55,7 +55,7 @@ internal class RoadRage : CalloutBase
                 }
             }
             {
-                var vData = CalloutHelpers.SelectPed(weather, [.. XmlManager.RoadRageConfig.SuspectPeds]);
+                var vData = CalloutHelpers.SelectPed(weather, [.. Configuration.SuspectPeds]);
                 victim = new(x => x.IsPed)
                 {
                     IsPersistent = true,
@@ -64,7 +64,7 @@ internal class RoadRage : CalloutBase
                     Health = vData.Health,
                     Armor = vData.Armor,
                 };
-                var sData = CalloutHelpers.SelectPed(weather, [.. XmlManager.RoadRageConfig.SuspectPeds]);
+                var sData = CalloutHelpers.SelectPed(weather, [.. Configuration.SuspectPeds]);
                 suspect = new(sData.Model, Vector3.Zero, 0f)
                 {
                     IsPersistent = true,
@@ -93,7 +93,7 @@ internal class RoadRage : CalloutBase
 
         CalloutMessage = Localization.GetString("RoadRage");
         ShowCalloutAreaBlipBeforeAccepting(CalloutPosition, 50f);
-        Functions.PlayScannerAudioUsingPosition(Settings.RoadRageRadioSound, CalloutPosition);
+        Functions.PlayScannerAudioUsingPosition(Settings.Instance.RoadRageRadioSound, CalloutPosition);
 
         CalloutInterfaceAPIFunctions.SendMessage(this, $"{Localization.GetString("RoadRageDesc")} {Localization.GetString("RespondCode2")}");
         CalloutInterfaceAPIFunctions.SendVehicle(suspectV);
@@ -222,8 +222,8 @@ internal class RoadRage : CalloutBase
                 {
                     if (Vector3.Distance(Game.LocalPlayer.Character.Position, victim.Position) < 4f)
                     {
-                        KeyHelpers.DisplayKeyHelp("PressToTalkWith", [Localization.GetString("Victim"), $"~{victimB.GetIconToken()}~"], Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey);
-                        if (KeyHelpers.IsKeysDown(Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey))
+                        KeyHelpers.DisplayKeyHelp("PressToTalkWith", [Localization.GetString("Victim"), $"~{victimB.GetIconToken()}~"], Settings.Instance.SpeakWithThePersonKey, Settings.Instance.SpeakWithThePersonModifierKey);
+                        if (KeyHelpers.IsKeysDown(Settings.Instance.SpeakWithThePersonKey, Settings.Instance.SpeakWithThePersonModifierKey))
                         {
                             Conversations.Talk(FinalVictimTalk);
                             End();
@@ -235,6 +235,6 @@ internal class RoadRage : CalloutBase
         }
         if (count > 10) End();
         if (Game.LocalPlayer.Character.IsDead) End();
-        if (KeyHelpers.IsKeysDown(Settings.EndCalloutsKey, Settings.EndCalloutsModifierKey)) End();
+        if (KeyHelpers.IsKeysDown(Settings.Instance.EndCalloutsKey, Settings.Instance.EndCalloutsModifierKey)) End();
     }
 }

@@ -46,8 +46,8 @@ internal static class Conversations
             while (i < lines.Length - 1)
             {
                 GameFiber.Yield();
-                KeyHelpers.DisplayKeyHelp("PressToTalk", Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey);
-                if (KeyHelpers.IsKeysDown(Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey)) break;
+                KeyHelpers.DisplayKeyHelp("PressToTalk", Settings.Instance.SpeakWithThePersonKey, Settings.Instance.SpeakWithThePersonModifierKey);
+                if (KeyHelpers.IsKeysDown(Settings.Instance.SpeakWithThePersonKey, Settings.Instance.SpeakWithThePersonModifierKey)) break;
             }
             if (!IsTalking) break;
         }

@@ -1,6 +1,6 @@
 namespace JapaneseCallouts.Callouts.StoreRobbery;
 
-internal class Configurations
+internal class Configurations : IConfig
 {
     [JsonPropertyName("robber_peds")]
     internal PedConfig[] RobberPeds { get; set; }

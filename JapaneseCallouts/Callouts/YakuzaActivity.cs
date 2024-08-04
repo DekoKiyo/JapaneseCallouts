@@ -92,13 +92,13 @@
 //         {
 //             if (Game.LocalPlayer.Character.IsOnFoot)
 //             {
-//                 if (Settings.SpeakWithThePersonModifierKey is Keys.None)
+//                 if (Settings.Instance.SpeakWithThePersonModifierKey is Keys.None)
 //                 {
-//                     HudExtensions.DisplayNotification(Localization.GetString("PressToTalk", $"~{Settings.SpeakWithThePersonKey.GetInstructionalId()}~"));
+//                     HudExtensions.DisplayNotification(Localization.GetString("PressToTalk", $"~{Settings.Instance.SpeakWithThePersonKey.GetInstructionalId()}~"));
 //                 }
 //                 else
 //                 {
-//                     HudExtensions.DisplayNotification(Localization.GetString("PressToTalk", $"~{Settings.SpeakWithThePersonKey.GetInstructionalId()}~ ~+~ ~{Settings.SpeakWithThePersonModifierKey.GetInstructionalId()}~"));
+//                     HudExtensions.DisplayNotification(Localization.GetString("PressToTalk", $"~{Settings.Instance.SpeakWithThePersonKey.GetInstructionalId()}~ ~+~ ~{Settings.Instance.SpeakWithThePersonModifierKey.GetInstructionalId()}~"));
 //                 }
 
 //                 Functions.PlayScannerAudio("JP_ATTENTION_GENERIC JP_OFFICERS_ARRIVED_ON_SCENE");
@@ -112,7 +112,7 @@
 //             }
 //         }
 
-//         if (KeyExtensions.IsKeysDown(Settings.SpeakWithThePersonKey, Settings.SpeakWithThePersonModifierKey))
+//         if (KeyExtensions.IsKeysDown(Settings.Instance.SpeakWithThePersonKey, Settings.Instance.SpeakWithThePersonModifierKey))
 //         {
 //             if (arrived && Game.LocalPlayer.Character.DistanceTo(caller) < 2f && sentenceNum < sentence.Length)
 //             {
