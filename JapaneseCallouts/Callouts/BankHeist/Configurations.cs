@@ -2,8 +2,8 @@ namespace JapaneseCallouts.Callouts.BankHeist;
 
 internal class Configurations
 {
-    [JsonProperty("robbers")]
+    [JsonPropertyName("robbers")]
     internal PedConfig[] Robbers { get; set; }
-    [JsonProperty("weapons")]
+    [JsonPropertyName("weapons")]
     internal WeaponConfig[] Weapons { get; set; }
 }

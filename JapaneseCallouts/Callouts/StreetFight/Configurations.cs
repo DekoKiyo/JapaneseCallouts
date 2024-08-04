@@ -2,6 +2,6 @@ namespace JapaneseCallouts.Callouts.StreetFight;
 
 internal class Configurations
 {
-    [JsonProperty("suspects")]
+    [JsonPropertyName("suspects")]
     internal PedConfig[] Suspects { get; set; }
 }

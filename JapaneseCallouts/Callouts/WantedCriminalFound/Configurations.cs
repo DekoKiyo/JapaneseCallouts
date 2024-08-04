@@ -2,8 +2,8 @@ namespace JapaneseCallouts.Callouts.WantedCriminalFound;
 
 internal class Configurations
 {
-    [JsonProperty("criminals")]
+    [JsonPropertyName("criminals")]
     internal PedConfig[] Criminals { get; set; }
-    [JsonProperty("weapons")]
+    [JsonPropertyName("weapons")]
     internal WeaponConfig[] Weapons { get; set; }
 }

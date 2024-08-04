@@ -2,22 +2,22 @@ namespace JapaneseCallouts.Callouts.StoreRobbery;
 
 internal class Configurations
 {
-    [JsonProperty("robber_peds")]
+    [JsonPropertyName("robber_peds")]
     internal PedConfig[] RobberPeds { get; set; }
-    [JsonProperty("weapons")]
+    [JsonPropertyName("weapons")]
     internal WeaponConfig[] Weapons { get; set; }
-    [JsonProperty("stores")]
+    [JsonPropertyName("stores")]
     internal StoreRobberyPosition[] Stores { get; set; }
 }
 
 internal class StoreRobberyPosition
 {
-    [JsonProperty("x")]
+    [JsonPropertyName("x")]
     internal float X { get; set; }
-    [JsonProperty("y")]
+    [JsonPropertyName("y")]
     internal float Y { get; set; }
-    [JsonProperty("z")]
+    [JsonPropertyName("z")]
     internal float Z { get; set; }
-    [JsonProperty("robbers_positions")]
+    [JsonPropertyName("robbers_positions")]
     internal PositionBase[] RobbersPositions { get; set; }
 }
