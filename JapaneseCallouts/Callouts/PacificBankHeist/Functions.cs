@@ -1,19 +1,19 @@
 namespace JapaneseCallouts.Callouts.PacificBankHeist;
 
-internal static class PBHFunctions
+internal partial class PacificBankHeist
 {
-    internal static void ClearUnrelatedEntities(PacificBankHeist instance)
+    internal void ClearUnrelatedEntities()
     {
-        foreach (var ped in World.GetEntities(instance.CalloutPosition, 50f, GetEntitiesFlags.ConsiderAllPeds).Cast<Ped>())
+        foreach (var ped in World.GetEntities(CalloutPosition, 50f, GetEntitiesFlags.ConsiderAllPeds).Cast<Ped>())
         {
             GameFiber.Yield();
             if (ped is not null && ped.IsValid() && ped.Exists())
             {
                 if (ped != Game.LocalPlayer.Character && !ped.CreatedByTheCallingPlugin)
                 {
-                    if (!instance.CalloutEntities.Contains(ped))
+                    if (!CalloutEntities.Contains(ped))
                     {
-                        if (Vector3.Distance(ped.Position, instance.CalloutPosition) < 50f)
+                        if (Vector3.Distance(ped.Position, CalloutPosition) < 50f)
                         {
                             ped.Delete();
                         }
@@ -21,16 +21,16 @@ internal static class PBHFunctions
                 }
             }
         }
-        foreach (var vehicle in World.GetEntities(instance.CalloutPosition, 50f, GetEntitiesFlags.ConsiderGroundVehicles).Cast<Vehicle>())
+        foreach (var vehicle in World.GetEntities(CalloutPosition, 50f, GetEntitiesFlags.ConsiderGroundVehicles).Cast<Vehicle>())
         {
             GameFiber.Yield();
             if (vehicle is not null && vehicle.IsValid() && vehicle.Exists())
             {
                 if (vehicle != Game.LocalPlayer.Character.CurrentVehicle && !vehicle.CreatedByTheCallingPlugin)
                 {
-                    if (!instance.CalloutEntities.Contains(vehicle))
+                    if (!CalloutEntities.Contains(vehicle))
                     {
-                        if (Vector3.Distance(vehicle.Position, instance.CalloutPosition) < 50f)
+                        if (Vector3.Distance(vehicle.Position, CalloutPosition) < 50f)
                         {
                             vehicle.Delete();
                         }
@@ -40,12 +40,12 @@ internal static class PBHFunctions
         }
     }
 
-    internal static void SpawnVehicles(PacificBankHeist instance)
+    internal void SpawnVehicles()
     {
-        foreach (var p in XmlManager.PacificBankHeistConfig.PoliceCruiserPositions)
+        foreach (var p in Configuration.PoliceCruiserPositions)
         {
             GameFiber.Yield();
-            var data = CalloutHelpers.Select([.. XmlManager.PacificBankHeistConfig.PoliceCruisers]);
+            var data = CalloutHelpers.Select([.. Configuration.PoliceCruisers]);
             var vehicle = new Vehicle(data.Model, new(p.X, p.Y, p.Z), p.Heading)
             {
                 IsPersistent = true,
@@ -55,14 +55,14 @@ internal static class PBHFunctions
             if (vehicle is not null && vehicle.IsValid() && vehicle.Exists())
             {
                 vehicle.ApplyTexture(data);
-                instance.variables.AllPoliceVehicles.Add(vehicle);
-                instance.CalloutEntities.Add(vehicle);
+                AllPoliceVehicles.Add(vehicle);
+                CalloutEntities.Add(vehicle);
             }
         }
-        foreach (var p in XmlManager.PacificBankHeistConfig.PoliceTransportPositions)
+        foreach (var p in Configuration.PoliceTransportPositions)
         {
             GameFiber.Yield();
-            var data = CalloutHelpers.Select([.. XmlManager.PacificBankHeistConfig.PoliceTransporters]);
+            var data = CalloutHelpers.Select([.. Configuration.PoliceTransporters]);
             var vehicle = new Vehicle(data.Model, new(p.X, p.Y, p.Z), p.Heading)
             {
                 IsPersistent = true,
@@ -72,14 +72,14 @@ internal static class PBHFunctions
             if (vehicle is not null && vehicle.IsValid() && vehicle.Exists())
             {
                 vehicle.ApplyTexture(data);
-                instance.variables.AllPoliceVehicles.Add(vehicle);
-                instance.CalloutEntities.Add(vehicle);
+                AllPoliceVehicles.Add(vehicle);
+                CalloutEntities.Add(vehicle);
             }
         }
-        foreach (var p in XmlManager.PacificBankHeistConfig.RiotPositions)
+        foreach (var p in Configuration.RiotPositions)
         {
             GameFiber.Yield();
-            var data = CalloutHelpers.Select([.. XmlManager.PacificBankHeistConfig.PoliceRiots]);
+            var data = CalloutHelpers.Select([.. Configuration.PoliceRiots]);
             var vehicle = new Vehicle(data.Model, new(p.X, p.Y, p.Z), p.Heading)
             {
                 IsPersistent = true,
@@ -89,25 +89,25 @@ internal static class PBHFunctions
             if (vehicle is not null && vehicle.IsValid() && vehicle.Exists())
             {
                 vehicle.ApplyTexture(data);
-                instance.variables.AllPoliceVehicles.Add(vehicle);
-                instance.variables.AllRiot.Add(vehicle);
-                instance.CalloutEntities.Add(vehicle);
+                AllPoliceVehicles.Add(vehicle);
+                AllRiot.Add(vehicle);
+                CalloutEntities.Add(vehicle);
 
                 var blip = new Blip(vehicle)
                 {
-                    Sprite = Constants.RIOT_BLIP,
+                    Sprite = RIOT_BLIP,
                     Color = HudColor.Michael.GetColor(),
                 };
                 if (blip is not null && blip.IsValid() && blip.Exists())
                 {
-                    instance.variables.RiotBlips.Add(blip);
+                    RiotBlips.Add(blip);
                 }
             }
         }
-        foreach (var p in XmlManager.PacificBankHeistConfig.AmbulancePositions)
+        foreach (var p in Configuration.AmbulancePositions)
         {
             GameFiber.Yield();
-            var data = CalloutHelpers.Select([.. XmlManager.PacificBankHeistConfig.Ambulances]);
+            var data = CalloutHelpers.Select([.. Configuration.Ambulances]);
             var vehicle = new Vehicle(data.Model, new(p.X, p.Y, p.Z), p.Heading)
             {
                 IsPersistent = true,
@@ -117,14 +117,14 @@ internal static class PBHFunctions
             if (vehicle is not null && vehicle.IsValid() && vehicle.Exists())
             {
                 vehicle.ApplyTexture(data);
-                instance.variables.AllAmbulance.Add(vehicle);
-                instance.CalloutEntities.Add(vehicle);
+                AllAmbulance.Add(vehicle);
+                CalloutEntities.Add(vehicle);
             }
         }
-        foreach (var p in XmlManager.PacificBankHeistConfig.FiretruckPositions)
+        foreach (var p in Configuration.FiretruckPositions)
         {
             GameFiber.Yield();
-            var data = CalloutHelpers.Select([.. XmlManager.PacificBankHeistConfig.Firetrucks]);
+            var data = CalloutHelpers.Select([.. Configuration.Firetrucks]);
             var vehicle = new Vehicle(data.Model, new(p.X, p.Y, p.Z), p.Heading)
             {
                 IsPersistent = true,
@@ -134,17 +134,17 @@ internal static class PBHFunctions
             if (vehicle is not null && vehicle.IsValid() && vehicle.Exists())
             {
                 vehicle.ApplyTexture(data);
-                instance.CalloutEntities.Add(vehicle);
+                CalloutEntities.Add(vehicle);
             }
         }
     }
 
-    internal static void PlaceBarriers(PacificBankHeist instance)
+    internal void PlaceBarriers()
     {
-        foreach (var p in XmlManager.PacificBankHeistConfig.BarrierPositions)
+        foreach (var p in Configuration.BarrierPositions)
         {
             GameFiber.Yield();
-            var barrier = new RObject(Constants.BarrierModel, new(p.X, p.Y, p.Z), p.Heading)
+            var barrier = new RObject(BarrierModel, new(p.X, p.Y, p.Z), p.Heading)
             {
                 IsPositionFrozen = true,
                 IsPersistent = true
@@ -158,21 +158,21 @@ internal static class PBHFunctions
             };
             if (barrier is not null && barrier.IsValid() && barrier.Exists())
             {
-                instance.variables.AllBarriersEntities.Add(barrier);
+                AllBarriersEntities.Add(barrier);
             }
             if (barrierPed is not null && barrierPed.IsValid() && barrierPed.Exists())
             {
-                instance.variables.AllBarriersEntities.Add(barrierPed);
+                AllBarriersEntities.Add(barrierPed);
             }
         }
     }
 
-    internal static void SpawnOfficers(PacificBankHeist instance, EWeather weather)
+    internal void SpawnOfficers(EWeather weather)
     {
-        foreach (var p in XmlManager.PacificBankHeistConfig.LeftSittingSWATPositions)
+        foreach (var p in Configuration.LeftSittingSWATPositions)
         {
             GameFiber.Yield();
-            var data = CalloutHelpers.SelectPed(weather, [.. XmlManager.PacificBankHeistConfig.PoliceSWATModels]);
+            var data = CalloutHelpers.SelectPed(weather, [.. Configuration.PoliceSWATModels]);
             var swat = new Ped(data.Model, new(p.X, p.Y, p.Z), p.Heading)
             {
                 IsPersistent = true,
@@ -189,18 +189,18 @@ internal static class PBHFunctions
                 swat.SetOutfit(data);
                 Functions.SetPedAsCop(swat);
                 Functions.SetCopAsBusy(swat, true);
-                swat.GiveWeapon([.. XmlManager.PacificBankHeistConfig.SWATWeapons], true);
-                swat.Tasks.PlayAnimation(Constants.SWAT_ANIMATION_DICTIONARY, Constants.SWAT_ANIMATION_LEFT, 1f, AnimationFlags.StayInEndFrame);
+                swat.GiveWeapon([.. Configuration.SWATWeapons], true);
+                swat.Tasks.PlayAnimation(SWAT_ANIMATION_DICTIONARY, SWAT_ANIMATION_LEFT, 1f, AnimationFlags.StayInEndFrame);
 
-                instance.variables.AllSWATUnits.Add(swat);
-                instance.CalloutEntities.Add(swat);
+                AllSWATUnits.Add(swat);
+                CalloutEntities.Add(swat);
             }
         }
 
-        foreach (var p in XmlManager.PacificBankHeistConfig.RightLookingSWATPositions)
+        foreach (var p in Configuration.RightLookingSWATPositions)
         {
             GameFiber.Yield();
-            var data = CalloutHelpers.SelectPed(weather, [.. XmlManager.PacificBankHeistConfig.PoliceSWATModels]);
+            var data = CalloutHelpers.SelectPed(weather, [.. Configuration.PoliceSWATModels]);
             var swat = new Ped(data.Model, new(p.X, p.Y, p.Z), p.Heading)
             {
                 IsPersistent = true,
@@ -217,18 +217,18 @@ internal static class PBHFunctions
                 swat.SetOutfit(data);
                 Functions.SetPedAsCop(swat);
                 Functions.SetCopAsBusy(swat, true);
-                swat.GiveWeapon([.. XmlManager.PacificBankHeistConfig.SWATWeapons], true);
-                swat.Tasks.PlayAnimation(Constants.SWAT_ANIMATION_DICTIONARY, Constants.SWAT_ANIMATION_RIGHT_LOOKING, 1f, AnimationFlags.StayInEndFrame);
+                swat.GiveWeapon([.. Configuration.SWATWeapons], true);
+                swat.Tasks.PlayAnimation(SWAT_ANIMATION_DICTIONARY, SWAT_ANIMATION_RIGHT_LOOKING, 1f, AnimationFlags.StayInEndFrame);
 
-                instance.variables.AllSWATUnits.Add(swat);
-                instance.CalloutEntities.Add(swat);
+                AllSWATUnits.Add(swat);
+                CalloutEntities.Add(swat);
             }
         }
 
-        foreach (var p in XmlManager.PacificBankHeistConfig.RightSittingSWATPositions)
+        foreach (var p in Configuration.RightSittingSWATPositions)
         {
             GameFiber.Yield();
-            var data = CalloutHelpers.SelectPed(weather, [.. XmlManager.PacificBankHeistConfig.PoliceSWATModels]);
+            var data = CalloutHelpers.SelectPed(weather, [.. Configuration.PoliceSWATModels]);
             var swat = new Ped(data.Model, new(p.X, p.Y, p.Z), p.Heading)
             {
                 IsPersistent = true,
@@ -245,18 +245,18 @@ internal static class PBHFunctions
                 swat.SetOutfit(data);
                 Functions.SetPedAsCop(swat);
                 Functions.SetCopAsBusy(swat, true);
-                swat.GiveWeapon([.. XmlManager.PacificBankHeistConfig.SWATWeapons], true);
-                swat.Tasks.PlayAnimation(Constants.SWAT_ANIMATION_DICTIONARY, Constants.SWAT_ANIMATION_RIGHT, 1f, AnimationFlags.StayInEndFrame);
+                swat.GiveWeapon([.. Configuration.SWATWeapons], true);
+                swat.Tasks.PlayAnimation(SWAT_ANIMATION_DICTIONARY, SWAT_ANIMATION_RIGHT, 1f, AnimationFlags.StayInEndFrame);
 
-                instance.variables.AllSWATUnits.Add(swat);
-                instance.CalloutEntities.Add(swat);
+                AllSWATUnits.Add(swat);
+                CalloutEntities.Add(swat);
             }
         }
 
-        foreach (var p in XmlManager.PacificBankHeistConfig.AimingOfficerPositions)
+        foreach (var p in Configuration.AimingOfficerPositions)
         {
             GameFiber.Yield();
-            var data = CalloutHelpers.SelectPed(weather, [.. XmlManager.PacificBankHeistConfig.PoliceOfficerModels]);
+            var data = CalloutHelpers.SelectPed(weather, [.. Configuration.PoliceOfficerModels]);
             var officer = new Ped(data.Model, new(p.X, p.Y, p.Z), p.Heading)
             {
                 IsPersistent = true,
@@ -273,20 +273,20 @@ internal static class PBHFunctions
                 officer.SetOutfit(data);
                 Functions.SetPedAsCop(officer);
                 Functions.SetCopAsBusy(officer, true);
-                officer.GiveWeapon([.. XmlManager.PacificBankHeistConfig.OfficerWeapons], true);
-                var aimPoint = Vector3.Distance(officer.Position, Constants.BankDoorPositions[0]) < Vector3.Distance(officer.Position, Constants.BankDoorPositions[1]) ? Constants.BankDoorPositions[0] : Constants.BankDoorPositions[1];
+                officer.GiveWeapon([.. Configuration.OfficerWeapons], true);
+                var aimPoint = Vector3.Distance(officer.Position, BankDoorPositions[0]) < Vector3.Distance(officer.Position, BankDoorPositions[1]) ? BankDoorPositions[0] : BankDoorPositions[1];
                 Natives.TASK_AIM_GUN_AT_COORD(officer, aimPoint.X, aimPoint.Y, aimPoint.Z, -1, false, false);
 
-                instance.variables.AllOfficers.Add(officer);
-                instance.variables.AllAimingOfficers.Add(officer);
-                instance.CalloutEntities.Add(officer);
+                AllOfficers.Add(officer);
+                AllAimingOfficers.Add(officer);
+                CalloutEntities.Add(officer);
             }
         }
 
-        foreach (var p in XmlManager.PacificBankHeistConfig.StandingOfficerPositions)
+        foreach (var p in Configuration.StandingOfficerPositions)
         {
             GameFiber.Yield();
-            var data = CalloutHelpers.SelectPed(weather, [.. XmlManager.PacificBankHeistConfig.PoliceOfficerModels]);
+            var data = CalloutHelpers.SelectPed(weather, [.. Configuration.PoliceOfficerModels]);
             var officer = new Ped(data.Model, new(p.X, p.Y, p.Z), p.Heading)
             {
                 IsPersistent = true,
@@ -303,17 +303,17 @@ internal static class PBHFunctions
                 officer.SetOutfit(data);
                 Functions.SetPedAsCop(officer);
                 Functions.SetCopAsBusy(officer, true);
-                officer.GiveWeapon([.. XmlManager.PacificBankHeistConfig.OfficerWeapons], true);
+                officer.GiveWeapon([.. Configuration.OfficerWeapons], true);
 
-                instance.variables.AllOfficers.Add(officer);
-                instance.variables.AllStandingOfficers.Add(officer);
-                instance.CalloutEntities.Add(officer);
+                AllOfficers.Add(officer);
+                AllStandingOfficers.Add(officer);
+                CalloutEntities.Add(officer);
             }
         }
 
-        var cP = XmlManager.PacificBankHeistConfig.CommanderPosition;
-        var cData = CalloutHelpers.SelectPed(weather, [.. XmlManager.PacificBankHeistConfig.CommanderModels]);
-        instance.variables.Commander = new Ped(cData.Model, new(cP.X, cP.Y, cP.Z), cP.Heading)
+        var cP = Configuration.CommanderPosition;
+        var cData = CalloutHelpers.SelectPed(weather, [.. Configuration.CommanderModels]);
+        Commander = new Ped(cData.Model, new(cP.X, cP.Y, cP.Z), cP.Heading)
         {
             BlockPermanentEvents = true,
             IsPersistent = true,
@@ -322,28 +322,28 @@ internal static class PBHFunctions
             Health = cData.Health,
             Armor = cData.Armor,
         };
-        if (instance.variables.Commander is not null && instance.variables.Commander.IsValid() && instance.variables.Commander.Exists())
+        if (Commander is not null && Commander.IsValid() && Commander.Exists())
         {
-            instance.variables.Commander.SetOutfit(cData);
-            Functions.SetPedCantBeArrestedByPlayer(instance.variables.Commander, true);
+            Commander.SetOutfit(cData);
+            Functions.SetPedCantBeArrestedByPlayer(Commander, true);
 
-            instance.variables.CommanderBlip = instance.variables.Commander.AttachBlip();
-            if (instance.variables.CommanderBlip is not null && instance.variables.CommanderBlip.IsValid() && instance.variables.CommanderBlip.Exists())
+            CommanderBlip = Commander.AttachBlip();
+            if (CommanderBlip is not null && CommanderBlip.IsValid() && CommanderBlip.Exists())
             {
-                instance.variables.CommanderBlip.Sprite = Constants.COMMANDER_BLIP;
-                instance.variables.CommanderBlip.Color = Color.Green;
+                CommanderBlip.Sprite = COMMANDER_BLIP;
+                CommanderBlip.Color = Color.Green;
             }
-            instance.CalloutEntities.Add(instance.variables.Commander);
+            CalloutEntities.Add(Commander);
         }
     }
 
-    internal static void SpawnNegotiationRobbers(PacificBankHeist instance, EWeather weather)
+    internal void SpawnNegotiationRobbers(EWeather weather)
     {
-        for (int i = 0; i < XmlManager.PacificBankHeistConfig.RobbersNegotiationPositions.Count; i++)
+        for (int i = 0; i < Configuration.RobbersNegotiationPositions.Length; i++)
         {
             GameFiber.Yield();
-            var rnP = XmlManager.PacificBankHeistConfig.RobbersNegotiationPositions[i];
-            var data = CalloutHelpers.SelectPed(weather, [.. XmlManager.PacificBankHeistConfig.RobberModels]);
+            var rnP = Configuration.RobbersNegotiationPositions[i];
+            var data = CalloutHelpers.SelectPed(weather, [.. Configuration.RobberModels]);
             var ped = new Ped(data.Model, new(rnP.X, rnP.Y, rnP.Z), rnP.Heading)
             {
                 IsPersistent = true,
@@ -357,23 +357,23 @@ internal static class PBHFunctions
             {
                 ped.SetOutfit(data);
                 Functions.SetPedCantBeArrestedByPlayer(ped, true);
-                ped.GiveWeapon([.. XmlManager.PacificBankHeistConfig.RobbersWeapons], false);
+                ped.GiveWeapon([.. Configuration.RobbersWeapons], false);
                 Natives.SET_PED_COMBAT_ABILITY(ped, 3);
-                instance.variables.AllRobbers.Add(ped);
-                instance.CalloutEntities.Add(ped);
+                AllRobbers.Add(ped);
+                CalloutEntities.Add(ped);
             }
         }
     }
 
-    internal static void SpawnSneakyRobbers(PacificBankHeist instance, EWeather weather)
+    internal void SpawnSneakyRobbers(EWeather weather)
     {
-        for (int i = 0; i < XmlManager.PacificBankHeistConfig.RobbersSneakPosition.Count; i++)
+        for (int i = 0; i < Configuration.RobbersSneakPosition.Length; i++)
         {
             GameFiber.Yield();
-            var rsP = XmlManager.PacificBankHeistConfig.RobbersSneakPosition[i];
+            var rsP = Configuration.RobbersSneakPosition[i];
             if (Main.MT.Next(5) is >= 2)
             {
-                var data = CalloutHelpers.SelectPed(weather, [.. XmlManager.PacificBankHeistConfig.RobberModels]);
+                var data = CalloutHelpers.SelectPed(weather, [.. Configuration.RobberModels]);
                 var ped = new Ped(data.Model, new(rsP.X, rsP.Y, rsP.Z), rsP.Heading)
                 {
                     IsPersistent = true,
@@ -387,26 +387,26 @@ internal static class PBHFunctions
                 {
                     ped.SetOutfit(data);
                     Functions.SetPedCantBeArrestedByPlayer(ped, true);
-                    ped.GiveWeapon([.. XmlManager.PacificBankHeistConfig.RobbersWeapons], false);
+                    ped.GiveWeapon([.. Configuration.RobbersWeapons], false);
                     Natives.SET_PED_COMBAT_ABILITY(ped, 3);
-                    ped.Tasks.PlayAnimation(Constants.SWAT_ANIMATION_DICTIONARY, rsP.IsRight ? Constants.SWAT_ANIMATION_RIGHT : Constants.SWAT_ANIMATION_LEFT, 1f, AnimationFlags.StayInEndFrame);
-                    instance.variables.AllSneakRobbers.Add(ped);
-                    instance.CalloutEntities.Add(ped);
+                    ped.Tasks.PlayAnimation(SWAT_ANIMATION_DICTIONARY, rsP.IsRight ? SWAT_ANIMATION_RIGHT : SWAT_ANIMATION_LEFT, 1f, AnimationFlags.StayInEndFrame);
+                    AllSneakRobbers.Add(ped);
+                    CalloutEntities.Add(ped);
                 }
             }
             else
             {
-                instance.variables.AllSneakRobbers.Add(null);
+                AllSneakRobbers.Add(null);
             }
         }
     }
 
-    internal static void SpawnEMS(PacificBankHeist instance, EWeather weather)
+    internal void SpawnEMS(EWeather weather)
     {
-        foreach (var p in XmlManager.PacificBankHeistConfig.ParamedicPositions)
+        foreach (var p in Configuration.ParamedicPositions)
         {
             GameFiber.Yield();
-            var data = CalloutHelpers.SelectPed(weather, [.. XmlManager.PacificBankHeistConfig.ParamedicModels]);
+            var data = CalloutHelpers.SelectPed(weather, [.. Configuration.ParamedicModels]);
             var paramedic = new Ped(data.Model, new(p.X, p.Y, p.Z), p.Heading)
             {
                 IsPersistent = true,
@@ -418,13 +418,13 @@ internal static class PBHFunctions
             if (paramedic is not null && paramedic.IsValid() && paramedic.Exists())
             {
                 paramedic.SetOutfit(data);
-                instance.CalloutEntities.Add(paramedic);
+                CalloutEntities.Add(paramedic);
             }
         }
-        foreach (var p in XmlManager.PacificBankHeistConfig.FirefighterPositions)
+        foreach (var p in Configuration.FirefighterPositions)
         {
             GameFiber.Yield();
-            var data = CalloutHelpers.SelectPed(weather, [.. XmlManager.PacificBankHeistConfig.FirefighterModels]);
+            var data = CalloutHelpers.SelectPed(weather, [.. Configuration.FirefighterModels]);
             var firefighter = new Ped(data.Model, new(p.X, p.Y, p.Z), p.Heading)
             {
                 IsPersistent = true,
@@ -436,18 +436,18 @@ internal static class PBHFunctions
             if (firefighter is not null && firefighter.IsValid() && firefighter.Exists())
             {
                 firefighter.SetOutfit(data);
-                instance.CalloutEntities.Add(firefighter);
+                CalloutEntities.Add(firefighter);
             }
         }
     }
 
-    internal static void SpawnHostages(PacificBankHeist instance, EWeather weather)
+    internal void SpawnHostages(EWeather weather)
     {
-        var positions = XmlManager.PacificBankHeistConfig.HostagePositions.Shuffle();
-        for (int i = 0; i < instance.variables.HostageCount; i++)
+        var positions = Configuration.HostagePositions.Shuffle();
+        for (int i = 0; i < HostageCount; i++)
         {
             GameFiber.Yield();
-            var data = CalloutHelpers.SelectPed(weather, [.. XmlManager.PacificBankHeistConfig.HostageModels]);
+            var data = CalloutHelpers.SelectPed(weather, [.. Configuration.HostageModels]);
             var pos = new Vector3(positions[i].X, positions[i].Y, positions[i].Z);
             var hostage = new Ped(data.Model, pos, Main.MT.Next(0, 360))
             {
@@ -462,23 +462,23 @@ internal static class PBHFunctions
             {
                 Natives.SET_PED_CAN_RAGDOLL(hostage, false);
                 hostage.SetOutfit(data);
-                instance.variables.AllHostages.Add(hostage);
-                instance.variables.SpawnedHostages.Add(hostage);
-                instance.CalloutEntities.Add(hostage);
-                hostage.Tasks.PlayAnimation(Constants.HOSTAGE_ANIMATION_DICTIONARY, Constants.HOSTAGE_ANIMATION_KNEELING, 1f, AnimationFlags.Loop);
+                AllHostages.Add(hostage);
+                SpawnedHostages.Add(hostage);
+                CalloutEntities.Add(hostage);
+                hostage.Tasks.PlayAnimation(HOSTAGE_ANIMATION_DICTIONARY, HOSTAGE_ANIMATION_KNEELING, 1f, AnimationFlags.Loop);
                 GameFiber.Yield();
-                instance.variables.AliveHostagesCount++;
-                instance.variables.TotalHostagesCount++;
+                AliveHostagesCount++;
+                TotalHostagesCount++;
             }
         }
     }
 
-    internal static void SpawnAssaultRobbers(PacificBankHeist instance, EWeather weather)
+    internal void SpawnAssaultRobbers(EWeather weather)
     {
-        var nrP = XmlManager.PacificBankHeistConfig.NormalRobbersPositions;
-        for (int i = 0; i < nrP.Count; i++)
+        var nrP = Configuration.NormalRobbersPositions;
+        for (int i = 0; i < nrP.Length; i++)
         {
-            var data = CalloutHelpers.SelectPed(weather, [.. XmlManager.PacificBankHeistConfig.RobberModels]);
+            var data = CalloutHelpers.SelectPed(weather, [.. Configuration.RobberModels]);
             var ped = new Ped(data.Model, new(nrP[i].X, nrP[i].Y, nrP[i].Z), nrP[i].Heading)
             {
                 IsPersistent = true,
@@ -492,22 +492,22 @@ internal static class PBHFunctions
             {
                 ped.SetOutfit(data);
                 Functions.SetPedCantBeArrestedByPlayer(ped, true);
-                ped.GiveWeapon([.. XmlManager.PacificBankHeistConfig.RobbersThrowableWeapons], false);
-                ped.GiveWeapon([.. XmlManager.PacificBankHeistConfig.RobbersWeapons], false);
+                ped.GiveWeapon([.. Configuration.RobbersThrowableWeapons], false);
+                ped.GiveWeapon([.. Configuration.RobbersWeapons], false);
                 Natives.SET_PED_COMBAT_ABILITY(ped, 3);
-                instance.variables.AllRobbers.Add(ped);
-                instance.CalloutEntities.Add(ped);
+                AllRobbers.Add(ped);
+                CalloutEntities.Add(ped);
             }
         }
     }
 
-    internal static void SpawnVaultRobbers(PacificBankHeist instance, EWeather weather)
+    internal void SpawnVaultRobbers(EWeather weather)
     {
-        for (int i = 0; i < XmlManager.PacificBankHeistConfig.RobbersInVaultPositions.Count; i++)
+        for (int i = 0; i < Configuration.RobbersInVaultPositions.Length; i++)
         {
             GameFiber.Yield();
-            var rvP = XmlManager.PacificBankHeistConfig.RobbersInVaultPositions[i];
-            var data = CalloutHelpers.SelectPed(weather, [.. XmlManager.PacificBankHeistConfig.RobberModels]);
+            var rvP = Configuration.RobbersInVaultPositions[i];
+            var data = CalloutHelpers.SelectPed(weather, [.. Configuration.RobberModels]);
             var ped = new Ped(data.Model, new(rvP.X, rvP.Y, rvP.Z), rvP.Heading)
             {
                 IsPersistent = true,
@@ -521,26 +521,26 @@ internal static class PBHFunctions
             {
                 ped.SetOutfit(data);
                 Functions.SetPedCantBeArrestedByPlayer(ped, true);
-                ped.GiveWeapon([.. XmlManager.PacificBankHeistConfig.RobbersThrowableWeapons], false);
-                ped.GiveWeapon([.. XmlManager.PacificBankHeistConfig.RobbersWeapons], false);
+                ped.GiveWeapon([.. Configuration.RobbersThrowableWeapons], false);
+                ped.GiveWeapon([.. Configuration.RobbersWeapons], false);
                 Natives.SET_PED_COMBAT_ABILITY(ped, 3);
-                instance.variables.AllVaultRobbers.Add(ped);
-                instance.CalloutEntities.Add(ped);
+                AllVaultRobbers.Add(ped);
+                CalloutEntities.Add(ped);
             }
         }
-        GameFiber.StartNew(() => HandleVaultRobbers(instance));
+        GameFiber.StartNew(HandleVaultRobbers);
     }
 
-    internal static void MakeNearbyPedsFlee(PacificBankHeist instance)
+    internal void MakeNearbyPedsFlee()
     {
-        while (instance.IsCalloutRunning)
+        while (IsCalloutRunning)
         {
             GameFiber.Yield();
 
-            foreach (var ped in World.GetEntities(instance.CalloutPosition, 150f, GetEntitiesFlags.ConsiderAllPeds | GetEntitiesFlags.ExcludePlayerPed | GetEntitiesFlags.ExcludePoliceOfficers).Cast<Ped>())
+            foreach (var ped in World.GetEntities(CalloutPosition, 150f, GetEntitiesFlags.ConsiderAllPeds | GetEntitiesFlags.ExcludePlayerPed | GetEntitiesFlags.ExcludePoliceOfficers).Cast<Ped>())
             {
                 GameFiber.Yield();
-                if (instance.CalloutEntities.Contains(ped)) continue;
+                if (CalloutEntities.Contains(ped)) continue;
                 if (ped is not null && ped.IsValid() && ped.Exists())
                 {
                     if (!(ped == Game.LocalPlayer.Character || ped.CreatedByTheCallingPlugin || UltimateBackupFunctions.IsUltimateBackupCop(ped)))
@@ -559,22 +559,22 @@ internal static class PBHFunctions
         }
     }
 
-    internal static void SneakyRobbersAI(PacificBankHeist instance)
+    internal void SneakyRobbersAI()
     {
-        while (instance.IsCalloutRunning)
+        while (IsCalloutRunning)
         {
             try
             {
                 GameFiber.Yield();
-                foreach (var robber in instance.variables.AllSneakRobbers)
+                foreach (var robber in AllSneakRobbers)
                 {
                     GameFiber.Yield();
                     if (robber is not null && robber.IsValid() && robber.Exists() && robber.IsAlive)
                     {
-                        if (!instance.variables.FightingSneakRobbers.Contains(robber))
+                        if (!FightingSneakRobbers.Contains(robber))
                         {
-                            var rsP = XmlManager.PacificBankHeistConfig.RobbersSneakPosition;
-                            var index = instance.variables.AllSneakRobbers.IndexOf(robber);
+                            var rsP = Configuration.RobbersSneakPosition;
+                            var index = AllSneakRobbers.IndexOf(robber);
                             var pos = new Vector3(rsP[index].X, rsP[index].Y, rsP[index].Z);
                             if (Vector3.Distance(robber.Position, pos) > 0.7f)
                             {
@@ -585,16 +585,16 @@ internal static class PBHFunctions
                             {
                                 if (rsP[index].IsRight)
                                 {
-                                    if (!Natives.IS_ENTITY_PLAYING_ANIM(robber, Constants.SWAT_ANIMATION_DICTIONARY, Constants.SWAT_ANIMATION_RIGHT, 3))
+                                    if (!Natives.IS_ENTITY_PLAYING_ANIM(robber, SWAT_ANIMATION_DICTIONARY, SWAT_ANIMATION_RIGHT, 3))
                                     {
-                                        robber.Tasks.PlayAnimation(Constants.SWAT_ANIMATION_DICTIONARY, Constants.SWAT_ANIMATION_RIGHT, 2f, AnimationFlags.StayInEndFrame).WaitForCompletion(20);
+                                        robber.Tasks.PlayAnimation(SWAT_ANIMATION_DICTIONARY, SWAT_ANIMATION_RIGHT, 2f, AnimationFlags.StayInEndFrame).WaitForCompletion(20);
                                     }
                                 }
                                 else
                                 {
-                                    if (!Natives.IS_ENTITY_PLAYING_ANIM(robber, Constants.SWAT_ANIMATION_DICTIONARY, Constants.SWAT_ANIMATION_LEFT, 3))
+                                    if (!Natives.IS_ENTITY_PLAYING_ANIM(robber, SWAT_ANIMATION_DICTIONARY, SWAT_ANIMATION_LEFT, 3))
                                     {
-                                        robber.Tasks.PlayAnimation(Constants.SWAT_ANIMATION_DICTIONARY, Constants.SWAT_ANIMATION_LEFT, 2f, AnimationFlags.StayInEndFrame).WaitForCompletion(20);
+                                        robber.Tasks.PlayAnimation(SWAT_ANIMATION_DICTIONARY, SWAT_ANIMATION_LEFT, 2f, AnimationFlags.StayInEndFrame).WaitForCompletion(20);
                                     }
                                 }
                             }
@@ -607,13 +607,13 @@ internal static class PBHFunctions
                                     GameFiber.Yield();
                                     if (ped is not null && ped.IsValid() && ped.Exists() && ped.IsAlive)
                                     {
-                                        if (ped.RelationshipGroup == Game.LocalPlayer.Character.RelationshipGroup || ped.RelationshipGroup == RelationshipGroup.Cop || ped.RelationshipGroup == Constants.PoliceRG)
+                                        if (ped.RelationshipGroup == Game.LocalPlayer.Character.RelationshipGroup || ped.RelationshipGroup == RelationshipGroup.Cop || ped.RelationshipGroup == PoliceRG)
                                         {
                                             if (Vector3.Distance(ped.Position, robber.Position) < 3.9f)
                                             {
                                                 if (Math.Abs(ped.Position.Z - robber.Position.Z) < 0.9f)
                                                 {
-                                                    SneakyRobberFight(instance, robber, ped);
+                                                    SneakyRobberFight(robber, ped);
                                                     break;
                                                 }
                                             }
@@ -632,7 +632,7 @@ internal static class PBHFunctions
         }
     }
 
-    internal static void HandleHostages(PacificBankHeist instance)
+    internal void HandleHostages()
     {
         var waitCountForceAttack = 0;
         var enterAmbulanceCount = 0;
@@ -640,7 +640,7 @@ internal static class PBHFunctions
         var subtitleCount = 0;
 
         Ped closeHostage = null;
-        while (instance.IsCalloutRunning)
+        while (IsCalloutRunning)
         {
             try
             {
@@ -657,14 +657,14 @@ internal static class PBHFunctions
                     enterAmbulanceCount = 101;
                 }
 
-                foreach (var hostage in instance.variables.SpawnedHostages)
+                foreach (var hostage in SpawnedHostages)
                 {
                     GameFiber.Yield();
                     if (hostage is not null && hostage.IsValid() && hostage.Exists() && hostage.IsAlive)
                     {
                         if (Functions.IsPedGettingArrested(hostage) || Functions.IsPedArrested(hostage))
                         {
-                            instance.variables.SpawnedHostages[instance.variables.SpawnedHostages.IndexOf(hostage)] = hostage.ClonePed();
+                            SpawnedHostages[SpawnedHostages.IndexOf(hostage)] = hostage.ClonePed();
                         }
                         hostage.Tasks.PlayAnimation("random@arrests", "kneeling_arrest_idle", 1f, AnimationFlags.Loop);
                         if (!Game.LocalPlayer.Character.IsShooting)
@@ -675,7 +675,7 @@ internal static class PBHFunctions
                                 {
                                     var direction = hostage.Position - Game.LocalPlayer.Character.Position;
                                     direction.Normalize();
-                                    instance.variables.IsRescuingHostage = true;
+                                    IsRescuingHostage = true;
                                     Game.LocalPlayer.Character.Tasks.AchieveHeading(MathHelper.ConvertDirectionToHeading(direction)).WaitForCompletion(1200);
                                     hostage.RelationshipGroup = RelationshipGroup.Cop;
                                     Modules.Conversations.Talk([(Settings.Instance.OfficerName, Localization.GetString("RescueHostage"))], false);
@@ -687,11 +687,11 @@ internal static class PBHFunctions
                                         Game.LocalPlayer.Character.Tasks.ClearImmediately();
                                         if (hostage.IsAlive)
                                         {
-                                            var data = XmlManager.PacificBankHeistConfig.HostageSafePosition;
+                                            var data = Configuration.HostageSafePosition;
                                             var pos = new Vector3(data.X, data.Y, data.Z);
                                             hostage.Tasks.FollowNavigationMeshToPosition(pos, data.Heading, 1.55f);
-                                            instance.variables.RescuedHostages.Add(hostage);
-                                            instance.variables.SpawnedHostages.Remove(hostage);
+                                            RescuedHostages.Add(hostage);
+                                            SpawnedHostages.Remove(hostage);
                                         }
                                         else
                                         {
@@ -702,7 +702,7 @@ internal static class PBHFunctions
                                     {
                                         Game.LocalPlayer.Character.Tasks.ClearImmediately();
                                     }
-                                    instance.variables.IsRescuingHostage = false;
+                                    IsRescuingHostage = false;
                                 }
                                 else
                                 {
@@ -725,32 +725,32 @@ internal static class PBHFunctions
                     }
                     else
                     {
-                        instance.variables.SpawnedHostages.Remove(hostage);
-                        instance.variables.AliveHostagesCount--;
+                        SpawnedHostages.Remove(hostage);
+                        AliveHostagesCount--;
                     }
                 }
 
-                foreach (var rescued in instance.variables.RescuedHostages)
+                foreach (var rescued in RescuedHostages)
                 {
                     GameFiber.Yield();
                     if (rescued is not null && rescued.IsValid() && rescued.Exists() && rescued.IsAlive)
                     {
-                        if (instance.variables.SpawnedHostages.Contains(rescued))
+                        if (SpawnedHostages.Contains(rescued))
                         {
-                            instance.variables.SpawnedHostages.Remove(rescued);
+                            SpawnedHostages.Remove(rescued);
                         }
 
-                        var data = XmlManager.PacificBankHeistConfig.HostageSafePosition;
+                        var data = Configuration.HostageSafePosition;
                         var pos = new Vector3(data.X, data.Y, data.Z);
 
                         if (Vector3.Distance(rescued.Position, pos) < 3f)
                         {
-                            instance.variables.SafeHostages.Add(rescued);
-                            instance.variables.SafeHostagesCount++;
+                            SafeHostages.Add(rescued);
+                            SafeHostagesCount++;
                         }
                         if (Functions.IsPedGettingArrested(rescued) || Functions.IsPedArrested(rescued))
                         {
-                            instance.variables.RescuedHostages[instance.variables.RescuedHostages.IndexOf(rescued)] = rescued.ClonePed();
+                            RescuedHostages[RescuedHostages.IndexOf(rescued)] = rescued.ClonePed();
                         }
                         rescued.Tasks.FollowNavigationMeshToPosition(pos, data.Heading, 1.55f).WaitForCompletion(200);
 
@@ -761,7 +761,7 @@ internal static class PBHFunctions
                             {
                                 nearest = rescued.GetNearbyPeds(2)[1];
                             }
-                            if (instance.variables.AllRobbers.Contains(nearest))
+                            if (AllRobbers.Contains(nearest))
                             {
                                 nearest.Tasks.FightAgainst(rescued);
                                 waitCountForceAttack = 0;
@@ -770,18 +770,18 @@ internal static class PBHFunctions
                     }
                     else
                     {
-                        instance.variables.RescuedHostages.Remove(rescued);
-                        instance.variables.AliveHostagesCount--;
+                        RescuedHostages.Remove(rescued);
+                        AliveHostagesCount--;
                     }
                 }
 
-                foreach (var safeH in instance.variables.SafeHostages)
+                foreach (var safeH in SafeHostages)
                 {
                     if (safeH is not null && safeH.IsValid() && safeH.Exists())
                     {
-                        if (instance.variables.RescuedHostages.Contains(safeH))
+                        if (RescuedHostages.Contains(safeH))
                         {
-                            instance.variables.RescuedHostages.Remove(safeH);
+                            RescuedHostages.Remove(safeH);
                         }
 
                         safeH.IsInvincible = true;
@@ -789,18 +789,18 @@ internal static class PBHFunctions
                         {
                             if (enterAmbulanceCount > 100)
                             {
-                                if (instance.variables.AllAmbulance[0].IsSeatFree(2))
+                                if (AllAmbulance[0].IsSeatFree(2))
                                 {
-                                    safeH.Tasks.EnterVehicle(instance.variables.AllAmbulance[0], 2);
+                                    safeH.Tasks.EnterVehicle(AllAmbulance[0], 2);
                                 }
-                                else if (instance.variables.AllAmbulance[0].IsSeatFree(1))
+                                else if (AllAmbulance[0].IsSeatFree(1))
                                 {
-                                    safeH.Tasks.EnterVehicle(instance.variables.AllAmbulance[0], 1);
+                                    safeH.Tasks.EnterVehicle(AllAmbulance[0], 1);
                                 }
                                 else
                                 {
-                                    instance.variables.AllAmbulance[0].GetPedOnSeat(2).Delete();
-                                    safeH.Tasks.EnterVehicle(instance.variables.AllAmbulance[0], 2);
+                                    AllAmbulance[0].GetPedOnSeat(2).Delete();
+                                    safeH.Tasks.EnterVehicle(AllAmbulance[0], 2);
                                 }
                                 enterAmbulanceCount = 0;
                             }
@@ -816,7 +816,7 @@ internal static class PBHFunctions
                                     {
                                         safeH.Delete();
                                         deleteSafeHostageCount = 0;
-                                        Natives.SET_VEHICLE_DOORS_SHUT(instance.variables.AllAmbulance[0], true);
+                                        Natives.SET_VEHICLE_DOORS_SHUT(AllAmbulance[0], true);
                                     }
                                 }
                             }
@@ -824,7 +824,7 @@ internal static class PBHFunctions
                     }
                     else
                     {
-                        instance.variables.SafeHostages.Remove(safeH);
+                        SafeHostages.Remove(safeH);
                     }
                 }
             }
@@ -835,17 +835,17 @@ internal static class PBHFunctions
         }
     }
 
-    internal static void HandleOpenBackRiotVan(PacificBankHeist instance)
+    internal void HandleOpenBackRiotVan()
     {
         var cooldown = 0;
-        while (instance.IsCalloutRunning)
+        while (IsCalloutRunning)
         {
             try
             {
                 GameFiber.Yield();
                 if (cooldown > 0) cooldown--;
 
-                foreach (var riot in instance.variables.AllRiot)
+                foreach (var riot in AllRiot)
                 {
                     GameFiber.Yield();
                     if (riot is not null && riot.IsValid() && riot.Exists())
@@ -864,17 +864,17 @@ internal static class PBHFunctions
                                     Game.LocalPlayer.Character.Tasks.EnterVehicle(riot, 1).WaitForCompletion();
                                     Game.LocalPlayer.Character.Armor = 150;
                                     Game.LocalPlayer.Character.Health = Game.LocalPlayer.Character.MaxHealth;
-                                    Game.LocalPlayer.Character.GiveWeapon([.. XmlManager.PacificBankHeistConfig.WeaponInRiot], false);
+                                    Game.LocalPlayer.Character.GiveWeapon([.. Configuration.WeaponInRiot], false);
                                     Natives.PLAY_SOUND_FRONTEND(-1, "PURCHASE", "HUD_LIQUOR_STORE_SOUNDSET", true);
                                     Game.LocalPlayer.Character.Tasks.LeaveVehicle(LeaveVehicleFlags.None).WaitForCompletion();
-                                    instance.variables.FightingPacksUsed++;
+                                    FightingPacksUsed++;
                                 }
                             }
                             else
                             {
                                 if (cooldown is 0)
                                 {
-                                    KeyHelpers.DisplayKeyHelp("EnterRiot", [$"~{Constants.RIOT_BLIP.GetIconToken()}~"], Settings.Instance.EnterRiotVanKey, Settings.Instance.EnterRiotVanModifierKey, 500);
+                                    KeyHelpers.DisplayKeyHelp("EnterRiot", [$"~{RIOT_BLIP.GetIconToken()}~"], Settings.Instance.EnterRiotVanKey, Settings.Instance.EnterRiotVanModifierKey, 500);
                                 }
                             }
                         }
@@ -889,58 +889,58 @@ internal static class PBHFunctions
     }
 
     private static bool AudioStateChanged = false;
-    internal static void HandleCalloutAudio(PacificBankHeist instance)
+    internal void HandleCalloutAudio()
     {
         AudioStateChanged = false;
-        while (instance.IsCalloutRunning)
+        while (IsCalloutRunning)
         {
             try
             {
                 GameFiber.Yield();
-                if (instance.variables.IsAlarmEnabled)
+                if (IsAlarmEnabled)
                 {
-                    if (Vector3.Distance(Game.LocalPlayer.Character.Position, instance.CalloutPosition) > 70f)
+                    if (Vector3.Distance(Game.LocalPlayer.Character.Position, CalloutPosition) > 70f)
                     {
-                        instance.variables.IsAlarmEnabled = false;
-                        instance.variables.CurrentAlarmState = AlarmState.None;
-                        instance.variables.BankBlip.IsRouteEnabled = true;
+                        IsAlarmEnabled = false;
+                        CurrentAlarmState = AlarmState.None;
+                        BankBlip.IsRouteEnabled = true;
                         AudioStateChanged = true;
                     }
                 }
                 else
                 {
-                    if (Vector3.Distance(Game.LocalPlayer.Character.Position, instance.CalloutPosition) < 55f)
+                    if (Vector3.Distance(Game.LocalPlayer.Character.Position, CalloutPosition) < 55f)
                     {
-                        instance.variables.IsAlarmEnabled = true;
-                        instance.variables.CurrentAlarmState = AlarmState.Alarm;
-                        instance.variables.BankBlip.IsRouteEnabled = false;
+                        IsAlarmEnabled = true;
+                        CurrentAlarmState = AlarmState.Alarm;
+                        BankBlip.IsRouteEnabled = false;
                         AudioStateChanged = true;
                     }
                 }
 
                 if (KeyHelpers.IsKeysDown(Settings.Instance.ToggleBankHeistAlarmSoundKey, Settings.Instance.ToggleBankHeistAlarmSoundModifierKey))
                 {
-                    if (instance.variables.CurrentAlarmState is not AlarmState.None)
+                    if (CurrentAlarmState is not AlarmState.None)
                     {
-                        instance.variables.CurrentAlarmState++;
+                        CurrentAlarmState++;
                     }
                     else
                     {
-                        instance.variables.CurrentAlarmState = AlarmState.Alarm;
+                        CurrentAlarmState = AlarmState.Alarm;
                     }
                     AudioStateChanged = true;
                 }
 
                 if (AudioStateChanged)
                 {
-                    switch (instance.variables.CurrentAlarmState)
+                    switch (CurrentAlarmState)
                     {
                         default:
                         case AlarmState.None:
-                            instance.variables.BankAlarm.Stop();
+                            BankAlarm.Stop();
                             break;
                         case AlarmState.Alarm:
-                            instance.variables.BankAlarm.PlayLooping();
+                            BankAlarm.PlayLooping();
                             break;
                     }
                     AudioStateChanged = false;
@@ -953,30 +953,30 @@ internal static class PBHFunctions
         }
     }
 
-    internal static void HandleVaultRobbers(PacificBankHeist instance)
+    internal void HandleVaultRobbers()
     {
-        while (instance.IsCalloutRunning)
+        while (IsCalloutRunning)
         {
             GameFiber.Yield();
             try
             {
-                if (Vector3.Distance(Game.LocalPlayer.Character.Position, Constants.OutsideBankVault) < 4f)
+                if (Vector3.Distance(Game.LocalPlayer.Character.Position, OutsideBankVault) < 4f)
                 {
                     GameFiber.Wait(2000);
 
                     World.SpawnExplosion(new(252.2609f, 225.3824f, 101.6835f), 2, 0.2f, true, false, 0.6f);
-                    instance.variables.CurrentAlarmState = AlarmState.Alarm;
+                    CurrentAlarmState = AlarmState.Alarm;
                     GameFiber.Wait(900);
-                    foreach (var robber in instance.variables.AllVaultRobbers)
+                    foreach (var robber in AllVaultRobbers)
                     {
-                        robber.Tasks.FollowNavigationMeshToPosition(Constants.OutsideBankVault, robber.Heading, 2f).WaitForCompletion(500);
+                        robber.Tasks.FollowNavigationMeshToPosition(OutsideBankVault, robber.Heading, 2f).WaitForCompletion(500);
                     }
                     GameFiber.Wait(700);
-                    foreach (var robber in instance.variables.AllVaultRobbers)
+                    foreach (var robber in AllVaultRobbers)
                     {
                         GameFiber.Yield();
                         robber.Tasks.FightAgainstClosestHatedTarget(30f);
-                        instance.variables.AllRobbers.Add(robber);
+                        AllRobbers.Add(robber);
                     }
                     break;
                 }
@@ -988,15 +988,15 @@ internal static class PBHFunctions
         }
     }
 
-    internal static void ToggleMobilePhone(PacificBankHeist instance, Ped ped, bool toggle)
+    internal void ToggleMobilePhone(Ped ped, bool toggle)
     {
         if (toggle)
         {
             Natives.SET_PED_CAN_SWITCH_WEAPON(ped, false);
             ped.Inventory.GiveNewWeapon(new WeaponAsset("WEAPON_UNARMED"), -1, true);
-            instance.variables.MobilePhone = new(Constants.PhoneModel, new(0, 0, 0));
+            MobilePhone = new(PhoneModel, new(0, 0, 0));
             var boneIndex = Natives.GET_PED_BONE_INDEX(ped, (int)PedBoneId.RightPhHand);
-            Natives.ATTACH_ENTITY_TO_ENTITY(instance.variables.MobilePhone, ped, boneIndex, 0f, 0f, 0f, 0f, 0f, 0f, true, true, false, false, 2, true);
+            Natives.ATTACH_ENTITY_TO_ENTITY(MobilePhone, ped, boneIndex, 0f, 0f, 0f, 0f, 0f, 0f, true, true, false, false, 2, true);
             ped.Tasks.PlayAnimation("cellphone@", "cellphone_call_listen_base", 1.3f, AnimationFlags.Loop | AnimationFlags.UpperBodyOnly | AnimationFlags.SecondaryTask);
         }
         else
@@ -1007,54 +1007,54 @@ internal static class PBHFunctions
             {
                 GameFiber.Wait(800);
             }
-            if (instance.variables.MobilePhone is not null && instance.variables.MobilePhone.IsValid() && instance.variables.MobilePhone.Exists()) instance.variables.MobilePhone.Delete();
+            if (MobilePhone is not null && MobilePhone.IsValid() && MobilePhone.Exists()) MobilePhone.Delete();
         }
     }
 
-    internal static void GetWife(PacificBankHeist instance)
+    internal void GetWife()
     {
         Game.LocalPlayer.Character.IsPositionFrozen = true;
-        var vData = CalloutHelpers.Select([.. XmlManager.PacificBankHeistConfig.PoliceCruisers]);
-        var data = XmlManager.PacificBankHeistConfig.WifePosition;
-        instance.variables.WifeCar = new(vData.Model, new(data.X, data.Y, data.Z), data.Heading)
+        var vData = CalloutHelpers.Select([.. Configuration.PoliceCruisers]);
+        var data = Configuration.WifePosition;
+        WifeCar = new(vData.Model, new(data.X, data.Y, data.Z), data.Heading)
         {
             IsPersistent = true,
             IsSirenOn = true,
         };
-        if (instance.variables.WifeCar is not null && instance.variables.WifeCar.IsValid() && instance.variables.WifeCar.Exists())
+        if (WifeCar is not null && WifeCar.IsValid() && WifeCar.Exists())
         {
-            instance.variables.WifeDriver = instance.variables.WifeCar.CreateRandomDriver();
-            if (instance.variables.WifeDriver is not null && instance.variables.WifeDriver.IsValid() && instance.variables.WifeDriver.Exists())
+            WifeDriver = WifeCar.CreateRandomDriver();
+            if (WifeDriver is not null && WifeDriver.IsValid() && WifeDriver.Exists())
             {
-                instance.variables.WifeDriver.IsPersistent = true;
-                instance.variables.WifeDriver.BlockPermanentEvents = true;
-                var wData = CalloutHelpers.Select([.. XmlManager.PacificBankHeistConfig.WifeModels]);
-                instance.variables.Wife = new Ped(wData.Model, Vector3.Zero, 0f)
+                WifeDriver.IsPersistent = true;
+                WifeDriver.BlockPermanentEvents = true;
+                var wData = CalloutHelpers.Select([.. Configuration.WifeModels]);
+                Wife = new Ped(wData.Model, Vector3.Zero, 0f)
                 {
                     IsPersistent = true,
                     BlockPermanentEvents = true,
                 };
-                if (instance.variables.Wife is not null && instance.variables.Wife.IsValid() && instance.variables.Wife.Exists())
+                if (Wife is not null && Wife.IsValid() && Wife.Exists())
                 {
-                    instance.variables.Wife.WarpIntoVehicle(instance.variables.WifeCar, 1);
-                    instance.CalloutEntities.Add(instance.variables.Wife);
-                    instance.CalloutEntities.Add(instance.variables.WifeDriver);
-                    instance.CalloutEntities.Add(instance.variables.WifeCar);
+                    Wife.WarpIntoVehicle(WifeCar, 1);
+                    CalloutEntities.Add(Wife);
+                    CalloutEntities.Add(WifeDriver);
+                    CalloutEntities.Add(WifeCar);
 
-                    var destination = new Vector3(XmlManager.PacificBankHeistConfig.WifeVehicleDestination.X, XmlManager.PacificBankHeistConfig.WifeVehicleDestination.Y, XmlManager.PacificBankHeistConfig.WifeVehicleDestination.Z);
-                    instance.variables.WifeDriver.Tasks.DriveToPosition(destination, 20f, VehicleDrivingFlags.DriveAroundVehicles | VehicleDrivingFlags.DriveAroundObjects | VehicleDrivingFlags.DriveAroundPeds);
-                    GameFiber.WaitWhile(() => Vector3.Distance(instance.variables.WifeCar.Position, destination) >= 6f);
-                    instance.variables.Wife.Tasks.LeaveVehicle(LeaveVehicleFlags.None);
-                    instance.variables.Wife.Tasks.FollowNavigationMeshToPosition(Game.LocalPlayer.Character.GetOffsetPosition(Vector3.RelativeRight * 1.5f), Game.LocalPlayer.Character.Heading, 1.9f).WaitForCompletion(60000);
+                    var destination = new Vector3(Configuration.WifeVehicleDestination.X, Configuration.WifeVehicleDestination.Y, Configuration.WifeVehicleDestination.Z);
+                    WifeDriver.Tasks.DriveToPosition(destination, 20f, VehicleDrivingFlags.DriveAroundVehicles | VehicleDrivingFlags.DriveAroundObjects | VehicleDrivingFlags.DriveAroundPeds);
+                    GameFiber.WaitWhile(() => Vector3.Distance(WifeCar.Position, destination) >= 6f);
+                    Wife.Tasks.LeaveVehicle(LeaveVehicleFlags.None);
+                    Wife.Tasks.FollowNavigationMeshToPosition(Game.LocalPlayer.Character.GetOffsetPosition(Vector3.RelativeRight * 1.5f), Game.LocalPlayer.Character.Heading, 1.9f).WaitForCompletion(60000);
                     Game.LocalPlayer.Character.IsPositionFrozen = false;
                 }
             }
         }
     }
 
-    internal static void PrepareFighting(PacificBankHeist instance)
+    internal void PrepareFighting()
     {
-        while (instance.IsCalloutRunning)
+        while (IsCalloutRunning)
         {
             GameFiber.Yield();
             KeyHelpers.DisplayKeyHelp("BankHeistMoveIn", Settings.Instance.SpeakWithThePersonKey, Settings.Instance.SpeakWithThePersonModifierKey);
@@ -1062,21 +1062,21 @@ internal static class PBHFunctions
             {
                 Modules.Conversations.Talk([(Settings.Instance.OfficerName, Localization.GetString("MoveIn"))]);
                 KeyHelpers.DisplayKeyHelp("SWATFollowing", Settings.Instance.SWATFollowKey, Settings.Instance.SWATFollowModifierKey);
-                instance.variables.Status = EPacificBankHeistStatus.FightingWithRobbers;
+                Status = EPacificBankHeistStatus.FightingWithRobbers;
                 break;
             }
         }
     }
 
     private static Entity entityPlayerAimingAtSneakyRobber = null;
-    internal static void SneakyRobberFight(PacificBankHeist instance, Ped sneak, Ped nearestPed)
+    internal void SneakyRobberFight(Ped sneak, Ped nearestPed)
     {
         GameFiber.StartNew(() =>
         {
             try
             {
-                instance.variables.FightingSneakRobbers.Add(sneak);
-                while (instance.IsCalloutRunning)
+                FightingSneakRobbers.Add(sneak);
+                while (IsCalloutRunning)
                 {
                     GameFiber.Yield();
                     if (!nearestPed.Exists() || !nearestPed.IsAlive) break;
@@ -1095,16 +1095,16 @@ internal static class PBHFunctions
                     }
 
                     if (entityPlayerAimingAtSneakyRobber == sneak) break;
-                    if (instance.variables.IsRescuingHostage) break;
+                    if (IsRescuingHostage) break;
                 }
 
                 if (sneak is not null && sneak.IsValid() && sneak.Exists())
                 {
                     sneak.Tasks.FightAgainstClosestHatedTarget(15f);
-                    sneak.RelationshipGroup = Constants.RobbersRG;
+                    sneak.RelationshipGroup = RobbersRG;
                 }
 
-                while (instance.IsCalloutRunning)
+                while (IsCalloutRunning)
                 {
                     GameFiber.Yield();
                     if (!sneak.Exists()) break;
@@ -1114,7 +1114,7 @@ internal static class PBHFunctions
 
                     if (nearestPed.IsDead)
                     {
-                        foreach (var hostage in instance.variables.SpawnedHostages)
+                        foreach (var hostage in SpawnedHostages)
                         {
                             if (Math.Abs(hostage.Position.Z - sneak.Position.Z) < 0.6f)
                             {
@@ -1145,22 +1145,22 @@ internal static class PBHFunctions
             }
             finally
             {
-                instance.variables.FightingSneakRobbers.Remove(sneak);
+                FightingSneakRobbers.Remove(sneak);
             }
         });
     }
 
-    internal static void DetermineResults(PacificBankHeist instance)
+    internal void DetermineResults()
     {
-        foreach (var robber in instance.variables.AllRobbers)
+        foreach (var robber in AllRobbers)
         {
             if (robber is not null && robber.IsValid() && robber.Exists() && robber.IsDead)
             {
-                instance.variables.DiedRobbersCount++;
+                DiedRobbersCount++;
             }
         }
-        Hud.DisplayNotification(Localization.GetString("BankHeistReportText", $"{instance.variables.SafeHostagesCount.ToString()}", $"{(instance.variables.TotalHostagesCount - instance.variables.AliveHostagesCount).ToString()}", $"{instance.variables.DiedRobbersCount.ToString()}"), Localization.GetString("BankHeistReportTitle"), instance.variables.TotalHostagesCount - instance.variables.AliveHostagesCount is < 3 ? Localization.GetString("BankHeistReportSubtitle") : "", "mphud", "mp_player_ready");
-        if (instance.variables.TotalHostagesCount == instance.variables.AliveHostagesCount)
+        Hud.DisplayNotification(Localization.GetString("BankHeistReportText", $"{SafeHostagesCount.ToString()}", $"{(TotalHostagesCount - AliveHostagesCount).ToString()}", $"{DiedRobbersCount.ToString()}"), Localization.GetString("BankHeistReportTitle"), TotalHostagesCount - AliveHostagesCount is < 3 ? Localization.GetString("BankHeistReportSubtitle") : "", "mphud", "mp_player_ready");
+        if (TotalHostagesCount == AliveHostagesCount)
         {
             var bigMessage = new BigMessageThread(true);
             bigMessage.MessageInstance.ShowColoredShard(Localization.GetString("Congratulations"), Localization.GetString("NoDiedHostage"), HudColor.Yellow, HudColor.MenuGrey);
@@ -1169,23 +1169,23 @@ internal static class PBHFunctions
     }
 
     private static Entity entityPlayerAimingAt = null;
-    internal static void RobbersFightingAI(PacificBankHeist instance)
+    internal void RobbersFightingAI()
     {
-        while (instance.IsCalloutRunning)
+        while (IsCalloutRunning)
         {
             try
             {
                 GameFiber.Yield();
-                if (instance.variables.Status is EPacificBankHeistStatus.FightingWithRobbers)
+                if (Status is EPacificBankHeistStatus.FightingWithRobbers)
                 {
-                    foreach (var robber in instance.variables.AllRobbers)
+                    foreach (var robber in AllRobbers)
                     {
                         GameFiber.Yield();
                         if (robber.Exists())
                         {
-                            var distance = Vector3.Distance(robber.Position, Constants.PacificBankInsideChecks[0]) < Vector3.Distance(robber.Position, Constants.PacificBankInsideChecks[1])
-                                ? Vector3.Distance(robber.Position, Constants.PacificBankInsideChecks[0])
-                                : Vector3.Distance(robber.Position, Constants.PacificBankInsideChecks[1]);
+                            var distance = Vector3.Distance(robber.Position, PacificBankInsideChecks[0]) < Vector3.Distance(robber.Position, PacificBankInsideChecks[1])
+                                ? Vector3.Distance(robber.Position, PacificBankInsideChecks[0])
+                                : Vector3.Distance(robber.Position, PacificBankInsideChecks[1]);
                             if (distance < 16.5f) distance = 16.5f;
                             else if (distance > 21f) distance = 21f;
                             Natives.REGISTER_HATED_TARGETS_AROUND_PED(robber, distance);
@@ -1200,7 +1200,7 @@ internal static class PBHFunctions
                     }
                     catch { }
 
-                    if (entityPlayerAimingAt is not null && instance.variables.AllRobbers.Contains(entityPlayerAimingAt))
+                    if (entityPlayerAimingAt is not null && AllRobbers.Contains(entityPlayerAimingAt))
                     {
                         var pedAimingAt = (Ped)entityPlayerAimingAt;
                         pedAimingAt.Tasks.FightAgainst(Game.LocalPlayer.Character);
@@ -1215,49 +1215,49 @@ internal static class PBHFunctions
         }
     }
 
-    internal static void CopFightingAI(PacificBankHeist instance)
+    internal void CopFightingAI()
     {
-        while (instance.IsCalloutRunning)
+        while (IsCalloutRunning)
         {
             try
             {
                 GameFiber.Yield();
-                if (instance.variables.Status is EPacificBankHeistStatus.FightingWithRobbers)
+                if (Status is EPacificBankHeistStatus.FightingWithRobbers)
                 {
-                    if (instance.variables.OfficersTargetsToShoot.Count > 0)
+                    if (OfficersTargetsToShoot.Count > 0)
                     {
-                        if (instance.variables.OfficersTargetsToShoot[0].Exists())
+                        if (OfficersTargetsToShoot[0].Exists())
                         {
-                            if (instance.variables.OfficersTargetsToShoot[0].IsAlive)
+                            if (OfficersTargetsToShoot[0].IsAlive)
                             {
-                                foreach (var cop in instance.variables.AllOfficers)
+                                foreach (var cop in AllOfficers)
                                 {
-                                    cop.Tasks.FightAgainst(instance.variables.OfficersTargetsToShoot[0]);
+                                    cop.Tasks.FightAgainst(OfficersTargetsToShoot[0]);
                                 }
                             }
                             else
                             {
-                                instance.variables.OfficersTargetsToShoot.RemoveAt(0);
+                                OfficersTargetsToShoot.RemoveAt(0);
                             }
                         }
                         else
                         {
-                            instance.variables.OfficersTargetsToShoot.RemoveAt(0);
+                            OfficersTargetsToShoot.RemoveAt(0);
                         }
                     }
                     else
                     {
-                        CopsReturnToLocation(instance);
+                        CopsReturnToLocation();
                     }
                 }
-                if (instance.variables.Status is EPacificBankHeistStatus.FightingWithRobbers || instance.variables.IsSWATFollowing)
+                if (Status is EPacificBankHeistStatus.FightingWithRobbers || IsSWATFollowing)
                 {
-                    foreach (var swat in instance.variables.AllSWATUnits)
+                    foreach (var swat in AllSWATUnits)
                     {
                         GameFiber.Yield();
                         if (swat is not null && swat.IsValid() && swat.Exists())
                         {
-                            if (instance.variables.IsSWATFollowing)
+                            if (IsSWATFollowing)
                             {
                                 if (Math.Abs(Game.LocalPlayer.Character.Position.Z - swat.Position.Z) > 1f)
                                 {
@@ -1285,14 +1285,14 @@ internal static class PBHFunctions
         }
     }
 
-    internal static void CheckForRobbersOutside(PacificBankHeist instance)
+    internal void CheckForRobbersOutside()
     {
-        while (instance.IsCalloutRunning)
+        while (IsCalloutRunning)
         {
             GameFiber.Yield();
-            if (instance.variables.Status is EPacificBankHeistStatus.FightingWithRobbers)
+            if (Status is EPacificBankHeistStatus.FightingWithRobbers)
             {
-                foreach (var location in Constants.BankDoorPositions)
+                foreach (var location in BankDoorPositions)
                 {
                     foreach (var robber in World.GetEntities(location, 1.6f, GetEntitiesFlags.ConsiderAllPeds).Cast<Ped>())
                     {
@@ -1302,11 +1302,11 @@ internal static class PBHFunctions
                             {
                                 if (robber.IsAlive)
                                 {
-                                    if (instance.variables.AllRobbers.Contains(robber))
+                                    if (AllRobbers.Contains(robber))
                                     {
-                                        if (!instance.variables.OfficersTargetsToShoot.Contains(robber))
+                                        if (!OfficersTargetsToShoot.Contains(robber))
                                         {
-                                            instance.variables.OfficersTargetsToShoot.Add(robber);
+                                            OfficersTargetsToShoot.Add(robber);
                                         }
                                     }
                                 }
@@ -1318,12 +1318,12 @@ internal static class PBHFunctions
         }
     }
 
-    internal static void CopsReturnToLocation(PacificBankHeist instance)
+    internal void CopsReturnToLocation()
     {
-        for (int i = 0; i < instance.variables.AllStandingOfficers.Count; i++)
+        for (int i = 0; i < AllStandingOfficers.Count; i++)
         {
-            var officer = instance.variables.AllStandingOfficers[i];
-            var data = XmlManager.PacificBankHeistConfig.StandingOfficerPositions[i];
+            var officer = AllStandingOfficers[i];
+            var data = Configuration.StandingOfficerPositions[i];
             var pos = new Vector3(data.X, data.Y, data.Z);
             if (officer is not null && officer.IsValid() && officer.Exists() && officer.IsAlive)
             {
@@ -1335,10 +1335,10 @@ internal static class PBHFunctions
             }
         }
 
-        for (int i = 0; i < instance.variables.AllAimingOfficers.Count; i++)
+        for (int i = 0; i < AllAimingOfficers.Count; i++)
         {
-            var officer = instance.variables.AllAimingOfficers[i];
-            var data = XmlManager.PacificBankHeistConfig.AimingOfficerPositions[i];
+            var officer = AllAimingOfficers[i];
+            var data = Configuration.AimingOfficerPositions[i];
             var pos = new Vector3(data.X, data.Y, data.Z);
             if (officer is not null && officer.IsValid() && officer.Exists() && officer.IsAlive)
             {
@@ -1349,17 +1349,17 @@ internal static class PBHFunctions
                 }
                 else
                 {
-                    var aimPoint = Vector3.Distance(officer.Position, Constants.BankDoorPositions[0]) < Vector3.Distance(officer.Position, Constants.BankDoorPositions[1]) ? Constants.BankDoorPositions[0] : Constants.BankDoorPositions[1];
+                    var aimPoint = Vector3.Distance(officer.Position, BankDoorPositions[0]) < Vector3.Distance(officer.Position, BankDoorPositions[1]) ? BankDoorPositions[0] : BankDoorPositions[1];
                     Natives.TASK_AIM_GUN_AT_COORD(officer, aimPoint.X, aimPoint.Y, aimPoint.Z, -1, false, false);
                 }
             }
         }
     }
 
-    internal static void SwitchSWATFollowing(PacificBankHeist instance)
+    internal void SwitchSWATFollowing()
     {
-        instance.variables.IsSWATFollowing = !instance.variables.IsSWATFollowing;
-        if (instance.variables.IsSWATFollowing)
+        IsSWATFollowing = !IsSWATFollowing;
+        if (IsSWATFollowing)
         {
             Hud.DisplayHelp(Localization.GetString("SWATIsFollowing"));
         }
@@ -1369,39 +1369,39 @@ internal static class PBHFunctions
         }
     }
 
-    internal static void SetRelationships()
+    internal void SetRelationships()
     {
-        Constants.RobbersRG.SetRelationshipWith(Constants.SneakRobbersRG, Relationship.Respect);
-        Constants.RobbersRG.SetRelationshipWith(RelationshipGroup.Cop, Relationship.Hate);
-        Constants.RobbersRG.SetRelationshipWith(Constants.PoliceRG, Relationship.Hate);
-        Constants.RobbersRG.SetRelationshipWith(Game.LocalPlayer.Character.RelationshipGroup, Relationship.Hate);
+        RobbersRG.SetRelationshipWith(SneakRobbersRG, Relationship.Respect);
+        RobbersRG.SetRelationshipWith(RelationshipGroup.Cop, Relationship.Hate);
+        RobbersRG.SetRelationshipWith(PoliceRG, Relationship.Hate);
+        RobbersRG.SetRelationshipWith(Game.LocalPlayer.Character.RelationshipGroup, Relationship.Hate);
 
-        Constants.SneakRobbersRG.SetRelationshipWith(Constants.RobbersRG, Relationship.Respect);
-        Constants.SneakRobbersRG.SetRelationshipWith(RelationshipGroup.Cop, Relationship.Hate);
-        Constants.SneakRobbersRG.SetRelationshipWith(Constants.PoliceRG, Relationship.Hate);
-        Constants.SneakRobbersRG.SetRelationshipWith(Game.LocalPlayer.Character.RelationshipGroup, Relationship.Hate);
+        SneakRobbersRG.SetRelationshipWith(RobbersRG, Relationship.Respect);
+        SneakRobbersRG.SetRelationshipWith(RelationshipGroup.Cop, Relationship.Hate);
+        SneakRobbersRG.SetRelationshipWith(PoliceRG, Relationship.Hate);
+        SneakRobbersRG.SetRelationshipWith(Game.LocalPlayer.Character.RelationshipGroup, Relationship.Hate);
 
-        RelationshipGroup.Cop.SetRelationshipWith(Constants.RobbersRG, Relationship.Hate);
+        RelationshipGroup.Cop.SetRelationshipWith(RobbersRG, Relationship.Hate);
         RelationshipGroup.Cop.SetRelationshipWith(Game.LocalPlayer.Character.RelationshipGroup, Relationship.Respect);
-        RelationshipGroup.Cop.SetRelationshipWith(Constants.PoliceRG, Relationship.Respect);
-        RelationshipGroup.Cop.SetRelationshipWith(Constants.HostageRG, Relationship.Respect);
+        RelationshipGroup.Cop.SetRelationshipWith(PoliceRG, Relationship.Respect);
+        RelationshipGroup.Cop.SetRelationshipWith(HostageRG, Relationship.Respect);
 
-        Constants.PoliceRG.SetRelationshipWith(Constants.RobbersRG, Relationship.Hate);
-        Constants.PoliceRG.SetRelationshipWith(Game.LocalPlayer.Character.RelationshipGroup, Relationship.Respect);
-        Constants.PoliceRG.SetRelationshipWith(RelationshipGroup.Cop, Relationship.Respect);
-        Constants.PoliceRG.SetRelationshipWith(Constants.HostageRG, Relationship.Respect);
+        PoliceRG.SetRelationshipWith(RobbersRG, Relationship.Hate);
+        PoliceRG.SetRelationshipWith(Game.LocalPlayer.Character.RelationshipGroup, Relationship.Respect);
+        PoliceRG.SetRelationshipWith(RelationshipGroup.Cop, Relationship.Respect);
+        PoliceRG.SetRelationshipWith(HostageRG, Relationship.Respect);
 
-        Constants.HostageRG.SetRelationshipWith(Game.LocalPlayer.Character.RelationshipGroup, Relationship.Respect);
-        Constants.HostageRG.SetRelationshipWith(RelationshipGroup.Cop, Relationship.Respect);
-        Constants.HostageRG.SetRelationshipWith(Constants.PoliceRG, Relationship.Respect);
+        HostageRG.SetRelationshipWith(Game.LocalPlayer.Character.RelationshipGroup, Relationship.Respect);
+        HostageRG.SetRelationshipWith(RelationshipGroup.Cop, Relationship.Respect);
+        HostageRG.SetRelationshipWith(PoliceRG, Relationship.Respect);
     }
 
-    internal static void UnlockDoorsAlways(PacificBankHeist instance)
+    internal void UnlockDoorsAlways()
     {
-        while (instance.IsCalloutRunning)
+        while (IsCalloutRunning)
         {
             GameFiber.Yield();
-            foreach (var (pos, hash) in Constants.Doors)
+            foreach (var (pos, hash) in Doors)
             {
                 Natives.SET_LOCKED_UNSTREAMED_IN_DOOR_OF_TYPE(hash, pos.X, pos.Y, pos.Z, false, 0f, 0f, 0f);
             }

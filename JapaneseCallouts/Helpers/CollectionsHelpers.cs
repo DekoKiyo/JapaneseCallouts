@@ -2,7 +2,7 @@ namespace JapaneseCallouts.Helpers;
 
 internal static class CollectionsHelpers
 {
-    internal static List<T> Shuffle<T>(this List<T> collection)
+    internal static List<T> Shuffle<T>(this T[] collection)
     {
         var list = new List<T>(collection);
         int n = list.Count;

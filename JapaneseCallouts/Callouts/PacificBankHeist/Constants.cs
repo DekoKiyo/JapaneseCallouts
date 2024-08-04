@@ -1,6 +1,6 @@
 namespace JapaneseCallouts.Callouts.PacificBankHeist;
 
-internal static class Constants
+internal partial class PacificBankHeist
 {
     // Blips sprites
     internal const BlipSprite SPRITE = BlipSprite.CriminalCarsteal;

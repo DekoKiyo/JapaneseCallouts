@@ -10,31 +10,28 @@
 namespace JapaneseCallouts.Callouts.PacificBankHeist;
 
 [CalloutInfo("[JPC] Pacific Bank Heist", CalloutProbability.High)]
-internal class PacificBankHeist : CalloutBase<Configurations>
+internal partial class PacificBankHeist : CalloutBase<Configurations>
 {
     private static GameFiber CopFightingAIGameFiber;
     private static GameFiber RobbersFightingAIGameFiber;
 
     internal readonly List<Entity> CalloutEntities = [];
-    internal readonly PBHConversations conversations = new();
-    internal readonly Variables variables = new();
-    internal readonly PBHNegotiations negotiations = new();
 
     internal override void Setup()
     {
-        CalloutPosition = Constants.BankLocation;
+        CalloutPosition = BankLocation;
         CalloutMessage = Localization.GetString("PacificBankHeist");
         NoLastRadio = true;
         ShowCalloutAreaBlipBeforeAccepting(CalloutPosition, 40f);
         Functions.PlayScannerAudioUsingPosition(Settings.Instance.PacificBankHeistRadioSound, CalloutPosition);
         CalloutInterfaceAPIFunctions.SendMessage(this, Localization.GetString("PacificBankHeistDesc"));
 
-        conversations.IntroConversation =
+        IntroConversation =
         [
             (Settings.Instance.OfficerName, Localization.GetString("Intro1")),
             (Localization.GetString("Commander"), Localization.GetString("Intro2")),
             (Settings.Instance.OfficerName, Localization.GetString("Intro3")),
-            (Localization.GetString("Commander"), Localization.GetString("Intro4", variables.HostageCount.ToString())),
+            (Localization.GetString("Commander"), Localization.GetString("Intro4", HostageCount.ToString())),
             (Localization.GetString("Commander"), Localization.GetString("Intro5")),
             (Localization.GetString("Commander"), Localization.GetString("Intro6")),
             (Localization.GetString("Commander"), Localization.GetString("Intro7")),
@@ -43,61 +40,61 @@ internal class PacificBankHeist : CalloutBase<Configurations>
 
         OnCalloutsEnded += () =>
         {
-            if (variables.BankBlip is not null && variables.BankBlip.IsValid() && variables.BankBlip.Exists())
+            if (BankBlip is not null && BankBlip.IsValid() && BankBlip.Exists())
             {
-                variables.BankBlip.Delete();
+                BankBlip.Delete();
             }
-            if (variables.SideDoorBlip is not null && variables.SideDoorBlip.IsValid() && variables.SideDoorBlip.Exists())
+            if (SideDoorBlip is not null && SideDoorBlip.IsValid() && SideDoorBlip.Exists())
             {
-                variables.SideDoorBlip.Delete();
+                SideDoorBlip.Delete();
             }
-            if (variables.CommanderBlip is not null && variables.CommanderBlip.IsValid() && variables.CommanderBlip.Exists())
+            if (CommanderBlip is not null && CommanderBlip.IsValid() && CommanderBlip.Exists())
             {
-                variables.CommanderBlip.Delete();
+                CommanderBlip.Delete();
             }
-            if (variables.Commander is not null && variables.Commander.IsValid() && variables.Commander.Exists())
+            if (Commander is not null && Commander.IsValid() && Commander.Exists())
             {
-                variables.Commander.Dismiss();
+                Commander.Dismiss();
             }
-            if (variables.Wife is not null && variables.Wife.IsValid() && variables.Wife.Exists())
+            if (Wife is not null && Wife.IsValid() && Wife.Exists())
             {
-                variables.Wife.Delete();
+                Wife.Delete();
             }
-            if (variables.WifeDriver is not null && variables.WifeDriver.IsValid() && variables.WifeDriver.Exists())
+            if (WifeDriver is not null && WifeDriver.IsValid() && WifeDriver.Exists())
             {
-                variables.WifeDriver.Delete();
+                WifeDriver.Delete();
             }
-            if (variables.WifeCar is not null && variables.WifeCar.IsValid() && variables.WifeCar.Exists())
+            if (WifeCar is not null && WifeCar.IsValid() && WifeCar.Exists())
             {
-                variables.WifeCar.Delete();
+                WifeCar.Delete();
             }
-            if (variables.MobilePhone is not null && variables.MobilePhone.IsValid() && variables.MobilePhone.Exists())
+            if (MobilePhone is not null && MobilePhone.IsValid() && MobilePhone.Exists())
             {
-                variables.MobilePhone.Delete();
+                MobilePhone.Delete();
             }
 
-            foreach (var e in variables.AllPoliceVehicles)
+            foreach (var e in AllPoliceVehicles)
             {
                 if (e is not null && e.IsValid() && e.Exists())
                 {
                     e.Delete();
                 }
             }
-            foreach (var e in variables.AllRiot)
+            foreach (var e in AllRiot)
             {
                 if (e is not null && e.IsValid() && e.Exists())
                 {
                     e.Delete();
                 }
             }
-            foreach (var e in variables.AllAmbulance)
+            foreach (var e in AllAmbulance)
             {
                 if (e is not null && e.IsValid() && e.Exists())
                 {
                     e.Delete();
                 }
             }
-            foreach (var e in variables.AllOfficers)
+            foreach (var e in AllOfficers)
             {
                 if (e is not null && e.IsValid() && e.Exists())
                 {
@@ -105,7 +102,7 @@ internal class PacificBankHeist : CalloutBase<Configurations>
                     e.Dismiss();
                 }
             }
-            foreach (var e in variables.AllStandingOfficers)
+            foreach (var e in AllStandingOfficers)
             {
                 if (e is not null && e.IsValid() && e.Exists())
                 {
@@ -113,7 +110,7 @@ internal class PacificBankHeist : CalloutBase<Configurations>
                     e.Dismiss();
                 }
             }
-            foreach (var e in variables.AllAimingOfficers)
+            foreach (var e in AllAimingOfficers)
             {
                 if (e is not null && e.IsValid() && e.Exists())
                 {
@@ -121,7 +118,7 @@ internal class PacificBankHeist : CalloutBase<Configurations>
                     e.Dismiss();
                 }
             }
-            foreach (var e in variables.OfficersArresting)
+            foreach (var e in OfficersArresting)
             {
                 if (e is not null && e.IsValid() && e.Exists())
                 {
@@ -129,7 +126,7 @@ internal class PacificBankHeist : CalloutBase<Configurations>
                     e.Dismiss();
                 }
             }
-            foreach (var e in variables.AllSWATUnits)
+            foreach (var e in AllSWATUnits)
             {
                 if (e is not null && e.IsValid() && e.Exists())
                 {
@@ -137,7 +134,7 @@ internal class PacificBankHeist : CalloutBase<Configurations>
                     e.Dismiss();
                 }
             }
-            foreach (var e in variables.AllRobbers)
+            foreach (var e in AllRobbers)
             {
                 if (e is not null && e.IsValid() && e.Exists())
                 {
@@ -145,7 +142,7 @@ internal class PacificBankHeist : CalloutBase<Configurations>
                     e.Dismiss();
                 }
             }
-            foreach (var e in variables.AllSneakRobbers)
+            foreach (var e in AllSneakRobbers)
             {
                 if (e is not null && e.IsValid() && e.Exists())
                 {
@@ -153,7 +150,7 @@ internal class PacificBankHeist : CalloutBase<Configurations>
                     e.Dismiss();
                 }
             }
-            foreach (var e in variables.AllVaultRobbers)
+            foreach (var e in AllVaultRobbers)
             {
                 if (e is not null && e.IsValid() && e.Exists())
                 {
@@ -161,14 +158,14 @@ internal class PacificBankHeist : CalloutBase<Configurations>
                     e.Dismiss();
                 }
             }
-            foreach (var e in variables.AllBarriersEntities)
+            foreach (var e in AllBarriersEntities)
             {
                 if (e is not null && e.IsValid() && e.Exists())
                 {
                     e.Delete();
                 }
             }
-            foreach (var e in variables.FightingSneakRobbers)
+            foreach (var e in FightingSneakRobbers)
             {
                 if (e is not null && e.IsValid() && e.Exists())
                 {
@@ -176,7 +173,7 @@ internal class PacificBankHeist : CalloutBase<Configurations>
                     e.Dismiss();
                 }
             }
-            foreach (var e in variables.AllHostages)
+            foreach (var e in AllHostages)
             {
                 if (e is not null && e.IsValid() && e.Exists())
                 {
@@ -184,14 +181,14 @@ internal class PacificBankHeist : CalloutBase<Configurations>
                     e.Delete();
                 }
             }
-            foreach (var e in variables.RiotBlips)
+            foreach (var e in RiotBlips)
             {
                 if (e is not null && e.IsValid() && e.Exists())
                 {
                     e.Delete();
                 }
             }
-            foreach (var b in variables.EnemyBlips)
+            foreach (var b in EnemyBlips)
             {
                 b?.Dismiss();
             }
@@ -201,8 +198,8 @@ internal class PacificBankHeist : CalloutBase<Configurations>
     internal override void Accepted()
     {
         // setup alarm
-        variables.BankAlarm = new($"{Main.PLUGIN_DIRECTORY}/{Main.PLUGIN_AUDIO_DIRECTORY}/{Main.ALARM_SOUND_FILE_NAME}");
-        variables.BankAlarm.Load();
+        BankAlarm = new($"{Main.PLUGIN_DIRECTORY}/{Main.PLUGIN_AUDIO_DIRECTORY}/{Main.ALARM_SOUND_FILE_NAME}");
+        BankAlarm.Load();
 
         Hud.DisplayNotification(Localization.GetString("BankHeistWarning"), Main.PLUGIN_NAME, Localization.GetString("BankHeist"));
 
@@ -212,16 +209,16 @@ internal class PacificBankHeist : CalloutBase<Configurations>
         }
         Hud.DisplayNotification(Localization.GetString("PacificBankHeistDesc"), Localization.GetString("Dispatch"), Localization.GetString("BankHeist"));
 
-        variables.DiedHostagesTB = new(Localization.GetString("DiedHostages"), $"{(variables.TotalHostagesCount - variables.AliveHostagesCount).ToString()}")
+        DiedHostagesTB = new(Localization.GetString("DiedHostages"), $"{(TotalHostagesCount - AliveHostagesCount).ToString()}")
         {
             Highlight = HudColor.Green.GetColor(),
         };
-        variables.RescuedHostagesTB = new(Localization.GetString("RescuedHostages"), $"{variables.SafeHostagesCount.ToString()}/{variables.TotalHostagesCount.ToString()}")
+        RescuedHostagesTB = new(Localization.GetString("RescuedHostages"), $"{SafeHostagesCount.ToString()}/{TotalHostagesCount.ToString()}")
         {
             Highlight = HudColor.Blue.GetColor(),
         };
-        variables.TBPool.Add(variables.DiedHostagesTB);
-        variables.TBPool.Add(variables.RescuedHostagesTB);
+        TBPool.Add(DiedHostagesTB);
+        TBPool.Add(RescuedHostagesTB);
         CalloutHandler();
     }
 
@@ -231,16 +228,16 @@ internal class PacificBankHeist : CalloutBase<Configurations>
         {
             try
             {
-                variables.BankBlip = new(CalloutPosition)
+                BankBlip = new(CalloutPosition)
                 {
-                    Sprite = Constants.SPRITE,
+                    Sprite = SPRITE,
                     Color = Color.Yellow,
                     RouteColor = Color.Yellow,
                     IsRouteEnabled = true,
                 };
-                variables.SideDoorBlip = new(new Vector3(258.3f, 200.4f, 104.9f))
+                SideDoorBlip = new(new Vector3(258.3f, 200.4f, 104.9f))
                 {
-                    Sprite = Constants.SPRITE,
+                    Sprite = SPRITE,
                     Color = Color.Yellow,
                 };
 
@@ -255,8 +252,8 @@ internal class PacificBankHeist : CalloutBase<Configurations>
 
                 // Loading models
                 GameFiber.Yield();
-                Constants.BarrierModel.Load();
-                Constants.PhoneModel.Load();
+                BarrierModel.Load();
+                PhoneModel.Load();
 
                 if (Game.LocalPlayer.Character.IsInAnyVehicle(false))
                 {
@@ -275,25 +272,25 @@ internal class PacificBankHeist : CalloutBase<Configurations>
                 // get the weather for select the peds
                 var weather = CalloutHelpers.GetWeatherType(IPTFunctions.GetWeatherType());
 
-                variables.SpeedZoneId = World.AddSpeedZone(CalloutPosition, 200f, 25f);
+                SpeedZoneId = World.AddSpeedZone(CalloutPosition, 200f, 25f);
 
-                PBHFunctions.ClearUnrelatedEntities(this);
-                PBHFunctions.PlaceBarriers(this);
-                PBHFunctions.SpawnVehicles(this);
-                PBHFunctions.SpawnOfficers(this, weather);
-                PBHFunctions.SpawnNegotiationRobbers(this, weather);
-                PBHFunctions.SpawnSneakyRobbers(this, weather);
-                PBHFunctions.SpawnHostages(this, weather);
-                PBHFunctions.SpawnEMS(this, weather);
+                ClearUnrelatedEntities();
+                PlaceBarriers();
+                SpawnVehicles();
+                SpawnOfficers(weather);
+                SpawnNegotiationRobbers( weather);
+                SpawnSneakyRobbers( weather);
+                SpawnHostages( weather);
+                SpawnEMS( weather);
 
                 Game.FrameRender += TimerBarsProcess;
 
-                GameFiber.StartNew(() => PBHFunctions.MakeNearbyPedsFlee(this));
-                GameFiber.StartNew(() => PBHFunctions.SneakyRobbersAI(this));
-                GameFiber.StartNew(() => PBHFunctions.HandleHostages(this));
-                GameFiber.StartNew(() => PBHFunctions.HandleOpenBackRiotVan(this));
-                GameFiber.StartNew(() => PBHFunctions.HandleCalloutAudio(this));
-                GameFiber.StartNew(() => PBHFunctions.UnlockDoorsAlways(this));
+                GameFiber.StartNew(MakeNearbyPedsFlee);
+                GameFiber.StartNew(SneakyRobbersAI);
+                GameFiber.StartNew(HandleHostages);
+                GameFiber.StartNew(HandleOpenBackRiotVan);
+                GameFiber.StartNew(HandleCalloutAudio);
+                GameFiber.StartNew(UnlockDoorsAlways);
 
                 if (Game.LocalPlayer.Character is not null && Game.LocalPlayer.Character.IsValid() && Game.LocalPlayer.Character.Exists() && Game.LocalPlayer.Character.IsAlive)
                 {
@@ -313,27 +310,27 @@ internal class PacificBankHeist : CalloutBase<Configurations>
                     GameFiber.Yield();
 
                     // When player has just arrived
-                    if (variables.Status is EPacificBankHeistStatus.Init)
+                    if (Status is EPacificBankHeistStatus.Init)
                     {
                         if (Game.LocalPlayer.Character is not null && Game.LocalPlayer.Character.IsValid() && Game.LocalPlayer.Character.IsAlive)
                         {
                             if (!Game.LocalPlayer.Character.IsInAnyVehicle(false))
                             {
-                                if (variables.Commander is not null && variables.Commander.IsValid() && variables.Commander.IsAlive)
+                                if (Commander is not null && Commander.IsValid() && Commander.IsAlive)
                                 {
-                                    if (Vector3.Distance(Game.LocalPlayer.Character.Position, variables.Commander.Position) < 4f)
+                                    if (Vector3.Distance(Game.LocalPlayer.Character.Position, Commander.Position) < 4f)
                                     {
                                         Hud.DisplayNotification(Localization.GetString("BankHeistWarning"));
-                                        KeyHelpers.DisplayKeyHelp("PressToTalkWith", [Localization.GetString("Commander"), $"~{Constants.COMMANDER_BLIP.GetIconToken()}~"], Settings.Instance.SpeakWithThePersonKey, Settings.Instance.SpeakWithThePersonModifierKey);
+                                        KeyHelpers.DisplayKeyHelp("PressToTalkWith", [Localization.GetString("Commander"), $"~{COMMANDER_BLIP.GetIconToken()}~"], Settings.Instance.SpeakWithThePersonKey, Settings.Instance.SpeakWithThePersonModifierKey);
                                         if (KeyHelpers.IsKeysDown(Settings.Instance.SpeakWithThePersonKey, Settings.Instance.SpeakWithThePersonModifierKey))
                                         {
-                                            variables.Status = EPacificBankHeistStatus.TalkingToCommander;
-                                            negotiations.DetermineInitialDialogue(this);
+                                            Status = EPacificBankHeistStatus.TalkingToCommander;
+                                            DetermineInitialDialogue();
                                         }
                                     }
                                     else
                                     {
-                                        Hud.DisplayHelp(Localization.GetString("TalkToCommander", $"~{Constants.COMMANDER_BLIP.GetIconToken()}~"));
+                                        Hud.DisplayHelp(Localization.GetString("TalkToCommander", $"~{COMMANDER_BLIP.GetIconToken()}~"));
                                     }
                                 }
                             }
@@ -343,67 +340,67 @@ internal class PacificBankHeist : CalloutBase<Configurations>
                     // Is fighting is initialized
                     if (!fightingPrepared)
                     {
-                        if (variables.Status is EPacificBankHeistStatus.FightingWithRobbers)
+                        if (Status is EPacificBankHeistStatus.FightingWithRobbers)
                         {
-                            PBHFunctions.SpawnAssaultRobbers(this, weather);
+                            SpawnAssaultRobbers( weather);
 
                             if (Main.MT.Next(10) is < 3)
                             {
-                                PBHFunctions.SpawnVaultRobbers(this, weather);
+                                SpawnVaultRobbers( weather);
                             }
 
-                            foreach (var cop in variables.AllOfficers)
+                            foreach (var cop in AllOfficers)
                             {
-                                cop.RelationshipGroup = Constants.PoliceRG;
+                                cop.RelationshipGroup = PoliceRG;
                             }
-                            foreach (var cop in variables.AllSWATUnits)
+                            foreach (var cop in AllSWATUnits)
                             {
-                                cop.RelationshipGroup = Constants.PoliceRG;
+                                cop.RelationshipGroup = PoliceRG;
                             }
-                            foreach (var robber in variables.AllRobbers)
+                            foreach (var robber in AllRobbers)
                             {
                                 var blip = new BlipPlus(robber, HudColor.Enemy.GetColor(), BlipSprite.Enemy);
-                                variables.EnemyBlips.Add(blip);
-                                robber.RelationshipGroup = Constants.RobbersRG;
+                                EnemyBlips.Add(blip);
+                                robber.RelationshipGroup = RobbersRG;
                             }
-                            foreach (var robber in variables.AllSneakRobbers)
+                            foreach (var robber in AllSneakRobbers)
                             {
                                 if (robber is not null)
                                 {
                                     var blip = new BlipPlus(robber, HudColor.Enemy.GetColor(), BlipSprite.Enemy);
-                                    variables.EnemyBlips.Add(blip);
-                                    robber.RelationshipGroup = Constants.SneakRobbersRG;
+                                    EnemyBlips.Add(blip);
+                                    robber.RelationshipGroup = SneakRobbersRG;
                                 }
                             }
-                            foreach (var hostage in variables.AllHostages)
+                            foreach (var hostage in AllHostages)
                             {
                                 var blip = new BlipPlus(hostage, HudColor.Michael.GetColor(), BlipSprite.Friend);
-                                variables.EnemyBlips.Add(blip);
-                                hostage.RelationshipGroup = Constants.HostageRG;
+                                EnemyBlips.Add(blip);
+                                hostage.RelationshipGroup = HostageRG;
                             }
 
-                            PBHFunctions.SetRelationships();
+                            SetRelationships();
 
-                            CopFightingAIGameFiber = GameFiber.StartNew(() => PBHFunctions.CopFightingAI(this));
-                            RobbersFightingAIGameFiber = GameFiber.StartNew(() => PBHFunctions.RobbersFightingAI(this));
-                            GameFiber.StartNew(() => PBHFunctions.CheckForRobbersOutside(this));
+                            CopFightingAIGameFiber = GameFiber.StartNew( CopFightingAI);
+                            RobbersFightingAIGameFiber = GameFiber.StartNew(RobbersFightingAI);
+                            GameFiber.StartNew(CheckForRobbersOutside);
 
                             fightingPrepared = true;
                         }
                     }
 
                     // If player talks to cpt wells during fight
-                    if (variables.Status is EPacificBankHeistStatus.FightingWithRobbers)
+                    if (Status is EPacificBankHeistStatus.FightingWithRobbers)
                     {
                         if (Game.LocalPlayer.Character is not null && Game.LocalPlayer.Character.IsValid() && Game.LocalPlayer.Character.IsAlive)
                         {
                             if (!Game.LocalPlayer.Character.IsInAnyVehicle(false))
                             {
-                                if (variables.Commander is not null && variables.Commander.IsValid() && variables.Commander.Exists())
+                                if (Commander is not null && Commander.IsValid() && Commander.Exists())
                                 {
-                                    if (Vector3.Distance(Game.LocalPlayer.Character.Position, variables.Commander.Position) < 3f)
+                                    if (Vector3.Distance(Game.LocalPlayer.Character.Position, Commander.Position) < 3f)
                                     {
-                                        KeyHelpers.DisplayKeyHelp("PressToTalkWith", [Localization.GetString("Commander"), $"~{Constants.COMMANDER_BLIP.GetIconToken()}~"], Settings.Instance.SpeakWithThePersonKey, Settings.Instance.SpeakWithThePersonModifierKey);
+                                        KeyHelpers.DisplayKeyHelp("PressToTalkWith", [Localization.GetString("Commander"), $"~{COMMANDER_BLIP.GetIconToken()}~"], Settings.Instance.SpeakWithThePersonKey, Settings.Instance.SpeakWithThePersonModifierKey);
                                         if (KeyHelpers.IsKeysDown(Settings.Instance.SpeakWithThePersonKey, Settings.Instance.SpeakWithThePersonModifierKey))
                                         {
                                             Conversations.Talk([(Localization.GetString("Commander"), Localization.GetString("StillFighting"))]);
@@ -415,50 +412,50 @@ internal class PacificBankHeist : CalloutBase<Configurations>
                     }
 
                     // Make everyone fight if player enters bank
-                    if (variables.Status is not EPacificBankHeistStatus.FightingWithRobbers and not EPacificBankHeistStatus.Surrendering)
+                    if (Status is not EPacificBankHeistStatus.FightingWithRobbers and not EPacificBankHeistStatus.Surrendering)
                     {
-                        foreach (var check in Constants.PacificBankInsideChecks)
+                        foreach (var check in PacificBankInsideChecks)
                         {
                             if (Game.LocalPlayer.Character is not null && Game.LocalPlayer.Character.IsValid() && Game.LocalPlayer.Character.IsAlive)
                             {
                                 if (Vector3.Distance(check, Game.LocalPlayer.Character.Position) < 2.3f)
                                 {
-                                    variables.Status = EPacificBankHeistStatus.FightingWithRobbers;
+                                    Status = EPacificBankHeistStatus.FightingWithRobbers;
                                 }
                             }
                         }
                     }
 
                     // If all hostages rescued break
-                    if (variables.SafeHostagesCount == variables.AliveHostagesCount) break;
+                    if (SafeHostagesCount == AliveHostagesCount) break;
                     // If surrendered
-                    if (variables.SurrenderComplete) break;
+                    if (SurrenderComplete) break;
 
                     if (KeyHelpers.IsKeysDown(Settings.Instance.SWATFollowKey, Settings.Instance.SWATFollowModifierKey))
                     {
-                        PBHFunctions.SwitchSWATFollowing(this);
+                        SwitchSWATFollowing();
                     }
 
-                    if (variables.IsSWATFollowing)
+                    if (IsSWATFollowing)
                     {
                         if (Game.LocalPlayer.Character.IsShooting)
                         {
-                            variables.IsSWATFollowing = false;
+                            IsSWATFollowing = false;
                             Hud.DisplayHelp(Localization.GetString("SWATIsNotFollowing"));
                         }
                     }
                 }
 
                 // When surrendered
-                if (variables.SurrenderComplete) PBHFunctions.CopFightingAI(this);
+                if (SurrenderComplete) CopFightingAI();
 
-                PBHFunctions.SetRelationships();
+                SetRelationships();
 
                 while (IsCalloutRunning)
                 {
                     GameFiber.Yield();
 
-                    if (variables.SafeHostagesCount == variables.AliveHostagesCount)
+                    if (SafeHostagesCount == AliveHostagesCount)
                     {
                         GameFiber.Wait(3000);
                         break;
@@ -466,14 +463,14 @@ internal class PacificBankHeist : CalloutBase<Configurations>
 
                     if (KeyHelpers.IsKeysDown(Settings.Instance.SWATFollowKey, Settings.Instance.SWATFollowModifierKey))
                     {
-                        PBHFunctions.SwitchSWATFollowing(this);
+                        SwitchSWATFollowing();
                     }
 
-                    if (variables.IsSWATFollowing)
+                    if (IsSWATFollowing)
                     {
                         if (Game.LocalPlayer.Character.IsShooting)
                         {
-                            variables.IsSWATFollowing = false;
+                            IsSWATFollowing = false;
                             Hud.DisplayHelp(Localization.GetString("SWATIsNotFollowing"));
                         }
                     }
@@ -482,18 +479,18 @@ internal class PacificBankHeist : CalloutBase<Configurations>
                     {
                         if (!Game.LocalPlayer.Character.IsInAnyVehicle(false))
                         {
-                            if (variables.Commander is not null && variables.Commander.IsValid() && variables.Commander.Exists())
+                            if (Commander is not null && Commander.IsValid() && Commander.Exists())
                             {
-                                if (Vector3.Distance(Game.LocalPlayer.Character.Position, variables.Commander.Position) < 4f)
+                                if (Vector3.Distance(Game.LocalPlayer.Character.Position, Commander.Position) < 4f)
                                 {
                                     KeyHelpers.DisplayKeyHelp("PressToTalk", [Localization.GetString("Commander")], Settings.Instance.SpeakWithThePersonKey, Settings.Instance.SpeakWithThePersonModifierKey);
                                     if (KeyHelpers.IsKeysDown(Settings.Instance.SpeakWithThePersonKey, Settings.Instance.SpeakWithThePersonModifierKey))
                                     {
-                                        if (!variables.TalkedToCommander2nd)
+                                        if (!TalkedToCommander2nd)
                                         {
-                                            Conversations.Talk(conversations.AfterSurrendered);
-                                            variables.TalkedToCommander2nd = true;
-                                            variables.Status = EPacificBankHeistStatus.FightingWithRobbers;
+                                            Conversations.Talk(AfterSurrendered);
+                                            TalkedToCommander2nd = true;
+                                            Status = EPacificBankHeistStatus.FightingWithRobbers;
                                             KeyHelpers.DisplayKeyHelp("SWATFollowing", Settings.Instance.SWATFollowKey, Settings.Instance.SWATFollowModifierKey);
                                         }
                                         else
@@ -504,9 +501,9 @@ internal class PacificBankHeist : CalloutBase<Configurations>
                                 }
                                 else
                                 {
-                                    if (!variables.TalkedToCommander2nd)
+                                    if (!TalkedToCommander2nd)
                                     {
-                                        Hud.DisplayHelp(Localization.GetString("TalkTo", Localization.GetString("Commander"), $"~{Constants.COMMANDER_BLIP.GetIconToken()}~"));
+                                        Hud.DisplayHelp(Localization.GetString("TalkTo", Localization.GetString("Commander"), $"~{COMMANDER_BLIP.GetIconToken()}~"));
                                     }
                                 }
                             }
@@ -515,8 +512,8 @@ internal class PacificBankHeist : CalloutBase<Configurations>
                 }
 
                 // The end
-                variables.Status = EPacificBankHeistStatus.Last;
-                variables.CurrentAlarmState = AlarmState.None;
+                Status = EPacificBankHeistStatus.Last;
+                CurrentAlarmState = AlarmState.None;
 
                 while (IsCalloutRunning)
                 {
@@ -526,28 +523,28 @@ internal class PacificBankHeist : CalloutBase<Configurations>
                     {
                         if (!Game.LocalPlayer.Character.IsInAnyVehicle(false))
                         {
-                            if (Vector3.Distance(Game.LocalPlayer.Character.Position, variables.Commander.Position) < 4f)
+                            if (Vector3.Distance(Game.LocalPlayer.Character.Position, Commander.Position) < 4f)
                             {
-                                KeyHelpers.DisplayKeyHelp("PressToTalkWith", [Localization.GetString("Commander"), $"~{Constants.COMMANDER_BLIP.GetIconToken()}~"], Settings.Instance.SpeakWithThePersonKey, Settings.Instance.SpeakWithThePersonModifierKey);
+                                KeyHelpers.DisplayKeyHelp("PressToTalkWith", [Localization.GetString("Commander"), $"~{COMMANDER_BLIP.GetIconToken()}~"], Settings.Instance.SpeakWithThePersonKey, Settings.Instance.SpeakWithThePersonModifierKey);
                                 if (KeyHelpers.IsKeysDown(Settings.Instance.SpeakWithThePersonKey, Settings.Instance.SpeakWithThePersonModifierKey))
                                 {
                                     evaluatedWithCommander = true;
-                                    Conversations.Talk(conversations.Final);
+                                    Conversations.Talk(Final);
                                     GameFiber.Wait(5000);
-                                    PBHFunctions.DetermineResults(this);
+                                    DetermineResults();
                                     GameFiber.Wait(2500);
                                     break;
                                 }
                             }
                             else
                             {
-                                Hud.DisplayHelp(Localization.GetString("TalkTo", Localization.GetString("Commander"), $"~{Constants.COMMANDER_BLIP.GetIconToken()}~"));
+                                Hud.DisplayHelp(Localization.GetString("TalkTo", Localization.GetString("Commander"), $"~{COMMANDER_BLIP.GetIconToken()}~"));
                             }
                         }
                     }
                 }
 
-                variables.IsCalloutFinished = true;
+                IsCalloutFinished = true;
                 End();
             }
             catch (Exception e)
@@ -560,17 +557,17 @@ internal class PacificBankHeist : CalloutBase<Configurations>
 
     private void TimerBarsProcess(object sender, GraphicsEventArgs e)
     {
-        if (variables.Status is EPacificBankHeistStatus.FightingWithRobbers || (variables.SurrenderComplete && variables.Status is EPacificBankHeistStatus.TalkingToCommander2nd))
+        if (Status is EPacificBankHeistStatus.FightingWithRobbers || (SurrenderComplete && Status is EPacificBankHeistStatus.TalkingToCommander2nd))
         {
-            if (variables.TBPool is not null)
+            if (TBPool is not null)
             {
-                variables.RescuedHostagesTB.Text = $"{variables.SafeHostagesCount.ToString()}/{variables.TotalHostagesCount.ToString()}";
-                variables.DiedHostagesTB.Text = $"{(variables.TotalHostagesCount - variables.AliveHostagesCount).ToString()}";
-                variables.DiedHostagesTB.Highlight = variables.TotalHostagesCount - variables.AliveHostagesCount is > 0 ? HudColor.Red.GetColor() : HudColor.Green.GetColor();
-                variables.TBPool.Draw();
+                RescuedHostagesTB.Text = $"{SafeHostagesCount.ToString()}/{TotalHostagesCount.ToString()}";
+                DiedHostagesTB.Text = $"{(TotalHostagesCount - AliveHostagesCount).ToString()}";
+                DiedHostagesTB.Highlight = TotalHostagesCount - AliveHostagesCount is > 0 ? HudColor.Red.GetColor() : HudColor.Green.GetColor();
+                TBPool.Draw();
             }
         }
-        if (!IsCalloutRunning || variables.Status is EPacificBankHeistStatus.Last)
+        if (!IsCalloutRunning || Status is EPacificBankHeistStatus.Last)
         {
             Game.FrameRender -= TimerBarsProcess;
         }

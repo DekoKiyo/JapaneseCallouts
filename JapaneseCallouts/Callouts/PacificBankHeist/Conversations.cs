@@ -1,9 +1,7 @@
 namespace JapaneseCallouts.Callouts.PacificBankHeist;
 
-internal class PBHConversations
+internal partial class PacificBankHeist
 {
-    internal PBHConversations() { }
-
     internal (string, string)[] IntroConversation;
     internal readonly Dictionary<string, Keys> IntroSelection = new()
     {

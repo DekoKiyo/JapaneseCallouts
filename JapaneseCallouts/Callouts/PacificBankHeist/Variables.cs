@@ -1,9 +1,7 @@
 namespace JapaneseCallouts.Callouts.PacificBankHeist;
 
-internal class Variables
+internal partial class PacificBankHeist
 {
-    internal Variables() { }
-
     internal EPacificBankHeistStatus Status = EPacificBankHeistStatus.Init;
 
     internal bool IsNegotiationSucceed = false;
@@ -22,7 +20,7 @@ internal class Variables
     internal RObject MobilePhone;
     internal readonly TimerBarPool TBPool = [];
     internal TextTimerBar RescuedHostagesTB, DiedHostagesTB;
-    internal readonly int HostageCount = XmlManager.PacificBankHeistConfig.HostageCount > XmlManager.PacificBankHeistConfig.HostagePositions.Count ? XmlManager.PacificBankHeistConfig.HostagePositions.Count : XmlManager.PacificBankHeistConfig.HostageCount;
+    internal readonly int HostageCount = Configuration.HostageCount > Configuration.HostagePositions.Length ? Configuration.HostagePositions.Length : Configuration.HostageCount;
     internal int AliveHostagesCount = 0, SafeHostagesCount = 0, TotalHostagesCount = 0, DiedRobbersCount = 0, FightingPacksUsed = 0;
     internal uint SpeedZoneId;
 
