@@ -65,16 +65,27 @@ internal abstract class CalloutBase : Callout
 
     internal static void RegisterAllCallouts()
     {
-        Functions.RegisterCallout(typeof(BankHeist));
-        Functions.RegisterCallout(typeof(DrunkGuys));
-        Functions.RegisterCallout(typeof(Escort));
-        Functions.RegisterCallout(typeof(HotPursuit));
-        Functions.RegisterCallout(typeof(StolenVehicle));
-        Functions.RegisterCallout(typeof(StoreRobbery));
-        Functions.RegisterCallout(typeof(PacificBankHeist));
-        Functions.RegisterCallout(typeof(RoadRage));
-        Functions.RegisterCallout(typeof(StreetFight));
-        Functions.RegisterCallout(typeof(WantedCriminalFound));
-        // Functions.RegisterCallout(typeof(YakuzaActivity));
+        RegisterCallout<BankHeist>(Settings.EnableBankHeist);
+        RegisterCallout<PacificBankHeist>(Settings.EnablePacificBankHeist);
+        RegisterCallout<DrunkGuys>(Settings.EnableDrunkGuys);
+        RegisterCallout<RoadRage>(Settings.EnableRoadRage);
+        RegisterCallout<StolenVehicle>(Settings.EnableStolenVehicle);
+        RegisterCallout<StoreRobbery>(Settings.EnableStoreRobbery);
+        RegisterCallout<HotPursuit>(Settings.EnableHotPursuit);
+        RegisterCallout<WantedCriminalFound>(Settings.EnableWantedCriminalFound);
+        RegisterCallout<StreetFight>(Settings.EnableStreetFight);
+    }
+
+    private static void RegisterCallout<T>(bool enabled) where T : CalloutBase
+    {
+        if (enabled)
+        {
+            Functions.RegisterCallout(typeof(T));
+            Main.Logger.Info($"The callout {nameof(T)} was registered.");
+        }
+        else
+        {
+            Main.Logger.Info($"The callout {nameof(T)} was not registered. The callout was skipped loading with setting.");
+        }
     }
 }

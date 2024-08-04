@@ -1,9 +1,11 @@
 namespace JapaneseCallouts;
 
-internal static class Settings
+internal class Settings
 {
     private static FileIniDataParser Parser { get; } = new();
     private static IniData Ini { get; } = Parser.ReadFile($"{Main.LSPDFR_DIRECTORY}/{Main.SETTINGS_INI_FILE}", Encoding.UTF8);
+
+    internal static Settings Instance { get; } = new();
 
     internal static string OfficerName { get; private set; } = "Officer";
     internal static bool EnableAutoUpdate { get; private set; } = false;
@@ -21,18 +23,33 @@ internal static class Settings
     internal static Keys EnterRiotVanKey { get; private set; } = Keys.Enter;
     internal static Keys EnterRiotVanModifierKey { get; private set; } = Keys.None;
 
-    internal static string BankHeistRadioSound { get; set; } = "WE_HAVE JP_CRIME_BANK_ROBBERY IN_OR_ON_POSITION UNITS_RESPOND_CODE_99";
-    internal static string PacificBankHeistRadioSound { get; set; } = "CITIZENS_REPORT JP_CRIME_BANK_ROBBERY IN_OR_ON_POSITION UNITS_RESPOND_CODE_99";
-    internal static string DrunkGuysRadioSound { get; set; } = "CITIZENS_REPORT JP_CRIME_ACCIDENT IN_OR_ON_POSITION";
-    internal static string RoadRageRadioSound { get; set; } = "CITIZENS_REPORT JP_CRIME_TRAFFIC_VIOLATION IN_OR_ON_POSITION";
-    internal static string StolenVehicleRadioSound { get; set; } = "WE_HAVE JP_CRIME_STOLEN_VEHICLE IN_OR_ON_POSITION";
-    internal static string StoreRobberyRadioSound { get; set; } = "CITIZENS_REPORT CRIME_ROBBERY IN_OR_ON_POSITION";
-    internal static string HotPursuitRadioSound { get; set; } = "WE_HAVE CRIME_GRAND_THEFT_AUTO IN_OR_ON_POSITION";
-    internal static string WantedCriminalFoundRadioSound { get; set; } = "ATTENTION_ALL_UNITS WE_HAVE JP_CRIME_SUSPECT_RESISTING_ARREST IN_OR_ON_POSITION";
-    internal static string StreetFightRadioSound { get; set; } = "ATTENTION_ALL_UNITS WE_HAVE JP_CRIME_CIVIL_DISTURBANCE IN_OR_ON_POSITION";
+    internal static string BankHeistRadioSound { get; private set; } = "WE_HAVE JP_CRIME_BANK_ROBBERY IN_OR_ON_POSITION UNITS_RESPOND_CODE_99";
+    internal static string PacificBankHeistRadioSound { get; private set; } = "CITIZENS_REPORT JP_CRIME_BANK_ROBBERY IN_OR_ON_POSITION UNITS_RESPOND_CODE_99";
+    internal static string DrunkGuysRadioSound { get; private set; } = "CITIZENS_REPORT JP_CRIME_ACCIDENT IN_OR_ON_POSITION";
+    internal static string RoadRageRadioSound { get; private set; } = "CITIZENS_REPORT JP_CRIME_TRAFFIC_VIOLATION IN_OR_ON_POSITION";
+    internal static string StolenVehicleRadioSound { get; private set; } = "WE_HAVE JP_CRIME_STOLEN_VEHICLE IN_OR_ON_POSITION";
+    internal static string StoreRobberyRadioSound { get; private set; } = "CITIZENS_REPORT CRIME_ROBBERY IN_OR_ON_POSITION";
+    internal static string HotPursuitRadioSound { get; private set; } = "WE_HAVE CRIME_GRAND_THEFT_AUTO IN_OR_ON_POSITION";
+    internal static string WantedCriminalFoundRadioSound { get; private set; } = "ATTENTION_ALL_UNITS WE_HAVE JP_CRIME_SUSPECT_RESISTING_ARREST IN_OR_ON_POSITION";
+    internal static string StreetFightRadioSound { get; private set; } = "ATTENTION_ALL_UNITS WE_HAVE JP_CRIME_CIVIL_DISTURBANCE IN_OR_ON_POSITION";
+
+    internal static bool EnableBankHeist { get; private set; } = true;
+    internal static bool EnablePacificBankHeist { get; private set; } = true;
+    internal static bool EnableDrunkGuys { get; private set; } = true;
+    internal static bool EnableRoadRage { get; private set; } = true;
+    internal static bool EnableStolenVehicle { get; private set; } = true;
+    internal static bool EnableStoreRobbery { get; private set; } = true;
+    internal static bool EnableHotPursuit { get; private set; } = true;
+    internal static bool EnableWantedCriminalFound { get; private set; } = true;
+    internal static bool EnableStreetFight { get; private set; } = true;
+
+    internal Settings()
+    {
+        Init();
+    }
 
     [ConsoleCommand(Name = "JPC_ReloadSettings", Description = "Reload Japanese Callouts' settings.")]
-    internal static void Initialize()
+    private void Init()
     {
         OfficerName = Ini["General"][nameof(OfficerName)] ??= "Officer";
         Localization.Language = (ELanguages)int.Parse(Ini["General"][nameof(Localization.Language)]);
@@ -61,13 +78,23 @@ internal static class Settings
         WantedCriminalFoundRadioSound = Ini["Sounds"][nameof(WantedCriminalFoundRadioSound)] ??= "ATTENTION_ALL_UNITS WE_HAVE JP_CRIME_SUSPECT_RESISTING_ARREST IN_OR_ON_POSITION";
         StreetFightRadioSound = Ini["Sounds"][nameof(StreetFightRadioSound)] ??= "ATTENTION_ALL_UNITS WE_HAVE JP_CRIME_CIVIL_DISTURBANCE IN_OR_ON_POSITION";
 
+        EnableBankHeist = bool.Parse(Ini["Callouts"][nameof(EnableBankHeist)] ??= "true");
+        EnablePacificBankHeist = bool.Parse(Ini["Callouts"][nameof(EnablePacificBankHeist)] ??= "true");
+        EnableDrunkGuys = bool.Parse(Ini["Callouts"][nameof(EnableDrunkGuys)] ??= "true");
+        EnableRoadRage = bool.Parse(Ini["Callouts"][nameof(EnableRoadRage)] ??= "true");
+        EnableStolenVehicle = bool.Parse(Ini["Callouts"][nameof(EnableStolenVehicle)] ??= "true");
+        EnableStoreRobbery = bool.Parse(Ini["Callouts"][nameof(EnableStoreRobbery)] ??= "true");
+        EnableHotPursuit = bool.Parse(Ini["Callouts"][nameof(EnableHotPursuit)] ??= "true");
+        EnableWantedCriminalFound = bool.Parse(Ini["Callouts"][nameof(EnableWantedCriminalFound)] ??= "true");
+        EnableStreetFight = bool.Parse(Ini["Callouts"][nameof(EnableStreetFight)] ??= "true");
+
+        // Log
         Main.Logger.Info("=================== Japanese Callouts Settings ===================");
         Main.Logger.Info("General Settings", "Settings");
         Main.Logger.Info($"{nameof(OfficerName)}: {OfficerName.ToString()}", "Settings");
         Main.Logger.Info($"{nameof(Localization.Language)}: {Localization.Language.ToString()}", "Settings");
         Main.Logger.Info($"{nameof(EnableAutoUpdate)}: {EnableAutoUpdate.ToString()}", "Settings");
-        Main.Logger.Info(string.Empty);
-        Main.Logger.Info("Keys Settings", "Settings");
+        Main.Logger.Info("\nKeys Settings", "Settings");
         Main.Logger.Info($"{nameof(EndCalloutsKey)}: {EndCalloutsKey.ToString()}", "Settings");
         Main.Logger.Info($"{nameof(EndCalloutsModifierKey)}: {EndCalloutsModifierKey.ToString()}", "Settings");
         Main.Logger.Info($"{nameof(SpeakWithThePersonKey)}: {SpeakWithThePersonKey.ToString()}", "Settings");
@@ -80,8 +107,7 @@ internal static class Settings
         Main.Logger.Info($"{nameof(HostageRescueModifierKey)}: {HostageRescueModifierKey.ToString()}", "Settings");
         Main.Logger.Info($"{nameof(EnterRiotVanKey)}: {EnterRiotVanKey.ToString()}", "Settings");
         Main.Logger.Info($"{nameof(EnterRiotVanModifierKey)}: {EnterRiotVanModifierKey.ToString()}", "Settings");
-        Main.Logger.Info(string.Empty);
-        Main.Logger.Info($"Sounds Settings", "Settings");
+        Main.Logger.Info("\nSounds Settings", "Settings");
         Main.Logger.Info($"{nameof(BankHeistRadioSound)}: {BankHeistRadioSound.ToString()}", "Settings");
         Main.Logger.Info($"{nameof(PacificBankHeistRadioSound)}: {PacificBankHeistRadioSound.ToString()}", "Settings");
         Main.Logger.Info($"{nameof(DrunkGuysRadioSound)}: {DrunkGuysRadioSound.ToString()}", "Settings");
@@ -91,6 +117,16 @@ internal static class Settings
         Main.Logger.Info($"{nameof(HotPursuitRadioSound)}: {HotPursuitRadioSound.ToString()}", "Settings");
         Main.Logger.Info($"{nameof(WantedCriminalFoundRadioSound)}: {WantedCriminalFoundRadioSound.ToString()}", "Settings");
         Main.Logger.Info($"{nameof(StreetFightRadioSound)}: {StreetFightRadioSound.ToString()}", "Settings");
+        Main.Logger.Info("\nCallouts Settings");
+        Main.Logger.Info($"{nameof(EnableBankHeist)}: {EnableBankHeist.ToString().ToLower()}", "Settings");
+        Main.Logger.Info($"{nameof(EnablePacificBankHeist)}: {EnablePacificBankHeist.ToString().ToLower()}", "Settings");
+        Main.Logger.Info($"{nameof(EnableDrunkGuys)}: {EnableDrunkGuys.ToString().ToLower()}", "Settings");
+        Main.Logger.Info($"{nameof(EnableRoadRage)}: {EnableRoadRage.ToString().ToLower()}", "Settings");
+        Main.Logger.Info($"{nameof(EnableStolenVehicle)}: {EnableStolenVehicle.ToString().ToLower()}", "Settings");
+        Main.Logger.Info($"{nameof(EnableStoreRobbery)}: {EnableStoreRobbery.ToString().ToLower()}", "Settings");
+        Main.Logger.Info($"{nameof(EnableHotPursuit)}: {EnableHotPursuit.ToString().ToLower()}", "Settings");
+        Main.Logger.Info($"{nameof(EnableWantedCriminalFound)}: {EnableWantedCriminalFound.ToString().ToLower()}", "Settings");
+        Main.Logger.Info($"{nameof(EnableStreetFight)}: {EnableStreetFight.ToString().ToLower()}", "Settings");
         Main.Logger.Info("=================== Japanese Callouts Settings ===================");
     }
 }
