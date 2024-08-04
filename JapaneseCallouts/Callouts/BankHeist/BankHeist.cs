@@ -1,4 +1,4 @@
-namespace JapaneseCallouts.Callouts;
+namespace JapaneseCallouts.Callouts.BankHeist;
 
 [CalloutInfo("[JPC] Bank Heist", CalloutProbability.High)]
 internal class BankHeist : CalloutBase

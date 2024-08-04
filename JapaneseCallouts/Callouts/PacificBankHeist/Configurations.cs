@@ -3,94 +3,100 @@ namespace JapaneseCallouts.Callouts.PacificBankHeist;
 internal class Configurations
 {
     // Numbers
-    [JsonProperty]
+    [JsonProperty("hostage_count")]
     public int HostageCount { get; set; }
-    [JsonProperty]
+    [JsonProperty("wife_name")]
     public string WifeName { get; set; }
 
     // Entities
-    [JsonProperty]
+    [JsonProperty("police_cruisers")]
     public VehicleConfig[] PoliceCruisers { get; set; }
-    [JsonProperty]
+    [JsonProperty("police_transporters")]
     public VehicleConfig[] PoliceTransporters { get; set; }
-    [JsonProperty]
+    [JsonProperty("police_riots")]
     public VehicleConfig[] PoliceRiots { get; set; }
-    [JsonProperty]
+    [JsonProperty("ambulances")]
     public VehicleConfig[] Ambulances { get; set; }
-    [JsonProperty]
+    [JsonProperty("firetrucks")]
     public VehicleConfig[] Firetrucks { get; set; }
-    [JsonProperty]
+    [JsonProperty("police_officers_models")]
     public PedConfig[] PoliceOfficerModels { get; set; }
-    [JsonProperty]
+    [JsonProperty("police_swat_models")]
     public PedConfig[] PoliceSWATModels { get; set; }
-    [JsonProperty]
+    [JsonProperty("paramedic_models")]
     public PedConfig[] ParamedicModels { get; set; }
-    [JsonProperty]
+    [JsonProperty("firefighter_models")]
     public PedConfig[] FirefighterModels { get; set; }
-    [JsonProperty]
+    [JsonProperty("commander_models")]
     public PedConfig[] CommanderModels { get; set; }
-    [JsonProperty]
+    [JsonProperty("wife_models")]
     public PedConfig[] WifeModels { get; set; }
-    [JsonProperty]
+    [JsonProperty("robber_models")]
     public PedConfig[] RobberModels { get; set; }
-    [JsonProperty]
+    [JsonProperty("hostage_models")]
     public PedConfig[] HostageModels { get; set; }
-    [JsonProperty]
+    [JsonProperty("officer_weapons")]
     public WeaponConfig[] OfficerWeapons { get; set; }
-    [JsonProperty]
+    [JsonProperty("swat_weapons")]
     public WeaponConfig[] SWATWeapons { get; set; }
-    [JsonProperty]
+    [JsonProperty("robbers_weapons")]
     public WeaponConfig[] RobbersWeapons { get; set; }
-    [JsonProperty]
+    [JsonProperty("robbers_sub_weapons")]
     public WeaponConfig[] RobbersThrowableWeapons { get; set; }
-    [JsonProperty]
+    [JsonProperty("weapon_in_riot")]
     public WeaponConfig[] WeaponInRiot { get; set; }
 
     // Positions
-    [JsonProperty]
+    [JsonProperty("police_cruiser_positions")]
     public Position[] PoliceCruiserPositions { get; set; }
-    [JsonProperty]
+    [JsonProperty("police_transporter_positions")]
     public Position[] PoliceTransportPositions { get; set; }
-    [JsonProperty]
+    [JsonProperty("riot_positions")]
     public Position[] RiotPositions { get; set; }
-    [JsonProperty]
+    [JsonProperty("ambulance_positions")]
     public Position[] AmbulancePositions { get; set; }
-    [JsonProperty]
+    [JsonProperty("firetruck_positions")]
     public Position[] FiretruckPositions { get; set; }
-    [JsonProperty]
+    [JsonProperty("barrier_positions")]
     public Position[] BarrierPositions { get; set; }
-    [JsonProperty]
+    [JsonProperty("aiming_officer_positions")]
     public Position[] AimingOfficerPositions { get; set; }
-    [JsonProperty]
+    [JsonProperty("standing_officer_positions")]
     public Position[] StandingOfficerPositions { get; set; }
-    [JsonProperty]
+    [JsonProperty("normal_robbers_positions")]
     public Position[] NormalRobbersPositions { get; set; }
-    [JsonProperty]
+    [JsonProperty("robbers_negotiation_positions")]
     public Position[] RobbersNegotiationPositions { get; set; }
-    [JsonProperty]
+    [JsonProperty("robbers_sneak_position")]
     public RobbersSneakPosition[] RobbersSneakPosition { get; set; }
-    [JsonProperty]
+    [JsonProperty("robbers_in_vault_positions")]
     public Position[] RobbersInVaultPositions { get; set; }
-    [JsonProperty]
+    [JsonProperty("robbers_surrendering_positions")]
     public Position[] RobbersSurrenderingPositions { get; set; }
-    [JsonProperty]
+    [JsonProperty("firefighter_positions")]
     public Position[] FirefighterPositions { get; set; }
-    [JsonProperty]
+    [JsonProperty("paramedic_positions")]
     public Position[] ParamedicPositions { get; set; }
-    [JsonProperty]
+    [JsonProperty("left_sitting_swat_positions")]
     public Position[] LeftSittingSWATPositions { get; set; }
-    [JsonProperty]
+    [JsonProperty("right_sitting_swat_positions")]
     public Position[] RightSittingSWATPositions { get; set; }
-    [JsonProperty]
+    [JsonProperty("right_looking_swat_positions")]
     public Position[] RightLookingSWATPositions { get; set; }
-    [JsonProperty]
+    [JsonProperty("hostage_positions")]
     public PositionBase[] HostagePositions { get; set; }
-    [XmlElement]
+    [JsonProperty("hostage_safe_position")]
     public Position HostageSafePosition { get; set; }
-    [XmlElement]
+    [JsonProperty("commander_position")]
     public Position CommanderPosition { get; set; }
-    [XmlElement]
+    [JsonProperty("wife_position")]
     public Position WifePosition { get; set; }
-    [XmlElement]
+    [JsonProperty("wife_vehicle_destination")]
     public PositionBase WifeVehicleDestination { get; set; }
+}
+
+internal class RobbersSneakPosition : Position
+{
+    [JsonProperty("is_right")]
+    internal bool IsRight { get; set; }
 }

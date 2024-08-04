@@ -1,4 +1,4 @@
-namespace JapaneseCallouts.Callouts;
+namespace JapaneseCallouts.Callouts.StreetFight;
 
 [CalloutInfo("[JPC] Street Fight", CalloutProbability.Medium)]
 internal class StreetFight : CalloutBase

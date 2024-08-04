@@ -2,16 +2,16 @@ namespace JapaneseCallouts.Configurations;
 
 internal class PositionBase
 {
-    [JsonProperty, JsonRequired]
+    [JsonProperty("x")]
     internal float X { get; set; }
-    [JsonProperty, JsonRequired]
+    [JsonProperty("y")]
     internal float Y { get; set; }
-    [JsonProperty, JsonRequired]
+    [JsonProperty("z")]
     internal float Z { get; set; }
 }
 
 internal class Position : PositionBase
 {
-    [JsonProperty, JsonRequired]
+    [JsonProperty("heading")]
     internal float Heading { get; set; }
 }

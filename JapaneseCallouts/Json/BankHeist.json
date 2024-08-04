@@ -1,0 +1,33 @@
+{
+  "robbers": [
+    {
+      "outfit_name": "Robber"
+    }
+  ],
+  "weapons": [
+    {
+      "chance": 100,
+      "model": "WEAPON_SAWNOFFSHOTGUN"
+    },
+    {
+      "chance": 80,
+      "model": "WEAPON_ASSAULTRIFLE"
+    },
+    {
+      "chance": 80,
+      "model": "WEAPON_PUMPSHOTGUN"
+    },
+    {
+      "chance": 80,
+      "model": "WEAPON_ADVANCEDRIFLE"
+    },
+    {
+      "chance": 30,
+      "model": "WEAPON_PISTOL"
+    },
+    {
+      "chance": 50,
+      "model": "WEAPON_ASSAULTSMG"
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "victim_vehicles": [
+    "PANTO",
+    "ISSI2",
+    "FELON",
+    "JACKAL",
+    "ORACLE",
+    "RADI",
+    "TAILGATER"
+  ],
+  "suspect_vehicles": [
+    "MULE",
+    "MULE2",
+    "ZION",
+    "EVERON",
+    "BALLER",
+    "ROCOTO",
+    "TAILGATER",
+    "NINEF",
+    "ZENTORNO"
+  ],
+  "victim_peds": [
+    {
+      "outfit_name": "Victim"
+    }
+  ],
+  "suspect_peds":[
+    {
+      "outfit_name": "Suspect"
+    }
+  ]
+}

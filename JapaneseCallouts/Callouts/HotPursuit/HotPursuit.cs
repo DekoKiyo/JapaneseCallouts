@@ -1,4 +1,4 @@
-namespace JapaneseCallouts.Callouts;
+namespace JapaneseCallouts.Callouts.HotPursuit;
 
 [CalloutInfo("[JPC] Hot Pursuit", CalloutProbability.VeryHigh)]
 internal class HotPursuit : CalloutBase

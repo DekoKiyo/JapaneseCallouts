@@ -64,13 +64,12 @@ global using BaseLib;
 global using JapaneseCallouts;
 global using JapaneseCallouts.API;
 global using JapaneseCallouts.Callouts;
+global using JapaneseCallouts.Configurations;
 global using JapaneseCallouts.Debug;
 global using JapaneseCallouts.Helpers;
 global using JapaneseCallouts.Modules;
 global using JapaneseCallouts.Xml;
 global using JapaneseCallouts.Xml.Callouts;
-global using JapaneseCallouts.Xml.Data;
-global using JapaneseCallouts.Xml.Interface;
 #endregion
 #region Rage
 global using Rage;

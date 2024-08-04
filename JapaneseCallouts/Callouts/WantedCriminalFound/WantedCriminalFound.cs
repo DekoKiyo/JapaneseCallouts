@@ -1,4 +1,4 @@
-namespace JapaneseCallouts.Callouts;
+namespace JapaneseCallouts.Callouts.WantedCriminalFound;
 
 [CalloutInfo("[JPC] Wanted Criminal Found", CalloutProbability.High)]
 internal class WantedCriminalFound : CalloutBase

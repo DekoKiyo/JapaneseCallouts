@@ -1,4 +1,4 @@
-namespace JapaneseCallouts.Callouts;
+namespace JapaneseCallouts.Callouts.StoreRobbery;
 
 [CalloutInfo("[JPC] Store Robbery", CalloutProbability.VeryHigh)]
 internal class StoreRobbery : CalloutBase

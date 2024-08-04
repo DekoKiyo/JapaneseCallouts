@@ -1,4 +1,4 @@
-namespace JapaneseCallouts.Callouts;
+namespace JapaneseCallouts.Callouts.RoadRage;
 
 [CalloutInfo("[JPC] Road Rage", CalloutProbability.VeryHigh)]
 internal class RoadRage : CalloutBase

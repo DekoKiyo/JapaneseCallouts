@@ -1,11 +1,11 @@
 namespace JapaneseCallouts.Configurations;
 
-internal class WeaponConfig : IChanceObject, IEntityObject
+internal class WeaponConfig : IChanceObject, IModelObject
 {
-    [JsonProperty]
+    [JsonProperty("chance")]
     public int Chance { get; set; } = 100;
-    [JsonProperty, JsonRequired]
+    [JsonProperty("model")]
     public string Model { get; set; }
-    [JsonProperty]
+    [JsonProperty("components")]
     internal string[] Components { get; set; } = [];
 }
