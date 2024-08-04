@@ -21,13 +21,18 @@ internal static class Settings
     internal static Keys EnterRiotVanKey { get; private set; } = Keys.Enter;
     internal static Keys EnterRiotVanModifierKey { get; private set; } = Keys.None;
 
-    internal static void Initialize()
-    {
-        JPCReloadSettings();
-    }
+    internal static string BankHeistRadioSound { get; set; } = "WE_HAVE JP_CRIME_BANK_ROBBERY IN_OR_ON_POSITION UNITS_RESPOND_CODE_99";
+    internal static string PacificBankHeistRadioSound { get; set; } = "CITIZENS_REPORT JP_CRIME_BANK_ROBBERY IN_OR_ON_POSITION UNITS_RESPOND_CODE_99";
+    internal static string DrunkGuysRadioSound { get; set; } = "CITIZENS_REPORT JP_CRIME_ACCIDENT IN_OR_ON_POSITION";
+    internal static string RoadRageRadioSound { get; set; } = "CITIZENS_REPORT JP_CRIME_TRAFFIC_VIOLATION IN_OR_ON_POSITION";
+    internal static string StolenVehicleRadioSound { get; set; } = "WE_HAVE JP_CRIME_STOLEN_VEHICLE IN_OR_ON_POSITION";
+    internal static string StoreRobberyRadioSound { get; set; } = "CITIZENS_REPORT CRIME_ROBBERY IN_OR_ON_POSITION";
+    internal static string HotPursuitRadioSound { get; set; } = "WE_HAVE CRIME_GRAND_THEFT_AUTO IN_OR_ON_POSITION";
+    internal static string WantedCriminalFoundRadioSound { get; set; } = "ATTENTION_ALL_UNITS WE_HAVE JP_CRIME_SUSPECT_RESISTING_ARREST IN_OR_ON_POSITION";
+    internal static string StreetFightRadioSound { get; set; } = "ATTENTION_ALL_UNITS WE_HAVE JP_CRIME_CIVIL_DISTURBANCE IN_OR_ON_POSITION";
 
-    [ConsoleCommand("Reload Japanese Callouts' settings.")]
-    internal static void JPCReloadSettings()
+    [ConsoleCommand(Name = "JPC_ReloadSettings", Description = "Reload Japanese Callouts' settings.")]
+    internal static void Initialize()
     {
         OfficerName = Ini["General"][nameof(OfficerName)] ??= "Officer";
         Localization.Language = (ELanguages)int.Parse(Ini["General"][nameof(Localization.Language)]);
@@ -46,16 +51,22 @@ internal static class Settings
         EnterRiotVanKey = (Ini["Keys"][nameof(EnterRiotVanKey)] ??= "Enter").ConvertToKey();
         EnterRiotVanModifierKey = (Ini["Keys"][nameof(EnterRiotVanModifierKey)] ??= "None").ConvertToKey();
 
-        Log();
-    }
+        BankHeistRadioSound = Ini["Sounds"][nameof(BankHeistRadioSound)] ??= "WE_HAVE JP_CRIME_BANK_ROBBERY IN_OR_ON_POSITION UNITS_RESPOND_CODE_99";
+        PacificBankHeistRadioSound = Ini["Sounds"][nameof(PacificBankHeistRadioSound)] ??= "CITIZENS_REPORT JP_CRIME_BANK_ROBBERY IN_OR_ON_POSITION UNITS_RESPOND_CODE_99";
+        DrunkGuysRadioSound = Ini["Sounds"][nameof(DrunkGuysRadioSound)] ??= "CITIZENS_REPORT JP_CRIME_ACCIDENT IN_OR_ON_POSITION";
+        RoadRageRadioSound = Ini["Sounds"][nameof(RoadRageRadioSound)] ??= "CITIZENS_REPORT JP_CRIME_TRAFFIC_VIOLATION IN_OR_ON_POSITION";
+        StolenVehicleRadioSound = Ini["Sounds"][nameof(StolenVehicleRadioSound)] ??= "WE_HAVE JP_CRIME_STOLEN_VEHICLE IN_OR_ON_POSITION";
+        StoreRobberyRadioSound = Ini["Sounds"][nameof(StoreRobberyRadioSound)] ??= "CITIZENS_REPORT CRIME_ROBBERY IN_OR_ON_POSITION";
+        HotPursuitRadioSound = Ini["Sounds"][nameof(HotPursuitRadioSound)] ??= "WE_HAVE CRIME_GRAND_THEFT_AUTO IN_OR_ON_POSITION";
+        WantedCriminalFoundRadioSound = Ini["Sounds"][nameof(WantedCriminalFoundRadioSound)] ??= "ATTENTION_ALL_UNITS WE_HAVE JP_CRIME_SUSPECT_RESISTING_ARREST IN_OR_ON_POSITION";
+        StreetFightRadioSound = Ini["Sounds"][nameof(StreetFightRadioSound)] ??= "ATTENTION_ALL_UNITS WE_HAVE JP_CRIME_CIVIL_DISTURBANCE IN_OR_ON_POSITION";
 
-    private static void Log()
-    {
         Main.Logger.Info("=================== Japanese Callouts Settings ===================");
         Main.Logger.Info("General Settings", "Settings");
         Main.Logger.Info($"{nameof(OfficerName)}: {OfficerName.ToString()}", "Settings");
         Main.Logger.Info($"{nameof(Localization.Language)}: {Localization.Language.ToString()}", "Settings");
         Main.Logger.Info($"{nameof(EnableAutoUpdate)}: {EnableAutoUpdate.ToString()}", "Settings");
+        Main.Logger.Info(string.Empty);
         Main.Logger.Info("Keys Settings", "Settings");
         Main.Logger.Info($"{nameof(EndCalloutsKey)}: {EndCalloutsKey.ToString()}", "Settings");
         Main.Logger.Info($"{nameof(EndCalloutsModifierKey)}: {EndCalloutsModifierKey.ToString()}", "Settings");
@@ -69,6 +80,17 @@ internal static class Settings
         Main.Logger.Info($"{nameof(HostageRescueModifierKey)}: {HostageRescueModifierKey.ToString()}", "Settings");
         Main.Logger.Info($"{nameof(EnterRiotVanKey)}: {EnterRiotVanKey.ToString()}", "Settings");
         Main.Logger.Info($"{nameof(EnterRiotVanModifierKey)}: {EnterRiotVanModifierKey.ToString()}", "Settings");
+        Main.Logger.Info(string.Empty);
+        Main.Logger.Info($"Sounds Settings", "Settings");
+        Main.Logger.Info($"{nameof(BankHeistRadioSound)}: {BankHeistRadioSound.ToString()}", "Settings");
+        Main.Logger.Info($"{nameof(PacificBankHeistRadioSound)}: {PacificBankHeistRadioSound.ToString()}", "Settings");
+        Main.Logger.Info($"{nameof(DrunkGuysRadioSound)}: {DrunkGuysRadioSound.ToString()}", "Settings");
+        Main.Logger.Info($"{nameof(RoadRageRadioSound)}: {RoadRageRadioSound.ToString()}", "Settings");
+        Main.Logger.Info($"{nameof(StolenVehicleRadioSound)}: {StolenVehicleRadioSound.ToString()}", "Settings");
+        Main.Logger.Info($"{nameof(StoreRobberyRadioSound)}: {StoreRobberyRadioSound.ToString()}", "Settings");
+        Main.Logger.Info($"{nameof(HotPursuitRadioSound)}: {HotPursuitRadioSound.ToString()}", "Settings");
+        Main.Logger.Info($"{nameof(WantedCriminalFoundRadioSound)}: {WantedCriminalFoundRadioSound.ToString()}", "Settings");
+        Main.Logger.Info($"{nameof(StreetFightRadioSound)}: {StreetFightRadioSound.ToString()}", "Settings");
         Main.Logger.Info("=================== Japanese Callouts Settings ===================");
     }
 }

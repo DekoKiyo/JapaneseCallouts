@@ -16,7 +16,7 @@ internal class StreetFight : CalloutBase
         CalloutMessage = Localization.GetString("StreetFight");
         CalloutPosition = World.GetNextPositionOnStreet(Game.LocalPlayer.Character.Position.Around(50f, 150f));
         ShowCalloutAreaBlipBeforeAccepting(CalloutPosition, 30f);
-        Functions.PlayScannerAudioUsingPosition(XmlManager.CalloutsSoundConfig.StreetFight, CalloutPosition);
+        Functions.PlayScannerAudioUsingPosition(Settings.StreetFightRadioSound, CalloutPosition);
 
         Game.SetRelationshipBetweenRelationshipGroups(suspect1RG, suspect2RG, Relationship.Hate);
         Game.SetRelationshipBetweenRelationshipGroups(suspect2RG, suspect1RG, Relationship.Hate);

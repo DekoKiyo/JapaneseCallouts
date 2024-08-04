@@ -17,7 +17,7 @@ internal class WantedCriminalFound : CalloutBase
         CalloutMessage = Localization.GetString("WantedCriminalFound");
         CalloutPosition = World.GetNextPositionOnStreet(Game.LocalPlayer.Character.Position.Around(500f, 1200f));
         ShowCalloutAreaBlipBeforeAccepting(CalloutPosition, 50f);
-        Functions.PlayScannerAudioUsingPosition(XmlManager.CalloutsSoundConfig.WantedCriminalFound, CalloutPosition);
+        Functions.PlayScannerAudioUsingPosition(Settings.WantedCriminalFoundRadioSound, CalloutPosition);
 
         OnCalloutsEnded += () =>
         {

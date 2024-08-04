@@ -36,7 +36,7 @@ internal class DrunkGuys : CalloutBase
         CalloutMessage = Localization.GetString("DrunkGuys");
         NoLastRadio = true;
         ShowCalloutAreaBlipBeforeAccepting(CalloutPosition, 20f);
-        Functions.PlayScannerAudioUsingPosition(XmlManager.CalloutsSoundConfig.DrunkGuys, CalloutPosition);
+        Functions.PlayScannerAudioUsingPosition(Settings.DrunkGuysRadioSound, CalloutPosition);
 
         OnCalloutsEnded += () =>
         {

@@ -12,7 +12,7 @@ internal class HotPursuit : CalloutBase
         CalloutMessage = Localization.GetString("HotPursuit");
         CalloutPosition = World.GetNextPositionOnStreet(Game.LocalPlayer.Character.Position.Around(350f, 750f));
         ShowCalloutAreaBlipBeforeAccepting(CalloutPosition, 50f);
-        Functions.PlayScannerAudioUsingPosition(XmlManager.CalloutsSoundConfig.HotPursuit, CalloutPosition);
+        Functions.PlayScannerAudioUsingPosition(Settings.HotPursuitRadioSound, CalloutPosition);
 
         OnCalloutsEnded += () =>
         {

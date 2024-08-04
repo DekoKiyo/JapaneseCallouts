@@ -46,8 +46,8 @@ internal static class Localization
         return NO_TRANSLATION;
     }
 
-    [ConsoleCommand("Change Japanese Callouts' language.")]
-    internal static void JPCChangeLanguage([ConsoleCommandParameter("Enter the language code that you want to use.", AutoCompleterType = typeof(ConsoleCommandParameterAutoCompleterEnum))] ELanguages lang)
+    [ConsoleCommand(Name = "JPC_ChangeLanguage", Description = "Change Japanese Callouts' language.")]
+    internal static void ChangeLanguage([ConsoleCommandParameter("Enter the language code that you want to use.", AutoCompleterType = typeof(ConsoleCommandParameterAutoCompleterEnum))] ELanguages lang)
     {
         if (Enum.GetNames(typeof(ELanguages)).Contains($"{lang}"))
         {

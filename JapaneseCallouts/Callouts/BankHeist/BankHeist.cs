@@ -126,7 +126,7 @@ internal class BankHeist : CalloutBase
         CalloutMessage = Localization.GetString("BankHeist");
         CalloutPosition = Vector3Helpers.GetNearestPos([.. BankData.Keys]);
         ShowCalloutAreaBlipBeforeAccepting(CalloutPosition, 100f);
-        Functions.PlayScannerAudioUsingPosition(XmlManager.CalloutsSoundConfig.BankHeist, CalloutPosition);
+        Functions.PlayScannerAudioUsingPosition(Settings.BankHeistRadioSound, CalloutPosition);
 
         Robbers = new(BankData[CalloutPosition].positions.Count());
         EnemyBlips = new(Robbers.Count());

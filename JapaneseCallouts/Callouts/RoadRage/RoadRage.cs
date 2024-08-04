@@ -93,7 +93,7 @@ internal class RoadRage : CalloutBase
 
         CalloutMessage = Localization.GetString("RoadRage");
         ShowCalloutAreaBlipBeforeAccepting(CalloutPosition, 50f);
-        Functions.PlayScannerAudioUsingPosition(XmlManager.CalloutsSoundConfig.RoadRage, CalloutPosition);
+        Functions.PlayScannerAudioUsingPosition(Settings.RoadRageRadioSound, CalloutPosition);
 
         CalloutInterfaceAPIFunctions.SendMessage(this, $"{Localization.GetString("RoadRageDesc")} {Localization.GetString("RespondCode2")}");
         CalloutInterfaceAPIFunctions.SendVehicle(suspectV);

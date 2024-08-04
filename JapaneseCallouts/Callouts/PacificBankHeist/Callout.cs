@@ -26,7 +26,7 @@ internal class PacificBankHeist : CalloutBase
         CalloutMessage = Localization.GetString("PacificBankHeist");
         NoLastRadio = true;
         ShowCalloutAreaBlipBeforeAccepting(CalloutPosition, 40f);
-        Functions.PlayScannerAudioUsingPosition(XmlManager.CalloutsSoundConfig.PacificBankHeist, CalloutPosition);
+        Functions.PlayScannerAudioUsingPosition(Settings.PacificBankHeistRadioSound, CalloutPosition);
         CalloutInterfaceAPIFunctions.SendMessage(this, Localization.GetString("PacificBankHeistDesc"));
 
         conversations.IntroConversation =

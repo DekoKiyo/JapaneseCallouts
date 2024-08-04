@@ -41,7 +41,7 @@ internal class StolenVehicle : CalloutBase
         CalloutMessage = Localization.GetString("StolenVehicle");
 
         ShowCalloutAreaBlipBeforeAccepting(CalloutPosition, 50f);
-        Functions.PlayScannerAudioUsingPosition(XmlManager.CalloutsSoundConfig.StolenVehicle, CalloutPosition);
+        Functions.PlayScannerAudioUsingPosition(Settings.StolenVehicleRadioSound, CalloutPosition);
         CalloutInterfaceAPIFunctions.SendMessage(this, Localization.GetString("StolenVehicleDesc"));
         CalloutInterfaceAPIFunctions.SendVehicle(stolen);
 
