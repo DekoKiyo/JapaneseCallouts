@@ -1,8 +1,8 @@
 {
   "latest": "1.1.0",
-  "ci_api": "1.0.3",
-  "base_lib": "1.0.0",
-  "raw_canvas_ui": "0.4.3",
-  "rage_native_ui": "1.9.2",
-  "ipt_common_lib": "1.4.4"
+  "CalloutInterfaceAPI": "1.0.3",
+  "BaseLib": "1.0.0",
+  "RawCanvasUI": "0.4.3",
+  "RAGENativeUI": "1.9.2",
+  "IPT.Common": "1.4.4"
 }

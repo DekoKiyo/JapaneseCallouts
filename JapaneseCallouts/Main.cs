@@ -1,6 +1,7 @@
 #region System
 global using System;
 global using System.Collections.Generic;
+global using System.Diagnostics;
 global using System.Drawing;
 global using System.IO;
 global using System.Linq;
@@ -83,11 +84,11 @@ internal class Main : Plugin
     internal const string VERSION = "1.1.0";
 
     private static readonly RequiredPath[] REQUIRED_DLL_FILES = [
-        (@"CalloutInterfaceAPI.dll", true),
-        (@"BaseLib.dll", true),
-        (@"RawCanvasUI.dll", true),
-        (@"RAGENativeUI.dll", true),
-        (@"IPT.Common.dll", true)
+        ("CalloutInterfaceAPI.dll", true),
+        ("BaseLib.dll", true),
+        ("RawCanvasUI.dll", true),
+        ("RAGENativeUI.dll", true),
+        ("IPT.Common.dll", true)
     ];
 
     private static readonly RequiredPath[] REQUIRED_FILES_PATH = [
@@ -151,6 +152,8 @@ internal class Main : Plugin
             Logger.Info($"Initializing {PLUGIN_NAME}, {PLUGIN_VERSION_DATA}");
             IsSTPRunning = Functions.GetAllUserPlugins().Any(x => x.GetName().Name == "StopThePed");
             IsUBRunning = Functions.GetAllUserPlugins().Any(x => x.GetName().Name == "UltimateBackup");
+
+            Remote.Initialize();
             var missing = FileCheck(out bool error);
             if (missing.Length is not 0)
             {
@@ -164,9 +167,7 @@ internal class Main : Plugin
                     throw new FileNotFoundException($"Some files that are necessary to load {PLUGIN_NAME} were not found.");
                 }
             }
-            Remote.Initialize();
             Localization.Initialize();
-            // XmlManager.Initialize();
             ConfigurationManager.Initialize();
             BlipPlus.Initialize();
             Game.AddConsoleCommands();
@@ -219,6 +220,16 @@ internal class Main : Plugin
                 if (!error && isError)
                 {
                     error = isError;
+                }
+            }
+            else if (Path.GetExtension(path) is "dll")
+            {
+                var currentVersion = new Version(FileVersionInfo.GetVersionInfo(path).ProductVersion);
+                var filename = Path.GetFileNameWithoutExtension(path);
+                var remoteVersion = new Version(Remote.PluginDataJson[filename]);
+                if (currentVersion.CompareTo(remoteVersion) < 0)
+                {
+                    Logger.Warn($"This is the old version of {filename}! Use version {remoteVersion}!");
                 }
             }
         }

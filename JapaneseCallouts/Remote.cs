@@ -6,14 +6,16 @@ internal static class Remote
 
     private static HttpClient HttpClient { get; } = new();
 
+    internal static Dictionary<string, string> PluginDataJson;
+
     internal static async void Initialize()
     {
         try
         {
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls13;
             var data = await GetStringAsync(DATA_JSON);
-            var json = JsonSerializer.Deserialize<Dictionary<string, string>>(data);
-            Main.RemoteLatestVersion = json["latest"];
+            PluginDataJson = JsonSerializer.Deserialize<Dictionary<string, string>>(data);
+            Main.RemoteLatestVersion = PluginDataJson["latest"];
         }
         catch (Exception e)
         {
