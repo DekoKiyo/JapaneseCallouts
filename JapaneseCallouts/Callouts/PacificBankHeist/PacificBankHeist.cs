@@ -278,10 +278,10 @@ internal partial class PacificBankHeist : CalloutBase<Configurations>
                 PlaceBarriers();
                 SpawnVehicles();
                 SpawnOfficers(weather);
-                SpawnNegotiationRobbers( weather);
-                SpawnSneakyRobbers( weather);
-                SpawnHostages( weather);
-                SpawnEMS( weather);
+                SpawnNegotiationRobbers(weather);
+                SpawnSneakyRobbers(weather);
+                SpawnHostages(weather);
+                SpawnEMS(weather);
 
                 Game.FrameRender += TimerBarsProcess;
 
@@ -342,11 +342,11 @@ internal partial class PacificBankHeist : CalloutBase<Configurations>
                     {
                         if (Status is EPacificBankHeistStatus.FightingWithRobbers)
                         {
-                            SpawnAssaultRobbers( weather);
+                            SpawnAssaultRobbers(weather);
 
                             if (Main.MT.Next(10) is < 3)
                             {
-                                SpawnVaultRobbers( weather);
+                                SpawnVaultRobbers(weather);
                             }
 
                             foreach (var cop in AllOfficers)
@@ -381,7 +381,7 @@ internal partial class PacificBankHeist : CalloutBase<Configurations>
 
                             SetRelationships();
 
-                            CopFightingAIGameFiber = GameFiber.StartNew( CopFightingAI);
+                            CopFightingAIGameFiber = GameFiber.StartNew(CopFightingAI);
                             RobbersFightingAIGameFiber = GameFiber.StartNew(RobbersFightingAI);
                             GameFiber.StartNew(CheckForRobbersOutside);
 

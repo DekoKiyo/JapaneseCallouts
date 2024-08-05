@@ -50,24 +50,31 @@ internal partial class BankHeist : CalloutBase<Configurations>
         foreach (var (pos, heading) in BankData[CalloutPosition].positions)
         {
             var pedData = CalloutHelpers.SelectPed(weather, [.. Configuration.Robbers]);
-            var robber = new Ped(pedData.Model, pos, heading)
+            if (ConfigurationManager.GetOutfit(pedData, out OutfitConfig outfit))
             {
-                IsPersistent = true,
-                BlockPermanentEvents = true,
-                RelationshipGroup = RobberRG,
-                MaxHealth = pedData.Health,
-                Health = pedData.Health,
-                Armor = pedData.Armor,
-            };
-            if (robber is not null && robber.IsValid() && robber.Exists())
+                var robber = new Ped(outfit.Model, pos, heading)
+                {
+                    IsPersistent = true,
+                    BlockPermanentEvents = true,
+                    RelationshipGroup = RobberRG,
+                    MaxHealth = pedData.Health,
+                    Health = pedData.Health,
+                    Armor = pedData.Armor,
+                };
+                if (robber is not null && robber.IsValid() && robber.Exists())
+                {
+                    Natives.SET_PED_KEEP_TASK(robber, true);
+
+                    robber.SetOutfit(pedData, outfit);
+                    robber.GiveWeapon([.. Configuration.Weapons], true);
+
+                    Natives.SET_PED_SUFFERS_CRITICAL_HITS(robber, false);
+                    Robbers.Add(robber);
+                }
+            }
+            else
             {
-                Natives.SET_PED_KEEP_TASK(robber, true);
-
-                robber.SetOutfit(pedData);
-                robber.GiveWeapon([.. Configuration.Weapons], true);
-
-                Natives.SET_PED_SUFFERS_CRITICAL_HITS(robber, false);
-                Robbers.Add(robber);
+                // TODO
             }
         }
 

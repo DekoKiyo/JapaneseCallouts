@@ -76,29 +76,29 @@ internal abstract class CalloutBase : Callout
         RegisterCallout<StreetFight, Callouts.StreetFight.Configurations>(Settings.Instance.EnableStreetFight);
     }
 
-    private static void RegisterCallout<T2>(bool enabled) where T2 : CalloutBase
+    private static void RegisterCallout<T>(bool enabled) where T : CalloutBase
     {
         if (enabled)
         {
-            Functions.RegisterCallout(typeof(T2));
-            Main.Logger.Info($"The callout {nameof(T2)} was registered.");
+            Functions.RegisterCallout(typeof(T));
+            Main.Logger.Info($"The callout {nameof(T)} was registered.");
         }
         else
         {
-            Main.Logger.Info($"The callout {nameof(T2)} was not registered. The callout was skipped loading with setting.");
+            Main.Logger.Info($"The callout {nameof(T)} was not registered. The callout was skipped loading with setting.");
         }
     }
 
-    private static void RegisterCallout<T2, T3>(bool enabled) where T2 : CalloutBase<T3> where T3 : IConfig
+    private static void RegisterCallout<T, T2>(bool enabled) where T : CalloutBase<T2> where T2 : IConfig
     {
         if (enabled)
         {
-            Functions.RegisterCallout(typeof(T2));
-            Main.Logger.Info($"The callout {nameof(T2)} was registered.");
+            Functions.RegisterCallout(typeof(T));
+            Main.Logger.Info($"The callout {nameof(T)} was registered.");
         }
         else
         {
-            Main.Logger.Info($"The callout {nameof(T2)} was not registered. The callout was skipped loading with setting.");
+            Main.Logger.Info($"The callout {nameof(T)} was not registered. The callout was skipped loading with setting.");
         }
     }
 }

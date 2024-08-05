@@ -23,31 +23,45 @@ internal class StreetFight : CalloutBase<Configurations>
 
         var weather = CalloutHelpers.GetWeatherType(IPTFunctions.GetWeatherType());
         var data1 = CalloutHelpers.SelectPed(weather, [.. Configuration.Suspects]);
-        suspect1 = new(data1.Model, new(CalloutPosition.X, CalloutPosition.Y, (float)World.GetGroundZ(CalloutPosition, true, true)), 0f)
+        if (ConfigurationManager.GetOutfit(data1, out OutfitConfig outfit1))
         {
-            IsPersistent = true,
-            BlockPermanentEvents = true,
-            RelationshipGroup = suspect1RG,
-        };
-        if (suspect1 is not null && suspect1.IsValid() && suspect1.Exists())
+            suspect1 = new(outfit1.Model, new(CalloutPosition.X, CalloutPosition.Y, (float)World.GetGroundZ(CalloutPosition, true, true)), 0f)
+            {
+                IsPersistent = true,
+                BlockPermanentEvents = true,
+                RelationshipGroup = suspect1RG,
+            };
+            if (suspect1 is not null && suspect1.IsValid() && suspect1.Exists())
+            {
+                Natives.SET_PED_KEEP_TASK(suspect1, true);
+                suspect1.SetOutfit(data1, outfit1);
+                suspect1.Tasks.FightAgainstClosestHatedTarget(500f);
+            }
+        }
+        else
         {
-            Natives.SET_PED_KEEP_TASK(suspect1, true);
-            suspect1.SetOutfit(data1);
-            suspect1.Tasks.FightAgainstClosestHatedTarget(500f);
+            // TODO
         }
 
         var data2 = CalloutHelpers.SelectPed(weather, [.. Configuration.Suspects]);
-        suspect2 = new(data2.Model, new(CalloutPosition.X, CalloutPosition.Y, (float)World.GetGroundZ(CalloutPosition, true, true)), 0f)
+        if (ConfigurationManager.GetOutfit(data2, out OutfitConfig outfit2))
         {
-            IsPersistent = true,
-            BlockPermanentEvents = true,
-            RelationshipGroup = suspect2RG,
-        };
-        if (suspect2 is not null && suspect2.IsValid() && suspect2.Exists())
+            suspect2 = new(outfit2.Model, new(CalloutPosition.X, CalloutPosition.Y, (float)World.GetGroundZ(CalloutPosition, true, true)), 0f)
+            {
+                IsPersistent = true,
+                BlockPermanentEvents = true,
+                RelationshipGroup = suspect2RG,
+            };
+            if (suspect2 is not null && suspect2.IsValid() && suspect2.Exists())
+            {
+                Natives.SET_PED_KEEP_TASK(suspect2, true);
+                suspect2.SetOutfit(data2, outfit2);
+                suspect2.Tasks.FightAgainstClosestHatedTarget(500f);
+            }
+        }
+        else
         {
-            Natives.SET_PED_KEEP_TASK(suspect2, true);
-            suspect2.SetOutfit(data2);
-            suspect2.Tasks.FightAgainstClosestHatedTarget(500f);
+            // TODO
         }
 
         OnCalloutsEnded += () =>

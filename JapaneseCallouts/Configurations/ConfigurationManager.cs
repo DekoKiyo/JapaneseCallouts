@@ -67,4 +67,18 @@ internal static class ConfigurationManager
             return JsonSerializer.Deserialize<T>(sr.ReadToEnd());
         }
     }
+
+    internal static bool GetOutfit(PedConfig config, out OutfitConfig outfit)
+    {
+        if (OutfitConfigurations.ContainsKey(config.OutfitName))
+        {
+            outfit = OutfitConfigurations[config.OutfitName];
+            return true;
+        }
+        else
+        {
+            outfit = null;
+            return false;
+        }
+    }
 }

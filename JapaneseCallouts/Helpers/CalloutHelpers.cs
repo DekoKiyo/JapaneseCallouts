@@ -52,10 +52,8 @@ internal static class CalloutHelpers
 
     internal static bool IsRandomProps(PedConfig preset)
     {
-        if (ConfigurationManager.OutfitConfigurations.ContainsKey(preset.OutfitName))
-        {
-            var outfit = ConfigurationManager.OutfitConfigurations[preset.OutfitName];
-            return preset.RandomProps ||
+        return ConfigurationManager.GetOutfit(preset, out OutfitConfig outfit)
+            ? preset.RandomProps ||
                 (outfit.MaskModel is 0 &&
                 outfit.UpperSkinModel is 0 &&
                 outfit.PantsModel is 0 &&
@@ -69,11 +67,7 @@ internal static class CalloutHelpers
                 outfit.HatModel is 0 &&
                 outfit.GlassesModel is 0 &&
                 outfit.EarModel is 0 &&
-                outfit.WatchModel is 0);
-        }
-        else
-        {
-            return preset.RandomProps;
-        }
+                outfit.WatchModel is 0)
+            : preset.RandomProps;
     }
 }

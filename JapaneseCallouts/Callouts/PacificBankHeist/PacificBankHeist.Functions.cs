@@ -173,27 +173,34 @@ internal partial class PacificBankHeist
         {
             GameFiber.Yield();
             var data = CalloutHelpers.SelectPed(weather, [.. Configuration.PoliceSWATModels]);
-            var swat = new Ped(data.Model, new(p.X, p.Y, p.Z), p.Heading)
+            if (ConfigurationManager.GetOutfit(data, out OutfitConfig outfit0))
             {
-                IsPersistent = true,
-                BlockPermanentEvents = true,
-                CanBeTargetted = true,
-                CanAttackFriendlies = false,
-                MaxHealth = data.Health,
-                Health = data.Health,
-                Armor = data.Armor,
-            };
-            if (swat is not null && swat.IsValid() && swat.Exists())
-            {
-                Natives.SET_PED_KEEP_TASK(swat, true);
-                swat.SetOutfit(data);
-                Functions.SetPedAsCop(swat);
-                Functions.SetCopAsBusy(swat, true);
-                swat.GiveWeapon([.. Configuration.SWATWeapons], true);
-                swat.Tasks.PlayAnimation(SWAT_ANIMATION_DICTIONARY, SWAT_ANIMATION_LEFT, 1f, AnimationFlags.StayInEndFrame);
+                var swat = new Ped(outfit0.Model, new(p.X, p.Y, p.Z), p.Heading)
+                {
+                    IsPersistent = true,
+                    BlockPermanentEvents = true,
+                    CanBeTargetted = true,
+                    CanAttackFriendlies = false,
+                    MaxHealth = data.Health,
+                    Health = data.Health,
+                    Armor = data.Armor,
+                };
+                if (swat is not null && swat.IsValid() && swat.Exists())
+                {
+                    Natives.SET_PED_KEEP_TASK(swat, true);
+                    swat.SetOutfit(data, outfit0);
+                    Functions.SetPedAsCop(swat);
+                    Functions.SetCopAsBusy(swat, true);
+                    swat.GiveWeapon([.. Configuration.SWATWeapons], true);
+                    swat.Tasks.PlayAnimation(SWAT_ANIMATION_DICTIONARY, SWAT_ANIMATION_LEFT, 1f, AnimationFlags.StayInEndFrame);
 
-                AllSWATUnits.Add(swat);
-                CalloutEntities.Add(swat);
+                    AllSWATUnits.Add(swat);
+                    CalloutEntities.Add(swat);
+                }
+            }
+            else
+            {
+                // TODO
             }
         }
 
@@ -201,27 +208,34 @@ internal partial class PacificBankHeist
         {
             GameFiber.Yield();
             var data = CalloutHelpers.SelectPed(weather, [.. Configuration.PoliceSWATModels]);
-            var swat = new Ped(data.Model, new(p.X, p.Y, p.Z), p.Heading)
+            if (ConfigurationManager.GetOutfit(data, out OutfitConfig outfit1))
             {
-                IsPersistent = true,
-                BlockPermanentEvents = true,
-                CanBeTargetted = true,
-                CanAttackFriendlies = false,
-                MaxHealth = data.Health,
-                Health = data.Health,
-                Armor = data.Armor,
-            };
-            if (swat is not null && swat.IsValid() && swat.Exists())
-            {
-                Natives.SET_PED_KEEP_TASK(swat, true);
-                swat.SetOutfit(data);
-                Functions.SetPedAsCop(swat);
-                Functions.SetCopAsBusy(swat, true);
-                swat.GiveWeapon([.. Configuration.SWATWeapons], true);
-                swat.Tasks.PlayAnimation(SWAT_ANIMATION_DICTIONARY, SWAT_ANIMATION_RIGHT_LOOKING, 1f, AnimationFlags.StayInEndFrame);
+                var swat = new Ped(outfit1.Model, new(p.X, p.Y, p.Z), p.Heading)
+                {
+                    IsPersistent = true,
+                    BlockPermanentEvents = true,
+                    CanBeTargetted = true,
+                    CanAttackFriendlies = false,
+                    MaxHealth = data.Health,
+                    Health = data.Health,
+                    Armor = data.Armor,
+                };
+                if (swat is not null && swat.IsValid() && swat.Exists())
+                {
+                    Natives.SET_PED_KEEP_TASK(swat, true);
+                    swat.SetOutfit(data, outfit1);
+                    Functions.SetPedAsCop(swat);
+                    Functions.SetCopAsBusy(swat, true);
+                    swat.GiveWeapon([.. Configuration.SWATWeapons], true);
+                    swat.Tasks.PlayAnimation(SWAT_ANIMATION_DICTIONARY, SWAT_ANIMATION_RIGHT_LOOKING, 1f, AnimationFlags.StayInEndFrame);
 
-                AllSWATUnits.Add(swat);
-                CalloutEntities.Add(swat);
+                    AllSWATUnits.Add(swat);
+                    CalloutEntities.Add(swat);
+                }
+            }
+            else
+            {
+                // TODO
             }
         }
 
@@ -229,27 +243,34 @@ internal partial class PacificBankHeist
         {
             GameFiber.Yield();
             var data = CalloutHelpers.SelectPed(weather, [.. Configuration.PoliceSWATModels]);
-            var swat = new Ped(data.Model, new(p.X, p.Y, p.Z), p.Heading)
+            if (ConfigurationManager.GetOutfit(data, out OutfitConfig outfit2))
             {
-                IsPersistent = true,
-                BlockPermanentEvents = true,
-                CanBeTargetted = true,
-                CanAttackFriendlies = false,
-                MaxHealth = data.Health,
-                Health = data.Health,
-                Armor = data.Armor,
-            };
-            if (swat is not null && swat.IsValid() && swat.Exists())
-            {
-                Natives.SET_PED_KEEP_TASK(swat, true);
-                swat.SetOutfit(data);
-                Functions.SetPedAsCop(swat);
-                Functions.SetCopAsBusy(swat, true);
-                swat.GiveWeapon([.. Configuration.SWATWeapons], true);
-                swat.Tasks.PlayAnimation(SWAT_ANIMATION_DICTIONARY, SWAT_ANIMATION_RIGHT, 1f, AnimationFlags.StayInEndFrame);
+                var swat = new Ped(outfit2.Model, new(p.X, p.Y, p.Z), p.Heading)
+                {
+                    IsPersistent = true,
+                    BlockPermanentEvents = true,
+                    CanBeTargetted = true,
+                    CanAttackFriendlies = false,
+                    MaxHealth = data.Health,
+                    Health = data.Health,
+                    Armor = data.Armor,
+                };
+                if (swat is not null && swat.IsValid() && swat.Exists())
+                {
+                    Natives.SET_PED_KEEP_TASK(swat, true);
+                    swat.SetOutfit(data, outfit2);
+                    Functions.SetPedAsCop(swat);
+                    Functions.SetCopAsBusy(swat, true);
+                    swat.GiveWeapon([.. Configuration.SWATWeapons], true);
+                    swat.Tasks.PlayAnimation(SWAT_ANIMATION_DICTIONARY, SWAT_ANIMATION_RIGHT, 1f, AnimationFlags.StayInEndFrame);
 
-                AllSWATUnits.Add(swat);
-                CalloutEntities.Add(swat);
+                    AllSWATUnits.Add(swat);
+                    CalloutEntities.Add(swat);
+                }
+            }
+            else
+            {
+                // TODO
             }
         }
 
@@ -257,29 +278,36 @@ internal partial class PacificBankHeist
         {
             GameFiber.Yield();
             var data = CalloutHelpers.SelectPed(weather, [.. Configuration.PoliceOfficerModels]);
-            var officer = new Ped(data.Model, new(p.X, p.Y, p.Z), p.Heading)
+            if (ConfigurationManager.GetOutfit(data, out OutfitConfig outfit3))
             {
-                IsPersistent = true,
-                BlockPermanentEvents = true,
-                CanBeTargetted = true,
-                CanAttackFriendlies = false,
-                MaxHealth = data.Health,
-                Health = data.Health,
-                Armor = data.Armor,
-            };
-            if (officer is not null && officer.IsValid() && officer.Exists())
-            {
-                Natives.SET_PED_KEEP_TASK(officer, true);
-                officer.SetOutfit(data);
-                Functions.SetPedAsCop(officer);
-                Functions.SetCopAsBusy(officer, true);
-                officer.GiveWeapon([.. Configuration.OfficerWeapons], true);
-                var aimPoint = Vector3.Distance(officer.Position, BankDoorPositions[0]) < Vector3.Distance(officer.Position, BankDoorPositions[1]) ? BankDoorPositions[0] : BankDoorPositions[1];
-                Natives.TASK_AIM_GUN_AT_COORD(officer, aimPoint.X, aimPoint.Y, aimPoint.Z, -1, false, false);
+                var officer = new Ped(outfit3.Model, new(p.X, p.Y, p.Z), p.Heading)
+                {
+                    IsPersistent = true,
+                    BlockPermanentEvents = true,
+                    CanBeTargetted = true,
+                    CanAttackFriendlies = false,
+                    MaxHealth = data.Health,
+                    Health = data.Health,
+                    Armor = data.Armor,
+                };
+                if (officer is not null && officer.IsValid() && officer.Exists())
+                {
+                    Natives.SET_PED_KEEP_TASK(officer, true);
+                    officer.SetOutfit(data, outfit3);
+                    Functions.SetPedAsCop(officer);
+                    Functions.SetCopAsBusy(officer, true);
+                    officer.GiveWeapon([.. Configuration.OfficerWeapons], true);
+                    var aimPoint = Vector3.Distance(officer.Position, BankDoorPositions[0]) < Vector3.Distance(officer.Position, BankDoorPositions[1]) ? BankDoorPositions[0] : BankDoorPositions[1];
+                    Natives.TASK_AIM_GUN_AT_COORD(officer, aimPoint.X, aimPoint.Y, aimPoint.Z, -1, false, false);
 
-                AllOfficers.Add(officer);
-                AllAimingOfficers.Add(officer);
-                CalloutEntities.Add(officer);
+                    AllOfficers.Add(officer);
+                    AllAimingOfficers.Add(officer);
+                    CalloutEntities.Add(officer);
+                }
+            }
+            else
+            {
+                // TODO
             }
         }
 
@@ -287,53 +315,67 @@ internal partial class PacificBankHeist
         {
             GameFiber.Yield();
             var data = CalloutHelpers.SelectPed(weather, [.. Configuration.PoliceOfficerModels]);
-            var officer = new Ped(data.Model, new(p.X, p.Y, p.Z), p.Heading)
+            if (ConfigurationManager.GetOutfit(data, out OutfitConfig outfit4))
             {
-                IsPersistent = true,
-                BlockPermanentEvents = true,
-                CanBeTargetted = true,
-                CanAttackFriendlies = false,
-                MaxHealth = data.Health,
-                Health = data.Health,
-                Armor = data.Armor,
-            };
-            if (officer is not null && officer.IsValid() && officer.Exists())
-            {
-                Natives.SET_PED_KEEP_TASK(officer, true);
-                officer.SetOutfit(data);
-                Functions.SetPedAsCop(officer);
-                Functions.SetCopAsBusy(officer, true);
-                officer.GiveWeapon([.. Configuration.OfficerWeapons], true);
+                var officer = new Ped(outfit4.Model, new(p.X, p.Y, p.Z), p.Heading)
+                {
+                    IsPersistent = true,
+                    BlockPermanentEvents = true,
+                    CanBeTargetted = true,
+                    CanAttackFriendlies = false,
+                    MaxHealth = data.Health,
+                    Health = data.Health,
+                    Armor = data.Armor,
+                };
+                if (officer is not null && officer.IsValid() && officer.Exists())
+                {
+                    Natives.SET_PED_KEEP_TASK(officer, true);
+                    officer.SetOutfit(data, outfit4);
+                    Functions.SetPedAsCop(officer);
+                    Functions.SetCopAsBusy(officer, true);
+                    officer.GiveWeapon([.. Configuration.OfficerWeapons], true);
 
-                AllOfficers.Add(officer);
-                AllStandingOfficers.Add(officer);
-                CalloutEntities.Add(officer);
+                    AllOfficers.Add(officer);
+                    AllStandingOfficers.Add(officer);
+                    CalloutEntities.Add(officer);
+                }
+            }
+            else
+            {
+                // TODO
             }
         }
 
         var cP = Configuration.CommanderPosition;
         var cData = CalloutHelpers.SelectPed(weather, [.. Configuration.CommanderModels]);
-        Commander = new Ped(cData.Model, new(cP.X, cP.Y, cP.Z), cP.Heading)
+        if (ConfigurationManager.GetOutfit(cData, out OutfitConfig outfit))
         {
-            BlockPermanentEvents = true,
-            IsPersistent = true,
-            IsInvincible = true,
-            MaxHealth = cData.Health,
-            Health = cData.Health,
-            Armor = cData.Armor,
-        };
-        if (Commander is not null && Commander.IsValid() && Commander.Exists())
-        {
-            Commander.SetOutfit(cData);
-            Functions.SetPedCantBeArrestedByPlayer(Commander, true);
-
-            CommanderBlip = Commander.AttachBlip();
-            if (CommanderBlip is not null && CommanderBlip.IsValid() && CommanderBlip.Exists())
+            Commander = new Ped(outfit.Model, new(cP.X, cP.Y, cP.Z), cP.Heading)
             {
-                CommanderBlip.Sprite = COMMANDER_BLIP;
-                CommanderBlip.Color = Color.Green;
+                BlockPermanentEvents = true,
+                IsPersistent = true,
+                IsInvincible = true,
+                MaxHealth = cData.Health,
+                Health = cData.Health,
+                Armor = cData.Armor,
+            };
+            if (Commander is not null && Commander.IsValid() && Commander.Exists())
+            {
+                Commander.SetOutfit(cData, outfit);
+                Functions.SetPedCantBeArrestedByPlayer(Commander, true);
+
+                CommanderBlip = Commander.AttachBlip();
+                if (CommanderBlip is not null && CommanderBlip.IsValid() && CommanderBlip.Exists())
+                {
+                    CommanderBlip.Sprite = COMMANDER_BLIP;
+                    CommanderBlip.Color = Color.Green;
+                }
+                CalloutEntities.Add(Commander);
             }
-            CalloutEntities.Add(Commander);
+        }
+        else
+        {
+            // TODO
         }
     }
 
@@ -344,23 +386,30 @@ internal partial class PacificBankHeist
             GameFiber.Yield();
             var rnP = Configuration.RobbersNegotiationPositions[i];
             var data = CalloutHelpers.SelectPed(weather, [.. Configuration.RobberModels]);
-            var ped = new Ped(data.Model, new(rnP.X, rnP.Y, rnP.Z), rnP.Heading)
+            if (ConfigurationManager.GetOutfit(data, out OutfitConfig outfit))
             {
-                IsPersistent = true,
-                BlockPermanentEvents = true,
-                CanAttackFriendlies = false,
-                MaxHealth = data.Health,
-                Health = data.Health,
-                Armor = data.Armor,
-            };
-            if (ped is not null && ped.IsValid() && ped.Exists())
+                var ped = new Ped(outfit.Model, new(rnP.X, rnP.Y, rnP.Z), rnP.Heading)
+                {
+                    IsPersistent = true,
+                    BlockPermanentEvents = true,
+                    CanAttackFriendlies = false,
+                    MaxHealth = data.Health,
+                    Health = data.Health,
+                    Armor = data.Armor,
+                };
+                if (ped is not null && ped.IsValid() && ped.Exists())
+                {
+                    ped.SetOutfit(data, outfit);
+                    Functions.SetPedCantBeArrestedByPlayer(ped, true);
+                    ped.GiveWeapon([.. Configuration.RobbersWeapons], false);
+                    Natives.SET_PED_COMBAT_ABILITY(ped, 3);
+                    AllRobbers.Add(ped);
+                    CalloutEntities.Add(ped);
+                }
+            }
+            else
             {
-                ped.SetOutfit(data);
-                Functions.SetPedCantBeArrestedByPlayer(ped, true);
-                ped.GiveWeapon([.. Configuration.RobbersWeapons], false);
-                Natives.SET_PED_COMBAT_ABILITY(ped, 3);
-                AllRobbers.Add(ped);
-                CalloutEntities.Add(ped);
+                // TODO
             }
         }
     }
@@ -374,24 +423,31 @@ internal partial class PacificBankHeist
             if (Main.MT.Next(5) is >= 2)
             {
                 var data = CalloutHelpers.SelectPed(weather, [.. Configuration.RobberModels]);
-                var ped = new Ped(data.Model, new(rsP.X, rsP.Y, rsP.Z), rsP.Heading)
+                if (ConfigurationManager.GetOutfit(data, out OutfitConfig outfit))
                 {
-                    IsPersistent = true,
-                    BlockPermanentEvents = true,
-                    CanAttackFriendlies = false,
-                    MaxHealth = data.Health,
-                    Health = data.Health,
-                    Armor = data.Armor,
-                };
-                if (ped is not null && ped.IsValid() && ped.Exists())
+                    var ped = new Ped(outfit.Model, new(rsP.X, rsP.Y, rsP.Z), rsP.Heading)
+                    {
+                        IsPersistent = true,
+                        BlockPermanentEvents = true,
+                        CanAttackFriendlies = false,
+                        MaxHealth = data.Health,
+                        Health = data.Health,
+                        Armor = data.Armor,
+                    };
+                    if (ped is not null && ped.IsValid() && ped.Exists())
+                    {
+                        ped.SetOutfit(data, outfit);
+                        Functions.SetPedCantBeArrestedByPlayer(ped, true);
+                        ped.GiveWeapon([.. Configuration.RobbersWeapons], false);
+                        Natives.SET_PED_COMBAT_ABILITY(ped, 3);
+                        ped.Tasks.PlayAnimation(SWAT_ANIMATION_DICTIONARY, rsP.IsRight ? SWAT_ANIMATION_RIGHT : SWAT_ANIMATION_LEFT, 1f, AnimationFlags.StayInEndFrame);
+                        AllSneakRobbers.Add(ped);
+                        CalloutEntities.Add(ped);
+                    }
+                }
+                else
                 {
-                    ped.SetOutfit(data);
-                    Functions.SetPedCantBeArrestedByPlayer(ped, true);
-                    ped.GiveWeapon([.. Configuration.RobbersWeapons], false);
-                    Natives.SET_PED_COMBAT_ABILITY(ped, 3);
-                    ped.Tasks.PlayAnimation(SWAT_ANIMATION_DICTIONARY, rsP.IsRight ? SWAT_ANIMATION_RIGHT : SWAT_ANIMATION_LEFT, 1f, AnimationFlags.StayInEndFrame);
-                    AllSneakRobbers.Add(ped);
-                    CalloutEntities.Add(ped);
+                    // TODO
                 }
             }
             else
@@ -407,36 +463,50 @@ internal partial class PacificBankHeist
         {
             GameFiber.Yield();
             var data = CalloutHelpers.SelectPed(weather, [.. Configuration.ParamedicModels]);
-            var paramedic = new Ped(data.Model, new(p.X, p.Y, p.Z), p.Heading)
+            if (ConfigurationManager.GetOutfit(data, out OutfitConfig outfit))
             {
-                IsPersistent = true,
-                BlockPermanentEvents = true,
-                MaxHealth = data.Health,
-                Health = data.Health,
-                Armor = data.Armor,
-            };
-            if (paramedic is not null && paramedic.IsValid() && paramedic.Exists())
+                var paramedic = new Ped(outfit.Model, new(p.X, p.Y, p.Z), p.Heading)
+                {
+                    IsPersistent = true,
+                    BlockPermanentEvents = true,
+                    MaxHealth = data.Health,
+                    Health = data.Health,
+                    Armor = data.Armor,
+                };
+                if (paramedic is not null && paramedic.IsValid() && paramedic.Exists())
+                {
+                    paramedic.SetOutfit(data, outfit);
+                    CalloutEntities.Add(paramedic);
+                }
+            }
+            else
             {
-                paramedic.SetOutfit(data);
-                CalloutEntities.Add(paramedic);
+                // TODO
             }
         }
         foreach (var p in Configuration.FirefighterPositions)
         {
             GameFiber.Yield();
             var data = CalloutHelpers.SelectPed(weather, [.. Configuration.FirefighterModels]);
-            var firefighter = new Ped(data.Model, new(p.X, p.Y, p.Z), p.Heading)
+            if (ConfigurationManager.GetOutfit(data, out OutfitConfig outfit))
             {
-                IsPersistent = true,
-                BlockPermanentEvents = true,
-                MaxHealth = data.Health,
-                Health = data.Health,
-                Armor = data.Armor,
-            };
-            if (firefighter is not null && firefighter.IsValid() && firefighter.Exists())
+                var firefighter = new Ped(outfit.Model, new(p.X, p.Y, p.Z), p.Heading)
+                {
+                    IsPersistent = true,
+                    BlockPermanentEvents = true,
+                    MaxHealth = data.Health,
+                    Health = data.Health,
+                    Armor = data.Armor,
+                };
+                if (firefighter is not null && firefighter.IsValid() && firefighter.Exists())
+                {
+                    firefighter.SetOutfit(data, outfit);
+                    CalloutEntities.Add(firefighter);
+                }
+            }
+            else
             {
-                firefighter.SetOutfit(data);
-                CalloutEntities.Add(firefighter);
+                // TODO
             }
         }
     }
@@ -449,26 +519,33 @@ internal partial class PacificBankHeist
             GameFiber.Yield();
             var data = CalloutHelpers.SelectPed(weather, [.. Configuration.HostageModels]);
             var pos = new Vector3(positions[i].X, positions[i].Y, positions[i].Z);
-            var hostage = new Ped(data.Model, pos, Main.MT.Next(0, 360))
+            if (ConfigurationManager.GetOutfit(data, out OutfitConfig outfit))
             {
-                IsPersistent = true,
-                BlockPermanentEvents = true,
-                CanAttackFriendlies = false,
-                MaxHealth = data.Health,
-                Health = data.Health,
-                Armor = data.Armor,
-            };
-            if (hostage is not null && hostage.IsValid() && hostage.Exists())
+                var hostage = new Ped(outfit.Model, pos, Main.MT.Next(0, 360))
+                {
+                    IsPersistent = true,
+                    BlockPermanentEvents = true,
+                    CanAttackFriendlies = false,
+                    MaxHealth = data.Health,
+                    Health = data.Health,
+                    Armor = data.Armor,
+                };
+                if (hostage is not null && hostage.IsValid() && hostage.Exists())
+                {
+                    Natives.SET_PED_CAN_RAGDOLL(hostage, false);
+                    hostage.SetOutfit(data, outfit);
+                    AllHostages.Add(hostage);
+                    SpawnedHostages.Add(hostage);
+                    CalloutEntities.Add(hostage);
+                    hostage.Tasks.PlayAnimation(HOSTAGE_ANIMATION_DICTIONARY, HOSTAGE_ANIMATION_KNEELING, 1f, AnimationFlags.Loop);
+                    GameFiber.Yield();
+                    AliveHostagesCount++;
+                    TotalHostagesCount++;
+                }
+            }
+            else
             {
-                Natives.SET_PED_CAN_RAGDOLL(hostage, false);
-                hostage.SetOutfit(data);
-                AllHostages.Add(hostage);
-                SpawnedHostages.Add(hostage);
-                CalloutEntities.Add(hostage);
-                hostage.Tasks.PlayAnimation(HOSTAGE_ANIMATION_DICTIONARY, HOSTAGE_ANIMATION_KNEELING, 1f, AnimationFlags.Loop);
-                GameFiber.Yield();
-                AliveHostagesCount++;
-                TotalHostagesCount++;
+                // TODO
             }
         }
     }
@@ -479,24 +556,31 @@ internal partial class PacificBankHeist
         for (int i = 0; i < nrP.Length; i++)
         {
             var data = CalloutHelpers.SelectPed(weather, [.. Configuration.RobberModels]);
-            var ped = new Ped(data.Model, new(nrP[i].X, nrP[i].Y, nrP[i].Z), nrP[i].Heading)
+            if (ConfigurationManager.GetOutfit(data, out OutfitConfig outfit))
             {
-                IsPersistent = true,
-                BlockPermanentEvents = true,
-                CanAttackFriendlies = false,
-                MaxHealth = data.Health,
-                Health = data.Health,
-                Armor = data.Armor,
-            };
-            if (ped is not null && ped.IsValid() && ped.Exists())
+                var ped = new Ped(outfit.Model, new(nrP[i].X, nrP[i].Y, nrP[i].Z), nrP[i].Heading)
+                {
+                    IsPersistent = true,
+                    BlockPermanentEvents = true,
+                    CanAttackFriendlies = false,
+                    MaxHealth = data.Health,
+                    Health = data.Health,
+                    Armor = data.Armor,
+                };
+                if (ped is not null && ped.IsValid() && ped.Exists())
+                {
+                    ped.SetOutfit(data, outfit);
+                    Functions.SetPedCantBeArrestedByPlayer(ped, true);
+                    ped.GiveWeapon([.. Configuration.RobbersThrowableWeapons], false);
+                    ped.GiveWeapon([.. Configuration.RobbersWeapons], false);
+                    Natives.SET_PED_COMBAT_ABILITY(ped, 3);
+                    AllRobbers.Add(ped);
+                    CalloutEntities.Add(ped);
+                }
+            }
+            else
             {
-                ped.SetOutfit(data);
-                Functions.SetPedCantBeArrestedByPlayer(ped, true);
-                ped.GiveWeapon([.. Configuration.RobbersThrowableWeapons], false);
-                ped.GiveWeapon([.. Configuration.RobbersWeapons], false);
-                Natives.SET_PED_COMBAT_ABILITY(ped, 3);
-                AllRobbers.Add(ped);
-                CalloutEntities.Add(ped);
+                // TODO
             }
         }
     }
@@ -508,24 +592,31 @@ internal partial class PacificBankHeist
             GameFiber.Yield();
             var rvP = Configuration.RobbersInVaultPositions[i];
             var data = CalloutHelpers.SelectPed(weather, [.. Configuration.RobberModels]);
-            var ped = new Ped(data.Model, new(rvP.X, rvP.Y, rvP.Z), rvP.Heading)
+            if (ConfigurationManager.GetOutfit(data, out OutfitConfig outfit))
             {
-                IsPersistent = true,
-                BlockPermanentEvents = true,
-                CanAttackFriendlies = false,
-                MaxHealth = data.Health,
-                Health = data.Health,
-                Armor = data.Armor,
-            };
-            if (ped is not null && ped.IsValid() && ped.Exists())
+                var ped = new Ped(outfit.Model, new(rvP.X, rvP.Y, rvP.Z), rvP.Heading)
+                {
+                    IsPersistent = true,
+                    BlockPermanentEvents = true,
+                    CanAttackFriendlies = false,
+                    MaxHealth = data.Health,
+                    Health = data.Health,
+                    Armor = data.Armor,
+                };
+                if (ped is not null && ped.IsValid() && ped.Exists())
+                {
+                    ped.SetOutfit(data, outfit);
+                    Functions.SetPedCantBeArrestedByPlayer(ped, true);
+                    ped.GiveWeapon([.. Configuration.RobbersThrowableWeapons], false);
+                    ped.GiveWeapon([.. Configuration.RobbersWeapons], false);
+                    Natives.SET_PED_COMBAT_ABILITY(ped, 3);
+                    AllVaultRobbers.Add(ped);
+                    CalloutEntities.Add(ped);
+                }
+            }
+            else
             {
-                ped.SetOutfit(data);
-                Functions.SetPedCantBeArrestedByPlayer(ped, true);
-                ped.GiveWeapon([.. Configuration.RobbersThrowableWeapons], false);
-                ped.GiveWeapon([.. Configuration.RobbersWeapons], false);
-                Natives.SET_PED_COMBAT_ABILITY(ped, 3);
-                AllVaultRobbers.Add(ped);
-                CalloutEntities.Add(ped);
+                // TODO
             }
         }
         GameFiber.StartNew(HandleVaultRobbers);
@@ -1029,24 +1120,31 @@ internal partial class PacificBankHeist
                 WifeDriver.IsPersistent = true;
                 WifeDriver.BlockPermanentEvents = true;
                 var wData = CalloutHelpers.Select([.. Configuration.WifeModels]);
-                Wife = new Ped(wData.Model, Vector3.Zero, 0f)
+                if (ConfigurationManager.GetOutfit(wData, out OutfitConfig outfit))
                 {
-                    IsPersistent = true,
-                    BlockPermanentEvents = true,
-                };
-                if (Wife is not null && Wife.IsValid() && Wife.Exists())
-                {
-                    Wife.WarpIntoVehicle(WifeCar, 1);
-                    CalloutEntities.Add(Wife);
-                    CalloutEntities.Add(WifeDriver);
-                    CalloutEntities.Add(WifeCar);
+                    Wife = new Ped(outfit.Model, Vector3.Zero, 0f)
+                    {
+                        IsPersistent = true,
+                        BlockPermanentEvents = true,
+                    };
+                    if (Wife is not null && Wife.IsValid() && Wife.Exists())
+                    {
+                        Wife.WarpIntoVehicle(WifeCar, 1);
+                        CalloutEntities.Add(Wife);
+                        CalloutEntities.Add(WifeDriver);
+                        CalloutEntities.Add(WifeCar);
 
-                    var destination = new Vector3(Configuration.WifeVehicleDestination.X, Configuration.WifeVehicleDestination.Y, Configuration.WifeVehicleDestination.Z);
-                    WifeDriver.Tasks.DriveToPosition(destination, 20f, VehicleDrivingFlags.DriveAroundVehicles | VehicleDrivingFlags.DriveAroundObjects | VehicleDrivingFlags.DriveAroundPeds);
-                    GameFiber.WaitWhile(() => Vector3.Distance(WifeCar.Position, destination) >= 6f);
-                    Wife.Tasks.LeaveVehicle(LeaveVehicleFlags.None);
-                    Wife.Tasks.FollowNavigationMeshToPosition(Game.LocalPlayer.Character.GetOffsetPosition(Vector3.RelativeRight * 1.5f), Game.LocalPlayer.Character.Heading, 1.9f).WaitForCompletion(60000);
-                    Game.LocalPlayer.Character.IsPositionFrozen = false;
+                        var destination = new Vector3(Configuration.WifeVehicleDestination.X, Configuration.WifeVehicleDestination.Y, Configuration.WifeVehicleDestination.Z);
+                        WifeDriver.Tasks.DriveToPosition(destination, 20f, VehicleDrivingFlags.DriveAroundVehicles | VehicleDrivingFlags.DriveAroundObjects | VehicleDrivingFlags.DriveAroundPeds);
+                        GameFiber.WaitWhile(() => Vector3.Distance(WifeCar.Position, destination) >= 6f);
+                        Wife.Tasks.LeaveVehicle(LeaveVehicleFlags.None);
+                        Wife.Tasks.FollowNavigationMeshToPosition(Game.LocalPlayer.Character.GetOffsetPosition(Vector3.RelativeRight * 1.5f), Game.LocalPlayer.Character.Heading, 1.9f).WaitForCompletion(60000);
+                        Game.LocalPlayer.Character.IsPositionFrozen = false;
+                    }
+                }
+                else
+                {
+                    // TODO
                 }
             }
         }
