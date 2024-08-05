@@ -75,8 +75,8 @@
   "right_sitting_swat_positions": [],
   "right_looking_swat_positions": [],
   "hostage_positions": [],
-  "hostage_safe_position": [],
-  "commander_position": [],
-  "wife_position": [],
-  "wife_vehicle_destination": []
+  "hostage_safe_position": {},
+  "commander_position": {},
+  "wife_position": {},
+  "wife_vehicle_destination": {}
 }

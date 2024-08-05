@@ -52,7 +52,7 @@ internal class StoreRobbery : CalloutBase<Configurations>
     {
         RobbersModel.Load();
         Hud.DisplayNotification($"{Localization.GetString("StoreRobberyDesc")} {Localization.GetString("RespondCode3")}", Localization.GetString("Dispatch"), Localization.GetString("StoreRobbery"));
-        foreach (var rp in XmlManager.StoreRobberyConfig.Stores[index].RobbersPositions)
+        foreach (var rp in Configuration.Stores[index].RobbersPositions)
         {
             var robber = new Ped(RobbersModel, new(rp.X, rp.Y, rp.Z), 0f)
             {
@@ -65,7 +65,7 @@ internal class StoreRobbery : CalloutBase<Configurations>
             };
             if (robber is not null && robber.IsValid() && robber.Exists())
             {
-                robber.GiveWeapon([.. XmlManager.StoreRobberyConfig.Weapons], true);
+                robber.GiveWeapon([.. Configuration.Weapons], true);
                 robbers.Add(robber);
             }
         }

@@ -1,19 +1,25 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Weavers xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="FodyWeavers.xsd">
+﻿<Weavers xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="FodyWeavers.xsd">
   <Costura>
     <IncludeAssemblies>
-      INIFileParser
-      IPT.Common
+      Microsoft.Bcl.AsyncInterfaces
       Microsoft.Win32.Registry
-      NAudio.Asio
       NAudio
+      NAudio.Asio
+      NAudio.Core
       NAudio.Midi
       NAudio.Wasapi
       NAudio.WinForms
       NAudio.WinMM
-      RAGENativeUI
+      System.Buffers
+      System.Memory
+      System.Numerics.Vectors
+      System.Runtime.CompilerServices.Unsafe
       System.Security.AccessControl
       System.Security.Principal.Windows
+      System.Text.Encodings.Web
+      System.Text.Json
+      System.Threading.Tasks.Extensions
+      System.ValueTuple
     </IncludeAssemblies>
   </Costura>
 </Weavers>

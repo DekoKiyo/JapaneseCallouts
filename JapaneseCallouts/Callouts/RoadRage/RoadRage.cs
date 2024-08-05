@@ -56,37 +56,51 @@ internal class RoadRage : CalloutBase<Configurations>
             }
             {
                 var vData = CalloutHelpers.SelectPed(weather, [.. Configuration.SuspectPeds]);
-                victim = new(x => x.IsPed)
+                if (ConfigurationManager.GetOutfit(vData, out OutfitConfig vOutfit))
                 {
-                    IsPersistent = true,
-                    BlockPermanentEvents = true,
-                    MaxHealth = vData.Health,
-                    Health = vData.Health,
-                    Armor = vData.Armor,
-                };
-                var sData = CalloutHelpers.SelectPed(weather, [.. Configuration.SuspectPeds]);
-                suspect = new(sData.Model, Vector3.Zero, 0f)
-                {
-                    IsPersistent = true,
-                    BlockPermanentEvents = true,
-                    MaxHealth = sData.Health,
-                    Health = sData.Health,
-                    Armor = sData.Armor,
-                };
-                if (victim is not null && victim.IsValid() && victim.Exists() &&
-                    victimV is not null && victimV.IsValid() && victimV.Exists())
-                {
-                    victim.SetOutfit(vData);
-                    victim.WarpIntoVehicle(victimV, -1);
-                    victim.Tasks.CruiseWithVehicle(victimV, 10f, VehicleDrivingFlags.Emergency);
-
-                    if (suspect is not null && suspect.IsValid() && suspect.Exists() &&
-                        suspectV is not null && suspectV.IsValid() && suspectV.Exists())
+                    victim = new(vOutfit.Model, Vector3.Zero, 0f)
                     {
-                        suspect.SetOutfit(sData);
-                        suspect.WarpIntoVehicle(suspectV, -1);
-                        suspect.Tasks.ChaseWithGroundVehicle(victim);
+                        IsPersistent = true,
+                        BlockPermanentEvents = true,
+                        MaxHealth = vData.Health,
+                        Health = vData.Health,
+                        Armor = vData.Armor,
+                    };
+                    var sData = CalloutHelpers.SelectPed(weather, [.. Configuration.SuspectPeds]);
+                    if (ConfigurationManager.GetOutfit(sData, out OutfitConfig sOutfit))
+                    {
+                        suspect = new(sOutfit.Model, Vector3.Zero, 0f)
+                        {
+                            IsPersistent = true,
+                            BlockPermanentEvents = true,
+                            MaxHealth = sData.Health,
+                            Health = sData.Health,
+                            Armor = sData.Armor,
+                        };
+                        if (victim is not null && victim.IsValid() && victim.Exists() &&
+                            victimV is not null && victimV.IsValid() && victimV.Exists())
+                        {
+                            victim.SetOutfit(vData, vOutfit);
+                            victim.WarpIntoVehicle(victimV, -1);
+                            victim.Tasks.CruiseWithVehicle(victimV, 10f, VehicleDrivingFlags.Emergency);
+
+                            if (suspect is not null && suspect.IsValid() && suspect.Exists() &&
+                                suspectV is not null && suspectV.IsValid() && suspectV.Exists())
+                            {
+                                suspect.SetOutfit(sData, sOutfit);
+                                suspect.WarpIntoVehicle(suspectV, -1);
+                                suspect.Tasks.ChaseWithGroundVehicle(victim);
+                            }
+                        }
                     }
+                    else
+                    {
+                        // TODO
+                    }
+                }
+                else
+                {
+                    // TODO
                 }
             }
         });

@@ -43,26 +43,33 @@ internal class WantedCriminalFound : CalloutBase<Configurations>
 
         var weather = CalloutHelpers.GetWeatherType(IPTFunctions.GetWeatherType());
         var data = CalloutHelpers.SelectPed(weather, [.. Configuration.Criminals]);
-        criminal = new(data.Model, CalloutPosition, 0f)
+        if (ConfigurationManager.GetOutfit(data, out OutfitConfig outfit))
         {
-            IsPersistent = true,
-            BlockPermanentEvents = true,
-        };
-        if (criminal is not null && criminal.IsValid() && criminal.Exists())
-        {
-            criminal.SetOutfit(data);
-            Functions.GetPersonaForPed(criminal).Wanted = true;
-            if (fight)
+            criminal = new(outfit.Model, CalloutPosition, 0f)
             {
-                criminal.GiveWeapon([.. Configuration.Weapons], true);
-            }
-            criminal.Tasks.Wander();
-            blip = new(criminal.Position.Around(Main.MT.Next(100)), Main.MT.Next(75, 120))
-            {
-                Color = Color.Yellow,
-                Alpha = 0.5f,
-                IsRouteEnabled = true,
+                IsPersistent = true,
+                BlockPermanentEvents = true,
             };
+            if (criminal is not null && criminal.IsValid() && criminal.Exists())
+            {
+                criminal.SetOutfit(data, outfit);
+                Functions.GetPersonaForPed(criminal).Wanted = true;
+                if (fight)
+                {
+                    criminal.GiveWeapon([.. Configuration.Weapons], true);
+                }
+                criminal.Tasks.Wander();
+                blip = new(criminal.Position.Around(Main.MT.Next(100)), Main.MT.Next(75, 120))
+                {
+                    Color = Color.Yellow,
+                    Alpha = 0.5f,
+                    IsRouteEnabled = true,
+                };
+            }
+        }
+        else
+        {
+            // TODO
         }
 
         Game.SetRelationshipBetweenRelationshipGroups(suspectRG, RelationshipGroup.Cop, Relationship.Hate);

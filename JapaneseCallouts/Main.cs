@@ -1,39 +1,20 @@
 #region System
 global using System;
-global using System.Collections;
 global using System.Collections.Generic;
-global using System.ComponentModel;
-global using System.Diagnostics;
 global using System.Drawing;
-global using System.Globalization;
 global using System.IO;
-global using System.IO.Compression;
-global using System.IO.MemoryMappedFiles;
 global using System.Linq;
-global using System.Linq.Expressions;
 global using System.Net;
 global using System.Net.Http;
-global using System.Net.Http.Headers;
 global using System.Media;
 global using System.Reflection;
-global using System.Reflection.Emit;
-global using System.Runtime.CompilerServices;
 global using System.Runtime.InteropServices;
-global using System.Security.Cryptography;
 global using System.Text;
 global using System.Text.Json;
 global using System.Text.Json.Serialization;
-global using System.Text.RegularExpressions;
-global using System.Threading;
 global using System.Threading.Tasks;
 global using Timer = System.Timers.Timer;
-global using Task = System.Threading.Tasks.Task;
 global using System.Windows.Forms;
-global using System.Xml;
-global using System.Xml.Linq;
-global using System.Xml.Serialization;
-global using Debug = System.Diagnostics.Debug;
-global using Font = System.Drawing.Font;
 global using Math = System.Math;
 #endregion
 #region IniParser
@@ -57,7 +38,6 @@ global using Newtonsoft.Json.Linq;
 #region RAGENativeUI
 global using RAGENativeUI;
 global using RAGENativeUI.Elements;
-global using RAGENativeUI.Internals;
 global using RAGENativeUI.PauseMenu;
 global using Sprite = RAGENativeUI.Elements.Sprite;
 #endregion
@@ -93,6 +73,8 @@ global using IPT.Common.API;
 global using IPTFunctions = IPT.Common.API.Functions;
 #endregion
 
+global using RequiredPath = (string path, bool isError);
+
 namespace JapaneseCallouts;
 
 internal class Main : Plugin
@@ -100,11 +82,17 @@ internal class Main : Plugin
     // Change here if you want to change the version.
     internal const string VERSION = "1.1.0";
 
-    private static readonly (string path, bool isError)[] REQUIRED_FILES_PATH =
-    [
+    private static readonly RequiredPath[] REQUIRED_DLL_FILES = [
+        (@"CalloutInterfaceAPI.dll", true),
+        (@"BaseLib.dll", true),
+        (@"RawCanvasUI.dll", true),
+        (@"RAGENativeUI.dll", true),
+        (@"IPT.Common.dll", true)
+    ];
+
+    private static readonly RequiredPath[] REQUIRED_FILES_PATH = [
         .. ConfigurationManager.REQUIRED_FILES_PATH.Values,
-        (CALLOUT_INTERFACE_API_DLL, true),
-        (NAUDIO_CORE_DLL, true),
+        ..REQUIRED_DLL_FILES,
         ($"{LSPDFR_DIRECTORY}/{SETTINGS_INI_FILE}", false),
         ($"{PLUGIN_DIRECTORY}/{PLUGIN_AUDIO_DIRECTORY}/{ALARM_SOUND_FILE_NAME}", true),
         ($"{PLUGIN_DIRECTORY}/{PLUGIN_AUDIO_DIRECTORY}/{Conversations.PHONE_CALLING_SOUND}", true),
@@ -117,13 +105,13 @@ internal class Main : Plugin
     internal const string VERSION_PREFIX = "";
 
     internal const string LSPDFR_DIRECTORY = @"plugins/LSPDFR";
-    internal const string PLUGIN_DIRECTORY = @$"{LSPDFR_DIRECTORY}/{PLUGIN_NAME_NO_SPACE}";
+    internal const string PLUGIN_DIRECTORY = @$"{LSPDFR_DIRECTORY}/{PLUGIN_NAME_NO_SPACE}"; // plugins/LSPDFR/JapaneseCallouts/
+
     internal const string PLUGIN_AUDIO_DIRECTORY = @"Audio";
     internal const string PLUGIN_LOCALIZATION_DIRECTORY = @"Localization";
     internal const string PLUGIN_JSON_DIRECTORY = @"Json";
+
     internal const string SETTINGS_INI_FILE = @$"{PLUGIN_NAME_NO_SPACE}.ini";
-    internal const string NAUDIO_CORE_DLL = @"NAudio.Core.dll";
-    internal const string CALLOUT_INTERFACE_API_DLL = @"CalloutInterfaceAPI.dll";
     internal const string ALARM_SOUND_FILE_NAME = "BankHeistAlarm.wav";
 
     internal static readonly string PLUGIN_VERSION = Assembly.GetExecutingAssembly().GetName().Version.ToString();
@@ -182,7 +170,7 @@ internal class Main : Plugin
             ConfigurationManager.Initialize();
             BlipPlus.Initialize();
             Game.AddConsoleCommands();
-            CalloutBase<IConfig>.RegisterAllCallouts();
+            CalloutBase.RegisterAllCallouts();
             Hud.DisplayNotification(Localization.GetString("PluginLoaded", PLUGIN_NAME, DEVELOPER_NAME), PLUGIN_NAME, PLUGIN_VERSION_DATA);
 #if DEBUG
             DebugManager.Initialize();
@@ -238,6 +226,3 @@ internal class Main : Plugin
         return [.. missing];
     }
 }
-
-[Obsolete("Use \"object\"(System.Object) or \"RObject\"(Rage.Object)")]
-internal static class Object { }
