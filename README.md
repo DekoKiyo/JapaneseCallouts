@@ -2,8 +2,6 @@
 <img src="./Image/Logo.png">
 </p>
 
-:)
-
 <p align="center">
     <a href="https://github.com/DekoKiyo/JapaneseCallouts/releases/latest"><img alt="GitHub Release" src="https://img.shields.io/github/v/release/DekoKiyo/JapaneseCallouts?style=flat&logo=GitHub&label=Latest%20Release"></a>
     <a href="https://github.com/DekoKiyo/JapaneseCallouts/releases/latest"><img alt="GitHub Downloads (all assets, all releases)" src="https://img.shields.io/github/downloads/DekoKiyo/JapaneseCallouts/total?style=flat&logo=GitHub&label=Downloads"></a>
