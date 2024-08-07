@@ -2,8 +2,6 @@ namespace JapaneseCallouts.Modules;
 
 internal static class Conversations
 {
-    internal const string PHONE_CALLING_SOUND = "PhoneCalling.wav";
-    internal const string PHONE_BUSY_SOUND = "PhoneBusy.wav";
     internal const string SPEAKER_ANIMATION_DICTIONARY = "special_ped@jessie@monologue_1@monologue_1f";
     internal const string SPEAKER_ANIMATION_CLIP = "special_ped@jessie@jessie_ig_1_p1_heydudes555_773@monologue_1f";
 
@@ -60,35 +58,6 @@ internal static class Conversations
             }
         }
         Game.HideHelp();
-    }
-
-    internal static void PlayPhoneCallingSound(int count)
-    {
-        PlaySoundLoop($"{Main.PLUGIN_DIRECTORY}/{Main.PLUGIN_AUDIO_DIRECTORY}/{PHONE_CALLING_SOUND}", count);
-    }
-
-    internal static void PlayPhoneBusySound(int count)
-    {
-        PlaySoundLoop($"{Main.PLUGIN_DIRECTORY}/{Main.PLUGIN_AUDIO_DIRECTORY}/{PHONE_BUSY_SOUND}", count);
-    }
-
-    private static void PlaySoundLoop(string path, int count)
-    {
-        GameFiber.StartNew(() =>
-        {
-            using var file = new AudioFileReader(path);
-            using var output = new WaveOutEvent();
-            output.Init(file);
-            for (int i = 0; i < count; i++)
-            {
-                output.Play();
-                while (output.PlaybackState is PlaybackState.Playing)
-                {
-                    GameFiber.Yield();
-                }
-                file.Position = 0;
-            }
-        });
     }
 
     private static bool DisplayTime = false;

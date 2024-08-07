@@ -209,6 +209,7 @@
     "UpdateAuto": "The ~g~latest~s~ version of ~b~{0}~s~ was ~g~successfully updated~s~! ~y~Please reload LSPDFR now to apply the new version.~s~"
   },
   "MenuText": {
+    "DialogueMenuTitle": "Dialogue",
     "EscortMenuTitle": "Escort Menu",
     "EscortTargetVehicle": "Target Vehicle",
     "EscortPoliceVehicle1": "Police Vehicle 1",

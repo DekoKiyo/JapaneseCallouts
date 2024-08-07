@@ -86,7 +86,6 @@ internal class Main : Plugin
     private static readonly RequiredPath[] REQUIRED_DLL_FILES = [
         ("CalloutInterfaceAPI.dll", true),
         ("BaseLib.dll", true),
-        ("RawCanvasUI.dll", true),
         ("RAGENativeUI.dll", true),
         ("IPT.Common.dll", true)
     ];
