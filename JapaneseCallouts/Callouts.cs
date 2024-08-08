@@ -81,11 +81,11 @@ internal abstract class CalloutBase : Callout
         if (enabled)
         {
             Functions.RegisterCallout(typeof(T));
-            Main.Logger.Info($"The callout {nameof(T)} was registered.");
+            Main.Logger.Info($"The callout was registered.");
         }
         else
         {
-            Main.Logger.Info($"The callout {nameof(T)} was not registered. The callout was skipped loading with setting.");
+            Main.Logger.Info($"The callout was not registered. The callout was skipped loading with setting.");
         }
     }
 
@@ -94,11 +94,11 @@ internal abstract class CalloutBase : Callout
         if (enabled)
         {
             Functions.RegisterCallout(typeof(T));
-            Main.Logger.Info($"The callout {nameof(T)} was registered.");
+            Main.Logger.Info($"The callout was registered.");
         }
         else
         {
-            Main.Logger.Info($"The callout {nameof(T)} was not registered. The callout was skipped loading with setting.");
+            Main.Logger.Info($"The callout was not registered. The callout was skipped loading with setting.");
         }
     }
 }
