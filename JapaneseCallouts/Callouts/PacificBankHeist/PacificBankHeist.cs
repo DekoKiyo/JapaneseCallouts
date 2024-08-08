@@ -403,7 +403,7 @@ internal partial class PacificBankHeist : CalloutBase<Configurations>
                                         KeyHelpers.DisplayKeyHelp("PressToTalkWith", [Localization.GetString("Commander"), $"~{COMMANDER_BLIP.GetIconToken()}~"], Settings.Instance.SpeakWithThePersonKey, Settings.Instance.SpeakWithThePersonModifierKey);
                                         if (KeyHelpers.IsKeysDown(Settings.Instance.SpeakWithThePersonKey, Settings.Instance.SpeakWithThePersonModifierKey))
                                         {
-                                            Conversations.Talk([(Localization.GetString("Commander"), Localization.GetString("StillFighting"))]);
+                                            Dialogue.Talk([(Localization.GetString("Commander"), Localization.GetString("StillFighting"))]);
                                         }
                                     }
                                 }
@@ -488,14 +488,14 @@ internal partial class PacificBankHeist : CalloutBase<Configurations>
                                     {
                                         if (!TalkedToCommander2nd)
                                         {
-                                            Conversations.Talk(AfterSurrendered);
+                                            Dialogue.Talk(AfterSurrendered);
                                             TalkedToCommander2nd = true;
                                             Status = EPacificBankHeistStatus.FightingWithRobbers;
                                             KeyHelpers.DisplayKeyHelp("SWATFollowing", Settings.Instance.SWATFollowKey, Settings.Instance.SWATFollowModifierKey);
                                         }
                                         else
                                         {
-                                            Conversations.Talk([(Localization.GetString("Commander"), Localization.GetString("StillFighting"))]);
+                                            Dialogue.Talk([(Localization.GetString("Commander"), Localization.GetString("StillFighting"))]);
                                         }
                                     }
                                 }
@@ -529,7 +529,7 @@ internal partial class PacificBankHeist : CalloutBase<Configurations>
                                 if (KeyHelpers.IsKeysDown(Settings.Instance.SpeakWithThePersonKey, Settings.Instance.SpeakWithThePersonModifierKey))
                                 {
                                     evaluatedWithCommander = true;
-                                    Conversations.Talk(Final);
+                                    Dialogue.Talk(Final);
                                     GameFiber.Wait(5000);
                                     DetermineResults();
                                     GameFiber.Wait(2500);

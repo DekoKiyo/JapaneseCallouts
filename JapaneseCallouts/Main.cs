@@ -95,8 +95,8 @@ internal class Main : Plugin
         ..REQUIRED_DLL_FILES,
         ($"{LSPDFR_DIRECTORY}/{SETTINGS_INI_FILE}", false),
         ($"{PLUGIN_DIRECTORY}/{PLUGIN_AUDIO_DIRECTORY}/{ALARM_SOUND_FILE_NAME}", true),
-        ($"{PLUGIN_DIRECTORY}/{PLUGIN_AUDIO_DIRECTORY}/{Conversations.PHONE_CALLING_SOUND}", true),
-        ($"{PLUGIN_DIRECTORY}/{PLUGIN_AUDIO_DIRECTORY}/{Conversations.PHONE_BUSY_SOUND}", true),
+        ($"{PLUGIN_DIRECTORY}/{PLUGIN_AUDIO_DIRECTORY}/{Sounds.PHONE_CALLING_SOUND}", true),
+        ($"{PLUGIN_DIRECTORY}/{PLUGIN_AUDIO_DIRECTORY}/{Sounds.PHONE_BUSY_SOUND}", true),
     ];
 
     internal const string PLUGIN_NAME = "Japanese Callouts";
@@ -191,7 +191,7 @@ internal class Main : Plugin
                     }
                     else
                     {
-                        var answer = Conversations.DisplayQuestionPopup(Localization.GetString("PluginUpdateAvailable", PLUGIN_NAME), new() { { Localization.GetString("UpdateYes"), Keys.D1 }, { Localization.GetString("UpdateNo"), Keys.D2 } }, true);
+                        var answer = new Question().Show(Localization.GetString("PluginUpdateAvailable", PLUGIN_NAME), [(Keys.D1, Localization.GetString("UpdateYes")), (Keys.D2, Localization.GetString("UpdateNo"))], true);
                         if (answer is 0)
                         {
                             PluginUpdater.Update();

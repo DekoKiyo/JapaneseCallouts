@@ -769,7 +769,7 @@ internal partial class PacificBankHeist
                                     IsRescuingHostage = true;
                                     Game.LocalPlayer.Character.Tasks.AchieveHeading(MathHelper.ConvertDirectionToHeading(direction)).WaitForCompletion(1200);
                                     hostage.RelationshipGroup = RelationshipGroup.Cop;
-                                    Modules.Conversations.Talk([(Settings.Instance.OfficerName, Localization.GetString("RescueHostage"))], false);
+                                    Dialogue.Talk([(Settings.Instance.OfficerName, Localization.GetString("RescueHostage"))], false);
                                     Game.LocalPlayer.Character.Tasks.PlayAnimation("random@rescue_hostage", "bystander_helping_girl_loop", 1.5f, AnimationFlags.None).WaitForCompletion(3000);
 
                                     if (hostage.IsAlive)
@@ -1158,7 +1158,7 @@ internal partial class PacificBankHeist
             KeyHelpers.DisplayKeyHelp("BankHeistMoveIn", Settings.Instance.SpeakWithThePersonKey, Settings.Instance.SpeakWithThePersonModifierKey);
             if (KeyHelpers.IsKeysDown(Settings.Instance.SpeakWithThePersonKey, Settings.Instance.SpeakWithThePersonModifierKey))
             {
-                Modules.Conversations.Talk([(Settings.Instance.OfficerName, Localization.GetString("MoveIn"))]);
+                Dialogue.Talk([(Settings.Instance.OfficerName, Localization.GetString("MoveIn"))]);
                 KeyHelpers.DisplayKeyHelp("SWATFollowing", Settings.Instance.SWATFollowKey, Settings.Instance.SWATFollowModifierKey);
                 Status = EPacificBankHeistStatus.FightingWithRobbers;
                 break;

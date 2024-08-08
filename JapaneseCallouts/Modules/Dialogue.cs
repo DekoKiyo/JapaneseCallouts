@@ -5,58 +5,34 @@ namespace JapaneseCallouts.Modules;
 
 internal static class Dialogue
 {
-    private static  bool IsShown = false;
-
-    private static  ResRectangle Background;
-    private static  ResRectangle Border;
-    private static  ResText QuestionTitle;
-    private static  List<ResText> AnswersTexts = [];
-
-    internal static int Show(string question, (Keys key, string text)[] answers, bool pauseGame = false)
+    internal static void Talk((string speaker, string text)[] lines, bool displayCount = true, Ped target = null)
     {
-        Background = new(new(Game.Resolution.Width / 5, Game.Resolution.Height / 7), new(700, 180), Color.Black);
-        Border = new(new(Game.Resolution.Width / 5 - 5, Game.Resolution.Height / 7 - 5), new(700, 180), Color.FromArgb(90, Color.Black));
-        QuestionTitle = new(question, new(Border.Position.X + 20, Border.Position.Y + 15), 0.4f, Color.White, Common.EFont.ChaletLondon, ResText.Alignment.Left);
-
-        var height = 45;
-        for (int i = 0; i < answers.Length; i++)
+        for (int i = 0; i < lines.Length; i++)
         {
-            var text = new ResText($"[{answers[i].key.ToString()}] {answers[i].text}", new(Background.Position.X + 10, Background.Position.Y + height), 0.3f, Color.White, Common.EFont.ChaletLondon, ResText.Alignment.Left);
-            AnswersTexts.Add(text);
-            height += 25;
-        }
-        Natives.SET_PED_CAN_SWITCH_WEAPON(Game.LocalPlayer.Character, false);
-
-        var index = 0;
-        IsShown = true;
-        GameFiber.StartNew(() =>
-        {
-            while (IsShown)
+            var sb = new StringBuilder("~b~").Append(lines[i].speaker).Append("~s~: ").Append(lines[i].text);
+            if (displayCount)
+            {
+                sb.Append(" (").Append((i + 1).ToString()).Append("/").Append(lines.Length.ToString()).Append(")");
+            }
+            Hud.DisplaySubtitle(sb.ToString(), 12000);
+            while (i < lines.Length - 1)
             {
                 GameFiber.Yield();
-                if (pauseGame && !Game.IsPaused) Game.IsPaused = true;
-
-                Background.Draw();
-                Border.Draw();
-                QuestionTitle.Draw();
-                foreach (var text in AnswersTexts) text.Draw();
-
-                for (int i = 0; i < answers.Length; i++)
+                if (target is not null && target.IsValid() && target.Exists())
                 {
-                    if (KeyHelpers.IsKeysDown(answers[i].key))
+                    if (Vector3.Distance(target.Position, Game.LocalPlayer.Character.Position) > 5f)
                     {
-                        index = i;
+                        // TODO
+                        Hud.DisplayHelp(Localization.GetString(""));
+                    }
+                    else
+                    {
+                        KeyHelpers.DisplayKeyHelp("PressToTalk", Settings.Instance.SpeakWithThePersonKey, Settings.Instance.SpeakWithThePersonModifierKey);
+                        if (KeyHelpers.IsKeysDown(Settings.Instance.SpeakWithThePersonKey, Settings.Instance.SpeakWithThePersonModifierKey)) break;
                     }
                 }
             }
-        });
-        GameFiber.WaitUntil(() => index is not -1 || !IsShown);
-        Natives.SET_PED_CAN_SWITCH_WEAPON(Game.LocalPlayer.Character, true);
-        if (pauseGame) Game.IsPaused = false;
-        IsShown = false;
-
-        return index;
+        }
+        Game.HideHelp();
     }
-
-    internal static int 
 }

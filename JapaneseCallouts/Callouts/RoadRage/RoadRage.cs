@@ -239,7 +239,7 @@ internal class RoadRage : CalloutBase<Configurations>
                         KeyHelpers.DisplayKeyHelp("PressToTalkWith", [Localization.GetString("Victim"), $"~{victimB.GetIconToken()}~"], Settings.Instance.SpeakWithThePersonKey, Settings.Instance.SpeakWithThePersonModifierKey);
                         if (KeyHelpers.IsKeysDown(Settings.Instance.SpeakWithThePersonKey, Settings.Instance.SpeakWithThePersonModifierKey))
                         {
-                            Conversations.Talk(FinalVictimTalk);
+                            Dialogue.Talk(FinalVictimTalk);
                             End();
                         }
                     }

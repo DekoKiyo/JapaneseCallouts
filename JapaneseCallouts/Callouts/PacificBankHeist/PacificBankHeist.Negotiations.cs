@@ -4,12 +4,12 @@ internal partial class PacificBankHeist
 {
     internal void DetermineInitialDialogue()
     {
-        Conversations.Talk(IntroConversation);
-        var intro = Conversations.DisplayAnswersForCallout(IntroSelection);
+        Dialogue.Talk(IntroConversation);
+        var intro = new Question().Show(Localization.GetString("SelectAnswerText"), IntroSelection);
         // Try to discuss
         if (intro is 0)
         {
-            Conversations.Talk(DiscussConversation);
+            Dialogue.Talk(DiscussConversation);
             SwitchAlarmQuestion();
             GameFiber.Wait(4000);
             while (IsCalloutRunning)
@@ -24,7 +24,7 @@ internal partial class PacificBankHeist
         // Fighting
         else if (intro is 1)
         {
-            Conversations.Talk(FightConversation);
+            Dialogue.Talk(FightConversation);
             SwitchAlarmQuestion();
             GameFiber.Wait(4500);
             PrepareFighting();
@@ -34,36 +34,36 @@ internal partial class PacificBankHeist
     internal void NegotiationIntro()
     {
         ToggleMobilePhone(Game.LocalPlayer.Character, true);
-        Conversations.PlayPhoneCallingSound(2);
+        Sounds.PlayPhoneCallingSound(2);
         GameFiber.Wait(5800);
         IsNegotiationSucceed = false;
-        Conversations.Talk(NegotiationIntroConversation);
-        var intro = Conversations.DisplayAnswersForCallout(NegotiationIntroSelection);
+        Dialogue.Talk(NegotiationIntroConversation);
+        var intro = new Question().Show(Localization.GetString("SelectAnswerText"), NegotiationIntroSelection);
         switch (intro)
         {
             default:
             case 0:
-                Conversations.Talk(Negotiation1Conversation);
-                var ng1 = Conversations.DisplayAnswersForCallout(Negotiation1Selection);
+                Dialogue.Talk(Negotiation1Conversation);
+                var ng1 = new Question().Show(Localization.GetString("SelectAnswerText"), Negotiation1Selection);
                 switch (ng1)
                 {
                     default:
                     case 0:
-                        Conversations.Talk(Negotiation11Conversation);
-                        var ng11 = Conversations.DisplayAnswersForCallout(Negotiation11Selection);
+                        Dialogue.Talk(Negotiation11Conversation);
+                        var ng11 = new Question().Show(Localization.GetString("SelectAnswerText"), Negotiation11Selection);
                         switch (ng11)
                         {
                             default:
                             case 0:
-                                Conversations.Talk(Negotiation111Conversation);
+                                Dialogue.Talk(Negotiation111Conversation);
                                 IsNegotiationSucceed = false;
                                 break;
                             case 1:
-                                Conversations.Talk(Negotiation112Conversation);
+                                Dialogue.Talk(Negotiation112Conversation);
                                 IsNegotiationSucceed = false;
                                 break;
                             case 2:
-                                Conversations.Talk(Negotiation113Conversation);
+                                Dialogue.Talk(Negotiation113Conversation);
                                 IsNegotiationSucceed = true;
                                 break;
                         }
@@ -72,29 +72,29 @@ internal partial class PacificBankHeist
                         Request();
                         break;
                     case 2:
-                        Conversations.Talk(Negotiation13Conversation);
-                        var ng13 = Conversations.DisplayAnswersForCallout(Negotiation13Selection);
+                        Dialogue.Talk(Negotiation13Conversation);
+                        var ng13 = new Question().Show(Localization.GetString("SelectAnswerText"), Negotiation13Selection);
                         switch (ng13)
                         {
                             default:
                             case 0:
-                                Conversations.Talk(Negotiation131Conversation);
+                                Dialogue.Talk(Negotiation131Conversation);
                                 IsNegotiationSucceed = false;
                                 break;
                             case 1:
-                                Conversations.Talk(Negotiation111Conversation);
+                                Dialogue.Talk(Negotiation111Conversation);
                                 IsNegotiationSucceed = false;
                                 break;
                             case 2:
                                 var isSucceed = Main.MT.Next(2) is 0;
                                 if (isSucceed)
                                 {
-                                    Conversations.Talk(Negotiation133Conversation1);
+                                    Dialogue.Talk(Negotiation133Conversation1);
                                     IsNegotiationSucceed = true;
                                 }
                                 else
                                 {
-                                    Conversations.Talk(Negotiation133Conversation2);
+                                    Dialogue.Talk(Negotiation133Conversation2);
                                     IsNegotiationSucceed = false;
                                 }
                                 break;
@@ -106,41 +106,41 @@ internal partial class PacificBankHeist
                 Request();
                 break;
             case 2:
-                Conversations.Talk(Negotiation3Conversation);
-                var ng3 = Conversations.DisplayAnswersForCallout(Negotiation3Selection);
+                Dialogue.Talk(Negotiation3Conversation);
+                var ng3 = new Question().Show(Localization.GetString("SelectAnswerText"), Negotiation3Selection);
                 switch (ng3)
                 {
                     default:
                     case 0:
-                        Conversations.Talk(Negotiation31Conversation);
+                        Dialogue.Talk(Negotiation31Conversation);
                         IsNegotiationSucceed = false;
                         break;
                     case 1:
-                        Conversations.Talk(Negotiation32Conversation);
-                        var ng32 = Conversations.DisplayAnswersForCallout(Negotiation32Selection);
+                        Dialogue.Talk(Negotiation32Conversation);
+                        var ng32 = new Question().Show(Localization.GetString("SelectAnswerText"), Negotiation32Selection);
                         switch (ng32)
                         {
                             default:
                             case 0:
-                                Conversations.Talk(Negotiation321Conversation);
+                                Dialogue.Talk(Negotiation321Conversation);
                                 IsNegotiationSucceed = true;
                                 break;
                             case 1:
-                                Conversations.Talk(Negotiation322Conversation);
+                                Dialogue.Talk(Negotiation322Conversation);
                                 IsNegotiationSucceed = false;
                                 break;
                             case 2:
-                                Conversations.Talk(Negotiation323Conversation);
+                                Dialogue.Talk(Negotiation323Conversation);
                                 IsNegotiationSucceed = false;
                                 break;
                         }
                         break;
                     case 2:
-                        Conversations.Talk(Negotiation33Conversation);
+                        Dialogue.Talk(Negotiation33Conversation);
                         IsNegotiationSucceed = false;
                         break;
                     case 3:
-                        Conversations.Talk(Negotiation34Conversation);
+                        Dialogue.Talk(Negotiation34Conversation);
                         IsNegotiationSucceed = true;
                         break;
                 }
@@ -149,7 +149,7 @@ internal partial class PacificBankHeist
 
         if (!Wife.Exists())
         {
-            Conversations.PlayPhoneBusySound(1);
+            Sounds.PlayPhoneBusySound(1);
         }
         ToggleMobilePhone(Game.LocalPlayer.Character, false);
 
@@ -167,23 +167,23 @@ internal partial class PacificBankHeist
 
     internal void Request()
     {
-        Conversations.Talk(RequestConversation);
-        int intro = Conversations.DisplayAnswersForCallout(RequestSelection);
+        Dialogue.Talk(RequestConversation);
+        int intro = new Question().Show(Localization.GetString("SelectAnswerText"), RequestSelection);
         switch (intro)
         {
             default:
             case 0:
-                Conversations.Talk(Request1Conversation);
+                Dialogue.Talk(Request1Conversation);
                 IsNegotiationSucceed = false;
                 break;
             case 1:
-                Conversations.Talk(Request2Conversation);
-                int req2 = Conversations.DisplayAnswersForCallout(Request2Selection);
+                Dialogue.Talk(Request2Conversation);
+                int req2 = new Question().Show(Localization.GetString("SelectAnswerText"), Request2Selection);
                 switch (req2)
                 {
                     default:
                     case 0:
-                        Conversations.Talk(Request21Conversation);
+                        Dialogue.Talk(Request21Conversation);
                         IsNegotiationSucceed = false;
                         break;
                     case 1:
@@ -191,16 +191,16 @@ internal partial class PacificBankHeist
                         // var isSucceed = true;
                         if (isSucceed)
                         {
-                            Conversations.Talk(Request22Conversation2);
+                            Dialogue.Talk(Request22Conversation2);
                             GetWife();
                             ToggleMobilePhone(Game.LocalPlayer.Character, false);
                             ToggleMobilePhone(Wife, true);
-                            Conversations.Talk(Request22Conversation3);
-                            Conversations.PlayPhoneBusySound(1);
+                            Dialogue.Talk(Request22Conversation3);
+                            Sounds.PlayPhoneBusySound(1);
                             ToggleMobilePhone(Wife, false);
                             GameFiber.Wait(1500);
 
-                            Conversations.Talk(Request22Conversation4);
+                            Dialogue.Talk(Request22Conversation4);
                             Wife.Tasks.FollowNavigationMeshToPosition(WifeCar.GetOffsetPosition(Vector3.RelativeRight * 2f), WifeCar.Heading, 1.9f).WaitForCompletion(15000);
                             Wife.Tasks.EnterVehicle(WifeCar, 5000, 0).WaitForCompletion();
                             GameFiber.StartNew(() =>
@@ -214,18 +214,18 @@ internal partial class PacificBankHeist
                         }
                         else
                         {
-                            Conversations.Talk(Request22Conversation1);
+                            Dialogue.Talk(Request22Conversation1);
                             IsNegotiationSucceed = false;
                         }
                         break;
                     case 2:
-                        Conversations.Talk([(Settings.Instance.OfficerName, Localization.GetString("Request231"))]);
+                        Dialogue.Talk([(Settings.Instance.OfficerName, Localization.GetString("Request231"))]);
                         IsNegotiationSucceed = false;
                         break;
                 }
                 break;
             case 2:
-                Conversations.Talk(Request3Conversation);
+                Dialogue.Talk(Request3Conversation);
                 IsNegotiationSucceed = false;
                 break;
         }
@@ -366,17 +366,17 @@ internal partial class PacificBankHeist
 
     internal void SwitchAlarmQuestion()
     {
-        int alarm = Conversations.DisplayAnswersForCallout(AlarmSelection);
+        int alarm = new Question().Show(Localization.GetString("SelectAnswerText"), AlarmSelection);
         if (alarm is 0)
         {
-            Conversations.Talk(AlarmOffConversation);
+            Dialogue.Talk(AlarmOffConversation);
             CurrentAlarmState = AlarmState.None;
-            Conversations.Talk([(Localization.GetString("Commander"), Localization.GetString("Alarm5"))]);
+            Dialogue.Talk([(Localization.GetString("Commander"), Localization.GetString("Alarm5"))]);
         }
         else if (alarm is 1)
         {
             CurrentAlarmState = AlarmState.Alarm;
-            Conversations.Talk(AlarmOnConversation);
+            Dialogue.Talk(AlarmOnConversation);
         }
         KeyHelpers.DisplayKeyHelp("AlarmSwitchKey", Settings.Instance.ToggleBankHeistAlarmSoundKey, Settings.Instance.ToggleBankHeistAlarmSoundModifierKey);
     }

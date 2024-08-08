@@ -112,7 +112,7 @@ internal class DrunkGuys : CalloutBase<Configurations>
             KeyHelpers.DisplayKeyHelp("PressToTalkWith", [Localization.GetString("Victim"), string.Empty], Settings.Instance.SpeakWithThePersonKey, Settings.Instance.SpeakWithThePersonModifierKey);
             if (KeyHelpers.IsKeysDown(Settings.Instance.SpeakWithThePersonKey, Settings.Instance.SpeakWithThePersonModifierKey))
             {
-                Conversations.Talk(TalkToCitizen);
+                Dialogue.Talk(TalkToCitizen);
                 Hud.DisplayHelp(Localization.GetString("DrunkCallTaxi"));
                 if (citizen is not null && citizen.IsValid() && citizen.Exists()) citizen.Dismiss();
                 if (citizenB is not null && citizenB.IsValid() && citizenB.Exists()) citizenB.Delete();
