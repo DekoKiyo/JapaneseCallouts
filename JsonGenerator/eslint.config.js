@@ -2,8 +2,6 @@ import globals from 'globals';
 import pluginJs from '@eslint/js';
 import tseslint from 'typescript-eslint';
 import pluginReact from 'eslint-plugin-react';
-import react from '@vitejs/plugin-react-swc';
-import { version } from 'chai';
 
 export default [
   { files: ['**/*.{js,mjs,cjs,ts,jsx,tsx}'] },
