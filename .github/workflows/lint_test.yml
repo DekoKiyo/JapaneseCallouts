@@ -22,10 +22,11 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    steps:
-      - name: Change Directory
-        uses: cd JsonGenerator
+    defaults:
+      run:
+        working-directory: ./JsonGenerator
 
+    steps:
       - name: Checkout
         uses: actions/checkout@v4
 
