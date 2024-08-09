@@ -24,6 +24,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Change Directory
+        uses: cd JsonGenerator
+
       - name: Checkout
         uses: actions/checkout@v4
 
