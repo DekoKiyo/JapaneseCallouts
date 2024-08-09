@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages after Lint and Test
 
 on:
   push:
-    branches: ['main']
+    branches: ['main', 'develop']
 
   workflow_dispatch:
 
