@@ -9,7 +9,7 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'happy-dom',
-    setupFiles: ['./vitest-setup.ts'],
+    setupFiles: ['./vitest-setup.ts']
   },
-  base: "JapaneseCallouts",
+  base: 'JapaneseCallouts'
 });
