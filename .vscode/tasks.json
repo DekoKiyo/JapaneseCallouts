@@ -40,6 +40,116 @@
         "kind": "build",
         "isDefault": true
       }
-    }
+    },
+    {
+      "label": "run dev server",
+      "type": "shell",
+      "command": "cd JsonGenerator; npm run dev",
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "vite build",
+      "type": "shell",
+      "command": "cd JsonGenerator; npm run build",
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "run preview server",
+      "type": "shell",
+      "command": "cd JsonGenerator; npm run preview",
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "vitest",
+      "type": "shell",
+      "command": "cd JsonGenerator; npm run test",
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "vitest watch",
+      "type": "shell",
+      "command": "cd JsonGenerator; npm run vitest:watch",
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "coverage",
+      "type": "shell",
+      "command": "cd JsonGenerator; npm run coverage",
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "eslint",
+      "type": "shell",
+      "command": "cd JsonGenerator; npm run lint",
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "eslint fix",
+      "type": "shell",
+      "command": "cd JsonGenerator; npm run lint:fix",
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "format",
+      "type": "shell",
+      "command": "cd JsonGenerator; npm run format",
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "storybook",
+      "type": "shell",
+      "command": "cd JsonGenerator; npm run storybook",
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "build storybook",
+      "type": "shell",
+      "command": "cd JsonGenerator; npm run build-storybook",
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
   ]
 }
